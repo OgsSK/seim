@@ -1,0 +1,135 @@
+{
+  "brand_identity": {
+    "name": "Salon de l'Épargne et de l'Investissement du Mali (SEIM)",
+    "edition": "6ème Édition - Bamako 2026",
+    "tagline": "Bâtir le Patrimoine de Demain : Épargne, Investissement et Innovation Financière en Afrique",
+    "tone": "Institutional Premium, Modern African Financial, Authoritative, Editorial & Kinetic",
+    "theme_strategy": "Light & Deep Navy Hybrid - High contrast deep navy blue (#0B132B / #0F172A) with vibrant amber-gold (#F59E0B / #D97706) energy accents, crisp bone/white (#F8FAFC) card surfaces, generous whitespace."
+  },
+  "typography": {
+    "primary_font": "Plus Jakarta Sans, sans-serif",
+    "heading_font": "Clash Display, Outfit, sans-serif",
+    "accent_font": "Cinzel, Cormorant Garamond, serif",
+    "mono_font": "JetBrains Mono, monospace",
+    "rules": [
+      "Headings (H1/H2) must never use default Inter.",
+      "H1 Hero size maximum: text-4xl sm:text-5xl lg:text-6xl with tracking-tight.",
+      "H2 Section headers: text-2xl sm:text-3xl lg:text-4xl with tracking-tight.",
+      "Overlines/Eyebrows: uppercase, text-xs sm:text-sm, font-semibold, tracking-[0.2em], amber text.",
+      "Body text: text-base (mobile: text-sm), leading-relaxed for high readability."
+    ]
+  },
+  "colors": {
+    "primary_navy": "#0B132B",
+    "secondary_navy": "#1C2541",
+    "amber_gold": "#F59E0B",
+    "amber_dark": "#D97706",
+    "amber_light": "#FEF3C7",
+    "emerald_accent": "#059669",
+    "background_light": "#F8FAFC",
+    "surface_white": "#FFFFFF",
+    "surface_card": "#FFFFFF",
+    "text_dark": "#0F172A",
+    "text_muted": "#475569",
+    "border_subtle": "#E2E8F0",
+    "border_dark": "rgba(255, 255, 255, 0.12)",
+    "rules": [
+      "Tinted Greys: Never use pure black #000000. Use tinting with #0B132B or #0F172A.",
+      "Gradient usage: Maximum 10% coverage across pages. No generic dark gradients background.",
+      "Header background: Use glassmorphism with explicit background overlay like bg-white/90 backdrop-blur-md or bg-[#0B132B]/90. Fully transparent header is FORBIDDEN."
+    ]
+  },
+  "layout_and_spacing": {
+    "system": "Tailwind generous scale (p-6, p-8, p-12, py-20, py-28)",
+    "bento_grid": "The Tetris Grid protocol for event formats & stats section (mix of 8-col hero, 4-col square, 4-col tall cards)",
+    "alignment": "Asymmetrical hero with left-aligned editorial content, center-balanced section headers",
+    "whitespace": "Mandatory 2x-3x padding to give institutional weight to every card and section container."
+  },
+  "motion_and_effects": {
+    "lenis_smooth_scroll": true,
+    "entrance_animations": "Framer motion staggered fade-in-up for cards, speakers, and schedule items",
+    "stats_counters": "Animated integer count-up on scroll visibility",
+    "marquee": "Slow smooth drift marquee for partners, sponsors, and key quote ribbons",
+    "hover_states": "Cards lift -translate-y-1.5 with shadow-xl and subtle border glow on hover"
+  },
+  "image_urls": {
+    "hero_bg": "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2OTV8MHwxfHNlYXJjaHwxfHxmaW5hbmNlJTIwaW52ZXN0bWVudCUyMGtleW5vdGUlMjBzcGVha2VyJTIwZXZlbnQlMjBzdGFnZXxlbnwwfHx8fDE3ODk4Nzk4ODN8MA&ixlib=rb-4.1.0&q=85",
+    "keynote_stage": "https://images.unsplash.com/photo-1560439513-74b037a25d84?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2OTV8MHwxfHNlYXJjaHwyfHxmaW5hbmNlJTIwaW52ZXN0bWVudCUyMGtleW5vdGUlMjBzcGVha2VyJTIwZXZlbnQlMjBzdGFnZXxlbnwwfHx8fDE3ODk4Nzk4ODN8MA&ixlib=rb-4.1.0&q=85",
+    "conference_audience": "https://images.unsplash.com/photo-1558008258-3256797b43f3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2OTV8MHwxfHNlYXJjaHw0fHxmaW5hbmNlJTIwaW52ZXN0bWVudCUyMGtleW5vdGUlMjBzcGVha2VyJTIwZXZlbnQlMjBzdGFnZXxlbnwwfHx8fDE3ODk4Nzk4ODN8MA&ixlib=rb-4.1.0&q=85",
+    "speaker_1": "https://images.unsplash.com/photo-1573497701240-345a300b8d36?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjd8MHwxfHNlYXJjaHwyfHxhZnJpY2FuJTIwYnVzaW5lc3MlMjBwcm9mZXNzaW9uYWxzJTIwY29uZmVyZW5jZSUyMGxlYWRlcnxlbnwwfHx8fDE3ODk4Nzk4ODN8MA&ixlib=rb-4.1.0&q=85",
+    "speaker_2": "https://images.pexels.com/photos/6949925/pexels-photo-6949925.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "speaker_3": "https://images.unsplash.com/photo-1751139846255-d0d65f3d192a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjd8MHwxfHNlYXJjaHwzfHxhZnJpY2FuJTIwYnVzaW5lc3MlMjBwcm9mZXNzaW9uYWxzJTIwY29uZmVyZW5jZSUyMGxlYWRlcnxlbnwwfHx8fDE3ODk4Nzk4ODN8MA&ixlib=rb-4.1.0&q=85",
+    "speaker_4": "https://images.pexels.com/photos/8349235/pexels-photo-8349235.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "venue_architecture": "https://images.pexels.com/photos/11119586/pexels-photo-11119586.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "cityscape_bamako": "https://images.pexels.com/photos/36574308/pexels-photo-36574308.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "networking": "https://images.unsplash.com/photo-1763739530672-4aadafbd81ff?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjd8MHwxfHNlYXJjaHw0fHxhZnJpY2FuJTIwYnVzaW5lc3MlMjBwcm9mZXNzaW9uYWxzJTIwY29uZmVyZW5jZSUyMGxlYWRlcnxlbnwwfHx8fDE3ODk4Nzk4ODN8MA&ixlib=rb-4.1.0&q=85"
+  },
+  "sections_breakdown": [
+    {
+      "id": "hero",
+      "name": "Kinetic Hero & Live Countdown",
+      "elements": ["Logo SEIM", "Edition badge 6ème Édition", "Dates 24-25 Novembre 2026", "Lieu Bamako Mali", "Live Countdown timer", "CTAs S'inscrire & Découvrir le programme"]
+    },
+    {
+      "id": "stats",
+      "name": "Statistiques et Chiffres Clés",
+      "elements": ["+5 000 Participants", "+50 Conférenciers & Experts", "+40 Exposants & Fintechs", "2 Jours d'Immersion", "10+ Pays représentés"]
+    },
+    {
+      "id": "presentation",
+      "name": "Présentation de l'Événement & Vision",
+      "elements": ["Editorial narrative", "Mali & UEMOA financial ecosystem hub", "Strategic pillars"]
+    },
+    {
+      "id": "program",
+      "name": "Programme Jour 1 / Jour 2 & Filtres Interactifs",
+      "elements": ["Tabs Jour 1 & Jour 2", "Filter by categories (Keynotes, Panels, Masterclass, CEO Talks, Young CEO Talks, Ateliers, WebTV, Networking)", "Session cards with time, room, speaker avatars, add to calendar"]
+    },
+    {
+      "id": "formats",
+      "name": "Formats de l'Événement",
+      "elements": ["Interactive cards for Conférences, Panels, Masterclasses, CEO Talks, Young CEO Talks, Apéro Cash, WebTV, Expo"]
+    },
+    {
+      "id": "speakers",
+      "name": "Intervenants & Conférenciers de Renom",
+      "elements": ["Premium card grid with headshots, titles, company logos, and modal biography popup"]
+    },
+    {
+      "id": "exhibitors_sponsors",
+      "name": "Exposants, Partenaires & Sponsors",
+      "elements": ["Tiers: Platinum, Gold, Silver, Media Partners", "High-contrast clean institutional logo walls"]
+    },
+    {
+      "id": "registration",
+      "name": "Formulaire d'Inscription & Badge Pass",
+      "elements": ["Multi-pass selection (Pass Particulier, Pass Pro, Pass VIP)", "Interactive registration form", "Instant simulated Pass badge generation with QR Code"]
+    },
+    {
+      "id": "media",
+      "name": "Espace Média & Presse",
+      "elements": ["News stream", "Video teasers / WebTV replay preview", "Photo gallery grid", "Press kit download"]
+    },
+    {
+      "id": "editions",
+      "name": "Rétrospective & Éditions Précédentes",
+      "elements": ["Interactive timeline (2021-2025)", "Key highlights and growth metrics"]
+    },
+    {
+      "id": "contact_footer",
+      "name": "Contact & Footer Institutionnel",
+      "elements": ["Contact form & location map info", "Sitemap, legal links, newsletter signup, social links"]
+    }
+  ],
+  "testing_and_accessibility": {
+    "data_testid_requirement": "All interactive buttons, filter tabs, inputs, modal triggers, and nav links MUST include kebab-case data-testid attributes (e.g. data-testid='hero-register-button', data-testid='program-day-1-tab', data-testid='speaker-card-modal-trigger').",
+    "language_switch": "Include FR/EN state toggle with all text content responsive to language state."
+  },
+  "instructions_to_main_agent": [
+    "Use JavaScript / JSX files (.js / .jsx) as configured in the frontend repository.",
+    "Implement the SEIM brand logo with deep navy text and amber zigzag arrow mark.",
+    "Never build a dark-only template: use light neutral backgrounds (#F8FAFC) for high readability, contrasted with deep navy section blocks (#0B132B) for high-impact statements.",
+    "Strictly attach data-testid attributes to all actionable components.",
+    "Ensure 100% responsiveness with flawless mobile navigation and smooth interactive filters."
+  ]
+}

@@ -1,0 +1,25 @@
+// Central event configuration — update dates/venue here for each new edition.
+export const EVENT = {
+  shortName: "SEIM",
+  name_fr: "Salon de l'Épargne et de l'Investissement du Mali",
+  name_en: "Mali Savings & Investment Forum",
+  edition_fr: "Édition 2026",
+  edition_en: "2026 Edition",
+  // Countdown target — ISO date of the event opening.
+  startDateISO: "2026-11-24T08:30:00",
+  dates_fr: "24 – 25 Novembre 2026",
+  dates_en: "November 24 – 25, 2026",
+  venue_fr: "Centre International de Conférences de Bamako (CICB)",
+  venue_en: "Bamako International Conference Center (CICB)",
+  city_fr: "Bamako, Mali",
+  city_en: "Bamako, Mali",
+  phone: "+223 71 39 53 88",
+  whatsapp: "+223 71 39 53 88",
+  email: "contact@seim-mali.com",
+  address_fr: "Bacodjicoroni Golf, Immeuble BAMA, Bamako, Mali",
+  address_en: "Bacodjicoroni Golf, BAMA Building, Bamako, Mali",
+  facebook: "https://www.facebook.com/people/Salon-de-lEpargne-et-de-lInvestissement-du-Mali/61577154304057",
+  handle: "@SEIM2026",
+  banner: "/assets/brand-2.jpg",
+  logo: "/assets/brand-1.jpg",
+};

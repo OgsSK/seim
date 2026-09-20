@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=JetBrains+Mono:wght@500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 210 40% 98%;
+        --foreground: 222 47% 11%;
+        --card: 0 0% 100%;
+        --card-foreground: 222 47% 11%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 222 47% 11%;
+        --primary: 224 60% 11%;
+        --primary-foreground: 45 93% 58%;
+        --secondary: 214 32% 91%;
+        --secondary-foreground: 222 47% 11%;
+        --muted: 214 32% 91%;
+        --muted-foreground: 215 16% 40%;
+        --accent: 38 92% 50%;
+        --accent-foreground: 224 60% 11%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 214 32% 91%;
+        --input: 214 32% 85%;
+        --ring: 38 92% 50%;
+        --radius: 0.75rem;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    html {
+        scroll-behavior: auto;
+    }
+    body {
+        @apply bg-background text-foreground font-body antialiased;
+        overflow-x: hidden;
+    }
+    h1, h2, h3, h4 {
+        @apply font-display;
+    }
+    ::selection {
+        background: #F59E0B;
+        color: #0B132B;
+    }
+}
+
+@layer base {
+    [data-debug-wrapper="true"] {
+        display: contents !important;
+    }
+    [data-debug-wrapper="true"] > * {
+        margin: inherit;
+        padding: inherit;
+        gap: inherit;
+        border: inherit;
+    }
+}
+
+@layer utilities {
+    .font-display { font-family: 'Outfit', sans-serif; }
+    .font-body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-serif-accent { font-family: 'Cormorant Garamond', serif; }
+    .font-mono-num { font-family: 'JetBrains Mono', monospace; }
+    .text-navy { color: #0B132B; }
+    .bg-navy { background-color: #0B132B; }
+    .bg-navy-deep { background-color: #080E20; }
+    .bg-navy-soft { background-color: #1C2541; }
+    .text-gold { color: #F59E0B; }
+    .bg-gold { background-color: #F59E0B; }
+    .border-gold { border-color: #F59E0B; }
+    .grain::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .zigzag-bg {
+        background-image: repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 40px,
+            rgba(245, 158, 11, 0.04) 40px,
+            rgba(245, 158, 11, 0.04) 42px
+        );
+    }
+}
+
+@keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+.animate-marquee {
+    animation: marquee-scroll 40s linear infinite;
+}
+.animate-marquee-slow {
+    animation: marquee-scroll 60s linear infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.35); }
+    50% { box-shadow: 0 0 0 12px rgba(245, 158, 11, 0); }
+}
+.animate-pulse-glow {
+    animation: pulse-glow 2.4s ease-in-out infinite;
+}
