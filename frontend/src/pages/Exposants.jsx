@@ -84,11 +84,11 @@ export default function Exposants() {
           </Stagger>
 
           <Reveal delay={0.15}>
-            <div className="mt-16 bg-navy rounded-3xl grain relative overflow-hidden p-10 sm:p-14 text-center">
-              <h3 className="font-display font-extrabold text-white text-2xl sm:text-3xl">{t("exhibitors.become")}</h3>
-              <p className="mt-3 text-white/60 max-w-xl mx-auto">{t("partners.form.desc")}</p>
+            <div className="mt-16 bg-gold rounded-3xl relative overflow-hidden p-10 sm:p-14 text-center">
+              <h3 className="font-display font-extrabold text-navy text-2xl sm:text-3xl">{t("exhibitors.become")}</h3>
+              <p className="mt-3 text-navy/70 max-w-xl mx-auto">{t("partners.form.desc")}</p>
               <Link to="/contact?type=exposition" data-testid="become-exhibitor-button"
-                className="mt-8 inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gold text-navy font-display font-bold hover:bg-gold-dark transition-colors">
+                className="mt-8 inline-flex items-center gap-2 px-8 py-4 rounded-full bg-navy text-white font-display font-bold hover:bg-navy-soft transition-colors">
                 {t("exhibitors.become")} <ArrowUpRight size={18} />
               </Link>
             </div>

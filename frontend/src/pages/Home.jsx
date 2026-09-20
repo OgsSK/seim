@@ -27,11 +27,11 @@ function Hero() {
   const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
-    <section ref={ref} data-testid="hero-section" className="relative min-h-screen bg-navy grain overflow-hidden flex items-center">
+    <section ref={ref} data-testid="hero-section" className="relative min-h-screen bg-bone overflow-hidden flex items-center">
       <div className="absolute inset-0 zigzag-bg" />
       <div
-        className="absolute -left-40 top-1/4 w-[560px] h-[560px] rounded-full opacity-25"
-        style={{ background: "radial-gradient(circle, rgba(245,158,11,0.35) 0%, transparent 65%)" }}
+        className="absolute -left-40 top-1/4 w-[560px] h-[560px] rounded-full opacity-30"
+        style={{ background: "radial-gradient(circle, rgba(245,158,11,0.28) 0%, transparent 65%)" }}
       />
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8 w-full pt-28 pb-40 grid lg:grid-cols-12 gap-12 items-center">
         <motion.div style={{ opacity: fade }} className="lg:col-span-7">
@@ -41,13 +41,13 @@ function Hero() {
             transition={{ duration: 0.6 }}
             className="flex flex-wrap items-center gap-3 mb-8"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/40 text-gold text-xs font-bold uppercase tracking-[0.2em]">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-light border border-gold/40 text-gold-dark text-xs font-bold uppercase tracking-[0.2em]">
               <Sparkles size={13} /> {lang === "fr" ? EVENT.edition_fr : EVENT.edition_en}
             </span>
-            <span className="text-white/50 text-xs font-semibold uppercase tracking-[0.2em]">{t("hero.eyebrow")}</span>
+            <span className="text-navy/45 text-xs font-semibold uppercase tracking-[0.2em]">{t("hero.eyebrow")}</span>
           </motion.div>
 
-          <h1 className="font-display font-extrabold tracking-tight text-white leading-[0.95] text-[13vw] sm:text-6xl lg:text-7xl">
+          <h1 className="font-display font-extrabold tracking-tight text-navy leading-[0.95] text-[13vw] sm:text-6xl lg:text-7xl">
             {[t("hero.line1"), t("hero.line2")].map((line, i) => (
               <span key={i} className="block overflow-hidden">
                 <motion.span custom={i} variants={lineReveal} initial="hidden" animate="show" className="block">
@@ -66,7 +66,7 @@ function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.8 }}
-            className="mt-7 text-white/65 text-base sm:text-lg max-w-xl leading-relaxed"
+            className="mt-7 text-navy/65 text-base sm:text-lg max-w-xl leading-relaxed"
           >
             {t("hero.subtitle")}
           </motion.p>
@@ -80,14 +80,14 @@ function Hero() {
             <Link
               to="/inscription"
               data-testid="hero-register-button"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gold text-navy font-display font-bold hover:bg-gold-dark transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gold text-navy font-display font-bold hover:bg-gold-dark transition-colors animate-pulse-glow"
             >
               {t("hero.cta1")} <ArrowRight size={18} />
             </Link>
             <Link
               to="/programme"
               data-testid="hero-program-button"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/25 text-white font-display font-semibold hover:border-gold hover:text-gold transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 border-navy/20 text-navy font-display font-semibold hover:border-gold hover:text-gold-dark transition-colors"
             >
               {t("hero.cta2")}
             </Link>
@@ -100,13 +100,13 @@ function Hero() {
             className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4"
           >
             <div>
-              <p className="text-white/40 text-[10px] uppercase tracking-[0.25em] mb-2">{t("hero.countdownLabel")}</p>
-              <Countdown />
+              <p className="text-navy/45 text-[10px] uppercase tracking-[0.25em] mb-2">{t("hero.countdownLabel")}</p>
+              <Countdown dark={false} />
             </div>
-            <div className="hidden sm:block h-14 w-px bg-white/15" />
-            <div className="space-y-2 text-sm text-white/70">
-              <p className="flex items-center gap-2"><CalendarDays size={15} className="text-gold" /> {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}</p>
-              <p className="flex items-center gap-2"><MapPin size={15} className="text-gold" /> {lang === "fr" ? EVENT.venue_fr : EVENT.venue_en}</p>
+            <div className="hidden sm:block h-14 w-px bg-navy/15" />
+            <div className="space-y-2 text-sm text-navy/70">
+              <p className="flex items-center gap-2"><CalendarDays size={15} className="text-gold-dark" /> {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}</p>
+              <p className="flex items-center gap-2"><MapPin size={15} className="text-gold-dark" /> {lang === "fr" ? EVENT.venue_fr : EVENT.venue_en}</p>
             </div>
           </motion.div>
         </motion.div>
@@ -116,10 +116,10 @@ function Hero() {
             initial={{ opacity: 0, scale: 0.94, rotate: 2 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="relative rounded-2xl overflow-hidden border border-white/15 shadow-2xl shadow-black/40"
+            className="relative rounded-2xl overflow-hidden border border-navy/10 shadow-2xl shadow-navy/20"
           >
             <SmartImg src={EVENT.banner} alt="SEIM" className="w-full aspect-[16/10] object-cover" />
-            <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl" />
+            <div className="absolute inset-0 ring-1 ring-inset ring-navy/10 rounded-2xl" />
           </motion.div>
           <div className="absolute -bottom-6 -left-6 bg-gold text-navy rounded-xl px-5 py-4 shadow-xl">
             <p className="font-display font-extrabold text-2xl leading-none">CICB</p>
@@ -128,8 +128,8 @@ function Hero() {
         </motion.div>
       </div>
 
-      <div className="absolute bottom-0 inset-x-0 border-t border-white/10 py-5 bg-navy-deep/60 backdrop-blur-sm">
-        <Marquee items={t("marquee")} slow dark />
+      <div className="absolute bottom-0 inset-x-0 py-5 bg-gold">
+        <Marquee items={t("marquee")} slow inkClass="text-navy/70" iconClass="text-navy" />
       </div>
     </section>
   );
@@ -212,9 +212,9 @@ function Formats() {
   const { t } = useLanguage();
   const items = t("formats.items");
   return (
-    <section data-testid="formats-section" className="py-20 sm:py-28 bg-navy grain relative">
+    <section data-testid="formats-section" className="py-20 sm:py-28 bg-white relative">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        <SectionHead dark eyebrow={t("formats.eyebrow")} title={t("formats.title")} subtitle={t("formats.subtitle")} />
+        <SectionHead eyebrow={t("formats.eyebrow")} title={t("formats.title")} subtitle={t("formats.subtitle")} />
         <Stagger className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {items.map((f, i) => {
             const Icon = FORMAT_ICONS[i % FORMAT_ICONS.length];
@@ -222,13 +222,13 @@ function Formats() {
               <StaggerItem key={f.key}>
                 <div
                   data-testid={`format-card-${f.key}`}
-                  className="group h-full bg-navy-soft/60 border border-white/10 rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/50 hover:bg-navy-soft"
+                  className="group h-full bg-bone border border-navy/10 rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/60 hover:bg-white hover:shadow-xl hover:shadow-navy/8"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-gold/10 border border-gold/25 flex items-center justify-center text-gold mb-5 group-hover:bg-gold group-hover:text-navy transition-colors">
+                  <div className="w-12 h-12 rounded-xl bg-gold-light border border-gold/30 flex items-center justify-center text-gold-dark mb-5 group-hover:bg-gold group-hover:text-navy transition-colors">
                     <Icon size={22} />
                   </div>
-                  <h3 className="font-display font-bold text-white text-lg">{f.title}</h3>
-                  <p className="mt-2 text-white/55 text-sm leading-relaxed">{f.desc}</p>
+                  <h3 className="font-display font-bold text-navy text-lg">{f.title}</h3>
+                  <p className="mt-2 text-navy/55 text-sm leading-relaxed">{f.desc}</p>
                 </div>
               </StaggerItem>
             );
@@ -320,25 +320,25 @@ function PartnersStrip({ partners }) {
 function CtaBand() {
   const { t } = useLanguage();
   return (
-    <section data-testid="cta-band" className="relative bg-navy grain py-20 sm:py-28 overflow-hidden">
+    <section data-testid="cta-band" className="relative bg-gold py-20 sm:py-28 overflow-hidden">
       <div
-        className="absolute right-0 top-0 w-[400px] h-[400px] rounded-full opacity-20"
-        style={{ background: "radial-gradient(circle, rgba(245,158,11,0.5) 0%, transparent 65%)" }}
+        className="absolute right-0 top-0 w-[400px] h-[400px] rounded-full opacity-40"
+        style={{ background: "radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 65%)" }}
       />
       <div className="relative max-w-4xl mx-auto px-5 sm:px-8 text-center">
         <Reveal>
-          <h2 className="font-display font-extrabold tracking-tight text-white text-3xl sm:text-4xl lg:text-5xl">
+          <h2 className="font-display font-extrabold tracking-tight text-navy text-3xl sm:text-4xl lg:text-5xl">
             {t("cta.title")}
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
-          <p className="mt-5 text-white/60 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">{t("cta.subtitle")}</p>
+          <p className="mt-5 text-navy/70 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">{t("cta.subtitle")}</p>
         </Reveal>
         <Reveal delay={0.2}>
           <Link
             to="/inscription"
             data-testid="cta-register-button"
-            className="mt-10 inline-flex items-center gap-2 px-10 py-4.5 py-4 rounded-full bg-gold text-navy font-display font-bold text-lg hover:bg-gold-dark transition-colors animate-pulse-glow"
+            className="mt-10 inline-flex items-center gap-2 px-10 py-4 rounded-full bg-navy text-white font-display font-bold text-lg hover:bg-navy-soft transition-colors"
           >
             {t("cta.button")} <ArrowRight size={20} />
           </Link>
