@@ -86,15 +86,20 @@ export default function Media() {
           {tab === "videos" && (
             <div data-testid="media-videos-grid">
               <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[0, 1, 2].map((i) => (
+                {[
+                  { img: "/assets/seim/tv-studio.jpg", label: "Avis d'expert — plateau TV" },
+                  { img: "/assets/seim/tv-camera.jpg", label: "Coulisses de tournage" },
+                  { img: "/assets/seim/tv-cisse.jpg", label: "Interview expert" },
+                ].map((v, i) => (
                   <StaggerItem key={i}>
                     <div data-testid={`video-card-${i}`} className="group relative rounded-2xl overflow-hidden border border-navy/10 aspect-video bg-navy">
-                      <SmartImg src={gallery[i] || ""} alt="" className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity" />
+                      <SmartImg src={v.img} alt={v.label} className="w-full h-full object-cover opacity-70 group-hover:opacity-50 transition-opacity" />
                       <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
                         <span className="w-14 h-14 rounded-full bg-gold text-navy flex items-center justify-center group-hover:scale-110 transition-transform">
                           <Play size={22} fill="currentColor" />
                         </span>
-                        <span className="text-white/80 text-xs font-bold uppercase tracking-[0.2em]">WebTV · {t("common.soon")}</span>
+                        <span className="text-white text-xs font-bold uppercase tracking-[0.2em]">{v.label}</span>
+                        <span className="text-white/70 text-[10px] font-bold uppercase tracking-[0.2em]">WebTV · {t("common.soon")}</span>
                       </div>
                     </div>
                   </StaggerItem>

@@ -43,7 +43,7 @@ export default function About() {
             <Reveal delay={0.15}>
               <div className="rounded-2xl overflow-hidden border border-navy/10 shadow-xl shadow-navy/10">
                 <SmartImg
-                  src="/assets/report/g7.jpg"
+                  src="/assets/seim/g-famille.jpg"
                   alt="SEIM 2026"
                   className="w-full aspect-[4/5] object-cover"
                 />

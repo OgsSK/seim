@@ -196,7 +196,7 @@ function AboutPreview() {
           <StaggerItem>
             <div className="rounded-2xl overflow-hidden border border-navy/10">
               <SmartImg
-                src="/assets/report/g1.jpg"
+                src="/assets/seim/g-notes.jpg"
                 alt="SEIM audience"
                 className="w-full aspect-[16/7] object-cover"
               />

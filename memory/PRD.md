@@ -23,6 +23,16 @@ Créer une plateforme web événementielle premium (inspiration : semainedelepar
 - Backend : FastAPI + MongoDB (motor). Seed idempotent au démarrage (`/app/backend/seed_data.py`) : 10 intervenants, 18 sessions, 12 exposants, 12 partenaires, 4 articles, 3 éditions, galerie.
 - API : GET /api/speakers, /api/program, /api/exhibitors, /api/partners, /api/articles, /api/editions, /api/gallery ; POST /api/registrations (code SEIM26-XXXXXX, dédoublonnage par email), GET /api/registrations/{code} ; POST /api/contacts.
 
+## Implémenté (20/09/2026 — v3 assets officiels du client)
+- 55 photos/affiches reçues du client (11 lots), triées pro : 14 photos salon + 4 presse en galerie HD (/public/assets/seim/), 4 photos studio Repère pour la WebTV, affiches officielles pour les actualités
+- 18 intervenants RÉELS avec portraits recadrés des affiches officielles et fonctions corrigées : Sampy (pas Sampa), Makalou (pas Macalou), Houna (pas Douna), Cissé = Directeur Associé Groupe Repère, + nouveaux : Mouhamoud Coulibaly (BRVM Mali), Mohamed Konaté, Fayama, Abodji, Somda (SA2IF), Seini Amar (modérateur P3), Demba Koné (notaire), Arouna Sangaré (BOA), Dicko, Dede Coulibaly, + corrigés : Tidiane Kimbiry (Pispa Design), Oumou Abdoulaye (Zaga Zaga la Tisanière)
+- Programme corrigé avec les horaires officiels de l'affiche (11 sessions dont Keynote 2 Finance Islamique, Masterclass 3 « 10 clés »)
+- Partenaires réels : FACEJ (parrain), Ministère Entrepreneuriat, Royaume du Danemark, Pôle Excellence Conseils, INNOVA, Fantastique Prod, TM1, Malijet, MaliOnline, Hando Media, ORTM, Repère Médias
+- Exposants remplacés par les vraies institutions présentes (FACEJ, BOA Mali, BRVM Mali, SA2IF, Club Investissement, etc.)
+- Article presse réel : conférence de presse du 7 avril 2026
+- Vidéos : fichiers vidéo promis par le client, pas encore reçus → vignettes WebTV réelles en attente de lecture
+- À identifier si le client confirme : personnalités des photos 45/46/47 (keynote Finance Islamique ? masterclass 3 ?)
+
 ## Implémenté (20/09/2026 — v2 données réelles)
 - Intégration complète du rapport officiel SEIM 2026 : 1ère édition 10-11 avril 2026 au CICB, thème « Éducation et inclusion financière : quels leviers à activer ? »
 - Vrais intervenants : Hamidou Sampa (CREACOM, modérateur), Modibo Mao Macalou (IBS), Mohamed Douna, Cissé Issiaka Oumar (Cabinet ISSAFA), Cheick Oumar Sanou (Club Investissement) + 3 jeunes entrepreneurs FACEJ (Oumou Abdoulaye — Saga Saga, Sidiane Gimbiri — PISPA Design, Mariam Sissoko — La Cantine). Photos réelles extraites du PDF pour Cissé & Sanou, initiales pour les autres (portraits officiels à fournir).
