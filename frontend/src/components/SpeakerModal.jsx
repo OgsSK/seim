@@ -33,7 +33,15 @@ export function SpeakerModal({ speaker, onClose }) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative h-56 sm:h-64 bg-navy-soft">
-              <SmartImg src={speaker.photo} alt={speaker.name} className="w-full h-full object-cover" />
+              {speaker.photo ? (
+                <SmartImg src={speaker.photo} alt={speaker.name} className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <span className="font-display font-extrabold text-7xl text-gold/70">
+                    {speaker.name.split(" ").map((n) => n[0]).join("")}
+                  </span>
+                </div>
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/30 to-transparent" />
               <button
                 data-testid="speaker-modal-close"

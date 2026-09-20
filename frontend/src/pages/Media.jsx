@@ -50,7 +50,7 @@ export default function Media() {
           </div>
 
           {tab === "news" && (
-            <Stagger className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" data-testid="media-news-grid">
+            <Stagger key={articles.length} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" data-testid="media-news-grid">
               {articles.map((a) => (
                 <StaggerItem key={a.id}>
                   <article data-testid={`article-card-${a.id}`} className="group bg-white rounded-2xl border border-navy/10 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-navy/10 h-full flex flex-col">
@@ -72,7 +72,7 @@ export default function Media() {
           )}
 
           {tab === "gallery" && (
-            <Stagger className="grid grid-cols-2 md:grid-cols-4 gap-4" data-testid="media-gallery-grid">
+            <Stagger key={gallery.length} className="grid grid-cols-2 md:grid-cols-4 gap-4" data-testid="media-gallery-grid">
               {gallery.map((img, i) => (
                 <StaggerItem key={i} className={i % 5 === 0 ? "col-span-2 row-span-2" : ""}>
                   <div data-testid={`gallery-item-${i}`} className="rounded-2xl overflow-hidden border border-navy/10 h-full">

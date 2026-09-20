@@ -20,7 +20,7 @@ export default function Speakers() {
       <PageHero eyebrow={t("speakers.eyebrow")} title={t("speakers.title")} subtitle={t("speakers.subtitle")} />
       <section className="py-16 sm:py-24 bg-bone">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <Stagger className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
+          <Stagger key={speakers.length} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
             {speakers.map((sp) => (
               <StaggerItem key={sp.id}>
                 <SpeakerCard speaker={sp} onOpen={setSelected} />

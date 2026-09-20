@@ -13,10 +13,11 @@ export function SpeakerCard({ speaker, onOpen }) {
       onClick={() => onOpen(speaker)}
       className="group text-left bg-white rounded-2xl border border-navy/10 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-navy/10 hover:border-gold/40 w-full"
     >
-      <div className="relative aspect-[4/4.2] overflow-hidden bg-navy-soft">
-        {imgErr ? (
-          <div className="w-full h-full flex items-center justify-center">
-            <span className="font-display font-extrabold text-5xl text-gold/80">{initials}</span>
+      <div className="relative aspect-[4/4.2] overflow-hidden bg-navy">
+        {imgErr || !speaker.photo ? (
+          <div className="w-full h-full flex flex-col items-center justify-center gap-3 zigzag-bg">
+            <span className="font-display font-extrabold text-5xl text-gold">{initials}</span>
+            <svg width="34" height="26" viewBox="0 0 48 38" fill="none"><path d="M10 34 L22 20 L29 27 L46 6" stroke="#F59E0B" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" opacity="0.5"/></svg>
           </div>
         ) : (
           <SmartImg

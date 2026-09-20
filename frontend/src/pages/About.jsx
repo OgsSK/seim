@@ -43,16 +43,16 @@ export default function About() {
             <Reveal delay={0.15}>
               <div className="rounded-2xl overflow-hidden border border-navy/10 shadow-xl shadow-navy/10">
                 <SmartImg
-                  src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=1200&q=80"
-                  alt="SEIM conference"
+                  src="/assets/report/g7.jpg"
+                  alt="SEIM 2026"
                   className="w-full aspect-[4/5] object-cover"
                 />
               </div>
             </Reveal>
             <Reveal delay={0.3}>
-              <div className="absolute -bottom-8 -left-6 sm:-left-10 bg-navy text-white rounded-2xl p-6 sm:p-8 shadow-2xl max-w-[240px]">
+              <div className="absolute -bottom-8 -left-6 sm:-left-10 bg-navy text-white rounded-2xl p-6 sm:p-8 shadow-2xl max-w-[260px]">
                 <p className="text-4xl font-display font-extrabold text-gold">
-                  <CountUp value={5000} suffix="+" />
+                  <CountUp value={1000} suffix="+" />
                 </p>
                 <p className="text-sm text-white/60 mt-1">{stats[0]?.label}</p>
               </div>

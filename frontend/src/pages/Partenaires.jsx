@@ -55,7 +55,7 @@ export default function Partenaires() {
                     <span className="h-px flex-1 bg-navy/10" />
                   </h2>
                 </Reveal>
-                <Stagger className="flex flex-wrap items-center gap-x-12 gap-y-6">
+                <Stagger key={list.length + tier} className="flex flex-wrap items-center gap-x-12 gap-y-6">
                   {list.map((p) => (
                     <StaggerItem key={p.id}>
                       <div data-testid={`partner-logo-${p.id}`} className={`font-display ${TIER_STYLE[tier]} hover:text-gold transition-colors cursor-default flex items-center gap-3`}>

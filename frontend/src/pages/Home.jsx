@@ -196,7 +196,7 @@ function AboutPreview() {
           <StaggerItem>
             <div className="rounded-2xl overflow-hidden border border-navy/10">
               <SmartImg
-                src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80"
+                src="/assets/report/g1.jpg"
                 alt="SEIM audience"
                 className="w-full aspect-[16/7] object-cover"
               />
@@ -241,7 +241,7 @@ function Formats() {
 
 function ProgramPreview({ sessions, speakers }) {
   const { t, lang } = useLanguage();
-  const highlights = sessions.filter((s) => ["keynote", "panel", "ceo-talk"].includes(s.type)).slice(0, 4);
+  const highlights = sessions.filter((s) => ["keynote", "panel", "masterclass"].includes(s.type)).slice(0, 4);
   return (
     <section data-testid="program-preview-section" className="py-20 sm:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
@@ -253,7 +253,7 @@ function ProgramPreview({ sessions, speakers }) {
             </Link>
           </Reveal>
         </div>
-        <Stagger className="divide-y divide-navy/10 border-y border-navy/10">
+        <Stagger key={sessions.length} className="divide-y divide-navy/10 border-y border-navy/10">
           {highlights.map((s) => (
             <StaggerItem key={s.id}>
               <div data-testid={`highlight-session-${s.id}`} className="group py-6 flex flex-wrap items-center gap-x-8 gap-y-3 hover:bg-bone/80 px-4 -mx-4 rounded-xl transition-colors">
@@ -292,7 +292,7 @@ function SpeakersPreview({ speakers }) {
             </Link>
           </Reveal>
         </div>
-        <Stagger className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+        <Stagger key={speakers.length} className="grid grid-cols-2 lg:grid-cols-4 gap-5">
           {speakers.slice(0, 4).map((sp) => (
             <StaggerItem key={sp.id}>
               <SpeakerCard speaker={sp} onOpen={setSelected} />

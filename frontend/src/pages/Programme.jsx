@@ -132,7 +132,13 @@ export default function Programme() {
                               <div className="mt-5 flex flex-wrap gap-3">
                                 {sSpeakers.map((sp) => (
                                   <div key={sp.id} className="flex items-center gap-2.5 bg-bone rounded-full pl-1.5 pr-4 py-1.5 border border-navy/10">
-                                    <img src={sp.photo} alt={sp.name} className="w-8 h-8 rounded-full object-cover" onError={(e) => (e.currentTarget.style.display = "none")} />
+                                    {sp.photo ? (
+                                      <img src={sp.photo} alt={sp.name} className="w-8 h-8 rounded-full object-cover" onError={(e) => (e.currentTarget.style.display = "none")} />
+                                    ) : (
+                                      <span className="w-8 h-8 rounded-full bg-navy flex items-center justify-center text-[10px] font-bold text-gold">
+                                        {sp.name.split(" ").map((n) => n[0]).join("")}
+                                      </span>
+                                    )}
                                     <div className="leading-tight">
                                       <p className="text-xs font-bold text-navy">{sp.name}</p>
                                       <p className="text-[10px] text-navy/50">{sp.company}</p>

@@ -23,10 +23,16 @@ Créer une plateforme web événementielle premium (inspiration : semainedelepar
 - Backend : FastAPI + MongoDB (motor). Seed idempotent au démarrage (`/app/backend/seed_data.py`) : 10 intervenants, 18 sessions, 12 exposants, 12 partenaires, 4 articles, 3 éditions, galerie.
 - API : GET /api/speakers, /api/program, /api/exhibitors, /api/partners, /api/articles, /api/editions, /api/gallery ; POST /api/registrations (code SEIM26-XXXXXX, dédoublonnage par email), GET /api/registrations/{code} ; POST /api/contacts.
 
-## Implémenté (20/09/2026)
-- Pages : Accueil (hero cinétique + parallax + compte à rebours + marquee), À propos, Programme (onglets jour 1/2 + filtres par format + accordéons avec intervenants), Intervenants (grille + modale profil), Exposants (filtres par secteur + CTA), Partenaires (6 niveaux + formulaire dossier sponsoring), Inscription (3 pass + formulaire complet), Confirmation (badge numérique + QR code + impression), Média (actualités / galerie / vidéos / presse), Éditions (timeline 2023-2025), Contact (formulaire typé + WhatsApp + carte Google), Mentions légales / Confidentialité.
-- Header fixe glass + switch FR/EN + CTA S'inscrire ; menu mobile hamburger.
-- Footer complet avec sitemap, coordonnées et réseaux.
+## Implémenté (20/09/2026 — v2 données réelles)
+- Intégration complète du rapport officiel SEIM 2026 : 1ère édition 10-11 avril 2026 au CICB, thème « Éducation et inclusion financière : quels leviers à activer ? »
+- Vrais intervenants : Hamidou Sampa (CREACOM, modérateur), Modibo Mao Macalou (IBS), Mohamed Douna, Cissé Issiaka Oumar (Cabinet ISSAFA), Cheick Oumar Sanou (Club Investissement) + 3 jeunes entrepreneurs FACEJ (Oumou Abdoulaye — Saga Saga, Sidiane Gimbiri — PISPA Design, Mariam Sissoko — La Cantine). Photos réelles extraites du PDF pour Cissé & Sanou, initiales pour les autres (portraits officiels à fournir).
+- Vrai programme : 9 sessions (3 panels, 3 masterclasses, 1 keynote FACEJ, ouverture, clôture) avec textes du rapport.
+- Vrais chiffres : 1 000+ visiteurs, 100 000+ touchés en ligne, 16 experts, 7 sessions, 50% jeunes, 30% femmes.
+- Partenaires réels : FACEJ II (parrain officiel), Ministère de l'Entrepreneuriat National, Royaume du Danemark, PÉJ-Excellence Conseils, Cabinet ISSAFA, ADC International, ORTM, TM1, Hando Media, Media Online.
+- Galerie : 12 vraies photos extraites du rapport (/public/assets/report/).
+- Prochaine édition : 2ème édition, compte à rebours provisoire avril 2027 (config/event.js).
+- Pages : Accueil, À propos, Programme (filtres), Intervenants (+modale), Exposants, Partenaires (+formulaire sponsoring), Inscription (3 pass + badge QR), Confirmation, Média (news/galerie/vidéos/presse), Éditions (rétrospective 2026), Contact, Mentions légales. FR/EN complet. Thème blanc + orange.
+- Prix des pass Pro/VIP (25 000 / 75 000 FCFA) restent PROVISOIRES — à confirmer par le client.
 
 ## Vérifié
 - curl : tous les endpoints OK (10 speakers, 18 sessions, inscription code SEIM26-A275E1, contact).

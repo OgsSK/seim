@@ -50,7 +50,7 @@ export default function Exposants() {
             ))}
           </div>
 
-          <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <Stagger key={exhibitors.length + sector} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((e) => (
               <StaggerItem key={e.id}>
                 <div
