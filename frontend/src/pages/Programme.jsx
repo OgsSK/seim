@@ -13,6 +13,22 @@ const RULE = "rgba(18,17,15,0.12)";
 const RULE_LIGHT = "rgba(18,17,15,0.08)";
 const EASE = [0.22, 1, 0.36, 1];
 
+/* Ordre stable des filtres — hors composant pour ne pas être recréé */
+const FILTER_ORDER = [
+  "all",
+  "keynote",
+  "panel",
+  "masterclass",
+  "ceo-talk",
+  "young-ceo-talk",
+  "atelier",
+  "webtv",
+  "networking",
+  "ceremonie",
+  "accueil",
+  "pause",
+];
+
 /* ---------- Skeleton ---------- */
 function Skeleton() {
   return (
@@ -91,21 +107,6 @@ export default function Programme() {
     const days = new Set(sessions.map((s) => s.day).filter(Boolean));
     return days.size > 0 ? Array.from(days).sort((a, b) => a - b) : [1, 2];
   }, [sessions]);
-
-  const FILTER_ORDER = [
-    "all",
-    "keynote",
-    "panel",
-    "masterclass",
-    "ceo-talk",
-    "young-ceo-talk",
-    "atelier",
-    "webtv",
-    "networking",
-    "ceremonie",
-    "accueil",
-    "pause",
-  ];
 
   const availableFilters = useMemo(() => {
     const typesInDay = new Set(
