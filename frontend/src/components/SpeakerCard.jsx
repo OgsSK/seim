@@ -1,41 +1,110 @@
-import { useState } from "react";
-import { SmartImg } from "./SectionHead";
+import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
+
+/* Palette éditoriale premium */
+const PAPER = "#f4efe4";
+const INK = "#12110f";
+const BRONZE = "#8a6a3e";
+const RULE = "rgba(18,17,15,0.12)";
+const FALLBACK_BG = "#ebe5d8"; // Beige texturé
 
 export function SpeakerCard({ speaker, onOpen }) {
   const { lang, t } = useLanguage();
-  const [imgErr, setImgErr] = useState(false);
-  const initials = speaker.name.split(" ").map((n) => n[0]).join("");
+
+  // On extrait les initiales (ex: "Modibo Mao Makalou" -> "MM")
+  const initials = speaker.name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
+  const role = (lang === "fr" ? speaker.role_fr : speaker.role_en) || speaker.role;
 
   return (
     <button
+      type="button"
       data-testid={`speaker-card-${speaker.id}`}
       onClick={() => onOpen(speaker)}
-      className="group text-left bg-white rounded-2xl border border-navy/10 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-navy/10 hover:border-gold/40 w-full"
+      aria-label={`${speaker.name} — ${t("speakers.viewProfile")}`}
+      className="group text-left w-full flex flex-col"
     >
-      <div className="relative aspect-[4/4.2] overflow-hidden bg-navy">
-        {imgErr || !speaker.photo ? (
-          <div className="w-full h-full flex flex-col items-center justify-center gap-3 zigzag-bg">
-            <span className="font-display font-extrabold text-5xl text-gold">{initials}</span>
-            <svg width="34" height="26" viewBox="0 0 48 38" fill="none"><path d="M10 34 L22 20 L29 27 L46 6" stroke="#F59E0B" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" opacity="0.5"/></svg>
-          </div>
-        ) : (
-          <SmartImg
-            src={speaker.photo}
-            alt={speaker.name}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <span className="absolute bottom-4 left-4 right-4 text-white text-xs font-semibold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2">
-          {t("speakers.viewProfile")}
-          <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h11M8 1l4 4-4 4" stroke="#F59E0B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      {/* ============ Bloc Typographique (Remplace la photo) ============ */}
+      <div 
+        className="relative aspect-[4/5] overflow-hidden border flex flex-col items-center justify-center" 
+        style={{ backgroundColor: FALLBACK_BG, borderColor: RULE }}
+      >
+        {/* Repères d'imprimerie aux 4 coins */}
+        <div className="absolute top-4 left-4 right-4 flex justify-between opacity-40">
+          <span className="w-3 h-px" style={{ backgroundColor: BRONZE }} />
+          <span className="w-3 h-px" style={{ backgroundColor: BRONZE }} />
+        </div>
+        <div className="absolute bottom-4 left-4 right-4 flex justify-between opacity-40">
+          <span className="w-3 h-px" style={{ backgroundColor: BRONZE }} />
+          <span className="w-3 h-px" style={{ backgroundColor: BRONZE }} />
+        </div>
+
+        {/* Initiales Géantes */}
+        <span 
+          className="font-serif text-6xl sm:text-7xl lg:text-8xl tracking-[-0.03em] transition-transform duration-500 group-hover:scale-105"
+          style={{ color: BRONZE }}
+        >
+          {initials}
+        </span>
+        
+        {/* Petite mention SEIM */}
+        <span 
+          className="font-mono-num text-[8px] sm:text-[9px] uppercase tracking-[0.3em] mt-4 opacity-50"
+          style={{ color: INK }}
+        >
+          SEIM · 2026
         </span>
       </div>
-      <div className="p-5">
-        <h3 className="font-display font-bold text-navy text-lg leading-tight">{speaker.name}</h3>
-        <p className="text-gold-dark text-sm font-semibold mt-1">{lang === "fr" ? speaker.role_fr : speaker.role_en}</p>
-        <p className="text-navy/50 text-sm mt-0.5">{speaker.company}</p>
+
+      {/* ============ Infos ============ */}
+      <div 
+        className="pt-4 pb-4 border-b flex flex-col flex-1"
+        style={{ borderColor: RULE }}
+      >
+        {role && (
+          <p 
+            className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] mb-2 line-clamp-2"
+            style={{ color: BRONZE }}
+          >
+            {role}
+          </p>
+        )}
+        
+        <h3 
+          className="font-serif text-lg sm:text-xl leading-tight tracking-tight mb-1.5"
+          style={{ color: INK }}
+        >
+          {speaker.name}
+        </h3>
+        
+        {speaker.company && (
+          <p 
+            className="text-[12px] italic font-serif line-clamp-1"
+            style={{ color: "rgba(18,17,15,0.5)" }}
+          >
+            {speaker.company}
+          </p>
+        )}
+
+        {/* Lien "Voir profil" discret au hover (desktop) */}
+        <div className="mt-auto pt-3 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span 
+            className="text-[10px] uppercase tracking-[0.2em] font-medium"
+            style={{ color: BRONZE }}
+          >
+            {t("speakers.viewProfile")}
+          </span>
+          <ArrowUpRight 
+            size={14} 
+            style={{ color: BRONZE }} 
+            className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          />
+        </div>
       </div>
     </button>
   );

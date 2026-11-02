@@ -20,6 +20,7 @@ export const translations = {
       cta2: "Découvrir le programme",
       countdown: { days: "Jours", hours: "Heures", minutes: "Min", seconds: "Sec" },
       countdownLabel: "avant la prochaine édition",
+      countdownTitle: "Le compte à rebours est lancé.", // <-- NOUVELLE LIGNE
     },
     marquee: ["Épargne", "Investissement", "Patrimoine", "Éducation financière", "Fintech", "Immobilier", "Assurance", "Entrepreneuriat", "BRVM", "Inclusion financière"],
     stats: {
@@ -219,6 +220,7 @@ export const translations = {
       cta2: "Discover the program",
       countdown: { days: "Days", hours: "Hours", minutes: "Min", seconds: "Sec" },
       countdownLabel: "until the next edition",
+      countdownTitle: "The countdown has begun.", // <-- NEW LINE
     },
     marquee: ["Savings", "Investment", "Wealth", "Financial literacy", "Fintech", "Real estate", "Insurance", "Entrepreneurship", "BRVM", "Financial inclusion"],
     stats: {

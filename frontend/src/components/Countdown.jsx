@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import { EVENT } from "../config/event";
 import { useLanguage } from "../i18n/LanguageContext";
 
-export function Countdown({ dark = true }) {
+/* Palette éditoriale premium */
+const PAPER = "#f4efe4";
+const INK = "#12110f";
+const BRONZE = "#8a6a3e";
+const RULE = "rgba(18,17,15,0.12)";
+const RULE_INK = "rgba(244,239,228,0.15)";
+
+export function Countdown({ dark = false }) {
   const { t } = useLanguage();
   const target = new Date(EVENT.startDateISO).getTime();
   const [now, setNow] = useState(Date.now());
@@ -25,20 +32,41 @@ export function Countdown({ dark = true }) {
     { v: s, l: t("hero.countdown.seconds") },
   ];
 
+  // Couleurs conditionnelles selon le fond
+  const numberColor = dark ? PAPER : INK;
+  const labelColor = dark ? "rgba(244,239,228,0.5)" : "rgba(18,17,15,0.5)";
+  const separatorColor = dark ? RULE_INK : RULE;
+
   return (
-    <div data-testid="hero-countdown" className="flex items-end gap-4 sm:gap-6">
+    <div
+      data-testid="hero-countdown"
+      className="flex items-end gap-3 sm:gap-5"
+    >
       {units.map((u, i) => (
-        <div key={i} className="text-center">
-          <div
-            className={`font-mono-num font-semibold text-3xl sm:text-5xl tabular-nums ${
-              dark ? "text-white" : "text-navy"
-            }`}
-          >
-            {String(u.v).padStart(2, "0")}
+        <div key={i} className="flex items-end gap-3 sm:gap-5">
+          {/* Unité (chiffre + label) */}
+          <div className="text-center min-w-[48px] sm:min-w-[60px]">
+            <div
+              className="font-mono-num font-light text-2xl xs:text-3xl sm:text-4xl tabular-nums leading-none tracking-tight"
+              style={{ color: numberColor }}
+            >
+              {String(u.v).padStart(2, "0")}
+            </div>
+            <div
+              className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] mt-2 font-medium"
+              style={{ color: labelColor }}
+            >
+              {u.l}
+            </div>
           </div>
-          <div className={`text-[10px] sm:text-xs uppercase tracking-[0.2em] mt-1.5 ${dark ? "text-white/50" : "text-navy/50"}`}>
-            {u.l}
-          </div>
+
+          {/* Séparateur vertical entre les unités (sauf après la dernière) */}
+          {i < units.length - 1 && (
+            <span
+              className="hidden sm:block w-px h-10 sm:h-12"
+              style={{ backgroundColor: separatorColor }}
+            />
+          )}
         </div>
       ))}
     </div>

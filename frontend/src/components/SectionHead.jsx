@@ -1,36 +1,125 @@
 import { useState } from "react";
 import { Reveal } from "./Reveal";
 
-export function SectionHead({ eyebrow, title, subtitle, center = true, dark = false }) {
+/* Palette éditoriale premium */
+const PAPER = "#f4efe4";
+const INK = "#12110f";
+const BRONZE = "#8a6a3e";
+const GOLD = "#c5a059"; // Pour le mode sombre
+const RULE = "rgba(18,17,15,0.12)";
+const RULE_INK = "rgba(244,239,228,0.15)";
+
+export function SectionHead({
+  eyebrow,
+  title,
+  subtitle,
+  center = true,
+  dark = false,
+}) {
   return (
-    <div className={`${center ? "text-center mx-auto" : "text-left"} max-w-3xl mb-12 sm:mb-16`}>
+    <div
+      className={`${
+        center ? "text-center mx-auto flex flex-col items-center" : "text-left flex flex-col items-start"
+      } max-w-3xl mb-12 sm:mb-16 lg:mb-20`}
+    >
       <Reveal>
-        <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-gold mb-4">{eyebrow}</p>
+        <div className={`flex items-center gap-3 mb-4 sm:mb-5 ${center ? "justify-center" : "justify-start"}`}>
+          {/* Filet éditorial */}
+          {!center && (
+            <span className="w-8 h-px" style={{ backgroundColor: dark ? RULE_INK : RULE }} />
+          )}
+          
+          <p
+            className="text-[10px] sm:text-[11px] uppercase tracking-[0.28em] font-medium"
+            style={{ color: dark ? GOLD : BRONZE }}
+          >
+            {eyebrow}
+          </p>
+
+          {center && (
+            <span className="w-8 h-px" style={{ backgroundColor: dark ? RULE_INK : RULE }} />
+          )}
+        </div>
       </Reveal>
+
       <Reveal delay={0.08}>
-        <h2 className={`font-display font-extrabold tracking-tight text-2xl sm:text-3xl lg:text-4xl ${dark ? "text-white" : "text-navy"}`}>
+        <h2
+          className={`font-serif tracking-[-0.025em] text-3xl sm:text-4xl lg:text-5xl leading-[1.1] break-words ${
+            center ? "text-center" : "text-left"
+          }`}
+          style={{ color: dark ? PAPER : INK }}
+        >
           {title}
         </h2>
       </Reveal>
+
       {subtitle && (
         <Reveal delay={0.16}>
-          <p className={`mt-4 text-base leading-relaxed ${dark ? "text-white/60" : "text-navy/60"}`}>{subtitle}</p>
+          <p
+            className={`mt-5 sm:mt-6 text-[15px] sm:text-[16px] leading-[1.75] ${
+              center ? "text-center mx-auto" : "text-left"
+            }`}
+            style={{ color: dark ? "rgba(244,239,228,0.55)" : "rgba(18,17,15,0.6)" }}
+          >
+            {subtitle}
+          </p>
         </Reveal>
       )}
     </div>
   );
 }
 
-export function SmartImg({ src, alt, className = "", fallbackClassName = "" }) {
+export function SmartImg({
+  src,
+  alt,
+  className = "",
+  fallbackClassName = "",
+  aspectRatio,
+  ...rest
+}) {
   const [err, setErr] = useState(false);
+
+  // Image de fallback (chevron SEIM) adaptée à la charte
   if (err) {
     return (
-      <div className={`bg-navy-soft flex items-center justify-center ${className} ${fallbackClassName}`}>
-        <svg width="40" height="32" viewBox="0 0 48 38" fill="none" aria-hidden="true">
-          <path d="M10 34 L22 20 L29 27 L46 6" stroke="#F59E0B" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+      <div
+        className={`flex items-center justify-center ${className} ${fallbackClassName}`}
+        style={{
+          backgroundColor: "#e8e4da", // Un beige/gris chaud pour le placeholder
+          ...(aspectRatio ? { aspectRatio } : {}),
+        }}
+      >
+        <svg
+          width="40"
+          height="32"
+          viewBox="0 0 48 38"
+          fill="none"
+          aria-hidden="true"
+          className="w-8 h-7 sm:w-10 sm:h-8 opacity-60"
+        >
+          <path
+            d="M10 34 L22 20 L29 27 L46 6"
+            stroke={BRONZE}
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </div>
     );
   }
-  return <img src={src} alt={alt} loading="lazy" className={className} onError={() => setErr(true)} />;
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+      draggable={false}
+      className={className}
+      style={aspectRatio ? { aspectRatio } : undefined}
+      onError={() => setErr(true)}
+      {...rest}
+    />
+  );
 }

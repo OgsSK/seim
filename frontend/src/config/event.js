@@ -7,8 +7,8 @@ export const EVENT = {
   edition_en: "2nd Edition — coming soon",
   // Countdown target — ISO date of the event opening.
   startDateISO: "2027-04-08T08:30:00",
-  dates_fr: "Avril 2027 (dates à confirmer)",
-  dates_en: "April 2027 (dates to be confirmed)",
+  dates_fr: "Avril 2027",
+  dates_en: "April 2027",
   theme_fr: "Éducation et inclusion financière : quels leviers à activer ?",
   theme_en: "Financial education and inclusion: which levers to activate?",
   venue_fr: "Centre International de Conférences de Bamako (CICB)",

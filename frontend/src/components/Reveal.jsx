@@ -1,15 +1,36 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "framer-motion";
 
-export function Reveal({ children, delay = 0, y = 28, className = "" }) {
+const EASE = [0.22, 1, 0.36, 1];
+
+/* Détecte si l'utilisateur préfère les animations réduites (accessibilité) */
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const onChange = (e) => setReduced(e.matches);
+    mq.addEventListener?.("change", onChange);
+    return () => mq.removeEventListener?.("change", onChange);
+  }, []);
+  return reduced;
+}
+
+export function Reveal({ children, delay = 0, y = 20, className = "" }) {
+  const reduce = usePrefersReducedMotion();
+
+  if (reduce) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+      // "amount: 0.1" est beaucoup plus fiable que "margin" dans les iframes
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.7, delay, ease: EASE }}
     >
       {children}
     </motion.div>
@@ -17,13 +38,23 @@ export function Reveal({ children, delay = 0, y = 28, className = "" }) {
 }
 
 export function Stagger({ children, className = "" }) {
+  const reduce = usePrefersReducedMotion();
+
+  if (reduce) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       className={className}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "-60px" }}
-      variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
+      // On s'assure que 10% du conteneur est visible pour lancer l'animation
+      viewport={{ once: true, amount: 0.1 }}
+      variants={{
+        hidden: {},
+        show: { transition: { staggerChildren: 0.08 } },
+      }}
     >
       {children}
     </motion.div>
@@ -31,12 +62,22 @@ export function Stagger({ children, className = "" }) {
 }
 
 export function StaggerItem({ children, className = "" }) {
+  const reduce = usePrefersReducedMotion();
+
+  if (reduce) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 26 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+        hidden: { opacity: 0, y: 20 },
+        show: {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.6, ease: EASE },
+        },
       }}
     >
       {children}
@@ -46,10 +87,17 @@ export function StaggerItem({ children, className = "" }) {
 
 export function CountUp({ value, suffix = "", duration = 1800 }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const inView = useInView(ref, { once: true, amount: 0.1 });
+  const reduce = usePrefersReducedMotion();
   const [display, setDisplay] = useState(0);
+
   useEffect(() => {
+    if (reduce) {
+      setDisplay(value);
+      return;
+    }
     if (!inView) return;
+
     const start = performance.now();
     let raf;
     const tick = (now) => {
@@ -60,9 +108,14 @@ export function CountUp({ value, suffix = "", duration = 1800 }) {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [inView, value, duration]);
+  }, [inView, value, duration, reduce]);
+
+  useEffect(() => {
+    if (reduce) setDisplay(value);
+  }, [reduce, value]);
+
   return (
-    <span ref={ref} className="font-display font-extrabold tabular-nums">
+    <span ref={ref} className="tabular-nums">
       {display.toLocaleString("fr-FR")}
       {suffix}
     </span>

@@ -8,6 +8,13 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
 import { Logo } from "../components/Logo";
 
+/* Palette éditoriale premium */
+const PAPER = "#f4efe4";
+const INK = "#12110f";
+const BRONZE = "#8a6a3e";
+const RULE = "rgba(18,17,15,0.12)";
+const RULE_INK = "rgba(244,239,228,0.18)";
+
 export default function Confirmation() {
   const { code } = useParams();
   const { t, lang } = useLanguage();
@@ -20,68 +27,221 @@ export default function Confirmation() {
 
   if (error) {
     return (
-      <div className="pt-40 pb-24 text-center" data-testid="confirmation-error">
-        <p className="text-navy/60">{t("confirmation.notFound")}</p>
-        <Link to="/" className="mt-4 inline-block text-gold-dark font-bold">{t("confirmation.back")}</Link>
+      <div
+        data-testid="confirmation-error"
+        className="min-h-[60vh] flex flex-col items-center justify-center px-5 text-center"
+        style={{ backgroundColor: PAPER, color: INK }}
+      >
+        <div className="flex items-center gap-3 mb-6">
+          <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
+          <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
+            {lang === "fr" ? "Erreur" : "Error"}
+          </span>
+          <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
+        </div>
+        <p className="font-serif text-xl sm:text-2xl" style={{ color: INK }}>
+          {t("confirmation.notFound")}
+        </p>
+        <Link
+          to="/"
+          className="group mt-8 inline-flex items-center gap-2.5 text-[13px] font-medium"
+          style={{ color: INK }}
+        >
+          <span className="border-b pb-0.5" style={{ borderColor: BRONZE }}>
+            {t("confirmation.back")}
+          </span>
+        </Link>
       </div>
     );
   }
+
   if (!reg) {
-    return <div className="pt-40 pb-24 text-center text-navy/50" data-testid="confirmation-loading">{t("common.loading")}</div>;
+    return (
+      <div
+        data-testid="confirmation-loading"
+        className="min-h-[60vh] flex flex-col items-center justify-center px-5"
+        style={{ backgroundColor: PAPER }}
+      >
+        <div className="flex items-center gap-3 mb-4">
+          <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
+          <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
+            {lang === "fr" ? "Chargement" : "Loading"}
+          </span>
+          <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
+        </div>
+        <p className="font-serif italic text-[15px]" style={{ color: "rgba(18,17,15,0.55)" }}>
+          {t("common.loading")}
+        </p>
+      </div>
+    );
   }
 
   const pass = t(`register.passes.${reg.pass_type}`);
 
   return (
-    <div className="bg-bone min-h-screen pt-32 pb-24 px-5" data-testid="confirmation-page">
-      <div className="max-w-lg mx-auto text-center">
-        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 200, damping: 15 }}
-          className="w-16 h-16 mx-auto rounded-full bg-emerald-500 flex items-center justify-center text-white mb-6">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </motion.div>
-        <h1 className="font-display font-extrabold text-navy text-3xl sm:text-4xl">{t("confirmation.title")}</h1>
-        <p className="mt-3 text-navy/60">{t("confirmation.subtitle")}</p>
+    <div
+      data-testid="confirmation-page"
+      className="min-h-screen pt-28 sm:pt-36 pb-20 sm:pb-28 px-5"
+      style={{ backgroundColor: PAPER, color: INK }}
+    >
+      <div className="max-w-lg mx-auto">
 
+        {/* ============ En-tête éditorial ============ */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          data-testid="digital-badge"
-          className="mt-10 bg-navy rounded-3xl overflow-hidden text-left shadow-2xl shadow-navy/25 grain relative"
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center"
         >
-          <div className="p-6 sm:p-8 border-b border-dashed border-white/20 flex items-center justify-between">
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <span className="w-10 h-px" style={{ backgroundColor: RULE }} />
+            <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
+              {lang === "fr" ? "Confirmation" : "Confirmed"}
+            </span>
+            <span className="w-10 h-px" style={{ backgroundColor: RULE }} />
+          </div>
+
+          <h1
+            className="font-serif tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.1]"
+            style={{ color: INK }}
+          >
+            {t("confirmation.title")}
+          </h1>
+
+          <p
+            className="mt-5 text-[14px] sm:text-[15px] leading-[1.7] max-w-md mx-auto font-serif italic"
+            style={{ color: "rgba(18,17,15,0.55)" }}
+          >
+            {t("confirmation.subtitle")}
+          </p>
+        </motion.div>
+
+        {/* ============ Badge / Billet ============ */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          data-testid="digital-badge"
+          className="mt-12 sm:mt-14 relative"
+          style={{ backgroundColor: INK, color: PAPER }}
+        >
+          {/* Filet supérieur bronze — signature visuelle */}
+          <div className="h-[3px]" style={{ backgroundColor: BRONZE }} />
+
+          {/* Header du billet */}
+          <div
+            className="px-6 sm:px-8 py-5 sm:py-6 flex items-center justify-between gap-3 border-b border-dashed"
+            style={{ borderColor: RULE_INK }}
+          >
             <Logo dark />
-            <span className="px-3 py-1.5 rounded-full bg-gold text-navy text-[11px] font-bold uppercase tracking-wider">
+            <span
+              className="font-mono-num text-[9px] sm:text-[10px] uppercase tracking-[0.22em] px-2.5 py-1 border"
+              style={{ color: BRONZE, borderColor: BRONZE }}
+            >
               {pass.name}
             </span>
           </div>
-          <div className="p-6 sm:p-8 flex gap-6 items-center">
-            <div className="bg-white rounded-2xl p-3 shrink-0">
-              <QRCodeSVG value={reg.code} size={110} fgColor="#0B132B" />
+
+          {/* Corps du billet */}
+          <div className="px-6 sm:px-8 py-7 sm:py-8 flex flex-col sm:flex-row gap-6 sm:gap-7 items-center sm:items-start">
+            {/* QR */}
+            <div
+              className="shrink-0 p-3 border"
+              style={{ backgroundColor: PAPER, borderColor: RULE_INK }}
+            >
+              <QRCodeSVG value={reg.code} size={104} fgColor={INK} bgColor={PAPER} />
             </div>
-            <div className="min-w-0">
-              <p className="text-[10px] uppercase tracking-[0.25em] text-gold">{t("confirmation.badge")}</p>
-              <h2 className="font-display font-extrabold text-white text-xl mt-1 truncate">
+
+            {/* Infos participant */}
+            <div className="min-w-0 flex-1 text-center sm:text-left">
+              <p
+                className="text-[9px] sm:text-[10px] uppercase tracking-[0.24em] mb-2"
+                style={{ color: BRONZE }}
+              >
+                {t("confirmation.badge")}
+              </p>
+
+              <h2
+                className="font-serif text-xl sm:text-2xl leading-tight tracking-[-0.01em] break-words"
+                style={{ color: PAPER }}
+              >
                 {reg.first_name} {reg.last_name}
               </h2>
-              <p className="font-mono-num text-gold text-sm mt-1" data-testid="badge-code">{reg.code}</p>
-              <div className="mt-4 space-y-1.5 text-xs text-white/60">
-                <p className="flex items-center gap-2"><CalendarDays size={12} className="text-gold" /> {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}</p>
-                <p className="flex items-center gap-2"><MapPin size={12} className="text-gold" /> CICB — Bamako</p>
+
+              <p
+                data-testid="badge-code"
+                className="font-mono-num text-[12px] mt-2 tracking-[0.1em]"
+                style={{ color: BRONZE }}
+              >
+                {reg.code}
+              </p>
+
+              <div
+                className="mt-5 pt-4 border-t space-y-2 text-[11px] sm:text-[12px]"
+                style={{ borderColor: RULE_INK, color: "rgba(244,239,228,0.55)" }}
+              >
+                <p className="flex items-center justify-center sm:justify-start gap-2">
+                  <CalendarDays size={12} style={{ color: BRONZE }} className="shrink-0" />
+                  {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}
+                </p>
+                <p className="flex items-center justify-center sm:justify-start gap-2">
+                  <MapPin size={12} style={{ color: BRONZE }} className="shrink-0" />
+                  CICB — Bamako
+                </p>
               </div>
             </div>
           </div>
+
+          {/* Pied du billet — mention + numéro d'édition */}
+          <div
+            className="px-6 sm:px-8 py-3 border-t border-dashed flex items-center justify-between"
+            style={{ borderColor: RULE_INK }}
+          >
+            <span
+              className="font-mono-num text-[9px] uppercase tracking-[0.22em]"
+              style={{ color: "rgba(244,239,228,0.35)" }}
+            >
+              SEIM · {lang === "fr" ? "Édition 02" : "Edition 02"}
+            </span>
+            <span
+              className="font-mono-num text-[9px] uppercase tracking-[0.22em]"
+              style={{ color: "rgba(244,239,228,0.35)" }}
+            >
+              {lang === "fr" ? "Bamako, Mali" : "Bamako, Mali"}
+            </span>
+          </div>
         </motion.div>
 
-        <p className="mt-6 text-navy/45 text-sm">{t("confirmation.note")}</p>
-        <div className="mt-8 flex flex-wrap justify-center gap-4">
-          <button onClick={() => window.print()} data-testid="print-badge-button"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-navy text-navy font-display font-bold text-sm hover:bg-navy hover:text-white transition-colors">
-            <Printer size={16} /> {t("confirmation.print")}
+        {/* Note */}
+        <p
+          className="mt-6 text-center text-[12px] sm:text-[13px] font-serif italic px-4"
+          style={{ color: "rgba(18,17,15,0.45)" }}
+        >
+          {t("confirmation.note")}
+        </p>
+
+        {/* ============ Actions ============ */}
+        <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row sm:justify-center items-center gap-4 sm:gap-8">
+          <button
+            onClick={() => window.print()}
+            data-testid="print-badge-button"
+            className="group inline-flex items-center justify-center gap-2.5 px-8 sm:px-9 py-3.5 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90 w-full sm:w-auto"
+            style={{ backgroundColor: INK, color: PAPER }}
+          >
+            <Printer size={14} style={{ color: BRONZE }} />
+            {t("confirmation.print")}
           </button>
-          <Link to="/" data-testid="confirmation-back-button"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gold text-navy font-display font-bold text-sm hover:bg-gold-dark transition-colors">
-            <ArrowLeft size={16} /> {t("confirmation.back")}
+
+          <Link
+            to="/"
+            data-testid="confirmation-back-button"
+            className="group inline-flex items-center gap-2 text-[13px] font-medium"
+            style={{ color: INK }}
+          >
+            <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-0.5" style={{ color: BRONZE }} />
+            <span className="border-b pb-0.5" style={{ borderColor: BRONZE }}>
+              {t("confirmation.back")}
+            </span>
           </Link>
         </div>
       </div>

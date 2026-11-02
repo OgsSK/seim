@@ -1,29 +1,57 @@
 import { motion } from "framer-motion";
 import { Reveal } from "./Reveal";
 
+/* Palette éditoriale premium */
+const PAPER = "#f4efe4";
+const INK = "#12110f";
+const BRONZE = "#8a6a3e";
+const RULE = "rgba(18,17,15,0.12)";
+
 export function PageHero({ eyebrow, title, subtitle }) {
   return (
-    <section className="relative bg-white overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-24 border-b border-navy/10">
-      <div className="absolute inset-0 zigzag-bg" />
-      <div
-        className="absolute -right-32 -top-32 w-[480px] h-[480px] rounded-full opacity-30"
-        style={{ background: "radial-gradient(circle, rgba(245,158,11,0.35) 0%, transparent 65%)" }}
-      />
-      <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
+    <section
+      className="relative overflow-hidden border-b"
+      style={{ backgroundColor: PAPER, borderColor: RULE }}
+    >
+      {/* Padding éditorial : plus d'espace au-dessus pour la respiration */}
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-28 sm:pt-36 lg:pt-44 pb-16 sm:pb-24">
+        
+        {/* Eyebrow typographique (avec filet bronze) */}
         <Reveal>
-          <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-gold-dark mb-4">{eyebrow}</p>
+          <div className="flex items-center gap-3 mb-6 sm:mb-8">
+            <span
+              className="w-8 h-px"
+              style={{ backgroundColor: BRONZE }}
+            />
+            <p
+              className="text-[10px] sm:text-[11px] uppercase tracking-[0.28em] font-medium"
+              style={{ color: BRONZE }}
+            >
+              {eyebrow}
+            </p>
+          </div>
         </Reveal>
+
+        {/* Titre principal en Serif */}
         <motion.h1
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-          className="font-display font-extrabold tracking-tight text-navy text-4xl sm:text-5xl lg:text-6xl max-w-3xl"
+          className="font-serif tracking-[-0.025em] text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] max-w-4xl leading-[1.05]"
+          style={{ color: INK }}
         >
           {title}
         </motion.h1>
+
+        {/* Sous-titre éditorial */}
         {subtitle && (
           <Reveal delay={0.2}>
-            <p className="mt-6 text-navy/60 text-base sm:text-lg max-w-2xl leading-relaxed">{subtitle}</p>
+            <p
+              className="mt-6 sm:mt-8 text-[15px] sm:text-[17px] max-w-2xl leading-[1.75]"
+              style={{ color: "rgba(18,17,15,0.65)" }}
+            >
+              {subtitle}
+            </p>
           </Reveal>
         )}
       </div>

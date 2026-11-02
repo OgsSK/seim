@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
-import { Facebook, Linkedin, Youtube, Phone, Mail, MapPin } from "lucide-react";
+import { Facebook, Youtube, Phone, Mail, MapPin } from "lucide-react";
 import { Logo } from "./Logo";
 import { EVENT } from "../config/event";
 import { useLanguage } from "../i18n/LanguageContext";
 
+/* Palette éditoriale premium */
+const PAPER = "#f4efe4";
+const INK = "#12110f";
+const BRONZE = "#8a6a3e";
+const RULE = "rgba(18,17,15,0.12)";
+
 export function Footer() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const L = t("footer.links");
 
   const cols = [
@@ -39,36 +45,69 @@ export function Footer() {
   ];
 
   return (
-    <footer data-testid="main-footer" className="bg-white text-navy/60 border-t border-navy/10">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-16 pb-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10">
-          <div className="col-span-2">
+    <footer
+      data-testid="main-footer"
+      className="border-t"
+      style={{ backgroundColor: PAPER, borderColor: RULE, color: INK }}
+    >
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-8 sm:pb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-12 sm:gap-10">
+          
+          {/* Bloc identité + réseaux */}
+          <div className="col-span-2 lg:col-span-1">
+            {/* Note: Assurez-vous que <Logo /> est bien en couleur Encre ou Noir */}
             <Logo />
-            <p className="mt-5 text-sm leading-relaxed max-w-xs">{t("footer.tagline")}</p>
-            <div className="flex gap-3 mt-6">
-              <a href={EVENT.facebook} target="_blank" rel="noopener noreferrer" data-testid="footer-facebook-link"
-                className="w-9 h-9 rounded-full border border-navy/15 text-navy/60 flex items-center justify-center hover:border-gold hover:text-gold-dark transition-colors">
-                <Facebook size={16} />
+            
+            <p className="mt-5 text-[14px] leading-[1.7] font-serif italic text-[#12110f]/55 max-w-xs">
+              {t("footer.tagline")}
+            </p>
+
+            {/* Réseaux sociaux — minimalistes, sans pastille */}
+            <div className="flex gap-4 mt-6">
+              <a
+                href={EVENT.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="footer-facebook-link"
+                aria-label="Facebook"
+                className="text-[#12110f]/50 hover:text-[#8a6a3e] transition-colors"
+              >
+                <Facebook size={18} strokeWidth={1.5} />
               </a>
-              <a href="#" data-testid="footer-linkedin-link" onClick={(e) => e.preventDefault()}
-                className="w-9 h-9 rounded-full border border-navy/15 text-navy/60 flex items-center justify-center hover:border-gold hover:text-gold-dark transition-colors">
-                <Linkedin size={16} />
-              </a>
-              <a href="#" data-testid="footer-youtube-link" onClick={(e) => e.preventDefault()}
-                className="w-9 h-9 rounded-full border border-navy/15 text-navy/60 flex items-center justify-center hover:border-gold hover:text-gold-dark transition-colors">
-                <Youtube size={16} />
+              <a
+                href="https://youtube.com/@seim-ml?si=qzRv6Wdm_RDGlzq-"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="footer-youtube-link"
+                aria-label="YouTube"
+                className="text-[#12110f]/50 hover:text-[#8a6a3e] transition-colors"
+              >
+                <Youtube size={18} strokeWidth={1.5} />
               </a>
             </div>
-            <p className="mt-4 text-xs text-navy/40 font-mono-num">{EVENT.handle}</p>
+
+            <p className="mt-5 font-mono-num text-[10px] tracking-[0.15em] uppercase text-[#12110f]/40">
+              {EVENT.handle}
+            </p>
           </div>
 
+          {/* 3 colonnes de liens */}
           {cols.map((col, i) => (
             <div key={i}>
-              <h4 className="font-display font-bold text-navy text-sm uppercase tracking-wider mb-4">{col.title}</h4>
-              <ul className="space-y-2.5">
+              <h4 
+                className="font-mono-num text-[10px] uppercase tracking-[0.24em] mb-5"
+                style={{ color: BRONZE }}
+              >
+                {col.title}
+              </h4>
+              <ul className="space-y-3">
                 {col.links.map((l, j) => (
                   <li key={j}>
-                    <Link to={l.to} className="text-sm hover:text-gold-dark transition-colors" data-testid={`footer-link-${i}-${j}`}>
+                    <Link
+                      to={l.to}
+                      className="text-[13px] text-[#12110f]/65 hover:text-[#8a6a3e] transition-colors"
+                      data-testid={`footer-link-${i}-${j}`}
+                    >
                       {l.label}
                     </Link>
                   </li>
@@ -77,21 +116,71 @@ export function Footer() {
             </div>
           ))}
 
-          <div>
-            <h4 className="font-display font-bold text-navy text-sm uppercase tracking-wider mb-4">{t("footer.contactCol")}</h4>
-            <ul className="space-y-3 text-sm">
-              <li className="flex gap-2.5"><Phone size={15} className="text-gold-dark shrink-0 mt-0.5" />{EVENT.phone}</li>
-              <li className="flex gap-2.5"><Mail size={15} className="text-gold-dark shrink-0 mt-0.5" />{EVENT.email}</li>
-              <li className="flex gap-2.5"><MapPin size={15} className="text-gold-dark shrink-0 mt-0.5" />{EVENT.address_fr}</li>
+          {/* Bloc contact */}
+          <div className="col-span-2 md:col-span-1 lg:col-span-1">
+            <h4 
+              className="font-mono-num text-[10px] uppercase tracking-[0.24em] mb-5"
+              style={{ color: BRONZE }}
+            >
+              {t("footer.contactCol")}
+            </h4>
+            <ul className="space-y-3.5 text-[13px] text-[#12110f]/65">
+              <li className="flex gap-3 items-start">
+                <Phone size={14} className="shrink-0 mt-0.5" style={{ color: BRONZE }} />
+                <a
+                  href={`tel:${EVENT.phone.replace(/\s/g, "")}`}
+                  className="hover:text-[#8a6a3e] transition-colors"
+                >
+                  {EVENT.phone}
+                </a>
+              </li>
+              <li className="flex gap-3 items-start">
+                <Mail size={14} className="shrink-0 mt-0.5" style={{ color: BRONZE }} />
+                <a
+                  href={`mailto:${EVENT.email}`}
+                  className="hover:text-[#8a6a3e] transition-colors break-all"
+                >
+                  {EVENT.email}
+                </a>
+              </li>
+              <li className="flex gap-3 items-start">
+                <MapPin
+                  size={14}
+                  className="shrink-0 mt-0.5"
+                  style={{ color: BRONZE }}
+                />
+                <span className="leading-relaxed">
+                  {lang === "fr" ? EVENT.address_fr : EVENT.address_en || EVENT.address_fr}
+                </span>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-14 pt-6 border-t border-navy/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-navy/40">
-          <p>© 2026 SEIM — Salon de l'Épargne et de l'Investissement du Mali. {t("footer.rights")}</p>
+        {/* Barre inférieure — copyright + liens légaux */}
+        <div 
+          className="mt-16 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-[#12110f]/40 text-center sm:text-left"
+          style={{ borderColor: RULE }}
+        >
+          <p className="leading-relaxed">
+            © 2026 SEIM — {lang === "fr" ? "Salon de l'Épargne et de l'Investissement du Mali." : "Mali Savings and Investment Forum."}{" "}
+            {t("footer.rights")}
+          </p>
           <div className="flex gap-6">
-            <Link to="/mentions-legales" data-testid="footer-legal-link" className="hover:text-gold-dark transition-colors">{t("footer.legal")}</Link>
-            <Link to="/confidentialite" data-testid="footer-privacy-link" className="hover:text-gold-dark transition-colors">{t("footer.privacy")}</Link>
+            <Link
+              to="/mentions-legales"
+              data-testid="footer-legal-link"
+              className="hover:text-[#8a6a3e] transition-colors whitespace-nowrap"
+            >
+              {t("footer.legal")}
+            </Link>
+            <Link
+              to="/confidentialite"
+              data-testid="footer-privacy-link"
+              className="hover:text-[#8a6a3e] transition-colors whitespace-nowrap"
+            >
+              {t("footer.privacy")}
+            </Link>
           </div>
         </div>
       </div>

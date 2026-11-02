@@ -1,26 +1,109 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
-import { Phone, Mail, MapPin, Facebook, MessageCircle } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Facebook,
+  MessageCircle,
+  Send,
+  Clock,
+  ArrowUpRight,
+  ChevronDown, // Ajouté pour le select
+} from "lucide-react";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { EVENT } from "../config/event";
 import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
 
+/* Palette éditoriale premium */
+const PAPER = "#f4efe4";
+const INK = "#12110f";
+const BRONZE = "#8a6a3e";
+const RULE = "rgba(18,17,15,0.15)";
+
+/* Style commun pour les champs de saisie (style formulaire papier) */
 const inputCls =
-  "w-full px-5 py-3.5 rounded-xl bg-white border border-navy/15 text-navy placeholder-navy/35 focus:border-gold focus:ring-2 focus:ring-gold/20 focus:outline-none text-sm transition-all";
+  "w-full px-0 py-3 bg-transparent border-0 border-b text-[15px] placeholder-[#12110f]/30 focus:outline-none focus:ring-0 transition-colors appearance-none";
+
+/* ---------- Carte d'info éditoriale ---------- */
+function InfoCard({ icon: Icon, label, value, href, external, testid }) {
+  const inner = (
+    <>
+      <span className="shrink-0 pt-1">
+        <Icon size={18} strokeWidth={1.5} style={{ color: BRONZE }} />
+      </span>
+
+      <div className="flex-1 min-w-0">
+        <p
+          className="text-[9px] uppercase tracking-[0.24em] mb-1"
+          style={{ color: "rgba(18,17,15,0.45)" }}
+        >
+          {label}
+        </p>
+        <p
+          className="font-serif text-[15px] sm:text-base truncate"
+          style={{ color: INK }}
+        >
+          {value}
+        </p>
+      </div>
+
+      {href && (
+        <ArrowUpRight
+          size={14}
+          className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-1"
+          style={{ color: BRONZE }}
+        />
+      )}
+    </>
+  );
+
+  const baseCls =
+    "group flex items-start gap-4 py-4 border-b transition-colors";
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        data-testid={testid}
+        className={`${baseCls} hover:border-[#8a6a3e]`}
+        style={{ borderColor: RULE }}
+      >
+        {inner}
+      </a>
+    );
+  }
+  return (
+    <div data-testid={testid} className={baseCls} style={{ borderColor: RULE }}>
+      {inner}
+    </div>
+  );
+}
 
 export default function Contact() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [params] = useSearchParams();
   const [sending, setSending] = useState(false);
   const [form, setForm] = useState({
-    name: "", email: "", organization: "",
-    request_type: params.get("type") || "general", message: "",
+    name: "",
+    email: "",
+    organization: "",
+    request_type: params.get("type") || "general",
+    message: "",
   });
 
-  const types = ["general", "partenariat", "sponsoring", "exposition", "presse", "intervention"];
+  const types = [
+    "general",
+    "partenariat",
+    "sponsoring",
+    "exposition",
+    "presse",
+    "intervention",
+  ];
 
   const submit = async (e) => {
     e.preventDefault();
@@ -30,70 +113,277 @@ export default function Contact() {
       toast.success(t("contact.sent"));
       setForm({ ...form, name: "", email: "", organization: "", message: "" });
     } catch {
-      toast.error("Erreur — veuillez réessayer");
+      toast.error(
+        lang === "fr" ? "Erreur — veuillez réessayer" : "Error — please try again"
+      );
     } finally {
       setSending(false);
     }
   };
 
   return (
-    <div data-testid="contact-page">
-      <PageHero eyebrow={t("contact.eyebrow")} title={t("contact.title")} subtitle={t("contact.subtitle")} />
-      <section className="py-16 sm:py-24 bg-bone">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-5 gap-12">
-          <Reveal className="lg:col-span-2">
-            <h2 className="font-display font-bold text-navy text-xl mb-6">{t("contact.info")}</h2>
-            <div className="space-y-4">
-              <a href={`tel:${EVENT.phone.replace(/\s/g, "")}`} data-testid="contact-phone" className="flex items-center gap-4 bg-white rounded-2xl border border-navy/10 p-5 hover:border-gold/50 transition-colors">
-                <span className="w-11 h-11 rounded-xl bg-navy text-gold flex items-center justify-center shrink-0"><Phone size={18} /></span>
-                <div><p className="text-xs text-navy/45 font-semibold uppercase tracking-wider">Tél.</p><p className="font-semibold text-navy">{EVENT.phone}</p></div>
-              </a>
-              <a href={`https://wa.me/${EVENT.whatsapp.replace(/[\s+]/g, "")}`} target="_blank" rel="noopener noreferrer" data-testid="contact-whatsapp" className="flex items-center gap-4 bg-white rounded-2xl border border-navy/10 p-5 hover:border-gold/50 transition-colors">
-                <span className="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0"><MessageCircle size={18} /></span>
-                <div><p className="text-xs text-navy/45 font-semibold uppercase tracking-wider">WhatsApp</p><p className="font-semibold text-navy">{EVENT.whatsapp}</p></div>
-              </a>
-              <a href={`mailto:${EVENT.email}`} data-testid="contact-email" className="flex items-center gap-4 bg-white rounded-2xl border border-navy/10 p-5 hover:border-gold/50 transition-colors">
-                <span className="w-11 h-11 rounded-xl bg-navy text-gold flex items-center justify-center shrink-0"><Mail size={18} /></span>
-                <div><p className="text-xs text-navy/45 font-semibold uppercase tracking-wider">Email</p><p className="font-semibold text-navy">{EVENT.email}</p></div>
-              </a>
-              <div className="flex items-center gap-4 bg-white rounded-2xl border border-navy/10 p-5">
-                <span className="w-11 h-11 rounded-xl bg-navy text-gold flex items-center justify-center shrink-0"><MapPin size={18} /></span>
-                <div><p className="text-xs text-navy/45 font-semibold uppercase tracking-wider">Adresse</p><p className="font-semibold text-navy text-sm">{EVENT.address_fr}</p></div>
-              </div>
-              <a href={EVENT.facebook} target="_blank" rel="noopener noreferrer" data-testid="contact-facebook" className="flex items-center gap-4 bg-navy rounded-2xl p-5 hover:bg-navy-soft transition-colors">
-                <span className="w-11 h-11 rounded-xl bg-gold text-navy flex items-center justify-center shrink-0"><Facebook size={18} /></span>
-                <div><p className="text-xs text-white/50 font-semibold uppercase tracking-wider">{t("contact.follow")}</p><p className="font-semibold text-white">Facebook — SEIM</p></div>
-              </a>
-            </div>
-            <div className="mt-6 rounded-2xl overflow-hidden border border-navy/10">
-              <iframe
-                title="SEIM Bamako map"
-                src="https://maps.google.com/maps?q=Centre%20International%20de%20Conf%C3%A9rences%20de%20Bamako&z=14&output=embed"
-                className="w-full h-56 border-0"
-                loading="lazy"
-              />
-            </div>
-          </Reveal>
+    <div data-testid="contact-page" style={{ backgroundColor: PAPER, color: INK }}>
+      <PageHero
+        eyebrow={t("contact.eyebrow")}
+        title={t("contact.title")}
+        subtitle={t("contact.subtitle")}
+      />
 
-          <Reveal delay={0.12} className="lg:col-span-3">
-            <form data-testid="contact-form" onSubmit={submit} className="bg-white rounded-3xl border border-navy/10 p-8 sm:p-10 space-y-4">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <input required data-testid="contact-name-input" placeholder={t("contact.name")} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className={inputCls} />
-                <input required type="email" data-testid="contact-email-input" placeholder={t("contact.email")} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={inputCls} />
+      <section className="py-16 sm:py-24 lg:py-32">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
+            
+            {/* ============ COLONNE GAUCHE — Coordonnées ============ */}
+            <Reveal className="lg:col-span-5">
+              <div className="lg:sticky lg:top-32">
+                <div className="flex items-center gap-3 mb-8">
+                  <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
+                  <span
+                    className="text-[10px] uppercase tracking-[0.28em]"
+                    style={{ color: BRONZE }}
+                  >
+                    {lang === "fr" ? "Nous joindre" : "Reach us"}
+                  </span>
+                </div>
+
+                <h2
+                  className="font-serif tracking-[-0.02em] text-2xl sm:text-3xl mb-8"
+                  style={{ color: INK }}
+                >
+                  {t("contact.info")}
+                </h2>
+
+                <div className="mb-10 border-t" style={{ borderColor: RULE }}>
+                  <InfoCard
+                    icon={Phone}
+                    label={lang === "fr" ? "Téléphone" : "Phone"}
+                    value={EVENT.phone}
+                    href={`tel:${EVENT.phone.replace(/\s/g, "")}`}
+                    testid="contact-phone"
+                  />
+                  <InfoCard
+                    icon={MessageCircle}
+                    label="WhatsApp"
+                    value={EVENT.whatsapp}
+                    href={`https://wa.me/${EVENT.whatsapp.replace(/[\s+]/g, "")}`}
+                    external
+                    testid="contact-whatsapp"
+                  />
+                  <InfoCard
+                    icon={Mail}
+                    label="Email"
+                    value={EVENT.email}
+                    href={`mailto:${EVENT.email}`}
+                    testid="contact-email"
+                  />
+                  <InfoCard
+                    icon={MapPin}
+                    label={lang === "fr" ? "Adresse" : "Address"}
+                    value={lang === "fr" ? EVENT.address_fr : EVENT.address_en}
+                    testid="contact-address"
+                  />
+                  <InfoCard
+                    icon={Facebook}
+                    label={t("contact.follow")}
+                    value="SEIM — Mali"
+                    href={EVENT.facebook}
+                    external
+                    testid="contact-facebook"
+                  />
+                </div>
+
+                {/* CARTE GÉO — Design Éditorial */}
+                <div className="mt-8">
+                  <div className="flex items-end justify-between mb-3 border-b pb-2" style={{ borderColor: RULE }}>
+                    <p className="text-[9px] uppercase tracking-[0.24em]" style={{ color: BRONZE }}>
+                      {lang === "fr" ? "Localisation" : "Location"}
+                    </p>
+                    <a
+                      href="https://maps.google.com/maps?q=Centre%20International%20de%20Conf%C3%A9rences%20de%20Bamako"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] font-medium transition-colors hover:text-[#8a6a3e]"
+                      style={{ color: INK }}
+                    >
+                      {lang === "fr" ? "Ouvrir dans Maps" : "Open in Maps"}
+                      <ArrowUpRight size={12} style={{ color: BRONZE }} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </a>
+                  </div>
+
+                  <div className="relative overflow-hidden border" style={{ borderColor: RULE }}>
+                    <iframe
+                      title="SEIM Bamako map"
+                      src="https://maps.google.com/maps?q=Centre%20International%20de%20Conf%C3%A9rences%20de%20Bamako&z=14&output=embed"
+                      className="w-full h-56 sm:h-64 border-0"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
               </div>
-              <input data-testid="contact-org-input" placeholder={t("contact.org")} value={form.organization} onChange={(e) => setForm({ ...form, organization: e.target.value })} className={inputCls} />
-              <select data-testid="contact-type-select" value={form.request_type} onChange={(e) => setForm({ ...form, request_type: e.target.value })} className={inputCls}>
-                {types.map((ty) => (
-                  <option key={ty} value={ty}>{t(`contact.types.${ty}`)}</option>
-                ))}
-              </select>
-              <textarea required rows={5} data-testid="contact-message-input" placeholder={t("contact.message")} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className={`${inputCls} resize-none`} />
-              <button type="submit" disabled={sending} data-testid="contact-submit-button"
-                className="px-10 py-4 rounded-full bg-gold text-navy font-display font-bold hover:bg-gold-dark transition-colors disabled:opacity-60">
-                {sending ? t("contact.sending") : t("contact.send")}
-              </button>
-            </form>
-          </Reveal>
+            </Reveal>
+
+            {/* ============ COLONNE DROITE — Formulaire ============ */}
+            <Reveal delay={0.12} className="lg:col-span-7">
+              <div className="pt-2">
+                <div className="flex items-center gap-3 mb-8">
+                  <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
+                  <span
+                    className="text-[10px] uppercase tracking-[0.28em]"
+                    style={{ color: BRONZE }}
+                  >
+                    {lang === "fr" ? "Formulaire" : "Form"}
+                  </span>
+                </div>
+
+                <div className="mb-10">
+                  <h3
+                    className="font-serif tracking-[-0.02em] text-2xl sm:text-3xl mb-3"
+                    style={{ color: INK }}
+                  >
+                    {lang === "fr" ? "Envoyez-nous un message" : "Send us a message"}
+                  </h3>
+                  <p
+                    className="text-[13px] sm:text-[14px] font-serif italic flex items-center gap-2"
+                    style={{ color: "rgba(18,17,15,0.55)" }}
+                  >
+                    <Clock size={13} style={{ color: BRONZE }} />
+                    {lang === "fr"
+                      ? "Réponse sous 24h ouvrées"
+                      : "Response within 24 business hours"}
+                  </p>
+                </div>
+
+                <form
+                  data-testid="contact-form"
+                  onSubmit={submit}
+                  className="space-y-10"
+                >
+                  {/* Bloc 1 */}
+                  <div>
+                    <p
+                      className="text-[9px] uppercase tracking-[0.24em] mb-4"
+                      style={{ color: "rgba(18,17,15,0.45)" }}
+                    >
+                      {lang === "fr" ? "Vos coordonnées" : "Your details"}
+                    </p>
+                    <div className="grid sm:grid-cols-2 gap-6">
+                      <input
+                        required
+                        data-testid="contact-name-input"
+                        placeholder={t("contact.name")}
+                        value={form.name}
+                        onChange={(e) =>
+                          setForm({ ...form, name: e.target.value })
+                        }
+                        className={`${inputCls} focus:border-[#8a6a3e]`}
+                        style={{ borderColor: RULE, color: INK }}
+                      />
+                      <input
+                        required
+                        type="email"
+                        data-testid="contact-email-input"
+                        placeholder={t("contact.email")}
+                        value={form.email}
+                        onChange={(e) =>
+                          setForm({ ...form, email: e.target.value })
+                        }
+                        className={`${inputCls} focus:border-[#8a6a3e]`}
+                        style={{ borderColor: RULE, color: INK }}
+                      />
+                    </div>
+                    <input
+                      data-testid="contact-org-input"
+                      placeholder={t("contact.org")}
+                      value={form.organization}
+                      onChange={(e) =>
+                        setForm({ ...form, organization: e.target.value })
+                      }
+                      className={`${inputCls} focus:border-[#8a6a3e] mt-4 sm:mt-6`}
+                      style={{ borderColor: RULE, color: INK }}
+                    />
+                  </div>
+
+                  {/* Bloc 2 — Select avec Chevron personnalisé */}
+                  <div>
+                    <p
+                      className="text-[9px] uppercase tracking-[0.24em] mb-4"
+                      style={{ color: "rgba(18,17,15,0.45)" }}
+                    >
+                      {lang === "fr" ? "Votre demande" : "Your request"}
+                    </p>
+                    
+                    <div className="relative">
+                      <select
+                        data-testid="contact-type-select"
+                        value={form.request_type}
+                        onChange={(e) =>
+                          setForm({ ...form, request_type: e.target.value })
+                        }
+                        className={`${inputCls} focus:border-[#8a6a3e] cursor-pointer pr-10`}
+                        style={{ borderColor: RULE, color: INK }}
+                      >
+                        {types.map((ty) => (
+                          <option 
+                            key={ty} 
+                            value={ty}
+                            style={{ backgroundColor: PAPER, color: INK }}
+                          >
+                            {t(`contact.types.${ty}`)}
+                          </option>
+                        ))}
+                      </select>
+                      
+                      <ChevronDown
+                        size={16}
+                        className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none"
+                        style={{ color: BRONZE }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Bloc 3 */}
+                  <div>
+                    <p
+                      className="text-[9px] uppercase tracking-[0.24em] mb-4"
+                      style={{ color: "rgba(18,17,15,0.45)" }}
+                    >
+                      {lang === "fr" ? "Votre message" : "Your message"}
+                    </p>
+                    <textarea
+                      required
+                      rows={4}
+                      data-testid="contact-message-input"
+                      placeholder={t("contact.message")}
+                      value={form.message}
+                      onChange={(e) =>
+                        setForm({ ...form, message: e.target.value })
+                      }
+                      className={`${inputCls} focus:border-[#8a6a3e] resize-none`}
+                      style={{ borderColor: RULE, color: INK }}
+                    />
+                  </div>
+
+                  {/* Bouton Envoyer */}
+                  <div className="pt-4">
+                    <button
+                      type="submit"
+                      disabled={sending}
+                      data-testid="contact-submit-button"
+                      className="group inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity disabled:opacity-50"
+                      style={{ backgroundColor: INK, color: PAPER }}
+                    >
+                      {sending ? t("contact.sending") : t("contact.send")}
+                      <Send
+                        size={15}
+                        className="transition-transform group-hover:translate-x-1"
+                        style={{ color: BRONZE }}
+                      />
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
     </div>
