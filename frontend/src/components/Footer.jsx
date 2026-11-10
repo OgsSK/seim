@@ -29,7 +29,7 @@ export function Footer() {
       title: t("footer.participate"),
       links: [
         { label: L.register, to: "/inscription" },
-        { label: L.becomeExhibitor, to: "/contact?type=exposition" },
+        { label: L.becomeExhibitor, to: "/inscription?type=exposant" },
         { label: L.becomeSponsor, to: "/partenaires" },
       ],
     },

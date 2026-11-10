@@ -97,7 +97,7 @@ export default function Media() {
       icon: BadgeCheck,
       title: t("media.press.accreditation"),
       desc: t("media.press.accreditationDesc"),
-      link: "/contact?type=presse",
+      link: "/inscription?type=presse",
     },
   ];
 

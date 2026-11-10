@@ -111,10 +111,12 @@ export default function Legal({ type }) {
             <div className="border-t" style={{ borderColor: RULE }}>
               <LegalSection num="01" title="Données collectées">
                 <p>
-                  Les informations transmises via les formulaires
-                  d'inscription et de contact (nom, email, téléphone) sont
-                  utilisées uniquement pour l'organisation de l'événement et la
-                  communication associée.
+                  Les informations saisies dans les formulaires
+                  d'inscription et de contact (nom, téléphone, email, structure)
+                  ne sont pas enregistrées sur ce site : elles sont transmises
+                  directement à l'équipe SEIM par WhatsApp, uniquement lorsque
+                  vous envoyez le message. Elles servent exclusivement à
+                  l'organisation de l'événement et à la communication associée.
                 </p>
               </LegalSection>
 

@@ -10,7 +10,4 @@ export const api = {
   articles: () => axios.get(`${API}/articles`).then((r) => r.data),
   editions: () => axios.get(`${API}/editions`).then((r) => r.data),
   gallery: () => axios.get(`${API}/gallery`).then((r) => r.data),
-  register: (data) => axios.post(`${API}/registrations`, data).then((r) => r.data),
-  registration: (code) => axios.get(`${API}/registrations/${code}`).then((r) => r.data),
-  contact: (data) => axios.post(`${API}/contacts`, data).then((r) => r.data),
 };

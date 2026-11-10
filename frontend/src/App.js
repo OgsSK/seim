@@ -13,7 +13,6 @@ import Speakers from "@/pages/Speakers";
 import Exposants from "@/pages/Exposants";
 import Partenaires from "@/pages/Partenaires";
 import Inscription from "@/pages/Inscription";
-import Confirmation from "@/pages/Confirmation";
 import Media from "@/pages/Media";
 import Editions from "@/pages/Editions";
 import Contact from "@/pages/Contact";
@@ -57,7 +56,7 @@ function App() {
               <Route path="/exposants" element={<Exposants />} />
               <Route path="/partenaires" element={<Partenaires />} />
               <Route path="/inscription" element={<Inscription />} />
-              <Route path="/confirmation/:code" element={<Confirmation />} />
+              <Route path="/confirmation/*" element={<Navigate to="/inscription" replace />} />
               <Route path="/media" element={<Media />} />
               <Route path="/editions" element={<Editions />} />
               <Route path="/contact" element={<Contact />} />

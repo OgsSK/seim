@@ -154,7 +154,7 @@ function EmptyState({ lang }) {
           : "The list of institutions, fintechs and companies attending the 2nd edition is being finalized. Come back soon to discover it."}
       </p>
       <Link
-        to="/contact?type=exposition"
+        to="/inscription?type=exposant"
         className="group inline-flex items-center gap-2.5 text-[13px] font-medium transition-colors hover:text-[#B57A0A]"
         style={{ color: INK }}
       >
@@ -414,7 +414,7 @@ export default function Exposants() {
 
                   <div className="flex flex-col sm:flex-row gap-4">
                     <Link
-                      to="/contact?type=exposition"
+                      to="/inscription?type=exposant"
                       data-testid="become-exhibitor-button"
                       className="group inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90"
                       style={{ backgroundColor: PAPER, color: INK }}
