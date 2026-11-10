@@ -16,11 +16,11 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.12)";
-const RULE_LIGHT = "rgba(18,17,15,0.08)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.12)";
+const RULE_LIGHT = "rgba(12,45,82,0.08)";
 
 /* ---------- Skeleton ---------- */
 function Skeleton({ cols = "sm:grid-cols-2 lg:grid-cols-4" }) {
@@ -49,7 +49,7 @@ function EmptyState({ lang, icon: Icon = Newspaper, title, subtitle }) {
       </h3>
       <p
         className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed"
-        style={{ color: "rgba(18,17,15,0.55)" }}
+        style={{ color: "rgba(12,45,82,0.55)" }}
       >
         {subtitle}
       </p>
@@ -135,10 +135,10 @@ export default function Media() {
                   onClick={() => setParams({ tab: tb })}
                   className={`text-[10px] sm:text-[11px] uppercase tracking-[0.18em] font-medium pb-3 sm:pb-4 border-b-2 -mb-[1px] transition-colors ${
                     active
-                      ? "border-[#8a6a3e]"
-                      : "border-transparent hover:text-[#12110f]"
+                      ? "border-[#B57A0A]"
+                      : "border-transparent hover:text-[#0C2D52]"
                   }`}
-                  style={{ color: active ? INK : "rgba(18,17,15,0.4)" }}
+                  style={{ color: active ? INK : "rgba(12,45,82,0.4)" }}
                 >
                   {t(`media.tabs.${tb}`)}
                 </button>
@@ -190,7 +190,7 @@ export default function Media() {
                         <span style={{ color: BRONZE }}>
                           {lang === "fr" ? a.category_fr : a.category_en}
                         </span>
-                        <span style={{ color: "rgba(18,17,15,0.35)" }}>
+                        <span style={{ color: "rgba(12,45,82,0.35)" }}>
                           {new Date(a.date).toLocaleDateString(
                             lang === "fr" ? "fr-FR" : "en-GB",
                             { day: "numeric", month: "short" }
@@ -205,7 +205,7 @@ export default function Media() {
                       </h3>
                       <p
                         className="font-serif italic text-[13px] leading-[1.6] line-clamp-3"
-                        style={{ color: "rgba(18,17,15,0.55)" }}
+                        style={{ color: "rgba(12,45,82,0.55)" }}
                       >
                         {lang === "fr" ? a.excerpt_fr : a.excerpt_en}
                       </p>
@@ -310,7 +310,7 @@ export default function Media() {
                         </span>
                         <span 
                           className="text-[9px] uppercase tracking-[0.2em]"
-                          style={{ color: "rgba(244,239,228,0.5)" }}
+                          style={{ color: "rgba(242,244,246,0.5)" }}
                         >
                           WebTV · {t("common.soon")}
                         </span>
@@ -349,7 +349,7 @@ export default function Media() {
                     </h3>
                     <p
                       className="font-serif italic text-[14px] leading-[1.7] flex-1"
-                      style={{ color: "rgba(18,17,15,0.55)" }}
+                      style={{ color: "rgba(12,45,82,0.55)" }}
                     >
                       {p.desc}
                     </p>
@@ -357,7 +357,7 @@ export default function Media() {
                       <Link
                         to={p.link}
                         data-testid={`press-action-${i}`}
-                        className="mt-3 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] font-medium border-b pb-0.5 self-start transition-colors hover:text-[#8a6a3e]"
+                        className="mt-3 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] font-medium border-b pb-0.5 self-start transition-colors hover:text-[#B57A0A]"
                         style={{ color: INK, borderColor: BRONZE }}
                       >
                         {t("media.press.request")}
@@ -366,7 +366,7 @@ export default function Media() {
                       <button
                         onClick={() => toast(t("common.soon"))}
                         data-testid={`press-action-${i}`}
-                        className="mt-3 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] font-medium border-b pb-0.5 self-start transition-colors hover:text-[#8a6a3e]"
+                        className="mt-3 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] font-medium border-b pb-0.5 self-start transition-colors hover:text-[#B57A0A]"
                         style={{ color: INK, borderColor: BRONZE }}
                       >
                         {t("media.press.download")}

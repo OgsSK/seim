@@ -5,10 +5,10 @@ import { EVENT } from "../config/event";
 import { useLanguage } from "../i18n/LanguageContext";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.12)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.12)";
 
 export function Footer() {
   const { t, lang } = useLanguage();
@@ -58,7 +58,7 @@ export function Footer() {
             {/* Note: Assurez-vous que <Logo /> est bien en couleur Encre ou Noir */}
             <Logo />
             
-            <p className="mt-5 text-[14px] leading-[1.7] font-serif italic text-[#12110f]/55 max-w-xs">
+            <p className="mt-5 text-[14px] leading-[1.7] font-serif italic text-[#0C2D52]/55 max-w-xs">
               {t("footer.tagline")}
             </p>
 
@@ -70,7 +70,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 data-testid="footer-facebook-link"
                 aria-label="Facebook"
-                className="text-[#12110f]/50 hover:text-[#8a6a3e] transition-colors"
+                className="text-[#0C2D52]/50 hover:text-[#B57A0A] transition-colors"
               >
                 <Facebook size={18} strokeWidth={1.5} />
               </a>
@@ -80,13 +80,13 @@ export function Footer() {
                 rel="noopener noreferrer"
                 data-testid="footer-youtube-link"
                 aria-label="YouTube"
-                className="text-[#12110f]/50 hover:text-[#8a6a3e] transition-colors"
+                className="text-[#0C2D52]/50 hover:text-[#B57A0A] transition-colors"
               >
                 <Youtube size={18} strokeWidth={1.5} />
               </a>
             </div>
 
-            <p className="mt-5 font-mono-num text-[10px] tracking-[0.15em] uppercase text-[#12110f]/40">
+            <p className="mt-5 font-mono-num text-[10px] tracking-[0.15em] uppercase text-[#0C2D52]/40">
               {EVENT.handle}
             </p>
           </div>
@@ -105,7 +105,7 @@ export function Footer() {
                   <li key={j}>
                     <Link
                       to={l.to}
-                      className="text-[13px] text-[#12110f]/65 hover:text-[#8a6a3e] transition-colors"
+                      className="text-[13px] text-[#0C2D52]/65 hover:text-[#B57A0A] transition-colors"
                       data-testid={`footer-link-${i}-${j}`}
                     >
                       {l.label}
@@ -124,12 +124,12 @@ export function Footer() {
             >
               {t("footer.contactCol")}
             </h4>
-            <ul className="space-y-3.5 text-[13px] text-[#12110f]/65">
+            <ul className="space-y-3.5 text-[13px] text-[#0C2D52]/65">
               <li className="flex gap-3 items-start">
                 <Phone size={14} className="shrink-0 mt-0.5" style={{ color: BRONZE }} />
                 <a
                   href={`tel:${EVENT.phone.replace(/\s/g, "")}`}
-                  className="hover:text-[#8a6a3e] transition-colors"
+                  className="hover:text-[#B57A0A] transition-colors"
                 >
                   {EVENT.phone}
                 </a>
@@ -138,7 +138,7 @@ export function Footer() {
                 <Mail size={14} className="shrink-0 mt-0.5" style={{ color: BRONZE }} />
                 <a
                   href={`mailto:${EVENT.email}`}
-                  className="hover:text-[#8a6a3e] transition-colors break-all"
+                  className="hover:text-[#B57A0A] transition-colors break-all"
                 >
                   {EVENT.email}
                 </a>
@@ -159,7 +159,7 @@ export function Footer() {
 
         {/* Barre inférieure — copyright + liens légaux */}
         <div 
-          className="mt-16 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-[#12110f]/40 text-center sm:text-left"
+          className="mt-16 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-[#0C2D52]/40 text-center sm:text-left"
           style={{ borderColor: RULE }}
         >
           <p className="leading-relaxed">
@@ -170,14 +170,14 @@ export function Footer() {
             <Link
               to="/mentions-legales"
               data-testid="footer-legal-link"
-              className="hover:text-[#8a6a3e] transition-colors whitespace-nowrap"
+              className="hover:text-[#B57A0A] transition-colors whitespace-nowrap"
             >
               {t("footer.legal")}
             </Link>
             <Link
               to="/confidentialite"
               data-testid="footer-privacy-link"
-              className="hover:text-[#8a6a3e] transition-colors whitespace-nowrap"
+              className="hover:text-[#B57A0A] transition-colors whitespace-nowrap"
             >
               {t("footer.privacy")}
             </Link>

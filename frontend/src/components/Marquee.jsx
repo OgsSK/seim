@@ -2,8 +2,8 @@ export function Marquee({ items, slow = false, className = "", dark = false, ink
   const doubled = [...items, ...items];
   
   // Couleurs par défaut selon le thème (clair/sombre)
-  const ink = inkClass || (dark ? "rgba(244,239,228,0.4)" : "rgba(18,17,15,0.35)");
-  const icon = iconClass || "#8a6a3e"; // Bronze
+  const ink = inkClass || (dark ? "rgba(242,244,246,0.4)" : "rgba(12,45,82,0.35)");
+  const icon = iconClass || "#B57A0A"; // Bronze
 
   return (
     <div className={`overflow-hidden whitespace-nowrap ${className}`}>

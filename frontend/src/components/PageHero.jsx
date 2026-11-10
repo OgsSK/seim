@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { Reveal } from "./Reveal";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.12)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.12)";
 
 export function PageHero({ eyebrow, title, subtitle }) {
   return (
@@ -48,7 +48,7 @@ export function PageHero({ eyebrow, title, subtitle }) {
           <Reveal delay={0.2}>
             <p
               className="mt-6 sm:mt-8 text-[15px] sm:text-[17px] max-w-2xl leading-[1.75]"
-              style={{ color: "rgba(18,17,15,0.65)" }}
+              style={{ color: "rgba(12,45,82,0.65)" }}
             >
               {subtitle}
             </p>

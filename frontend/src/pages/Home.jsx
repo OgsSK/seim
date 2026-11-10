@@ -11,12 +11,12 @@ import { EditorialIllustration } from "../components/EditorialIllustration";
 import { SpeakerModal } from "../components/SpeakerModal";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const CREAM = "#f4efe4";
-const RULE = "rgba(18,17,15,0.12)";
-const RULE_INK = "rgba(244,239,228,0.15)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const CREAM = "#F2F4F6";
+const RULE = "rgba(12,45,82,0.12)";
+const RULE_INK = "rgba(242,244,246,0.15)";
 const EASE = [0.22, 1, 0.36, 1];
 
 const getImg = (sp) => sp?.image || sp?.photo || sp?.avatar || null;
@@ -65,7 +65,7 @@ function CountdownSection() {
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(to bottom, rgba(18,17,15,0.9) 0%, rgba(18,17,15,0.5) 50%, rgba(18,17,15,0.9) 100%)`,
+          background: `linear-gradient(to bottom, rgba(12,45,82,0.9) 0%, rgba(12,45,82,0.5) 50%, rgba(12,45,82,0.9) 100%)`,
         }}
       />
 
@@ -143,7 +143,7 @@ function Hero() {
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(to bottom, rgba(18,17,15,0.85) 0%, rgba(18,17,15,0.55) 40%, rgba(18,17,15,0.8) 100%)`,
+          background: `linear-gradient(to bottom, rgba(12,45,82,0.85) 0%, rgba(12,45,82,0.55) 40%, rgba(12,45,82,0.8) 100%)`,
         }}
       />
 
@@ -158,7 +158,7 @@ function Hero() {
       {/* Vignette : plus légère sur mobile */}
       <div 
         className="absolute inset-0 pointer-events-none"
-        style={{ boxShadow: `inset 0 0 120px 40px rgba(18,17,15,0.7)` }}
+        style={{ boxShadow: `inset 0 0 120px 40px rgba(12,45,82,0.7)` }}
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8 pt-20 sm:pt-32 pb-12 sm:pb-20">
@@ -170,10 +170,10 @@ function Hero() {
           className="hidden sm:flex items-center justify-between gap-4 pb-4 mb-14 border-b"
           style={{ borderColor: RULE_INK }}
         >
-          <span className="font-mono-num text-[11px] tracking-[0.22em] uppercase" style={{ color: "#c5a16c" }}>
+          <span className="font-mono-num text-[11px] tracking-[0.22em] uppercase" style={{ color: "#F7B731" }}>
             SEIM <span className="opacity-50">/</span> 2026
           </span>
-          <span className="text-[11px] uppercase tracking-[0.2em] text-[#f4efe4]/55">
+          <span className="text-[11px] uppercase tracking-[0.2em] text-[#F2F4F6]/55">
             {lang === "fr" ? EVENT.venue_fr : EVENT.venue_en}
           </span>
         </motion.div>
@@ -185,9 +185,9 @@ function Hero() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
               className="inline-flex items-center gap-2 text-[9px] sm:text-[11px] uppercase tracking-[0.25em] mb-5 sm:mb-7 backdrop-blur-[2px]"
-              style={{ color: "#c5a16c", willChange: "opacity" }}
+              style={{ color: "#F7B731", willChange: "opacity" }}
             >
-              <span className="w-6 sm:w-8 h-px" style={{ backgroundColor: "#c5a16c" }} />
+              <span className="w-6 sm:w-8 h-px" style={{ backgroundColor: "#F7B731" }} />
               {t("hero.eyebrow")}
             </motion.p>
 
@@ -200,14 +200,14 @@ function Hero() {
             >
               <span className="block">{t("hero.line1")}</span>
               <span className="block">{t("hero.line2")}</span>
-              <span className="block italic" style={{ color: "#c5a16c" }}>{t("hero.line3")}</span>
+              <span className="block italic" style={{ color: "#F7B731" }}>{t("hero.line3")}</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.65, delay: 0.3, ease: EASE }}
-              className="mt-5 sm:mt-8 text-[14px] sm:text-[17px] text-[#f4efe4]/85 max-w-2xl leading-[1.7] sm:leading-[1.8]"
+              className="mt-5 sm:mt-8 text-[14px] sm:text-[17px] text-[#F2F4F6]/85 max-w-2xl leading-[1.7] sm:leading-[1.8]"
               style={{ willChange: "opacity", textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}
             >
               {t("hero.subtitle")}
@@ -224,7 +224,7 @@ function Hero() {
                 to="/inscription"
                 data-testid="hero-register-button"
                 className="group inline-flex justify-center items-center gap-2 sm:gap-3 px-6 sm:px-7 py-3.5 sm:py-4 text-[13px] sm:text-sm font-semibold tracking-wide transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-black/30"
-                style={{ backgroundColor: "#c5a16c", color: INK }}
+                style={{ backgroundColor: "#F7B731", color: INK }}
               >
                 {t("hero.cta1")}
                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
@@ -233,7 +233,7 @@ function Hero() {
                 to="/programme"
                 data-testid="hero-program-button"
                 className="group inline-flex justify-center items-center gap-2 px-5 py-3.5 sm:py-4 border text-[13px] sm:text-sm tracking-wide transition-colors hover:bg-white/15 backdrop-blur-md bg-white/5"
-                style={{ borderColor: "rgba(244,239,228,0.35)", color: CREAM }}
+                style={{ borderColor: "rgba(242,244,246,0.35)", color: CREAM }}
               >
                 {t("hero.cta2")}
                 <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -242,17 +242,17 @@ function Hero() {
 
             <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-4 sm:gap-8 pt-5 sm:pt-6 border-t" style={{ borderColor: RULE_INK }}>
               <div className="flex items-start gap-3">
-                <CalendarDays size={16} className="mt-0.5 shrink-0" style={{ color: "#c5a16c" }} />
+                <CalendarDays size={16} className="mt-0.5 shrink-0" style={{ color: "#F7B731" }} />
                 <div>
-                  <p className="text-[9px] uppercase tracking-[0.22em] text-[#f4efe4]/60 mb-1">{lang === "fr" ? "Dates" : "Dates"}</p>
-                  <p className="text-[12px] sm:text-[13px] text-[#f4efe4]/95">{lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}</p>
+                  <p className="text-[9px] uppercase tracking-[0.22em] text-[#F2F4F6]/60 mb-1">{lang === "fr" ? "Dates" : "Dates"}</p>
+                  <p className="text-[12px] sm:text-[13px] text-[#F2F4F6]/95">{lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <MapPin size={16} className="mt-0.5 shrink-0" style={{ color: "#c5a16c" }} />
+                <MapPin size={16} className="mt-0.5 shrink-0" style={{ color: "#F7B731" }} />
                 <div>
-                  <p className="text-[9px] uppercase tracking-[0.22em] text-[#f4efe4]/60 mb-1">{lang === "fr" ? "Lieu" : "Venue"}</p>
-                  <p className="text-[12px] sm:text-[13px] text-[#f4efe4]/95">CICB · Bamako</p>
+                  <p className="text-[9px] uppercase tracking-[0.22em] text-[#F2F4F6]/60 mb-1">{lang === "fr" ? "Lieu" : "Venue"}</p>
+                  <p className="text-[12px] sm:text-[13px] text-[#F2F4F6]/95">CICB · Bamako</p>
                 </div>
               </div>
             </div>
@@ -277,18 +277,18 @@ function PartnersStrip({ partners }) {
       style={{ backgroundColor: PAPER, borderColor: RULE }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
-        <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.28em] text-[#12110f]/40 whitespace-nowrap text-center sm:text-left">
+        <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.28em] text-[#0C2D52]/40 whitespace-nowrap text-center sm:text-left">
           {lang === "fr" ? "Avec le soutien de" : "With the support of"}
         </p>
         <div className="hidden sm:block flex-1 h-px" style={{ backgroundColor: RULE }} />
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
           {partners.slice(0, 6).map((p, i) => (
-            <span key={p.id || i} className="text-[11px] sm:text-[13px] tracking-wide text-[#12110f]/55">
+            <span key={p.id || i} className="text-[11px] sm:text-[13px] tracking-wide text-[#0C2D52]/55">
               {p.name}
             </span>
           ))}
           {partners.length > 6 && (
-            <span className="text-[10px] font-mono-num text-[#8a6a3e]">
+            <span className="text-[10px] font-mono-num text-[#B57A0A]">
               +{partners.length - 6}
             </span>
           )}
@@ -350,7 +350,7 @@ function Retrospective() {
             <h2 className="font-serif tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.6rem] leading-[1.15] sm:leading-[1.08] break-words" style={{ color: INK }}>
               {copy.title}
             </h2>
-            <p className="mt-4 max-w-2xl text-[13px] sm:text-[15px] leading-[1.7] text-[#12110f]/60">
+            <p className="mt-4 max-w-2xl text-[13px] sm:text-[15px] leading-[1.7] text-[#0C2D52]/60">
               {copy.subtitle}
             </p>
           </div>
@@ -396,7 +396,7 @@ function Retrospective() {
           ))}
         </div>
 
-        <p className="mt-4 text-[10px] sm:text-[11px] italic font-serif text-right" style={{ color: "rgba(18,17,15,0.45)" }}>
+        <p className="mt-4 text-[10px] sm:text-[11px] italic font-serif text-right" style={{ color: "rgba(12,45,82,0.45)" }}>
           {copy.caption}
         </p>
       </div>
@@ -446,7 +446,7 @@ function WhyAttend() {
           <div className="lg:col-span-8">
             <Reveal delay={0.1}>
               <h2 className="font-serif tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.8rem] leading-[1.15] sm:leading-[1.1]" style={{ color: INK }}>{copy.title}</h2>
-              <p className="mt-4 sm:mt-5 max-w-2xl text-[13px] sm:text-[15px] leading-[1.7] sm:leading-[1.8] text-[#12110f]/60">{copy.intro}</p>
+              <p className="mt-4 sm:mt-5 max-w-2xl text-[13px] sm:text-[15px] leading-[1.7] sm:leading-[1.8] text-[#0C2D52]/60">{copy.intro}</p>
             </Reveal>
           </div>
         </div>
@@ -459,7 +459,7 @@ function WhyAttend() {
                 </div>
                 <p className="font-mono-num text-[10px] sm:text-[11px] tracking-[0.2em] mb-2" style={{ color: BRONZE }}>{item.n}</p>
                 <h3 className="font-serif text-lg sm:text-[1.35rem] leading-tight mb-2 sm:mb-3" style={{ color: INK }}>{item.title}</h3>
-                <p className="text-[12px] sm:text-[13px] leading-[1.65] sm:leading-[1.75] text-[#12110f]/55 flex-1">{item.desc}</p>
+                <p className="text-[12px] sm:text-[13px] leading-[1.65] sm:leading-[1.75] text-[#0C2D52]/55 flex-1">{item.desc}</p>
               </article>
             </Reveal>
           ))}
@@ -499,7 +499,7 @@ function Audience() {
   };
 
   return (
-    <section className="py-12 sm:py-24" style={{ backgroundColor: "#ebe5d8", color: INK }}>
+    <section className="py-12 sm:py-24" style={{ backgroundColor: "#E3E8ED", color: INK }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         
         {/* Header éditorial */}
@@ -507,7 +507,7 @@ function Audience() {
           <Reveal>
             <p className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] mb-3 sm:mb-5" style={{ color: BRONZE }}>{copy.eyebrow}</p>
             <h2 className="font-serif tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.8rem] leading-[1.15] sm:leading-[1.1]">{copy.title}</h2>
-            <p className="mt-4 sm:mt-5 text-[13px] sm:text-[15px] leading-[1.7] sm:leading-[1.8] text-[#12110f]/60">{copy.intro}</p>
+            <p className="mt-4 sm:mt-5 text-[13px] sm:text-[15px] leading-[1.7] sm:leading-[1.8] text-[#0C2D52]/60">{copy.intro}</p>
           </Reveal>
         </div>
 
@@ -532,13 +532,13 @@ function Audience() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {copy.items.map((item, i) => (
             <Reveal key={item.n} delay={i * 0.06}>
-              <article className="h-full min-h-[200px] sm:min-h-[240px] p-5 sm:p-7 border bg-[#f4efe4] flex flex-col" style={{ borderColor: RULE }}>
+              <article className="h-full min-h-[200px] sm:min-h-[240px] p-5 sm:p-7 border bg-[#F2F4F6] flex flex-col" style={{ borderColor: RULE }}>
                 <div className="w-10 h-10 mb-4 opacity-80">
                   <EditorialIllustration variant={item.icon} className="w-full h-full" />
                 </div>
                 <p className="font-mono-num text-[10px] sm:text-[11px] tracking-[0.2em] mb-2 sm:mb-3" style={{ color: BRONZE }}>{item.n}</p>
                 <h3 className="font-serif text-lg sm:text-xl leading-tight mb-2 sm:mb-3">{item.title}</h3>
-                <p className="text-[12px] sm:text-[13px] leading-[1.65] sm:leading-[1.75] text-[#12110f]/55 flex-1">{item.desc}</p>
+                <p className="text-[12px] sm:text-[13px] leading-[1.65] sm:leading-[1.75] text-[#0C2D52]/55 flex-1">{item.desc}</p>
               </article>
             </Reveal>
           ))}
@@ -577,7 +577,7 @@ function ExecutiveSummary() {
             </span>
             <span className="w-8 sm:w-12 h-px" style={{ backgroundColor: RULE }} />
           </div>
-          <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#12110f]/35 whitespace-nowrap hidden sm:block">
+          <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#0C2D52]/35 whitespace-nowrap hidden sm:block">
             {lang === "fr" ? "Données officielles" : "Official data"}
           </span>
         </div>
@@ -603,7 +603,7 @@ function ExecutiveSummary() {
               className="absolute inset-x-0 bottom-0 pointer-events-none"
               style={{
                 height: "50%",
-                background: `linear-gradient(to top, rgba(18,17,15,0.9) 0%, rgba(18,17,15,0.6) 40%, transparent 100%)`,
+                background: `linear-gradient(to top, rgba(12,45,82,0.9) 0%, rgba(12,45,82,0.6) 40%, transparent 100%)`,
               }}
             />
 
@@ -628,13 +628,13 @@ function ExecutiveSummary() {
                     </span>
                   )}
                 </div>
-                <p className="mt-1.5 text-[9px] sm:text-[10px] lg:text-[11px] uppercase tracking-[0.24em]" style={{ color: "#d5b47f" }}>
+                <p className="mt-1.5 text-[9px] sm:text-[10px] lg:text-[11px] uppercase tracking-[0.24em]" style={{ color: "#F7B731" }}>
                   {hero.label}
                 </p>
               </div>
 
               {/* Légende de l'image à droite */}
-              <p className="text-[9px] sm:text-[10px] italic font-serif leading-relaxed max-w-xs sm:text-right" style={{ color: "rgba(244,239,228,0.7)" }}>
+              <p className="text-[9px] sm:text-[10px] italic font-serif leading-relaxed max-w-xs sm:text-right" style={{ color: "rgba(242,244,246,0.7)" }}>
                 {lang === "fr"
                   ? "Keynote d'ouverture — CICB, Bamako · Édition 2026"
                   : "Opening keynote — CICB, Bamako · 2026 Edition"}
@@ -672,7 +672,7 @@ function ExecutiveSummary() {
                       </span>
                     )}
                   </div>
-                  <p className="mt-1.5 text-[8px] sm:text-[9px] uppercase tracking-[0.15em] text-[#12110f]/45 leading-snug">
+                  <p className="mt-1.5 text-[8px] sm:text-[9px] uppercase tracking-[0.15em] text-[#0C2D52]/45 leading-snug">
                     {item.label}
                   </p>
                 </div>
@@ -684,7 +684,7 @@ function ExecutiveSummary() {
         {/* Lien méthodologie discret */}
         <Reveal delay={0.2}>
           <div className="mt-5 flex justify-between items-center">
-            <p className="text-[9px] sm:text-[10px] italic font-serif text-[#12110f]/40">
+            <p className="text-[9px] sm:text-[10px] italic font-serif text-[#0C2D52]/40">
               {lang === "fr" ? "Source : organisation SEIM" : "Source: SEIM organization"}
             </p>
             <Link to="/a-propos" className="group inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] uppercase tracking-[0.15em] font-medium" style={{ color: INK }}>
@@ -775,7 +775,7 @@ function Program() {
                     {t(`program.types.${featured.type}`)}
                   </span>
                 </div>
-                <span className="font-mono-num text-[9px] sm:text-[11px] tracking-[0.15em] text-[#12110f]/45">
+                <span className="font-mono-num text-[9px] sm:text-[11px] tracking-[0.15em] text-[#0C2D52]/45">
                   J{featured.day} · {featured.time}
                 </span>
               </div>
@@ -784,7 +784,7 @@ function Program() {
                 {lang === "fr" ? featured.title_fr : featured.title_en}
               </h3>
 
-              <p className="mt-2 sm:mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] sm:text-[13px] text-[#12110f]/50">
+              <p className="mt-2 sm:mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] sm:text-[13px] text-[#0C2D52]/50">
                 <span className="inline-flex items-center gap-1.5">
                   <MapPin size={11} className="sm:w-[13px] sm:h-[13px] shrink-0" style={{ color: BRONZE }} />
                   {lang === "fr" ? featured.room_fr : featured.room_en}
@@ -793,7 +793,7 @@ function Program() {
                   <>
                     <span className="hidden sm:inline-block w-1 h-1 rounded-full" style={{ backgroundColor: BRONZE }} />
                     <span className="sm:hidden">·</span>
-                    <span className="text-[#12110f]/60">
+                    <span className="text-[#0C2D52]/60">
                       {featSpeakers.map(sp => sp.name).join(" · ")}
                     </span>
                   </>
@@ -802,7 +802,7 @@ function Program() {
 
               {featSpeakers.length > 0 && (
                 <div className="hidden sm:block mt-8 pt-6 border-t" style={{ borderColor: RULE }}>
-                  <p className="text-[10px] uppercase tracking-[0.22em] text-[#12110f]/40 mb-3">
+                  <p className="text-[10px] uppercase tracking-[0.22em] text-[#0C2D52]/40 mb-3">
                     {lang === "fr" ? "Avec" : "With"}
                   </p>
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -815,7 +815,7 @@ function Program() {
                             {sp.name?.[0]}
                           </span>
                         )}
-                        <span className="text-[13px] text-[#12110f]/75">{sp.name}</span>
+                        <span className="text-[13px] text-[#0C2D52]/75">{sp.name}</span>
                       </div>
                     ))}
                   </div>
@@ -825,7 +825,7 @@ function Program() {
           </div>
 
           <div className="lg:col-span-6 mt-5 sm:mt-8 lg:mt-0 relative">
-            <div className="absolute left-[11px] top-6 bottom-6 w-px bg-[rgba(18,17,15,0.1)] hidden sm:block" />
+            <div className="absolute left-[11px] top-6 bottom-6 w-px bg-[rgba(12,45,82,0.1)] hidden sm:block" />
 
             {rest.map((s) => (
               <div 
@@ -835,7 +835,7 @@ function Program() {
                 style={{ borderColor: RULE }}
               >
                 <div className="hidden sm:flex flex-col items-center shrink-0 w-6 relative z-10">
-                   <div className="w-2.5 h-2.5 rounded-full border-2 bg-[#f4efe4] mt-2" style={{ borderColor: BRONZE }} />
+                   <div className="w-2.5 h-2.5 rounded-full border-2 bg-[#F2F4F6] mt-2" style={{ borderColor: BRONZE }} />
                 </div>
 
                 <div className="flex-1 min-w-0">
@@ -848,7 +848,7 @@ function Program() {
                         {t(`program.types.${s.type}`)}
                       </span>
                     </div>
-                    <span className="font-mono-num text-[9px] sm:text-[11px] tracking-[0.15em] text-[#12110f]/40 shrink-0">
+                    <span className="font-mono-num text-[9px] sm:text-[11px] tracking-[0.15em] text-[#0C2D52]/40 shrink-0">
                       J{s.day} · {s.time}
                     </span>
                   </div>
@@ -857,7 +857,7 @@ function Program() {
                     {lang === "fr" ? s.title_fr : s.title_en}
                   </h4>
 
-                  <p className="mt-1 sm:mt-1.5 flex items-center gap-1 text-[10px] sm:text-[12px] text-[#12110f]/45">
+                  <p className="mt-1 sm:mt-1.5 flex items-center gap-1 text-[10px] sm:text-[12px] text-[#0C2D52]/45">
                     <MapPin size={9} className="sm:w-[10px] sm:h-[10px]" />
                     <span className="break-words">{lang === "fr" ? s.room_fr : s.room_en}</span>
                   </p>
@@ -927,11 +927,11 @@ function Voices({ speakers }) {
               <button
                 type="button"
                 onClick={() => setSelected(sp)}
-                className="group flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-6 p-3 sm:p-8 border-b border-r w-full h-full text-left transition-colors hover:bg-[#ebe5d8]/50"
+                className="group flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-6 p-3 sm:p-8 border-b border-r w-full h-full text-left transition-colors hover:bg-[#E3E8ED]/50"
                 style={{ borderColor: RULE }}
               >
-                <div className="w-full h-16 sm:w-20 sm:h-24 md:w-24 md:h-32 shrink-0 border flex items-center justify-center bg-[#f4efe4]" style={{ borderColor: RULE }}>
-                  <span className="font-serif text-xl sm:text-3xl md:text-4xl text-[#8a6a3e]">{getInitials(sp.name)}</span>
+                <div className="w-full h-16 sm:w-20 sm:h-24 md:w-24 md:h-32 shrink-0 border flex items-center justify-center bg-[#F2F4F6]" style={{ borderColor: RULE }}>
+                  <span className="font-serif text-xl sm:text-3xl md:text-4xl text-[#B57A0A]">{getInitials(sp.name)}</span>
                 </div>
 
                 <div className="flex-1 min-w-0">
@@ -942,7 +942,7 @@ function Voices({ speakers }) {
                     {sp.name}
                   </h3>
                   {sp.company && (
-                    <p className="text-[9px] sm:text-[12px] text-[#12110f]/50 italic font-serif line-clamp-1">
+                    <p className="text-[9px] sm:text-[12px] text-[#0C2D52]/50 italic font-serif line-clamp-1">
                       {sp.company}
                     </p>
                   )}
@@ -984,7 +984,7 @@ function Conviction() {
       <div className="absolute inset-0 opacity-[0.15] pointer-events-none">
         <SmartImg src="/assets/seim/ambiance.jpg" alt="" className="w-full h-full object-cover grayscale" />
       </div>
-      <div className="absolute inset-0 pointer-events-none" style={{ background: `linear-gradient(to bottom, ${INK} 0%, rgba(18,17,15,0.4) 30%, rgba(18,17,15,0.4) 70%, ${INK} 100%)` }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `linear-gradient(to bottom, ${INK} 0%, rgba(12,45,82,0.4) 30%, rgba(12,45,82,0.4) 70%, ${INK} 100%)` }} />
       <div className="absolute top-0 right-0 w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] opacity-10 pointer-events-none -mt-20 -mr-20">
         <EditorialIllustration variant="network" className="w-full h-full" />
       </div>
@@ -1009,12 +1009,12 @@ function Conviction() {
               </h2>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="mt-5 sm:mt-10 text-[13px] sm:text-[16px] text-[#f4efe4]/70 max-w-2xl leading-[1.7] sm:leading-[1.8]">{copy.body}</p>
+              <p className="mt-5 sm:mt-10 text-[13px] sm:text-[16px] text-[#F2F4F6]/70 max-w-2xl leading-[1.7] sm:leading-[1.8]">{copy.body}</p>
             </Reveal>
             <Reveal delay={0.3}>
               <div className="mt-6 sm:mt-10 flex items-center gap-3">
                 <span className="w-5 sm:w-6 h-px" style={{ backgroundColor: RULE_INK }} />
-                <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.24em] text-[#f4efe4]/40">{copy.sign}</span>
+                <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.24em] text-[#F2F4F6]/40">{copy.sign}</span>
               </div>
             </Reveal>
           </div>
@@ -1027,7 +1027,7 @@ function Conviction() {
                 <div>
                   <p className="font-mono-num text-[10px] sm:text-[11px] tracking-[0.2em] mb-2 sm:mb-3" style={{ color: BRONZE }}>{String(i + 1).padStart(2, "0")}</p>
                   <h3 className="font-serif text-base sm:text-lg leading-tight mb-1.5 sm:mb-2">{p.title}</h3>
-                  <p className="text-[11px] sm:text-[13px] text-[#f4efe4]/60 leading-[1.6] sm:leading-[1.65]">{p.desc}</p>
+                  <p className="text-[11px] sm:text-[13px] text-[#F2F4F6]/60 leading-[1.6] sm:leading-[1.65]">{p.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -1070,7 +1070,7 @@ function CtaBand() {
         </Reveal>
 
         <Reveal delay={0.2}>
-          <p className="mt-4 sm:mt-7 text-[13px] sm:text-[16px] text-[#12110f]/70 max-w-xl mx-auto leading-[1.7] sm:leading-[1.75]">{t("cta.subtitle")}</p>
+          <p className="mt-4 sm:mt-7 text-[13px] sm:text-[16px] text-[#0C2D52]/70 max-w-xl mx-auto leading-[1.7] sm:leading-[1.75]">{t("cta.subtitle")}</p>
         </Reveal>
 
         <Reveal delay={0.3}>
@@ -1083,7 +1083,7 @@ function CtaBand() {
         </Reveal>
 
         <Reveal delay={0.4}>
-          <p className="mt-8 sm:mt-10 font-mono-num text-[9px] sm:text-[11px] uppercase tracking-[0.22em] text-[#12110f]/50">
+          <p className="mt-8 sm:mt-10 font-mono-num text-[9px] sm:text-[11px] uppercase tracking-[0.22em] text-[#0C2D52]/50">
             {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}{" · "}CICB · Bamako
           </p>
         </Reveal>

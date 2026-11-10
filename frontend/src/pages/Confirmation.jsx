@@ -9,11 +9,11 @@ import { api } from "../lib/api";
 import { Logo } from "../components/Logo";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.12)";
-const RULE_INK = "rgba(244,239,228,0.18)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.12)";
+const RULE_INK = "rgba(242,244,246,0.18)";
 
 export default function Confirmation() {
   const { code } = useParams();
@@ -69,7 +69,7 @@ export default function Confirmation() {
           </span>
           <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
         </div>
-        <p className="font-serif italic text-[15px]" style={{ color: "rgba(18,17,15,0.55)" }}>
+        <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.55)" }}>
           {t("common.loading")}
         </p>
       </div>
@@ -110,7 +110,7 @@ export default function Confirmation() {
 
           <p
             className="mt-5 text-[14px] sm:text-[15px] leading-[1.7] max-w-md mx-auto font-serif italic"
-            style={{ color: "rgba(18,17,15,0.55)" }}
+            style={{ color: "rgba(12,45,82,0.55)" }}
           >
             {t("confirmation.subtitle")}
           </p>
@@ -178,7 +178,7 @@ export default function Confirmation() {
 
               <div
                 className="mt-5 pt-4 border-t space-y-2 text-[11px] sm:text-[12px]"
-                style={{ borderColor: RULE_INK, color: "rgba(244,239,228,0.55)" }}
+                style={{ borderColor: RULE_INK, color: "rgba(242,244,246,0.55)" }}
               >
                 <p className="flex items-center justify-center sm:justify-start gap-2">
                   <CalendarDays size={12} style={{ color: BRONZE }} className="shrink-0" />
@@ -199,13 +199,13 @@ export default function Confirmation() {
           >
             <span
               className="font-mono-num text-[9px] uppercase tracking-[0.22em]"
-              style={{ color: "rgba(244,239,228,0.35)" }}
+              style={{ color: "rgba(242,244,246,0.35)" }}
             >
               SEIM · {lang === "fr" ? "Édition 02" : "Edition 02"}
             </span>
             <span
               className="font-mono-num text-[9px] uppercase tracking-[0.22em]"
-              style={{ color: "rgba(244,239,228,0.35)" }}
+              style={{ color: "rgba(242,244,246,0.35)" }}
             >
               {lang === "fr" ? "Bamako, Mali" : "Bamako, Mali"}
             </span>
@@ -215,7 +215,7 @@ export default function Confirmation() {
         {/* Note */}
         <p
           className="mt-6 text-center text-[12px] sm:text-[13px] font-serif italic px-4"
-          style={{ color: "rgba(18,17,15,0.45)" }}
+          style={{ color: "rgba(12,45,82,0.45)" }}
         >
           {t("confirmation.note")}
         </p>

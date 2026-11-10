@@ -3,11 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
 
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.12)";
-const FALLBACK_BG = "#ebe5d8";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.12)";
+const FALLBACK_BG = "#E3E8ED";
 
 export function SpeakerModal({ speaker, onClose }) {
   const { lang, t } = useLanguage();
@@ -44,7 +44,7 @@ export function SpeakerModal({ speaker, onClose }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-[70] flex items-end sm:items-center justify-center sm:p-6 backdrop-blur-sm"
-          style={{ backgroundColor: "rgba(18,17,15,0.8)" }}
+          style={{ backgroundColor: "rgba(12,45,82,0.8)" }}
           onClick={onClose}
         >
           <motion.div
@@ -57,7 +57,7 @@ export function SpeakerModal({ speaker, onClose }) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="sm:hidden pt-3 pb-1 flex justify-center shrink-0">
-              <span className="w-10 h-1 rounded-full" style={{ backgroundColor: "rgba(18,17,15,0.15)" }} />
+              <span className="w-10 h-1 rounded-full" style={{ backgroundColor: "rgba(12,45,82,0.15)" }} />
             </div>
 
             {/* En-tête Typographique */}
@@ -121,7 +121,7 @@ export function SpeakerModal({ speaker, onClose }) {
                   <p className="font-mono-num text-[10px] uppercase tracking-[0.24em] mb-3" style={{ color: BRONZE }}>
                     {t("speakers.bio")}
                   </p>
-                  <p className="font-serif text-[15px] sm:text-[16px] leading-[1.75]" style={{ color: "rgba(18,17,15,0.75)" }}>
+                  <p className="font-serif text-[15px] sm:text-[16px] leading-[1.75]" style={{ color: "rgba(12,45,82,0.75)" }}>
                     {lang === "fr" ? speaker.bio_fr : speaker.bio_en}
                   </p>
                 </div>

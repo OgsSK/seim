@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Reveal } from "./Reveal";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const GOLD = "#c5a059"; // Pour le mode sombre
-const RULE = "rgba(18,17,15,0.12)";
-const RULE_INK = "rgba(244,239,228,0.15)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const GOLD = "#F7B731"; // Pour le mode sombre
+const RULE = "rgba(12,45,82,0.12)";
+const RULE_INK = "rgba(242,244,246,0.15)";
 
 export function SectionHead({
   eyebrow,
@@ -59,7 +59,7 @@ export function SectionHead({
             className={`mt-5 sm:mt-6 text-[15px] sm:text-[16px] leading-[1.75] ${
               center ? "text-center mx-auto" : "text-left"
             }`}
-            style={{ color: dark ? "rgba(244,239,228,0.55)" : "rgba(18,17,15,0.6)" }}
+            style={{ color: dark ? "rgba(242,244,246,0.55)" : "rgba(12,45,82,0.6)" }}
           >
             {subtitle}
           </p>
@@ -85,7 +85,7 @@ export function SmartImg({
       <div
         className={`flex items-center justify-center ${className} ${fallbackClassName}`}
         style={{
-          backgroundColor: "#e8e4da", // Un beige/gris chaud pour le placeholder
+          backgroundColor: "#E3E8ED", // Un beige/gris chaud pour le placeholder
           ...(aspectRatio ? { aspectRatio } : {}),
         }}
       >

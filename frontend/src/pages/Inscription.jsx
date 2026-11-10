@@ -7,15 +7,15 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.15)";
-const RULE_LIGHT = "rgba(18,17,15,0.08)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.15)";
+const RULE_LIGHT = "rgba(12,45,82,0.08)";
 
 /* Style des champs de saisie (ligne éditoriale) */
 const inputCls =
-  "w-full px-0 py-3 bg-transparent border-0 border-b text-[15px] placeholder-[#12110f]/30 focus:outline-none focus:ring-0 transition-colors appearance-none";
+  "w-full px-0 py-3 bg-transparent border-0 border-b text-[15px] placeholder-[#0C2D52]/30 focus:outline-none focus:ring-0 transition-colors appearance-none";
 
 export default function Inscription() {
   const { t, lang } = useLanguage();
@@ -103,8 +103,8 @@ export default function Inscription() {
                     onClick={() => setForm({ ...form, pass_type: p })}
                     className={`text-left p-6 border transition-colors flex flex-col justify-between ${
                       active
-                        ? "border-[#8a6a3e] bg-[#f4efe4]"
-                        : "border-[rgba(18,17,15,0.15)] bg-transparent hover:border-[#8a6a3e]"
+                        ? "border-[#B57A0A] bg-[#F2F4F6]"
+                        : "border-[rgba(12,45,82,0.15)] bg-transparent hover:border-[#B57A0A]"
                     }`}
                   >
                     <div className="flex items-start justify-between gap-3 mb-4">
@@ -113,14 +113,14 @@ export default function Inscription() {
                       </h3>
                       <span 
                         className="font-mono-num text-[11px] uppercase tracking-[0.1em] shrink-0" 
-                        style={{ color: active ? BRONZE : "rgba(18,17,15,0.45)" }}
+                        style={{ color: active ? BRONZE : "rgba(12,45,82,0.45)" }}
                       >
                         {pass.price}
                       </span>
                     </div>
                     <p 
                       className="font-serif italic text-[13px] leading-[1.6]"
-                      style={{ color: "rgba(18,17,15,0.55)" }}
+                      style={{ color: "rgba(12,45,82,0.55)" }}
                     >
                       {pass.desc}
                     </p>
@@ -146,7 +146,7 @@ export default function Inscription() {
                 placeholder={t("register.firstName")}
                 value={form.first_name}
                 onChange={set("first_name")}
-                className={`${inputCls} focus:border-[#8a6a3e]`}
+                className={`${inputCls} focus:border-[#B57A0A]`}
                 style={{ borderColor: RULE, color: INK }}
               />
               <input
@@ -155,7 +155,7 @@ export default function Inscription() {
                 placeholder={t("register.lastName")}
                 value={form.last_name}
                 onChange={set("last_name")}
-                className={`${inputCls} focus:border-[#8a6a3e]`}
+                className={`${inputCls} focus:border-[#B57A0A]`}
                 style={{ borderColor: RULE, color: INK }}
               />
               <input
@@ -165,7 +165,7 @@ export default function Inscription() {
                 placeholder={t("register.email")}
                 value={form.email}
                 onChange={set("email")}
-                className={`${inputCls} focus:border-[#8a6a3e]`}
+                className={`${inputCls} focus:border-[#B57A0A]`}
                 style={{ borderColor: RULE, color: INK }}
               />
               <input
@@ -174,7 +174,7 @@ export default function Inscription() {
                 placeholder={t("register.phone")}
                 value={form.phone}
                 onChange={set("phone")}
-                className={`${inputCls} focus:border-[#8a6a3e]`}
+                className={`${inputCls} focus:border-[#B57A0A]`}
                 style={{ borderColor: RULE, color: INK }}
               />
               <input
@@ -182,7 +182,7 @@ export default function Inscription() {
                 placeholder={t("register.profession")}
                 value={form.profession}
                 onChange={set("profession")}
-                className={`${inputCls} focus:border-[#8a6a3e]`}
+                className={`${inputCls} focus:border-[#B57A0A]`}
                 style={{ borderColor: RULE, color: INK }}
               />
               <input
@@ -190,7 +190,7 @@ export default function Inscription() {
                 placeholder={t("register.company")}
                 value={form.company}
                 onChange={set("company")}
-                className={`${inputCls} focus:border-[#8a6a3e]`}
+                className={`${inputCls} focus:border-[#B57A0A]`}
                 style={{ borderColor: RULE, color: INK }}
               />
             </div>
@@ -211,7 +211,7 @@ export default function Inscription() {
                   data-testid="reg-country"
                   value={form.country}
                   onChange={set("country")}
-                  className={`${inputCls} focus:border-[#8a6a3e] cursor-pointer`}
+                  className={`${inputCls} focus:border-[#B57A0A] cursor-pointer`}
                   style={{ borderColor: RULE, color: INK }}
                 >
                   {t("register.countries").map((c) => (
@@ -226,7 +226,7 @@ export default function Inscription() {
                   data-testid="reg-category"
                   value={form.category}
                   onChange={set("category")}
-                  className={`${inputCls} focus:border-[#8a6a3e] cursor-pointer`}
+                  className={`${inputCls} focus:border-[#B57A0A] cursor-pointer`}
                   style={{ borderColor: RULE, color: INK }}
                 >
                   {categories.map((c) => (
@@ -262,8 +262,8 @@ export default function Inscription() {
                     onClick={() => toggleInterest(String(i))}
                     className={`px-4 py-2 text-[11px] uppercase tracking-[0.15em] font-medium border transition-colors ${
                       active
-                        ? "bg-[#12110f] text-[#f4efe4] border-[#12110f]"
-                        : "bg-transparent text-[#12110f]/60 border-[rgba(18,17,15,0.2)] hover:border-[#8a6a3e] hover:text-[#12110f]"
+                        ? "bg-[#0C2D52] text-[#F2F4F6] border-[#0C2D52]"
+                        : "bg-transparent text-[#0C2D52]/60 border-[rgba(12,45,82,0.2)] hover:border-[#B57A0A] hover:text-[#0C2D52]"
                     }`}
                   >
                     {int_}

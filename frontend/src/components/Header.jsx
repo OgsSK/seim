@@ -5,10 +5,10 @@ import { Menu, X, Globe } from "lucide-react";
 import { Logo } from "./Logo";
 import { useLanguage } from "../i18n/LanguageContext";
 
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.12)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.12)";
 
 const NAV_ITEMS = [
   { to: "/", key: "nav.home" },
@@ -83,11 +83,11 @@ export function Header() {
                 `relative py-2 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors ${
                   isActive
                     ? ""
-                    : "hover:text-[#12110f]"
+                    : "hover:text-[#0C2D52]"
                 }`
               }
               style={({ isActive }) => ({
-                color: isActive ? BRONZE : "rgba(18,17,15,0.6)",
+                color: isActive ? BRONZE : "rgba(12,45,82,0.6)",
               })}
             >
               {({ isActive }) => (
@@ -114,8 +114,8 @@ export function Header() {
             data-testid="language-switcher"
             onClick={() => setLang(lang === "fr" ? "en" : "fr")}
             aria-label={`Switch to ${lang === "fr" ? "English" : "French"}`}
-            className="flex items-center gap-1.5 py-1 text-[11px] font-mono-num tracking-[0.1em] uppercase transition-colors hover:text-[#12110f]"
-            style={{ color: "rgba(18,17,15,0.5)" }}
+            className="flex items-center gap-1.5 py-1 text-[11px] font-mono-num tracking-[0.1em] uppercase transition-colors hover:text-[#0C2D52]"
+            style={{ color: "rgba(12,45,82,0.5)" }}
           >
             <Globe size={12} />
             {lang === "fr" ? "EN" : "FR"}
@@ -184,11 +184,11 @@ export function Header() {
                     onClick={() => setOpen(false)}
                     className={({ isActive }) =>
                       `relative py-3.5 text-sm font-medium uppercase tracking-[0.15em] transition-colors border-b last:border-0 flex items-center justify-between ${
-                        isActive ? "" : "hover:text-[#12110f]"
+                        isActive ? "" : "hover:text-[#0C2D52]"
                       }`
                     }
                     style={({ isActive }) => ({
-                      color: isActive ? BRONZE : "rgba(18,17,15,0.7)",
+                      color: isActive ? BRONZE : "rgba(12,45,82,0.7)",
                       borderColor: RULE,
                     })}
                   >

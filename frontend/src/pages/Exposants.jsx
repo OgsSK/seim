@@ -8,20 +8,20 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.12)";
-const RULE_LIGHT = "rgba(18,17,15,0.08)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.12)";
+const RULE_LIGHT = "rgba(12,45,82,0.08)";
 const EASE = [0.22, 1, 0.36, 1];
 
 /* ============================================================
    SYSTÈME DE BADGES
    ============================================================ */
 const BADGE = {
-  primary: "bg-[#12110f] text-[#f4efe4]",
-  accent: "border border-[#8a6a3e] text-[#8a6a3e]",
-  neutral: "border border-[rgba(18,17,15,0.2)] text-[#12110f]/60",
+  primary: "bg-[#0C2D52] text-[#F2F4F6]",
+  accent: "border border-[#B57A0A] text-[#B57A0A]",
+  neutral: "border border-[rgba(12,45,82,0.2)] text-[#0C2D52]/60",
 };
 
 const SECTOR_VARIANT = {
@@ -87,7 +87,7 @@ function ExhibitorCard({ exhibitor, lang, t }) {
       {desc && (
         <p 
           className="text-[14px] leading-[1.65] line-clamp-3 font-serif italic mb-6"
-          style={{ color: "rgba(18,17,15,0.55)" }}
+          style={{ color: "rgba(12,45,82,0.55)" }}
         >
           {desc}
         </p>
@@ -99,7 +99,7 @@ function ExhibitorCard({ exhibitor, lang, t }) {
       >
         <span 
           className="inline-flex items-center gap-1.5 font-mono-num text-[10px] uppercase tracking-[0.1em]"
-          style={{ color: "rgba(18,17,15,0.5)" }}
+          style={{ color: "rgba(12,45,82,0.5)" }}
         >
           <Store size={13} strokeWidth={1.5} style={{ color: BRONZE }} className="shrink-0" />
           <span className="whitespace-nowrap">{t("exhibitors.stand")}</span>
@@ -112,7 +112,7 @@ function ExhibitorCard({ exhibitor, lang, t }) {
             target="_blank"
             rel="noopener noreferrer"
             data-testid={`exhibitor-site-${id}`}
-            className="group/link inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.15em] font-medium transition-colors hover:text-[#8a6a3e] shrink-0"
+            className="group/link inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.15em] font-medium transition-colors hover:text-[#B57A0A] shrink-0"
             style={{ color: INK }}
           >
             {t("exhibitors.visitSite")}
@@ -146,7 +146,7 @@ function EmptyState({ lang }) {
       </h3>
       <p 
         className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed mb-8"
-        style={{ color: "rgba(18,17,15,0.55)" }}
+        style={{ color: "rgba(12,45,82,0.55)" }}
       >
         {lang === "fr"
           ? "La liste des institutions, fintechs et entreprises présentes à la 2ᵉ édition est en cours de finalisation. Revenez bientôt pour la découvrir."
@@ -154,7 +154,7 @@ function EmptyState({ lang }) {
       </p>
       <Link
         to="/contact?type=exposition"
-        className="group inline-flex items-center gap-2.5 text-[13px] font-medium transition-colors hover:text-[#8a6a3e]"
+        className="group inline-flex items-center gap-2.5 text-[13px] font-medium transition-colors hover:text-[#B57A0A]"
         style={{ color: INK }}
       >
         <span className="border-b pb-0.5" style={{ borderColor: BRONZE }}>
@@ -236,7 +236,7 @@ export default function Exposants() {
                 <span className="flex-1 h-px" style={{ backgroundColor: RULE }} />
                 <span 
                   className="font-mono-num text-[11px] uppercase tracking-[0.15em] whitespace-nowrap"
-                  style={{ color: "rgba(18,17,15,0.4)" }}
+                  style={{ color: "rgba(12,45,82,0.4)" }}
                 >
                   {filtered.length} {lang === "fr" ? "Exposants" : "Exhibitors"}
                 </span>
@@ -253,7 +253,7 @@ export default function Exposants() {
 
           <p 
             className="font-serif italic text-[15px] sm:text-[16px] leading-[1.75] max-w-2xl mb-12"
-            style={{ color: "rgba(18,17,15,0.6)" }}
+            style={{ color: "rgba(12,45,82,0.6)" }}
           >
             {lang === "fr"
               ? "Institutions financières, fintechs, cabinets et médias spécialisés — découvrez les acteurs qui font vivre l'écosystème économique africain sur les deux jours du salon."
@@ -270,7 +270,7 @@ export default function Exposants() {
                 <p className="font-light text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
                   {exhibitors.length}
                 </p>
-                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(18,17,15,0.45)" }}>
+                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(12,45,82,0.45)" }}>
                   {lang === "fr" ? "Exposants" : "Exhibitors"}
                 </p>
               </div>
@@ -281,7 +281,7 @@ export default function Exposants() {
                 <p className="font-light text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
                   {totalSectors}
                 </p>
-                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(18,17,15,0.45)" }}>
+                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(12,45,82,0.45)" }}>
                   {lang === "fr" ? "Secteurs" : "Sectors"}
                 </p>
               </div>
@@ -292,7 +292,7 @@ export default function Exposants() {
                 <p className="font-light text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
                   {totalStands || "—"}
                 </p>
-                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(18,17,15,0.45)" }}>
+                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(12,45,82,0.45)" }}>
                   {lang === "fr" ? "Stands" : "Stands"}
                 </p>
               </div>
@@ -314,10 +314,10 @@ export default function Exposants() {
                     onClick={() => setSector(s)}
                     className={`text-[11px] uppercase tracking-[0.18em] font-medium pb-1 border-b-2 transition-colors ${
                       active
-                        ? "border-[#8a6a3e]"
-                        : "border-transparent hover:text-[#12110f]"
+                        ? "border-[#B57A0A]"
+                        : "border-transparent hover:text-[#0C2D52]"
                     }`}
-                    style={{ color: active ? INK : "rgba(18,17,15,0.4)" }}
+                    style={{ color: active ? INK : "rgba(12,45,82,0.4)" }}
                   >
                     {t(`exhibitors.sectors.${s}`)}
                   </button>
@@ -329,13 +329,13 @@ export default function Exposants() {
           {/* Grille / états (CORRIGÉ ICI AVEC motion.div AU LIEU DE STAGGER) */}
           {loading ? (
             <div className="py-20 text-center">
-              <p className="font-serif italic text-[15px]" style={{ color: "rgba(18,17,15,0.55)" }}>
+              <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.55)" }}>
                 {lang === "fr" ? "Chargement des exposants..." : "Loading exhibitors..."}
               </p>
             </div>
           ) : apiError ? (
              <div className="py-16 text-center border-y" style={{ borderColor: RULE }}>
-               <p className="font-serif italic text-[15px]" style={{ color: "rgba(18,17,15,0.55)" }}>
+               <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.55)" }}>
                  {lang === "fr" ? "Impossible de charger les exposants pour le moment." : "Unable to load exhibitors at this time."}
                </p>
              </div>
@@ -343,14 +343,14 @@ export default function Exposants() {
             <EmptyState lang={lang} />
           ) : filtered.length === 0 ? (
             <div className="py-16 text-center border-y" style={{ borderColor: RULE }}>
-              <p className="font-serif italic text-[15px]" style={{ color: "rgba(18,17,15,0.55)" }}>
+              <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.55)" }}>
                 {lang === "fr"
                   ? "Aucun exposant dans ce secteur pour le moment."
                   : "No exhibitors in this sector yet."}
               </p>
               <button
                 onClick={() => setSector("all")}
-                className="mt-6 group inline-flex items-center gap-2 text-[13px] font-medium transition-colors hover:text-[#8a6a3e]"
+                className="mt-6 group inline-flex items-center gap-2 text-[13px] font-medium transition-colors hover:text-[#B57A0A]"
                 style={{ color: INK }}
               >
                 <span className="border-b pb-0.5" style={{ borderColor: BRONZE }}>
@@ -405,7 +405,7 @@ export default function Exposants() {
                   
                   <p 
                     className="font-serif italic text-[15px] leading-[1.7] mb-10"
-                    style={{ color: "rgba(244,239,228,0.6)" }}
+                    style={{ color: "rgba(242,244,246,0.6)" }}
                   >
                     {t("partners.form.desc")}
                   </p>
@@ -427,7 +427,7 @@ export default function Exposants() {
                     <Link
                       to="/partenaires"
                       className="group inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-medium border transition-colors hover:bg-white/5"
-                      style={{ borderColor: "rgba(244,239,228,0.2)", color: PAPER }}
+                      style={{ borderColor: "rgba(242,244,246,0.2)", color: PAPER }}
                     >
                       {lang === "fr" ? "Devenir partenaire" : "Become a partner"}
                       <ArrowUpRight

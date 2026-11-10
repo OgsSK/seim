@@ -6,25 +6,25 @@
 
 @layer base {
     :root {
-        --background: 210 40% 98%;
-        --foreground: 222 47% 11%;
+        --background: 210 18% 96%;
+        --foreground: 212 74% 18%;
         --card: 0 0% 100%;
-        --card-foreground: 222 47% 11%;
+        --card-foreground: 212 74% 18%;
         --popover: 0 0% 100%;
-        --popover-foreground: 222 47% 11%;
-        --primary: 224 60% 11%;
-        --primary-foreground: 45 93% 58%;
+        --popover-foreground: 212 74% 18%;
+        --primary: 212 74% 18%;
+        --primary-foreground: 41 93% 58%;
         --secondary: 214 32% 91%;
-        --secondary-foreground: 222 47% 11%;
+        --secondary-foreground: 212 74% 18%;
         --muted: 214 32% 91%;
         --muted-foreground: 215 16% 40%;
-        --accent: 38 92% 50%;
-        --accent-foreground: 224 60% 11%;
+        --accent: 41 93% 58%;
+        --accent-foreground: 212 74% 18%;
         --destructive: 0 84.2% 60.2%;
         --destructive-foreground: 0 0% 98%;
         --border: 214 32% 91%;
         --input: 214 32% 85%;
-        --ring: 38 92% 50%;
+        --ring: 41 93% 58%;
         --radius: 0.75rem;
     }
 }
@@ -44,8 +44,8 @@
         @apply font-display;
     }
     ::selection {
-        background: #F59E0B;
-        color: #0B132B;
+        background: #F7B731;
+        color: #0C2D52;
     }
 }
 
@@ -66,13 +66,13 @@
     .font-body { font-family: 'Plus Jakarta Sans', sans-serif; }
     .font-serif-accent { font-family: 'Cormorant Garamond', serif; }
     .font-mono-num { font-family: 'JetBrains Mono', monospace; }
-    .text-navy { color: #0B132B; }
-    .bg-navy { background-color: #0B132B; }
-    .bg-navy-deep { background-color: #080E20; }
-    .bg-navy-soft { background-color: #1C2541; }
-    .text-gold { color: #F59E0B; }
-    .bg-gold { background-color: #F59E0B; }
-    .border-gold { border-color: #F59E0B; }
+    .text-navy { color: #0C2D52; }
+    .bg-navy { background-color: #0C2D52; }
+    .bg-navy-deep { background-color: #082140; }
+    .bg-navy-soft { background-color: #334E68; }
+    .text-gold { color: #F7B731; }
+    .bg-gold { background-color: #F7B731; }
+    .border-gold { border-color: #F7B731; }
     .grain::after {
         content: "";
         position: absolute;
@@ -86,8 +86,8 @@
             -45deg,
             transparent,
             transparent 40px,
-            rgba(245, 158, 11, 0.04) 40px,
-            rgba(245, 158, 11, 0.04) 42px
+            rgba(247,183,49, 0.04) 40px,
+            rgba(247,183,49, 0.04) 42px
         );
     }
 }
@@ -104,8 +104,8 @@
 }
 
 @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.35); }
-    50% { box-shadow: 0 0 0 12px rgba(245, 158, 11, 0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(247,183,49, 0.35); }
+    50% { box-shadow: 0 0 0 12px rgba(247,183,49, 0); }
 }
 .animate-pulse-glow {
     animation: pulse-glow 2.4s ease-in-out infinite;

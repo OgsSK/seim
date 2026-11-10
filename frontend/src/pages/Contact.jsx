@@ -19,14 +19,14 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.15)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.15)";
 
 /* Style commun pour les champs de saisie (style formulaire papier) */
 const inputCls =
-  "w-full px-0 py-3 bg-transparent border-0 border-b text-[15px] placeholder-[#12110f]/30 focus:outline-none focus:ring-0 transition-colors appearance-none";
+  "w-full px-0 py-3 bg-transparent border-0 border-b text-[15px] placeholder-[#0C2D52]/30 focus:outline-none focus:ring-0 transition-colors appearance-none";
 
 /* ---------- Carte d'info éditoriale ---------- */
 function InfoCard({ icon: Icon, label, value, href, external, testid }) {
@@ -39,7 +39,7 @@ function InfoCard({ icon: Icon, label, value, href, external, testid }) {
       <div className="flex-1 min-w-0">
         <p
           className="text-[9px] uppercase tracking-[0.24em] mb-1"
-          style={{ color: "rgba(18,17,15,0.45)" }}
+          style={{ color: "rgba(12,45,82,0.45)" }}
         >
           {label}
         </p>
@@ -70,7 +70,7 @@ function InfoCard({ icon: Icon, label, value, href, external, testid }) {
         href={href}
         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         data-testid={testid}
-        className={`${baseCls} hover:border-[#8a6a3e]`}
+        className={`${baseCls} hover:border-[#B57A0A]`}
         style={{ borderColor: RULE }}
       >
         {inner}
@@ -202,7 +202,7 @@ export default function Contact() {
                       href="https://maps.google.com/maps?q=Centre%20International%20de%20Conf%C3%A9rences%20de%20Bamako"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] font-medium transition-colors hover:text-[#8a6a3e]"
+                      className="group inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] font-medium transition-colors hover:text-[#B57A0A]"
                       style={{ color: INK }}
                     >
                       {lang === "fr" ? "Ouvrir dans Maps" : "Open in Maps"}
@@ -244,7 +244,7 @@ export default function Contact() {
                   </h3>
                   <p
                     className="text-[13px] sm:text-[14px] font-serif italic flex items-center gap-2"
-                    style={{ color: "rgba(18,17,15,0.55)" }}
+                    style={{ color: "rgba(12,45,82,0.55)" }}
                   >
                     <Clock size={13} style={{ color: BRONZE }} />
                     {lang === "fr"
@@ -262,7 +262,7 @@ export default function Contact() {
                   <div>
                     <p
                       className="text-[9px] uppercase tracking-[0.24em] mb-4"
-                      style={{ color: "rgba(18,17,15,0.45)" }}
+                      style={{ color: "rgba(12,45,82,0.45)" }}
                     >
                       {lang === "fr" ? "Vos coordonnées" : "Your details"}
                     </p>
@@ -275,7 +275,7 @@ export default function Contact() {
                         onChange={(e) =>
                           setForm({ ...form, name: e.target.value })
                         }
-                        className={`${inputCls} focus:border-[#8a6a3e]`}
+                        className={`${inputCls} focus:border-[#B57A0A]`}
                         style={{ borderColor: RULE, color: INK }}
                       />
                       <input
@@ -287,7 +287,7 @@ export default function Contact() {
                         onChange={(e) =>
                           setForm({ ...form, email: e.target.value })
                         }
-                        className={`${inputCls} focus:border-[#8a6a3e]`}
+                        className={`${inputCls} focus:border-[#B57A0A]`}
                         style={{ borderColor: RULE, color: INK }}
                       />
                     </div>
@@ -298,7 +298,7 @@ export default function Contact() {
                       onChange={(e) =>
                         setForm({ ...form, organization: e.target.value })
                       }
-                      className={`${inputCls} focus:border-[#8a6a3e] mt-4 sm:mt-6`}
+                      className={`${inputCls} focus:border-[#B57A0A] mt-4 sm:mt-6`}
                       style={{ borderColor: RULE, color: INK }}
                     />
                   </div>
@@ -307,7 +307,7 @@ export default function Contact() {
                   <div>
                     <p
                       className="text-[9px] uppercase tracking-[0.24em] mb-4"
-                      style={{ color: "rgba(18,17,15,0.45)" }}
+                      style={{ color: "rgba(12,45,82,0.45)" }}
                     >
                       {lang === "fr" ? "Votre demande" : "Your request"}
                     </p>
@@ -319,7 +319,7 @@ export default function Contact() {
                         onChange={(e) =>
                           setForm({ ...form, request_type: e.target.value })
                         }
-                        className={`${inputCls} focus:border-[#8a6a3e] cursor-pointer pr-10`}
+                        className={`${inputCls} focus:border-[#B57A0A] cursor-pointer pr-10`}
                         style={{ borderColor: RULE, color: INK }}
                       >
                         {types.map((ty) => (
@@ -345,7 +345,7 @@ export default function Contact() {
                   <div>
                     <p
                       className="text-[9px] uppercase tracking-[0.24em] mb-4"
-                      style={{ color: "rgba(18,17,15,0.45)" }}
+                      style={{ color: "rgba(12,45,82,0.45)" }}
                     >
                       {lang === "fr" ? "Votre message" : "Your message"}
                     </p>
@@ -358,7 +358,7 @@ export default function Contact() {
                       onChange={(e) =>
                         setForm({ ...form, message: e.target.value })
                       }
-                      className={`${inputCls} focus:border-[#8a6a3e] resize-none`}
+                      className={`${inputCls} focus:border-[#B57A0A] resize-none`}
                       style={{ borderColor: RULE, color: INK }}
                     />
                   </div>

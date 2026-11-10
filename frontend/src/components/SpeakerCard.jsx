@@ -2,11 +2,11 @@ import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.12)";
-const FALLBACK_BG = "#ebe5d8"; // Beige texturé
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.12)";
+const FALLBACK_BG = "#E3E8ED"; // Beige texturé
 
 export function SpeakerCard({ speaker, onOpen }) {
   const { lang, t } = useLanguage();
@@ -85,7 +85,7 @@ export function SpeakerCard({ speaker, onOpen }) {
         {speaker.company && (
           <p 
             className="text-[12px] italic font-serif line-clamp-1"
-            style={{ color: "rgba(18,17,15,0.5)" }}
+            style={{ color: "rgba(12,45,82,0.5)" }}
           >
             {speaker.company}
           </p>

@@ -3,11 +3,11 @@ import { EVENT } from "../config/event";
 import { useLanguage } from "../i18n/LanguageContext";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.12)";
-const RULE_INK = "rgba(244,239,228,0.15)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.12)";
+const RULE_INK = "rgba(242,244,246,0.15)";
 
 export function Countdown({ dark = false }) {
   const { t } = useLanguage();
@@ -34,7 +34,7 @@ export function Countdown({ dark = false }) {
 
   // Couleurs conditionnelles selon le fond
   const numberColor = dark ? PAPER : INK;
-  const labelColor = dark ? "rgba(244,239,228,0.5)" : "rgba(18,17,15,0.5)";
+  const labelColor = dark ? "rgba(242,244,246,0.5)" : "rgba(12,45,82,0.5)";
   const separatorColor = dark ? RULE_INK : RULE;
 
   return (

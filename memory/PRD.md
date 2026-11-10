@@ -56,3 +56,8 @@ Créer une plateforme web événementielle premium (inspiration : semainedelepar
 - P1 : Paiement des Pass Pro/VIP (Stripe ou paiement mobile local)
 - P2 : Pages articles individuelles, galerie lightbox, traduction EN des contenus éditoriaux longs
 - P2 : Export CSV des inscrits, scan du QR à l'entrée
+
+## Charte graphique SEIM appliquée (logo + palette)
+- Logo officiel: /frontend/public/assets/brand/seim-logo.png (+ seim-logo-white.png pour fonds sombres, seim-icon.png, favicon.ico)
+- Palette: Bleu foncé #0C2D52, Jaune doré #F7B731, neutres #F2F4F6 / #B3C1CC / #334E68, secondaire #3AA57C
+- Accent texte sur fond clair: #B57A0A (doré foncé, lisibilité)

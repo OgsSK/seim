@@ -8,11 +8,11 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.12)";
-const RULE_LIGHT = "rgba(18,17,15,0.08)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.12)";
+const RULE_LIGHT = "rgba(12,45,82,0.08)";
 
 /* ---------- Skeleton ---------- */
 function Skeleton() {
@@ -46,7 +46,7 @@ function EmptyState({ lang }) {
       </h3>
       <p
         className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed"
-        style={{ color: "rgba(18,17,15,0.55)" }}
+        style={{ color: "rgba(12,45,82,0.55)" }}
       >
         {lang === "fr"
           ? "Le casting des experts et personnalités de la 2ᵉ édition est en cours de finalisation. Revenez bientôt pour les découvrir."
@@ -96,7 +96,7 @@ export default function Speakers() {
                 <span className="flex-1 h-px" style={{ backgroundColor: RULE }} />
                 <span
                   className="font-mono-num text-[11px] uppercase tracking-[0.15em] whitespace-nowrap"
-                  style={{ color: "rgba(18,17,15,0.4)" }}
+                  style={{ color: "rgba(12,45,82,0.4)" }}
                 >
                   {speakers.length}{" "}
                   {lang === "fr"
@@ -122,7 +122,7 @@ export default function Speakers() {
               {/* Description éditoriale */}
               <p
                 className="font-serif italic text-[15px] sm:text-[16px] leading-[1.75] max-w-2xl mt-5"
-                style={{ color: "rgba(18,17,15,0.6)" }}
+                style={{ color: "rgba(12,45,82,0.6)" }}
               >
                 {lang === "fr"
                   ? "Experts, décideurs, entrepreneurs et personnalités du monde économique — une sélection de voix qui structurent l'écosystème africain."

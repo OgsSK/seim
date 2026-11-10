@@ -23,5 +23,5 @@ export const EVENT = {
   facebook: "https://www.facebook.com/people/Salon-de-lEpargne-et-de-lInvestissement-du-Mali/61577154304057",
   handle: "@SEIM2026",
   banner: "/assets/brand-2.jpg",
-  logo: "/assets/brand-1.jpg",
+  logo: "/assets/brand/seim-logo.png",
 };

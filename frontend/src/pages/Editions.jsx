@@ -7,10 +7,10 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.12)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.12)";
 
 /* ---------- Skeleton ---------- */
 function Skeleton() {
@@ -38,7 +38,7 @@ function EmptyState({ lang }) {
           ? "Les éditions seront présentées ici"
           : "Editions will be shown here"}
       </h3>
-      <p className="font-serif italic text-[15px] max-w-md mx-auto leading-relaxed" style={{ color: "rgba(18,17,15,0.55)" }}>
+      <p className="font-serif italic text-[15px] max-w-md mx-auto leading-relaxed" style={{ color: "rgba(12,45,82,0.55)" }}>
         {lang === "fr"
           ? "L'historique des éditions du SEIM sera publié prochainement."
           : "The SEIM editions history will be published soon."}
@@ -87,14 +87,14 @@ function EditionCard({ ed, index, lang, t }) {
           
           <p 
             className="text-[10px] uppercase tracking-[0.2em] font-medium mb-5"
-            style={{ color: "rgba(18,17,15,0.45)" }}
+            style={{ color: "rgba(12,45,82,0.45)" }}
           >
             {lang === "fr" ? ed.venue_fr : ed.venue_en}
           </p>
           
           <p 
             className="text-[14px] sm:text-[15px] leading-[1.75] font-serif"
-            style={{ color: "rgba(18,17,15,0.65)" }}
+            style={{ color: "rgba(12,45,82,0.65)" }}
           >
             {lang === "fr" ? ed.summary_fr : ed.summary_en}
           </p>
@@ -115,7 +115,7 @@ function EditionCard({ ed, index, lang, t }) {
                 <p className="font-serif font-light text-2xl sm:text-3xl leading-none" style={{ color: INK }}>
                   {s.v}
                 </p>
-                <p className="mt-2 text-[9px] sm:text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(18,17,15,0.45)" }}>
+                <p className="mt-2 text-[9px] sm:text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(12,45,82,0.45)" }}>
                   {s.l}
                 </p>
               </div>
@@ -140,7 +140,7 @@ function EditionCard({ ed, index, lang, t }) {
           {/* Légende éditoriale sous l'image */}
           <p 
             className={`mt-3 text-[10px] sm:text-[11px] italic font-serif ${isReversed ? "text-left" : "sm:text-right"}`}
-            style={{ color: "rgba(18,17,15,0.45)" }}
+            style={{ color: "rgba(12,45,82,0.45)" }}
           >
             {lang === "fr" ? "Archives SEIM — CICB, Bamako." : "SEIM Archives — CICB, Bamako."}
           </p>

@@ -7,11 +7,11 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.12)";
-const RULE_LIGHT = "rgba(18,17,15,0.08)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.12)";
+const RULE_LIGHT = "rgba(12,45,82,0.08)";
 
 const TIER_ORDER = [
   "principal",
@@ -34,7 +34,7 @@ const TIER_STYLE = {
 
 /* Style des champs (ligne éditoriale) */
 const inputCls =
-  "w-full px-0 py-3 bg-transparent border-0 border-b text-[15px] placeholder-[#12110f]/30 focus:outline-none focus:ring-0 transition-colors appearance-none";
+  "w-full px-0 py-3 bg-transparent border-0 border-b text-[15px] placeholder-[#0C2D52]/30 focus:outline-none focus:ring-0 transition-colors appearance-none";
 
 /* ---------- Empty state ---------- */
 function EmptyState({ lang }) {
@@ -54,7 +54,7 @@ function EmptyState({ lang }) {
       </h3>
       <p
         className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed"
-        style={{ color: "rgba(18,17,15,0.55)" }}
+        style={{ color: "rgba(12,45,82,0.55)" }}
       >
         {lang === "fr"
           ? "La liste des partenaires et sponsors de la 2ᵉ édition est en cours de finalisation."
@@ -182,7 +182,7 @@ export default function Partenaires() {
                   {t("partners.form.title")}
                 </h2>
 
-                <p className="font-serif italic text-[14px] sm:text-[15px] leading-[1.75] mb-8" style={{ color: "rgba(18,17,15,0.6)" }}>
+                <p className="font-serif italic text-[14px] sm:text-[15px] leading-[1.75] mb-8" style={{ color: "rgba(12,45,82,0.6)" }}>
                   {t("partners.form.desc")}
                 </p>
 
@@ -192,7 +192,7 @@ export default function Partenaires() {
                     "Stand dans l'espace expo",
                     "Prise de parole & WebTV",
                   ].map((f, i) => (
-                    <p key={i} className="flex items-start gap-3 text-[13px] sm:text-[14px] leading-[1.6]" style={{ color: "rgba(18,17,15,0.7)" }}>
+                    <p key={i} className="flex items-start gap-3 text-[13px] sm:text-[14px] leading-[1.6]" style={{ color: "rgba(12,45,82,0.7)" }}>
                       <span className="w-1 h-1 rotate-45 shrink-0 mt-2" style={{ backgroundColor: BRONZE }} />
                       <span>{f}</span>
                     </p>
@@ -206,7 +206,7 @@ export default function Partenaires() {
                   
                   {/* Bloc 1 */}
                   <div>
-                    <p className="text-[9px] uppercase tracking-[0.24em] mb-4" style={{ color: "rgba(18,17,15,0.45)" }}>
+                    <p className="text-[9px] uppercase tracking-[0.24em] mb-4" style={{ color: "rgba(12,45,82,0.45)" }}>
                       {lang === "fr" ? "Vos coordonnées" : "Your details"}
                     </p>
                     
@@ -217,7 +217,7 @@ export default function Partenaires() {
                         placeholder={t("contact.name")}
                         value={form.name}
                         onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        className={`${inputCls} focus:border-[#8a6a3e]`}
+                        className={`${inputCls} focus:border-[#B57A0A]`}
                         style={{ borderColor: RULE, color: INK }}
                       />
                       <input
@@ -227,7 +227,7 @@ export default function Partenaires() {
                         placeholder={t("contact.email")}
                         value={form.email}
                         onChange={(e) => setForm({ ...form, email: e.target.value })}
-                        className={`${inputCls} focus:border-[#8a6a3e]`}
+                        className={`${inputCls} focus:border-[#B57A0A]`}
                         style={{ borderColor: RULE, color: INK }}
                       />
                     </div>
@@ -237,14 +237,14 @@ export default function Partenaires() {
                       placeholder={t("contact.org")}
                       value={form.organization}
                       onChange={(e) => setForm({ ...form, organization: e.target.value })}
-                      className={`${inputCls} focus:border-[#8a6a3e] mt-4 sm:mt-6`}
+                      className={`${inputCls} focus:border-[#B57A0A] mt-4 sm:mt-6`}
                       style={{ borderColor: RULE, color: INK }}
                     />
                   </div>
 
                   {/* Bloc 2 */}
                   <div>
-                    <p className="text-[9px] uppercase tracking-[0.24em] mb-4" style={{ color: "rgba(18,17,15,0.45)" }}>
+                    <p className="text-[9px] uppercase tracking-[0.24em] mb-4" style={{ color: "rgba(12,45,82,0.45)" }}>
                       {lang === "fr" ? "Votre message" : "Your message"}
                     </p>
                     <textarea
@@ -254,7 +254,7 @@ export default function Partenaires() {
                       placeholder={t("contact.message")}
                       value={form.message}
                       onChange={(e) => setForm({ ...form, message: e.target.value })}
-                      className={`${inputCls} focus:border-[#8a6a3e] resize-none`}
+                      className={`${inputCls} focus:border-[#B57A0A] resize-none`}
                       style={{ borderColor: RULE, color: INK }}
                     />
                   </div>

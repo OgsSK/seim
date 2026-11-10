@@ -1,8 +1,8 @@
 import React from "react";
 
 export function EditorialIllustration({ variant = "growth", className = "" }) {
-  const BRONZE = "#8a6a3e";
-  const INK = "#12110f";
+  const BRONZE = "#B57A0A";
+  const INK = "#0C2D52";
 
   if (variant === "growth") {
     return (

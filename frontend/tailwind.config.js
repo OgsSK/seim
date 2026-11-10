@@ -17,17 +17,17 @@ module.exports = {
       },
       colors: {
         navy: {
-          DEFAULT: '#0B132B',
-          deep: '#080E20',
-          soft: '#1C2541',
-          light: '#3A4563'
+          DEFAULT: '#0C2D52',
+          deep: '#082140',
+          soft: '#334E68',
+          light: '#B3C1CC'
         },
         gold: {
-          DEFAULT: '#F59E0B',
-          dark: '#D97706',
-          light: '#FEF3C7'
+          DEFAULT: '#F7B731',
+          dark: '#D99A1A',
+          light: '#FDF1D6'
         },
-        bone: '#F8FAFC',
+        bone: '#F2F4F6',
       },
       borderRadius: {
         lg: 'var(--radius)',

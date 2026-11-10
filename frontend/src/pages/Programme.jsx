@@ -6,11 +6,11 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.12)";
-const RULE_LIGHT = "rgba(18,17,15,0.08)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.12)";
+const RULE_LIGHT = "rgba(12,45,82,0.08)";
 const EASE = [0.22, 1, 0.36, 1];
 
 /* Ordre stable des filtres — hors composant pour ne pas être recréé */
@@ -68,7 +68,7 @@ function EmptyState({ lang, hasFilter }) {
       </h3>
       <p
         className="font-serif italic text-[15px] max-w-md mx-auto leading-relaxed"
-        style={{ color: "rgba(18,17,15,0.55)" }}
+        style={{ color: "rgba(12,45,82,0.55)" }}
       >
         {hasFilter
           ? lang === "fr"
@@ -156,7 +156,7 @@ export default function Programme() {
             {sessions.length > 0 && (
               <>
                 <span className="flex-1 h-px" style={{ backgroundColor: RULE }} />
-                <span className="font-mono-num text-[11px] uppercase tracking-[0.15em]" style={{ color: "rgba(18,17,15,0.4)" }}>
+                <span className="font-mono-num text-[11px] uppercase tracking-[0.15em]" style={{ color: "rgba(12,45,82,0.4)" }}>
                   {sessions.length} {lang === "fr" ? "Sessions" : "Sessions"}
                 </span>
               </>
@@ -174,7 +174,7 @@ export default function Programme() {
                 <p className="font-light text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
                   {countByDay(day)}
                 </p>
-                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(18,17,15,0.45)" }}>
+                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(12,45,82,0.45)" }}>
                   {lang === "fr" ? "Sessions" : "Sessions"}
                 </p>
               </div>
@@ -185,7 +185,7 @@ export default function Programme() {
                 <p className="font-light text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
                   {uniqueSpeakersInDay}
                 </p>
-                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(18,17,15,0.45)" }}>
+                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(12,45,82,0.45)" }}>
                   {lang === "fr" ? "Intervenants" : "Speakers"}
                 </p>
               </div>
@@ -196,7 +196,7 @@ export default function Programme() {
                 <p className="font-light text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
                   {availableDays.length}
                 </p>
-                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(18,17,15,0.45)" }}>
+                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(12,45,82,0.45)" }}>
                   {lang === "fr"
                     ? availableDays.length > 1
                       ? "Journées"
@@ -224,10 +224,10 @@ export default function Programme() {
                   }}
                   className={`text-[11px] uppercase tracking-[0.18em] font-medium pb-1 border-b-2 transition-colors ${
                     active
-                      ? "border-[#8a6a3e]"
-                      : "border-transparent hover:text-[#12110f]"
+                      ? "border-[#B57A0A]"
+                      : "border-transparent hover:text-[#0C2D52]"
                   }`}
-                  style={{ color: active ? INK : "rgba(18,17,15,0.4)" }}
+                  style={{ color: active ? INK : "rgba(12,45,82,0.4)" }}
                 >
                   {d === 1 ? t("program.day1") : t("program.day2")}
                   {count > 0 && (
@@ -252,10 +252,10 @@ export default function Programme() {
                     onClick={() => setType(f)}
                     className={`text-[10px] uppercase tracking-[0.18em] font-medium pb-1 border-b-2 transition-colors ${
                       active
-                        ? "border-[#8a6a3e]"
-                        : "border-transparent hover:text-[#12110f]"
+                        ? "border-[#B57A0A]"
+                        : "border-transparent hover:text-[#0C2D52]"
                     }`}
-                    style={{ color: active ? INK : "rgba(18,17,15,0.4)" }}
+                    style={{ color: active ? INK : "rgba(12,45,82,0.4)" }}
                   >
                     {t(`program.types.${f}`)}
                   </button>
@@ -308,7 +308,7 @@ export default function Programme() {
                               <Clock size={13} /> {s.time}
                             </span>
                             {s.end && (
-                              <span className="text-[11px] sm:text-xs sm:ml-[18px]" style={{ color: "rgba(18,17,15,0.35)" }}>
+                              <span className="text-[11px] sm:text-xs sm:ml-[18px]" style={{ color: "rgba(12,45,82,0.35)" }}>
                                 → {s.end}
                               </span>
                             )}
@@ -318,14 +318,14 @@ export default function Programme() {
                           <div className="flex-1 min-w-0 pr-8 sm:pr-0">
                             <h3
                               className={`font-serif text-base sm:text-lg leading-snug transition-colors tracking-tight break-words ${
-                                isOpen ? "text-[#8a6a3e]" : ""
+                                isOpen ? "text-[#B57A0A]" : ""
                               }`}
                               style={{ color: isOpen ? BRONZE : INK }}
                             >
                               {lang === "fr" ? s.title_fr : s.title_en}
                             </h3>
                             <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5">
-                              <p className="text-[12px] flex items-center gap-1.5" style={{ color: "rgba(18,17,15,0.5)" }}>
+                              <p className="text-[12px] flex items-center gap-1.5" style={{ color: "rgba(12,45,82,0.5)" }}>
                                 <MapPin size={12} className="shrink-0" />
                                 <span className="break-words">
                                   {lang === "fr" ? s.room_fr : s.room_en}
@@ -343,7 +343,7 @@ export default function Programme() {
                             className={`hidden sm:block shrink-0 transition-transform duration-300 ${
                               isOpen ? "rotate-180" : ""
                             }`}
-                            style={{ color: isOpen ? BRONZE : "rgba(18,17,15,0.3)" }}
+                            style={{ color: isOpen ? BRONZE : "rgba(12,45,82,0.3)" }}
                           />
                         </button>
 
@@ -353,7 +353,7 @@ export default function Programme() {
                           className={`sm:hidden absolute right-0 top-6 transition-transform duration-300 ${
                             isOpen ? "rotate-180" : ""
                           }`}
-                          style={{ color: isOpen ? BRONZE : "rgba(18,17,15,0.3)" }}
+                          style={{ color: isOpen ? BRONZE : "rgba(12,45,82,0.3)" }}
                         />
 
                         <AnimatePresence initial={false}>
@@ -367,7 +367,7 @@ export default function Programme() {
                             >
                               <div className="pb-6 pl-0 sm:pl-[7.5rem] pr-4">
                                 {(lang === "fr" ? s.desc_fr : s.desc_en) && (
-                                  <p className="font-serif text-[14px] leading-[1.75]" style={{ color: "rgba(18,17,15,0.65)" }}>
+                                  <p className="font-serif text-[14px] leading-[1.75]" style={{ color: "rgba(12,45,82,0.65)" }}>
                                     {lang === "fr" ? s.desc_fr : s.desc_en}
                                   </p>
                                 )}
@@ -406,7 +406,7 @@ export default function Programme() {
                                             <p className="text-[11px] font-bold truncate" style={{ color: INK }}>
                                               {sp.name}
                                             </p>
-                                            <p className="text-[10px] truncate" style={{ color: "rgba(18,17,15,0.5)" }}>
+                                            <p className="text-[10px] truncate" style={{ color: "rgba(12,45,82,0.5)" }}>
                                               {sp.company}
                                             </p>
                                           </div>

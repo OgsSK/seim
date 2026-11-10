@@ -2,10 +2,10 @@ import { PageHero } from "../components/PageHero";
 import { EVENT } from "../config/event";
 
 /* Palette éditoriale premium */
-const PAPER = "#f4efe4";
-const INK = "#12110f";
-const BRONZE = "#8a6a3e";
-const RULE = "rgba(18,17,15,0.15)";
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const BRONZE = "#B57A0A";
+const RULE = "rgba(12,45,82,0.15)";
 
 /* ---------- Composant Section ---------- */
 function LegalSection({ num, title, children }) {
@@ -29,7 +29,7 @@ function LegalSection({ num, title, children }) {
         </h2>
         <div 
           className="font-serif text-[15px] sm:text-[16px] leading-[1.75]"
-          style={{ color: "rgba(18,17,15,0.65)" }}
+          style={{ color: "rgba(12,45,82,0.65)" }}
         >
           {children}
         </div>
@@ -70,7 +70,7 @@ export default function Legal({ type }) {
                   {EVENT.name_fr} (SEIM) — {EVENT.address_fr}. Contact :{" "}
                   <a
                     href={`mailto:${EVENT.email}`}
-                    className="border-b transition-colors hover:text-[#8a6a3e] hover:border-[#8a6a3e]"
+                    className="border-b transition-colors hover:text-[#B57A0A] hover:border-[#B57A0A]"
                     style={{ color: INK, borderColor: BRONZE }}
                   >
                     {EVENT.email}
@@ -78,7 +78,7 @@ export default function Legal({ type }) {
                   ·{" "}
                   <a
                     href={`tel:${EVENT.phone.replace(/\s/g, "")}`}
-                    className="border-b transition-colors hover:text-[#8a6a3e] hover:border-[#8a6a3e]"
+                    className="border-b transition-colors hover:text-[#B57A0A] hover:border-[#B57A0A]"
                     style={{ color: INK, borderColor: BRONZE }}
                   >
                     {EVENT.phone}
@@ -119,7 +119,7 @@ export default function Legal({ type }) {
                   données à tout moment en écrivant à{" "}
                   <a
                     href={`mailto:${EVENT.email}`}
-                    className="border-b transition-colors hover:text-[#8a6a3e] hover:border-[#8a6a3e]"
+                    className="border-b transition-colors hover:text-[#B57A0A] hover:border-[#B57A0A]"
                     style={{ color: INK, borderColor: BRONZE }}
                   >
                     {EVENT.email}
@@ -138,7 +138,7 @@ export default function Legal({ type }) {
           )}
 
           {/* Pied de page documentaire */}
-          <div className="mt-16 pt-6 border-t flex items-center justify-between text-[10px] uppercase tracking-[0.2em]" style={{ borderColor: RULE, color: "rgba(18,17,15,0.4)" }}>
+          <div className="mt-16 pt-6 border-t flex items-center justify-between text-[10px] uppercase tracking-[0.2em]" style={{ borderColor: RULE, color: "rgba(12,45,82,0.4)" }}>
             <span>SEIM · {isLegal ? "Légal" : "Confidentialité"}</span>
             <span className="font-mono-num">Édition 02 — MMXXVI</span>
           </div>
