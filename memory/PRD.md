@@ -69,3 +69,4 @@ Créer une plateforme web événementielle premium (inspiration : semainedelepar
 - Inscription simplifiée (plus de pass/prix/badge/confirmation): type d'inscription Participant / Exposant / Partenaire-Sponsor / Intervenant / Presse → message WhatsApp adapté. ?type=exposant|presse|... pré-sélectionne. /confirmation/* redirige vers /inscription.
 - Partenaires: formulaire sponsoring remplacé par CTA vers /inscription?type=partenaire. Écran de remerciement après envoi (dates, lieu, compte à rebours, lien programme, rouvrir WhatsApp).
 - Écran merci: Ajouter à l'agenda (.ics journée 8 avril 2027 + rappel J-1, lien Google Agenda, src/lib/calendar.js) et Inviter un ami (wa.me/?text= partage).
+- Inscription: champs adaptés par type (FIELDS dans Inscription.jsx) — profil/stand/partenariat/intervention/média, inclus dans le message WhatsApp.

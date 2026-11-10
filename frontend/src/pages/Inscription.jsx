@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
   MessageCircle, Users, Store, Handshake, Mic, Newspaper,
-  CheckCircle2, CalendarDays, MapPin, ArrowUpRight, RotateCcw, CalendarPlus, UserPlus,
+  CheckCircle2, CalendarDays, MapPin, ArrowUpRight, RotateCcw, CalendarPlus, UserPlus, ChevronDown,
 } from "lucide-react";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
@@ -34,14 +34,12 @@ const TYPES = {
       desc: "Assister aux conférences, panels et masterclasses.",
       intro: "Je souhaite m'inscrire comme participant au SEIM",
       ask: "Merci de me confirmer mon inscription.",
-      org: "Entreprise / Établissement (facultatif)",
     },
     en: {
       label: "Participant",
       desc: "Attend the conferences, panels and masterclasses.",
       intro: "I would like to register as a participant for SEIM",
       ask: "Please confirm my registration.",
-      org: "Company / Institution (optional)",
     },
   },
   exposant: {
@@ -51,14 +49,12 @@ const TYPES = {
       desc: "Présenter votre structure sur un stand.",
       intro: "Je souhaite m'inscrire comme exposant au SEIM",
       ask: "Merci de me communiquer les informations pour réserver un stand.",
-      org: "Nom de la structure",
     },
     en: {
       label: "Exhibitor",
       desc: "Showcase your organization on a booth.",
       intro: "I would like to register as an exhibitor for SEIM",
       ask: "Please send me the information to book a booth.",
-      org: "Organization name",
     },
   },
   partenaire: {
@@ -68,14 +64,12 @@ const TYPES = {
       desc: "Associer votre marque au salon.",
       intro: "Je souhaite devenir partenaire / sponsor du SEIM",
       ask: "Merci de me transmettre les possibilités de partenariat.",
-      org: "Nom de la structure",
     },
     en: {
       label: "Partner / Sponsor",
       desc: "Associate your brand with the fair.",
       intro: "I would like to become a partner / sponsor of SEIM",
       ask: "Please send me the partnership opportunities.",
-      org: "Organization name",
     },
   },
   intervenant: {
@@ -85,14 +79,12 @@ const TYPES = {
       desc: "Prendre la parole lors d'un panel ou d'une masterclass.",
       intro: "Je souhaite intervenir au SEIM",
       ask: "Merci de me recontacter pour échanger sur mon intervention.",
-      org: "Structure / Organisation",
     },
     en: {
       label: "Speaker",
       desc: "Speak at a panel or a masterclass.",
       intro: "I would like to take part as a speaker at SEIM",
       ask: "Please get back to me to discuss my talk.",
-      org: "Organization",
     },
   },
   presse: {
@@ -102,18 +94,100 @@ const TYPES = {
       desc: "Couvrir l'événement en tant que journaliste.",
       intro: "Je souhaite une accréditation presse pour le SEIM",
       ask: "Merci de me confirmer mon accréditation.",
-      org: "Nom du média",
     },
     en: {
       label: "Press / Media",
       desc: "Cover the event as a journalist.",
       intro: "I would like a press accreditation for SEIM",
       ask: "Please confirm my accreditation.",
-      org: "Media name",
     },
   },
 };
 const TYPE_KEYS = Object.keys(TYPES);
+
+/* Options de liste (fr/en) */
+const opt = (fr, en) => ({ fr, en: en || fr });
+
+/*
+ * Champs spécifiques à chaque type d'inscription.
+ * kind: "text" | "url" | "select" | "textarea" — full: occupe toute la largeur.
+ */
+const FIELDS = {
+  visiteur: {
+    section: opt("Votre profil", "Your profile"),
+    fields: [
+      { key: "profile", kind: "select", required: true, label: opt("Vous êtes", "You are"),
+        options: [opt("Particulier / Épargnant", "Individual / Saver"), opt("Étudiant / Jeune diplômé", "Student / Graduate"),
+          opt("Professionnel de la finance", "Finance professional"), opt("Entrepreneur / Dirigeant", "Entrepreneur / Executive"),
+          opt("Agent public / Institution", "Civil servant / Institution"), opt("Autre", "Other")] },
+      { key: "organization", label: opt("Entreprise / Établissement", "Company / School") },
+      { key: "role", label: opt("Fonction", "Position") },
+    ],
+  },
+  exposant: {
+    section: opt("Votre stand", "Your booth"),
+    fields: [
+      { key: "organization", required: true, label: opt("Nom de la structure", "Organization name") },
+      { key: "role", required: true, label: opt("Votre fonction", "Your position") },
+      { key: "sector", kind: "select", required: true, label: opt("Secteur d'activité", "Industry"),
+        options: [opt("Banque", "Banking"), opt("Assurance", "Insurance"), opt("Microfinance"), opt("Fintech / Mobile money"),
+          opt("SGI / Bourse / Gestion d'actifs", "Brokerage / Asset management"), opt("Immobilier", "Real estate"),
+          opt("Institution publique", "Public institution"), opt("Autre", "Other")] },
+      { key: "booth", kind: "select", required: true, label: opt("Stand souhaité", "Preferred booth"),
+        options: [opt("Stand standard (9 m²)", "Standard booth (9 m²)"), opt("Grand stand (18 m²)", "Large booth (18 m²)"),
+          opt("Sur mesure", "Custom"), opt("À définir avec l'équipe", "To be discussed")] },
+      { key: "website", kind: "url", label: opt("Site web", "Website") },
+    ],
+  },
+  partenaire: {
+    section: opt("Votre partenariat", "Your partnership"),
+    fields: [
+      { key: "organization", required: true, label: opt("Nom de la structure", "Organization name") },
+      { key: "role", required: true, label: opt("Votre fonction", "Your position") },
+      { key: "partnership", kind: "select", required: true, label: opt("Type de partenariat envisagé", "Partnership type"),
+        options: [opt("Sponsor principal", "Main sponsor"), opt("Sponsor Or", "Gold sponsor"), opt("Sponsor Argent", "Silver sponsor"),
+          opt("Partenaire institutionnel", "Institutional partner"), opt("Partenaire média", "Media partner"),
+          opt("Partenaire technique", "Technical partner"), opt("À discuter", "To be discussed")] },
+      { key: "website", kind: "url", label: opt("Site web", "Website") },
+    ],
+  },
+  intervenant: {
+    section: opt("Votre intervention", "Your talk"),
+    fields: [
+      { key: "organization", required: true, label: opt("Structure / Organisation", "Organization") },
+      { key: "role", required: true, label: opt("Votre fonction", "Your position") },
+      { key: "expertise", required: true, label: opt("Domaine d'expertise", "Area of expertise") },
+      { key: "format", kind: "select", required: true, label: opt("Format souhaité", "Preferred format"),
+        options: [opt("Panel"), opt("Masterclass"), opt("CEO Talk"), opt("Keynote"), opt("À définir", "To be defined")] },
+      { key: "topic", full: true, label: opt("Sujet proposé", "Proposed topic") },
+      { key: "linkedin", kind: "url", full: true, label: opt("Profil LinkedIn", "LinkedIn profile") },
+    ],
+  },
+  presse: {
+    section: opt("Votre média", "Your media"),
+    fields: [
+      { key: "organization", required: true, label: opt("Nom du média", "Media name") },
+      { key: "media_type", kind: "select", required: true, label: opt("Type de média", "Media type"),
+        options: [opt("Presse écrite", "Print"), opt("Site web / En ligne", "Online"), opt("Radio"), opt("Télévision", "Television"),
+          opt("Agence de presse", "News agency"), opt("Photographe / Vidéaste indépendant", "Freelance photo / video")] },
+      { key: "role", required: true, label: opt("Votre fonction (journaliste, photographe…)", "Your role (journalist, photographer…)") },
+      { key: "team_size", kind: "select", required: true, label: opt("Personnes à accréditer", "People to accredit"),
+        options: [opt("1"), opt("2"), opt("3"), opt("4 ou plus", "4 or more")] },
+    ],
+  },
+};
+
+/* Libellé de section (trait + titre doré) */
+function SectionLabel({ children, mb = "mb-8" }) {
+  return (
+    <div className={`flex items-center gap-3 ${mb}`}>
+      <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
+      <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
+        {children}
+      </span>
+    </div>
+  );
+}
 
 export default function Inscription() {
   const { t, lang } = useLanguage();
@@ -129,8 +203,7 @@ export default function Inscription() {
     last_name: "",
     phone: "",
     email: "",
-    organization: "",
-    role: "",
+    extra: {},
     country: "Mali",
     interests: [],
     message: "",
@@ -155,7 +228,14 @@ export default function Inscription() {
     });
 
   const current = TYPES[form.type][fr ? "fr" : "en"];
-  const orgRequired = form.type !== "visiteur";
+  const spec = FIELDS[form.type];
+  const lk = fr ? "fr" : "en";
+  const setExtra = (k) => (e) => setForm({ ...form, extra: { ...form.extra, [k]: e.target.value } });
+  const extraValue = (f) => {
+    const v = form.extra[f.key];
+    if (!v) return "";
+    return f.kind === "select" ? (f.options[Number(v)] || {})[lk] || "" : v.trim();
+  };
 
   const submit = (e) => {
     e.preventDefault();
@@ -172,10 +252,11 @@ export default function Inscription() {
       `*${L("Nom", "Name")} :* ${form.first_name} ${form.last_name}`,
       `*${L("Téléphone", "Phone")} :* ${form.phone}`,
       form.email && `*Email :* ${form.email}`,
-      form.organization &&
-        `*${form.type === "presse" ? L("Média", "Media") : L("Structure", "Organization")} :* ${form.organization}`,
-      form.role && `*${L("Fonction", "Position")} :* ${form.role}`,
       `*${L("Pays", "Country")} :* ${form.country}`,
+      ...spec.fields.map((f) => {
+        const v = extraValue(f);
+        return v ? `*${f.label[lk]} :* ${v}` : null;
+      }),
       interests && `*${L("Thèmes d'intérêt", "Topics of interest")} :* ${interests}`,
       form.message && BLANK,
       form.message && `*${L("Précisions", "Details")} :*\n${form.message}`,
@@ -190,18 +271,9 @@ export default function Inscription() {
 
   const resetForm = () => {
     setSent(null);
-    setForm((f) => ({ ...f, first_name: "", last_name: "", phone: "", email: "", organization: "", role: "", interests: [], message: "" }));
+    setForm((f) => ({ ...f, first_name: "", last_name: "", phone: "", email: "", extra: {}, interests: [], message: "" }));
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  const SectionLabel = ({ children, mb = "mb-8" }) => (
-    <div className={`flex items-center gap-3 ${mb}`}>
-      <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
-      <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
-        {children}
-      </span>
-    </div>
-  );
 
   const field = (key, placeholder, opts = {}) => (
     <input
@@ -417,21 +489,69 @@ export default function Inscription() {
               {field("last_name", t("register.lastName"), { required: true })}
               {field("phone", L("Téléphone / WhatsApp", "Phone / WhatsApp"), { required: true, type: "tel" })}
               {field("email", L("Email (facultatif)", "Email (optional)"), { type: "email" })}
-              {field("organization", current.org, { required: orgRequired })}
-              {field("role", L("Fonction (facultatif)", "Position (optional)"))}
-              <select
-                data-testid="reg-country"
-                value={form.country}
-                onChange={set("country")}
-                className={`${inputCls} focus:border-[#B57A0A] cursor-pointer`}
-                style={{ borderColor: RULE, color: INK }}
-              >
-                {t("register.countries").map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <select
+                  data-testid="reg-country"
+                  aria-label={L("Pays", "Country")}
+                  value={form.country}
+                  onChange={set("country")}
+                  className={`${inputCls} pr-8 focus:border-[#B57A0A] cursor-pointer`}
+                  style={{ borderColor: RULE, color: INK }}
+                >
+                  {t("register.countries").map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown size={16} className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2" style={{ color: BRONZE }} />
+              </div>
+            </div>
+          </Reveal>
+
+          {/* ============ Champs adaptés au type d'inscription ============ */}
+          <Reveal delay={0.12} key={`fields-${form.type}`}>
+            <SectionLabel>{spec.section[lk]}</SectionLabel>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 mb-16" data-testid={`reg-fields-${form.type}`}>
+              {spec.fields.map((f) => {
+                const placeholder = f.required ? f.label[lk] : `${f.label[lk]} ${L("(facultatif)", "(optional)")}`;
+                const common = {
+                  required: !!f.required,
+                  "data-testid": `reg-${f.key}`,
+                  "aria-label": f.label[lk],
+                  value: form.extra[f.key] || "",
+                  onChange: setExtra(f.key),
+                  style: { borderColor: RULE, color: form.extra[f.key] || f.kind !== "select" ? INK : "rgba(12,45,82,0.35)" },
+                };
+                const span = f.full ? "sm:col-span-2" : "";
+                if (f.kind === "select") {
+                  return (
+                    <div key={f.key} className={`relative ${span}`}>
+                      <select {...common} className={`${inputCls} pr-8 focus:border-[#B57A0A] cursor-pointer`}>
+                        <option value="" disabled>
+                          {placeholder}
+                        </option>
+                        {f.options.map((o, i) => (
+                          <option key={i} value={String(i)} style={{ color: INK }}>
+                            {o[lk]}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown size={16} className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2" style={{ color: BRONZE }} />
+                    </div>
+                  );
+                }
+                return (
+                  <input
+                    key={f.key}
+                    {...common}
+                    type="text"
+                    inputMode={f.kind === "url" ? "url" : undefined}
+                    placeholder={placeholder}
+                    className={`${inputCls} ${span} focus:border-[#B57A0A]`}
+                  />
+                );
+              })}
             </div>
           </Reveal>
 
