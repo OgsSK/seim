@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { CalendarDays, MapPin, ArrowRight, ArrowUpRight } from "lucide-react";
 import { EVENT } from "../config/event";
 import { useLanguage } from "../i18n/LanguageContext";
@@ -25,7 +25,7 @@ const getRole = (sp, lang) =>
   (lang === "fr" ? sp?.role_fr : sp?.role_en) || sp?.role || "";
 
 /* ============================================================
-   Hook partagé — compte à rebours (Hero + CountdownSection)
+   Hook partagé — compte à rebours
    ============================================================ */
 function useCountdown(target) {
   const [now, setNow] = useState(Date.now());
@@ -43,195 +43,36 @@ function useCountdown(target) {
 }
 
 /* ============================================================
-   HeroBackdrop — grille perspective + anneaux orbitaux
+   AnimatedNumber — chiffre qui slide à chaque changement
    ============================================================ */
-function HeroBackdrop() {
+function AnimatedNumber({ value, className = "", style = {} }) {
+  const formatted = String(value).padStart(2, "0");
   return (
-    <>
-      {/* Grille perspective — converge vers le haut */}
-      <svg
-        className="absolute inset-x-0 bottom-0 h-[55%] w-full pointer-events-none"
-        viewBox="0 0 800 400"
-        preserveAspectRatio="xMidYMax slice"
-        aria-hidden="true"
-      >
-        <defs>
-          <linearGradient id="grid-fade" x1="0" y1="1" x2="0" y2="0">
-            <stop offset="0%" stopColor={GOLD} stopOpacity="0.45" />
-            <stop offset="60%" stopColor={GOLD} stopOpacity="0.08" />
-            <stop offset="100%" stopColor={GOLD} stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        {/* Lignes verticales qui convergent vers le centre */}
-        {Array.from({ length: 21 }).map((_, i) => {
-          const xBottom = (i / 20) * 800;
-          const xTop = 400 + (xBottom - 400) * 0.15;
-          return (
-            <line
-              key={`v-${i}`}
-              x1={xTop}
-              y1={0}
-              x2={xBottom}
-              y2={400}
-              stroke="url(#grid-fade)"
-              strokeWidth="0.8"
-            />
-          );
-        })}
-        {/* Lignes horizontales — perspective densifiée */}
-        {Array.from({ length: 9 }).map((_, i) => {
-          const y = Math.pow(i / 8, 1.6) * 400;
-          return (
-            <line
-              key={`h-${i}`}
-              x1="0"
-              y1={y}
-              x2="800"
-              y2={y}
-              stroke="url(#grid-fade)"
-              strokeWidth="0.6"
-            />
-          );
-        })}
-      </svg>
-
-      {/* Anneaux orbitaux — desktop uniquement pour ne pas surcharger mobile */}
-      <motion.svg
-        viewBox="0 0 600 600"
-        className="absolute -right-32 top-1/4 w-[520px] h-[520px] pointer-events-none opacity-60 hidden lg:block"
-        aria-hidden="true"
-      >
-        {/* Anneau externe */}
-        <motion.g
-          animate={{ rotate: 360 }}
-          transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-          style={{ transformOrigin: "300px 300px" }}
+    <span
+      className={`relative inline-flex overflow-hidden ${className}`}
+      style={style}
+    >
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          key={formatted}
+          initial={{ y: "85%", opacity: 0 }}
+          animate={{ y: "0%", opacity: 1 }}
+          exit={{ y: "-85%", opacity: 0 }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          className="inline-block tabular-nums"
         >
-          <circle
-            cx="300"
-            cy="300"
-            r="250"
-            stroke={GOLD}
-            strokeWidth="0.6"
-            fill="none"
-            strokeDasharray="2 10"
-            opacity="0.5"
-          />
-          <circle cx="300" cy="50" r="3.5" fill={GOLD} />
-        </motion.g>
-
-        {/* Anneau intermédiaire */}
-        <motion.g
-          animate={{ rotate: -360 }}
-          transition={{ duration: 110, repeat: Infinity, ease: "linear" }}
-          style={{ transformOrigin: "300px 300px" }}
-        >
-          <circle
-            cx="300"
-            cy="300"
-            r="180"
-            stroke={BRONZE}
-            strokeWidth="0.7"
-            fill="none"
-            opacity="0.5"
-          />
-          <circle cx="300" cy="120" r="2.5" fill={GOLD} opacity="0.7" />
-        </motion.g>
-
-        {/* Anneau interne — pulsation */}
-        <motion.g
-          animate={{ rotate: 360 }}
-          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-          style={{ transformOrigin: "300px 300px" }}
-        >
-          <circle
-            cx="300"
-            cy="300"
-            r="110"
-            stroke={GOLD}
-            strokeWidth="0.5"
-            fill="none"
-            strokeDasharray="1 5"
-            opacity="0.6"
-          />
-        </motion.g>
-
-        {/* Centre lumineux */}
-        <circle cx="300" cy="300" r="55" stroke={GOLD} strokeWidth="1" fill="none" opacity="0.3" />
-        <motion.circle
-          cx="300"
-          cy="300"
-          r="3"
-          fill={GOLD}
-          animate={{ opacity: [0.4, 1, 0.4] }}
-          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.svg>
-
-      {/* Crosshairs coins techniques */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div
-          className="absolute top-24 sm:top-28 left-4 sm:left-8 w-5 h-5 border-t border-l"
-          style={{ borderColor: GOLD, opacity: 0.35 }}
-        />
-        <div
-          className="absolute top-24 sm:top-28 right-4 sm:right-8 w-5 h-5 border-t border-r"
-          style={{ borderColor: GOLD, opacity: 0.35 }}
-        />
-        <div
-          className="absolute bottom-8 left-4 sm:left-8 w-5 h-5 border-b border-l"
-          style={{ borderColor: GOLD, opacity: 0.35 }}
-        />
-        <div
-          className="absolute bottom-8 right-4 sm:right-8 w-5 h-5 border-b border-r"
-          style={{ borderColor: GOLD, opacity: 0.35 }}
-        />
-      </div>
-    </>
+          {formatted}
+        </motion.span>
+      </AnimatePresence>
+    </span>
   );
 }
 
 /* ============================================================
-   MiniCountdown — compte à rebours inline dans le Hero
-   ============================================================ */
-function MiniCountdown({ d, h, m, s, label }) {
-  const units = [
-    { v: d, l: "J" },
-    { v: h, l: "H" },
-    { v: m, l: "M" },
-    { v: s, l: "S" },
-  ];
-  return (
-    <div className="flex flex-col gap-2">
-      <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.28em] text-white/40">
-        {label}
-      </span>
-      <div className="flex items-baseline gap-2 sm:gap-3">
-        {units.map((u, i) => (
-          <div key={i} className="flex items-baseline gap-1">
-            <span
-              className="font-mono-num text-xl sm:text-2xl font-light tabular-nums leading-none"
-              style={{ color: GOLD, textShadow: "0 0 20px rgba(247,183,49,0.35)" }}
-            >
-              {String(u.v).padStart(2, "0")}
-            </span>
-            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.18em] text-white/45">
-              {u.l}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ============================================================
-   Hero — cockpit futuriste
+   Hero — version sobre et premium
    ============================================================ */
 function Hero() {
   const { t, lang } = useLanguage();
-  const target = new Date(EVENT.startDateISO).getTime();
-  const { d, h, m, s } = useCountdown(target);
 
   return (
     <section
@@ -245,8 +86,8 @@ function Hero() {
         backfaceVisibility: "hidden",
       }}
     >
-      {/* ===== Couche 1 : photo de fond ===== */}
-      <div className="absolute inset-0 opacity-[0.35] sm:opacity-[0.25] pointer-events-none">
+      {/* Photo de fond */}
+      <div className="absolute inset-0 opacity-[0.35] sm:opacity-[0.28] pointer-events-none">
         <SmartImg
           src="/assets/seim/hero-bg.jpg"
           alt=""
@@ -254,366 +95,715 @@ function Hero() {
         />
       </div>
 
-      {/* ===== Couche 2 : gradient encre ===== */}
+      {/* Gradient encre */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(180deg, rgba(12,45,82,0.88) 0%, rgba(12,45,82,0.55) 35%, rgba(12,45,82,0.75) 80%, rgba(12,45,82,0.95) 100%)`,
+          background: `linear-gradient(180deg, rgba(12,45,82,0.85) 0%, rgba(12,45,82,0.6) 40%, rgba(12,45,82,0.92) 100%)`,
         }}
       />
 
-      {/* ===== Couche 3 : grille technique globale ===== */}
-      <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(${BRONZE} 1px, transparent 1px), linear-gradient(90deg, ${BRONZE} 1px, transparent 1px)`,
-          backgroundSize: "80px 80px",
-          maskImage: "radial-gradient(ellipse at center, black 30%, transparent 80%)",
-          WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 80%)",
-        }}
-      />
-
-      {/* ===== Couche 4 : backdrop futuriste ===== */}
-      <HeroBackdrop />
-
-      {/* ===== Couche 5 : vignette ===== */}
+      {/* Vignette douce */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ boxShadow: `inset 0 0 180px 40px rgba(12,45,82,0.85)` }}
+        style={{ boxShadow: `inset 0 0 200px 60px rgba(12,45,82,0.8)` }}
       />
 
-      {/* ===== Contenu ===== */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-8 pt-20 sm:pt-28 pb-12 sm:pb-20">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-8 pt-20 sm:pt-32 pb-16 sm:pb-24">
 
-        {/* STATUS BAR top */}
+        {/* Masthead minimal */}
         <motion.div
-          initial={{ opacity: 0, y: -6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: EASE }}
-          className="flex items-center justify-between gap-3 pb-4 mb-10 sm:mb-16 border-b"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, ease: EASE }}
+          className="hidden sm:flex items-center justify-between gap-4 pb-4 mb-16 border-b"
           style={{ borderColor: RULE_INK }}
         >
-          {/* Live status */}
-          <div className="flex items-center gap-2 sm:gap-2.5">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-[#F7B731] opacity-75 animate-ping" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#F7B731]" />
-            </span>
-            <span
-              className="font-mono-num text-[9px] sm:text-[10px] uppercase tracking-[0.24em]"
-              style={{ color: GOLD }}
-            >
-              Live · SEIM / 2026
-            </span>
-          </div>
-
-          {/* Lieu */}
-          <span className="hidden sm:inline text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-white/45">
-            {lang === "fr" ? EVENT.venue_fr : EVENT.venue_en}
+          <span
+            className="font-mono-num text-[11px] tracking-[0.22em] uppercase"
+            style={{ color: GOLD }}
+          >
+            SEIM <span className="opacity-50">/</span> 2026
           </span>
-
-          {/* Édition */}
-          <span className="font-mono-num text-[9px] sm:text-[10px] tracking-[0.18em] uppercase text-white/55">
-            Édition 02
+          <span className="text-[11px] uppercase tracking-[0.2em] text-white/45">
+            {lang === "fr" ? EVENT.venue_fr : EVENT.venue_en}
           </span>
         </motion.div>
 
-        {/* Contenu principal */}
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-end">
-          <div className="lg:col-span-9 xl:col-span-8 relative z-10">
-            {/* Eyebrow */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
-              className="inline-flex items-center gap-2 text-[9px] sm:text-[11px] uppercase tracking-[0.25em] mb-5 sm:mb-7 backdrop-blur-[2px]"
-              style={{ color: GOLD }}
-            >
-              <span className="w-6 sm:w-8 h-px" style={{ backgroundColor: GOLD }} />
-              {t("hero.eyebrow")}
-            </motion.p>
+        {/* Contenu — tout aligné à gauche, sobre */}
+        <div className="max-w-4xl">
+          {/* Eyebrow */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
+            className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] uppercase tracking-[0.28em] mb-6 sm:mb-8"
+            style={{ color: GOLD }}
+          >
+            <span className="w-8 h-px" style={{ backgroundColor: GOLD }} />
+            {t("hero.eyebrow")}
+          </motion.p>
 
-            {/* Titre */}
-            <motion.h1
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.75, delay: 0.15, ease: EASE }}
-              className="font-serif leading-[1.02] sm:leading-[0.98] tracking-[-0.03em] text-[2.5rem] min-[380px]:text-[3rem] sm:text-5xl lg:text-[4.5rem] xl:text-[5rem] max-w-4xl"
-              style={{ textShadow: "0 4px 30px rgba(0,0,0,0.55)" }}
-            >
-              <span className="block">{t("hero.line1")}</span>
-              <span className="block">{t("hero.line2")}</span>
-              <span
-                className="block italic"
-                style={{
-                  color: GOLD,
-                  textShadow: "0 0 40px rgba(247,183,49,0.35)",
-                }}
-              >
-                {t("hero.line3")}
-              </span>
-            </motion.h1>
+          {/* Titre */}
+          <motion.h1
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.75, delay: 0.15, ease: EASE }}
+            className="font-serif leading-[1.02] tracking-[-0.03em] text-[2.5rem] min-[380px]:text-[3rem] sm:text-5xl lg:text-[4.5rem] xl:text-[5rem]"
+          >
+            <span className="block">{t("hero.line1")}</span>
+            <span className="block">{t("hero.line2")}</span>
+            <span className="block italic" style={{ color: GOLD }}>
+              {t("hero.line3")}
+            </span>
+          </motion.h1>
 
-            {/* Sous-titre */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.65, delay: 0.3, ease: EASE }}
-              className="mt-5 sm:mt-8 text-[14px] sm:text-[17px] text-white/80 max-w-2xl leading-[1.7] sm:leading-[1.8]"
-              style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}
-            >
-              {t("hero.subtitle")}
-            </motion.p>
+          {/* Sous-titre */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.65, delay: 0.3, ease: EASE }}
+            className="mt-6 sm:mt-8 text-[14px] sm:text-[17px] text-white/75 max-w-2xl leading-[1.75]"
+          >
+            {t("hero.subtitle")}
+          </motion.p>
 
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.65, delay: 0.4, ease: EASE }}
-              className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5"
-            >
-              <Link
-                to="/inscription"
-                data-testid="hero-register-button"
-                className="group inline-flex justify-center items-center gap-2 sm:gap-3 px-6 sm:px-7 py-3.5 sm:py-4 text-[13px] sm:text-sm font-semibold tracking-wide transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-black/30"
-                style={{
-                  backgroundColor: GOLD,
-                  color: INK,
-                  boxShadow: "0 10px 40px -10px rgba(247,183,49,0.5)",
-                }}
-              >
-                {t("hero.cta1")}
-                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link
-                to="/programme"
-                data-testid="hero-program-button"
-                className="group inline-flex justify-center items-center gap-2 px-5 py-3.5 sm:py-4 border text-[13px] sm:text-sm tracking-wide transition-colors hover:bg-white/15 backdrop-blur-md bg-white/5"
-                style={{ borderColor: "rgba(242,244,246,0.35)", color: CREAM }}
-              >
-                {t("hero.cta2")}
-                <ArrowUpRight
-                  size={15}
-                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                />
-              </Link>
-            </motion.div>
-          </div>
-
-          {/* Panneau d'infos — côté droit */}
+          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.5, ease: EASE }}
-            className="lg:col-span-3 xl:col-span-4 relative z-10 mt-8 lg:mt-0"
+            transition={{ duration: 0.65, delay: 0.4, ease: EASE }}
+            className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4"
           >
-            <div
-              className="border-t sm:border-t-0 sm:border-l pt-5 sm:pt-0 sm:pl-6 flex flex-col gap-4 sm:gap-5"
-              style={{ borderColor: RULE_INK }}
+            <Link
+              to="/inscription"
+              data-testid="hero-register-button"
+              className="group inline-flex justify-center items-center gap-2 sm:gap-3 px-6 sm:px-7 py-3.5 sm:py-4 text-[13px] sm:text-sm font-semibold tracking-wide transition-all duration-200 hover:-translate-y-0.5"
+              style={{ backgroundColor: GOLD, color: INK }}
             >
-              <div className="flex items-start gap-2.5">
-                <CalendarDays size={14} className="mt-0.5 shrink-0" style={{ color: GOLD }} />
-                <div>
-                  <p className="text-[8px] sm:text-[9px] uppercase tracking-[0.24em] text-white/45 mb-1">
-                    {lang === "fr" ? "Dates" : "Dates"}
-                  </p>
-                  <p className="text-[11px] sm:text-[12px] text-white/90 leading-snug">
-                    {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}
-                  </p>
-                </div>
+              {t("hero.cta1")}
+              <ArrowRight
+                size={16}
+                className="transition-transform group-hover:translate-x-1"
+              />
+            </Link>
+            <Link
+              to="/programme"
+              data-testid="hero-program-button"
+              className="group inline-flex justify-center items-center gap-2 px-5 py-3.5 sm:py-4 border text-[13px] sm:text-sm tracking-wide transition-colors hover:bg-white/10 backdrop-blur-sm"
+              style={{ borderColor: "rgba(242,244,246,0.3)", color: CREAM }}
+            >
+              {t("hero.cta2")}
+              <ArrowUpRight
+                size={15}
+                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </Link>
+          </motion.div>
+
+          {/* Bandeau bas : dates + lieu */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.65, delay: 0.55, ease: EASE }}
+            className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t flex flex-col sm:flex-row gap-6 sm:gap-12"
+            style={{ borderColor: RULE_INK }}
+          >
+            <div className="flex items-start gap-3">
+              <CalendarDays
+                size={16}
+                className="mt-0.5 shrink-0"
+                style={{ color: GOLD }}
+              />
+              <div>
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 mb-1">
+                  {lang === "fr" ? "Dates" : "Dates"}
+                </p>
+                <p className="text-[12px] sm:text-[13px] text-white/90">
+                  {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}
+                </p>
               </div>
-              <div className="flex items-start gap-2.5">
-                <MapPin size={14} className="mt-0.5 shrink-0" style={{ color: GOLD }} />
-                <div>
-                  <p className="text-[8px] sm:text-[9px] uppercase tracking-[0.24em] text-white/45 mb-1">
-                    {lang === "fr" ? "Lieu" : "Venue"}
-                  </p>
-                  <p className="text-[11px] sm:text-[12px] text-white/90 leading-snug">
-                    CICB · Bamako
-                  </p>
-                </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <MapPin size={16} className="mt-0.5 shrink-0" style={{ color: GOLD }} />
+              <div>
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 mb-1">
+                  {lang === "fr" ? "Lieu" : "Venue"}
+                </p>
+                <p className="text-[12px] sm:text-[13px] text-white/90">
+                  CICB · Bamako
+                </p>
               </div>
             </div>
           </motion.div>
         </div>
-
-        {/* Bandeau bas : Mini countdown + status code */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.7, ease: EASE }}
-          className="mt-12 sm:mt-16 pt-6 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-5"
-          style={{ borderColor: RULE_INK }}
-        >
-          <MiniCountdown
-            d={d}
-            h={h}
-            m={m}
-            s={s}
-            label={t("hero.countdownLabel")}
-          />
-          <p className="font-mono-num text-[8px] sm:text-[9px] uppercase tracking-[0.24em] text-white/30">
-            // Signal: stable · Lat 12.6392°N · Lon 8.0029°W
-          </p>
-        </motion.div>
       </div>
     </section>
   );
 }
 
 /* ============================================================
-   CountdownSection — version monumentale (harmonisée)
+   CountdownSection — Living Ticket (desktop + mobile)
    ============================================================ */
 function CountdownSection() {
   const { t, lang } = useLanguage();
   const target = new Date(EVENT.startDateISO).getTime();
   const { d, h, m, s } = useCountdown(target);
 
+  const TICKET_PAPER = "#F8F5EE";
+  const TICKET_PAPER_DARK = "#EFEBE0";
+  const TICKET_LINE = "rgba(12,45,82,0.18)";
+
+  const copy = {
+    fr: {
+      badge: "Billet d'entrée",
+      serial: "N° SEIM-2026-0428",
+      days: "jours",
+      narrative: "avant l'ouverture officielle du forum.",
+      narrativeShort: "avant l'ouverture officielle.",
+      access: "Accès",
+      admit: "Admit One",
+      venueLabel: "Lieu",
+      stub: "Souche",
+      timeMarker: "Repère temporel",
+      hours: "Heures",
+      minutes: "Minutes",
+      seconds: "Secondes",
+      active: "T-Minus Active",
+    },
+    en: {
+      badge: "Entry ticket",
+      serial: "N° SEIM-2026-0428",
+      days: "days",
+      narrative: "before the official opening of the forum.",
+      narrativeShort: "before the official opening.",
+      access: "Access",
+      admit: "Admit One",
+      venueLabel: "Venue",
+      stub: "Stub",
+      timeMarker: "Time marker",
+      hours: "Hours",
+      minutes: "Minutes",
+      seconds: "Seconds",
+      active: "T-Minus Active",
+    },
+  }[lang];
+
+  const barcode = [2,1,1,3,1,2,1,1,3,2,1,1,2,3,1,1,2,1,3,1,1,2,1,1,3,2,1,1,2,1,1,3];
+
+  const notchStyle = {
+    backgroundColor: INK,
+    boxShadow: "inset 0 2px 4px rgba(0,0,0,0.35)",
+  };
+
   return (
     <section
-      className="relative py-16 sm:py-24 border-b overflow-hidden"
+      className="relative py-14 sm:py-20 lg:py-28 border-b overflow-hidden"
       style={{ backgroundColor: INK, color: CREAM, borderColor: RULE_INK }}
     >
-      {/* Photo de fond subtile */}
-      <div className="absolute inset-0 opacity-[0.35] sm:opacity-[0.2] pointer-events-none">
+      {/* Photo de fond */}
+      <div className="absolute inset-0 opacity-[0.15] pointer-events-none">
         <SmartImg
           src="/assets/seim/stage-bg.jpg"
           alt=""
           className="w-full h-full object-cover object-center grayscale"
         />
       </div>
-
-      {/* Gradient */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(to bottom, rgba(12,45,82,0.9) 0%, rgba(12,45,82,0.5) 50%, rgba(12,45,82,0.9) 100%)`,
+          background: `linear-gradient(to bottom, rgba(12,45,82,0.92) 0%, rgba(12,45,82,0.75) 50%, rgba(12,45,82,0.95) 100%)`,
         }}
       />
 
-      {/* Grille technique */}
-      <div
-        className="absolute inset-0 opacity-[0.08] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(${GOLD} 1px, transparent 1px), linear-gradient(90deg, ${GOLD} 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
-          maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
-          WebkitMaskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
-        }}
-      />
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-8">
-        {/* Eyebrow global */}
-        <div className="flex items-center gap-3 mb-10 sm:mb-14">
-          <span className="w-8 sm:w-12 h-px" style={{ backgroundColor: GOLD }} />
-          <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em]" style={{ color: GOLD }}>
+        {/* En-tête global */}
+        <div className="flex items-center justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 lg:mb-14">
+          <span className="w-6 sm:w-8 lg:w-12 h-px" style={{ backgroundColor: GOLD }} />
+          <span
+            className="text-[9px] sm:text-[10px] lg:text-[11px] uppercase tracking-[0.24em] sm:tracking-[0.3em] text-center"
+            style={{ color: GOLD }}
+          >
             {t("hero.countdownLabel")}
           </span>
+          <span className="w-6 sm:w-8 lg:w-12 h-px" style={{ backgroundColor: GOLD }} />
         </div>
 
-        {/* SPLIT : J-XXX monumental (gauche) + ledger vertical (droite) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end">
-          
-          {/* Colonne gauche — Jour J */}
-          <Reveal className="lg:col-span-7">
-            <div className="flex flex-col">
-              {/* Mention J-XXX */}
-              <p
-                className="font-mono-num text-[11px] sm:text-[12px] uppercase tracking-[0.28em] mb-3"
-                style={{ color: GOLD }}
-              >
-                J&nbsp;−&nbsp;{String(d).padStart(3, "0")}
-              </p>
+        <Reveal>
 
-              {/* Chiffre monumental */}
-              <div className="flex items-baseline">
-                <span
-                  className="font-serif font-light text-[6rem] sm:text-[9rem] lg:text-[11rem] leading-[0.85] tracking-[-0.05em] tabular-nums"
-                  style={{
-                    color: CREAM,
-                    textShadow: "0 4px 40px rgba(0,0,0,0.5)",
-                  }}
-                >
-                  {String(d).padStart(2, "0")}
-                </span>
-                <span
-                  className="font-serif italic text-3xl sm:text-4xl lg:text-5xl ml-2 sm:ml-4"
-                  style={{ color: GOLD }}
-                >
-                  jours
-                </span>
-              </div>
-
-              {/* Ligne titre serif */}
-              <p
-                className="font-serif text-xl sm:text-3xl lg:text-4xl leading-[1.15] mt-6 sm:mt-8 max-w-md"
-                style={{ color: "rgba(242,244,246,0.7)" }}
-              >
-                {lang === "fr"
-                  ? "avant l'ouverture officielle du forum."
-                  : "before the official opening of the forum."}
-              </p>
-            </div>
-          </Reveal>
-
-          {/* Colonne droite — Ledger vertical H/M/S */}
-          <Reveal delay={0.15} className="lg:col-span-5">
-            <div
-              className="border-t sm:border-t-0 sm:border-l pt-6 sm:pt-0 sm:pl-8 flex flex-col gap-0"
-              style={{ borderColor: RULE_INK }}
+          {/* =========================================================
+              MOBILE / TABLETTE : Pass compact horizontal
+              ========================================================= */}
+          <div className="lg:hidden">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
-              {[
-                { v: h, l: lang === "fr" ? "Heures" : "Hours", raw: "heures" },
-                { v: m, l: lang === "fr" ? "Minutes" : "Minutes", raw: "minutes" },
-                { v: s, l: lang === "fr" ? "Secondes" : "Seconds", raw: "secondes" },
-              ].map((u, i) => (
-                <div
-                  key={i}
-                  className={`flex items-baseline justify-between gap-4 py-4 sm:py-5 ${
-                    i !== 0 ? "border-t" : ""
-                  }`}
-                  style={{ borderColor: RULE_INK }}
-                >
-                  {/* Label */}
-                  <span
-                    className="font-mono-num text-[9px] sm:text-[10px] uppercase tracking-[0.24em] whitespace-nowrap"
-                    style={{ color: GOLD }}
-                  >
-                    {u.l}
-                  </span>
+              <motion.div
+                animate={{ y: [0, -3, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                className="relative overflow-hidden rounded-xl shadow-[0_20px_50px_-15px_rgba(0,0,0,0.75)]"
+                style={{ backgroundColor: TICKET_PAPER, color: INK }}
+              >
+                {/* Shimmer */}
+                <motion.div
+                  aria-hidden="true"
+                  className="absolute inset-y-0 w-1/3 z-20 pointer-events-none"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%)",
+                    transform: "skewX(-20deg)",
+                  }}
+                  animate={{ left: ["-40%", "140%"] }}
+                  transition={{
+                    duration: 1.8,
+                    repeat: Infinity,
+                    repeatDelay: 6,
+                    ease: "easeInOut",
+                  }}
+                />
 
-                  {/* Chiffre */}
+                {/* Bandeau haut */}
+                <div
+                  className="flex items-center justify-between gap-2 px-4 py-2 border-b relative z-10"
+                  style={{ borderColor: TICKET_LINE }}
+                >
                   <span
-                    className="font-serif font-light text-3xl sm:text-5xl lg:text-6xl leading-none tracking-[-0.03em] tabular-nums"
-                    style={{
-                      color: CREAM,
-                      textShadow: "0 2px 20px rgba(0,0,0,0.4)",
-                    }}
+                    className="font-mono-num text-[9px] tracking-[0.2em] uppercase"
+                    style={{ color: INK }}
                   >
-                    {String(u.v).padStart(2, "0")}
+                    SEIM <span style={{ color: BRONZE }}>/</span> 2026
+                  </span>
+                  <span
+                    className="text-[8px] uppercase tracking-[0.22em]"
+                    style={{ color: BRONZE }}
+                  >
+                    {copy.badge}
                   </span>
                 </div>
-              ))}
 
-              {/* Mention lat/lon en pied */}
-              <div
-                className="mt-4 pt-4 border-t flex items-center justify-between gap-3"
-                style={{ borderColor: RULE_INK }}
+                {/* Corps */}
+                <div className="relative flex z-10">
+                  {/* Zone gauche */}
+                  <div className="flex-1 min-w-0 px-4 py-3.5">
+                    <div className="flex items-baseline">
+                      <AnimatedNumber
+                        value={d}
+                        className="font-serif font-light text-[3rem] min-[380px]:text-[3.5rem] leading-[0.85] tracking-[-0.05em]"
+                        style={{ color: INK }}
+                      />
+                      <span
+                        className="font-serif italic text-lg min-[380px]:text-xl ml-1.5"
+                        style={{ color: BRONZE }}
+                      >
+                        {copy.days}
+                      </span>
+                    </div>
+                    <p
+                      className="font-serif text-[10.5px] leading-[1.35] mt-1.5 pr-2"
+                      style={{ color: "rgba(12,45,82,0.65)" }}
+                    >
+                      {copy.narrativeShort}
+                    </p>
+                  </div>
+
+                  {/* Perforation + encoches */}
+                  <div className="relative w-px shrink-0">
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-y-0 left-0 w-px border-l-2 border-dashed"
+                      style={{ borderColor: "rgba(12,45,82,0.35)" }}
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="absolute -top-3 left-0 w-6 h-6 rounded-full -translate-x-1/2 z-10"
+                      style={notchStyle}
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="absolute -bottom-3 left-0 w-6 h-6 rounded-full -translate-x-1/2 z-10"
+                      style={notchStyle}
+                    />
+                  </div>
+
+                  {/* Zone droite : 3 colonnes */}
+                  <div className="w-[42%] shrink-0 px-2 py-3.5 grid grid-cols-3 gap-0.5">
+                    {[
+                      { v: h, l: copy.hours },
+                      { v: m, l: copy.minutes },
+                      { v: s, l: copy.seconds },
+                    ].map((u, i) => (
+                      <div key={i} className="flex flex-col items-center text-center">
+                        <AnimatedNumber
+                          value={u.v}
+                          className="font-serif font-light text-xl min-[380px]:text-2xl leading-none tracking-[-0.02em]"
+                          style={{ color: INK }}
+                        />
+                        <span
+                          className="block w-3 h-px my-1"
+                          style={{ backgroundColor: "rgba(12,45,82,0.28)" }}
+                        />
+                        <span
+                          className="font-mono-num text-[7px] uppercase tracking-[0.12em] leading-none"
+                          style={{ color: "rgba(12,45,82,0.55)" }}
+                        >
+                          {u.l}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bandeau bas */}
+                <div
+                  className="flex items-center justify-between gap-2 px-4 py-2 border-t relative z-10"
+                  style={{ borderColor: TICKET_LINE }}
+                >
+                  <div className="flex items-center gap-2">
+                    {/* Code-barres + scan */}
+                    <div
+                      className="relative flex items-end gap-[1px] h-3 overflow-hidden"
+                      aria-hidden="true"
+                    >
+                      {barcode.slice(0, 12).map((w, i) => (
+                        <span
+                          key={i}
+                          className="block h-full"
+                          style={{ width: `${w}px`, backgroundColor: INK }}
+                        />
+                      ))}
+                      <motion.span
+                        className="absolute inset-y-0 w-px z-10 pointer-events-none"
+                        style={{
+                          backgroundColor: GOLD,
+                          boxShadow: "0 0 6px 1px rgba(247,183,49,0.8)",
+                        }}
+                        animate={{ left: ["0%", "100%", "0%"] }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          repeatDelay: 2,
+                        }}
+                      />
+                    </div>
+                    <span className="font-serif italic text-[10px]" style={{ color: INK }}>
+                      {copy.admit}
+                    </span>
+                  </div>
+
+                  {/* Double pulse */}
+                  <div className="flex items-center gap-1.5">
+                    <span className="relative flex h-1 w-1">
+                      <span
+                        className="absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping"
+                        style={{ backgroundColor: BRONZE, animationDuration: "1.5s" }}
+                      />
+                      <span
+                        className="absolute inline-flex h-full w-full rounded-full opacity-40 animate-ping"
+                        style={{
+                          backgroundColor: BRONZE,
+                          animationDuration: "1.5s",
+                          animationDelay: "0.4s",
+                        }}
+                      />
+                      <span
+                        className="relative inline-flex rounded-full h-1 w-1"
+                        style={{ backgroundColor: BRONZE }}
+                      />
+                    </span>
+                    <span
+                      className="font-mono-num text-[7px] uppercase tracking-[0.15em]"
+                      style={{ color: BRONZE }}
+                    >
+                      {copy.active}
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* =========================================================
+              DESKTOP : Billet vertical incliné
+              ========================================================= */}
+          <div className="hidden lg:block">
+            <motion.div
+              initial={{ opacity: 0, y: 50, rotate: -3 }}
+              animate={{ opacity: 1, y: 0, rotate: -1 }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ rotate: 0, scale: 1.005 }}
+              className="relative"
+            >
+              <motion.div
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               >
-                <span
-                  className="font-mono-num text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-white/30"
-                >
-                  CICB · Bamako
-                </span>
-                <span
-                  className="font-mono-num text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-white/30"
-                >
-                  T-minus active
-                </span>
-              </div>
-            </div>
-          </Reveal>
-        </div>
+                <div className="relative flex flex-row shadow-[0_40px_90px_-25px_rgba(0,0,0,0.85)]">
+
+                  {/* PARTIE PRINCIPALE */}
+                  <div
+                    className="flex-1 relative flex flex-col justify-between p-12 rounded-l-xl overflow-hidden"
+                    style={{ backgroundColor: TICKET_PAPER, color: INK }}
+                  >
+                    {/* Shimmer */}
+                    <motion.div
+                      aria-hidden="true"
+                      className="absolute inset-y-0 w-1/3 z-20 pointer-events-none"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%)",
+                        transform: "skewX(-20deg)",
+                      }}
+                      animate={{ left: ["-40%", "140%"] }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatDelay: 7,
+                        ease: "easeInOut",
+                      }}
+                    />
+
+                    <div
+                      className="flex items-start justify-between gap-4 pb-5 mb-2 border-b relative z-10"
+                      style={{ borderColor: TICKET_LINE }}
+                    >
+                      <div>
+                        <p
+                          className="text-[10px] uppercase tracking-[0.28em] mb-1"
+                          style={{ color: BRONZE }}
+                        >
+                          {copy.badge}
+                        </p>
+                        <p
+                          className="font-mono-num text-[11px] tracking-[0.18em]"
+                          style={{ color: "rgba(12,45,82,0.45)" }}
+                        >
+                          {copy.serial}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p
+                          className="font-mono-num text-[11px] tracking-[0.24em] uppercase"
+                          style={{ color: INK }}
+                        >
+                          SEIM <span style={{ color: BRONZE }}>/</span> 2026
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="my-12 relative z-10">
+                      <div
+                        className="inline-flex items-center gap-2 mb-5 px-2.5 py-1 rounded border"
+                        style={{
+                          color: BRONZE,
+                          borderColor: "rgba(181,122,10,0.35)",
+                          backgroundColor: "rgba(181,122,10,0.08)",
+                        }}
+                      >
+                        <span className="font-mono-num text-[10px] tracking-[0.2em] uppercase">
+                          {lang === "fr" ? "Compte à rebours" : "Countdown"}
+                        </span>
+                      </div>
+
+                      <div className="flex items-baseline flex-wrap">
+                        <AnimatedNumber
+                          value={d}
+                          className="font-serif font-light text-[8rem] leading-[0.85] tracking-[-0.05em]"
+                          style={{ color: INK }}
+                        />
+                        <span
+                          className="font-serif italic text-5xl ml-3"
+                          style={{ color: BRONZE }}
+                        >
+                          {copy.days}
+                        </span>
+                      </div>
+
+                      <p
+                        className="font-serif text-xl leading-[1.4] mt-5 max-w-sm"
+                        style={{ color: "rgba(12,45,82,0.7)" }}
+                      >
+                        {copy.narrative}
+                      </p>
+                    </div>
+
+                    <div
+                      className="flex items-end justify-between gap-4 pt-5 border-t relative z-10"
+                      style={{ borderColor: TICKET_LINE }}
+                    >
+                      <div>
+                        <p
+                          className="text-[9px] uppercase tracking-[0.24em] mb-1"
+                          style={{ color: "rgba(12,45,82,0.4)" }}
+                        >
+                          {copy.access}
+                        </p>
+                        <p className="font-serif italic text-lg" style={{ color: INK }}>
+                          {copy.admit}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p
+                          className="text-[9px] uppercase tracking-[0.24em] mb-1"
+                          style={{ color: "rgba(12,45,82,0.4)" }}
+                        >
+                          {copy.venueLabel}
+                        </p>
+                        <p className="font-serif text-base" style={{ color: INK }}>
+                          CICB · Bamako
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Perforation */}
+                  <div className="relative flex lg:block justify-center lg:w-px lg:self-stretch">
+                    <span
+                      aria-hidden="true"
+                      className="hidden lg:block absolute inset-y-0 left-0 w-px border-l-2 border-dashed"
+                      style={{ borderColor: "rgba(12,45,82,0.35)" }}
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="hidden lg:block absolute -top-3 left-0 w-6 h-6 rounded-full -translate-x-1/2 z-10"
+                      style={notchStyle}
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="hidden lg:block absolute -bottom-3 left-0 w-6 h-6 rounded-full -translate-x-1/2 z-10"
+                      style={notchStyle}
+                    />
+                  </div>
+
+                  {/* SOUCHE */}
+                  <div
+                    className="lg:w-[36%] relative flex flex-col justify-between p-10 rounded-r-xl"
+                    style={{ backgroundColor: TICKET_PAPER_DARK, color: INK }}
+                  >
+                    <div className="pb-4 border-b" style={{ borderColor: TICKET_LINE }}>
+                      <p
+                        className="text-[10px] uppercase tracking-[0.28em]"
+                        style={{ color: BRONZE }}
+                      >
+                        {copy.stub}
+                      </p>
+                      <p
+                        className="font-mono-num text-[10px] tracking-[0.15em] mt-1"
+                        style={{ color: "rgba(12,45,82,0.45)" }}
+                      >
+                        {copy.timeMarker}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col gap-6 my-8">
+                      {[
+                        { v: h, l: copy.hours },
+                        { v: m, l: copy.minutes },
+                        { v: s, l: copy.seconds },
+                      ].map((u, i) => (
+                        <div key={i} className="flex items-end justify-between gap-3">
+                          <div className="flex flex-col gap-1">
+                            <span
+                              className="font-mono-num text-[10px] uppercase tracking-[0.24em]"
+                              style={{ color: "rgba(12,45,82,0.55)" }}
+                            >
+                              {u.l}
+                            </span>
+                            <span
+                              className="w-6 h-px"
+                              style={{ backgroundColor: "rgba(12,45,82,0.25)" }}
+                            />
+                          </div>
+                          <AnimatedNumber
+                            value={u.v}
+                            className="font-serif font-light text-[3.5rem] leading-none tracking-[-0.03em]"
+                            style={{ color: INK }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    <div>
+                      {/* Code-barres + scan */}
+                      <div
+                        className="relative flex items-end gap-[1.5px] h-9 mb-3 overflow-hidden"
+                        aria-hidden="true"
+                      >
+                        {barcode.map((w, i) => (
+                          <span
+                            key={i}
+                            className="block h-full"
+                            style={{ width: `${w}px`, backgroundColor: INK }}
+                          />
+                        ))}
+                        <motion.span
+                          className="absolute inset-y-0 w-[2px] z-10 pointer-events-none"
+                          style={{
+                            backgroundColor: GOLD,
+                            boxShadow: "0 0 10px 2px rgba(247,183,49,0.85)",
+                          }}
+                          animate={{ left: ["0%", "100%", "0%"] }}
+                          transition={{
+                            duration: 4,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            repeatDelay: 2,
+                          }}
+                        />
+                      </div>
+
+                      <div
+                        className="pt-3 border-t flex items-center justify-between gap-2"
+                        style={{ borderColor: TICKET_LINE }}
+                      >
+                        <span
+                          className="font-mono-num text-[9px] uppercase tracking-[0.2em]"
+                          style={{ color: "rgba(12,45,82,0.55)" }}
+                        >
+                          CICB · Bamako
+                        </span>
+                        <div className="flex items-center gap-1.5">
+                          <span className="relative flex h-1.5 w-1.5">
+                            <span
+                              className="absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping"
+                              style={{
+                                backgroundColor: BRONZE,
+                                animationDuration: "1.5s",
+                              }}
+                            />
+                            <span
+                              className="absolute inline-flex h-full w-full rounded-full opacity-40 animate-ping"
+                              style={{
+                                backgroundColor: BRONZE,
+                                animationDuration: "1.5s",
+                                animationDelay: "0.4s",
+                              }}
+                            />
+                            <span
+                              className="relative inline-flex rounded-full h-1.5 w-1.5"
+                              style={{ backgroundColor: BRONZE }}
+                            />
+                          </span>
+                          <span
+                            className="font-mono-num text-[9px] uppercase tracking-[0.2em]"
+                            style={{ color: BRONZE }}
+                          >
+                            {copy.active}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+
+        </Reveal>
       </div>
     </section>
   );
@@ -768,7 +958,7 @@ function WhyAttend() {
   const copy = lang === "fr" ? {
     eyebrow: "Pourquoi participer",
     title: "Faire des rencontres. Ouvrir des perspectives. Concrétiser des projets.",
-    intro: "Le SEIM crée un cadre de dialogue entre les acteurs qui font avancer l’économie et ceux qui peuvent contribuer à son financement.",
+    intro: "Le SEIM crée un cadre de dialogue entre les acteurs qui font avancer l'économie et ceux qui peuvent contribuer à son financement.",
     items: [
       { n: "01", title: "Rencontrer des investisseurs", desc: "Présentez vos ambitions et échangez avec des acteurs du financement.", icon: "target" },
       { n: "02", title: "Développer son réseau", desc: "Créez des liens avec des entrepreneurs, dirigeants et partenaires.", icon: "network" },
@@ -832,7 +1022,7 @@ function Audience() {
   const { lang } = useLanguage();
   const copy = lang === "fr" ? {
     eyebrow: "Un sommet pour les acteurs du changement",
-    title: "À qui s’adresse le SEIM ?",
+    title: "À qui s'adresse le SEIM ?",
     intro: "Un rendez-vous pour celles et ceux qui souhaitent contribuer au développement économique, porter des projets ou créer des passerelles.",
     items: [
       { n: "01", title: "Investisseurs", desc: "Repérez des opportunités, rencontrez des porteurs de projets et développez votre réseau.", icon: "target" },
