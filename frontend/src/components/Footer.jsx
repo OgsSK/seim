@@ -30,7 +30,7 @@ export function Footer() {
       links: [
         { label: L.register, to: "/inscription" },
         { label: L.becomeExhibitor, to: "/inscription?type=exposant" },
-        { label: L.becomeSponsor, to: "/partenaires" },
+        { label: L.becomeSponsor, to: "/inscription?type=partenaire" },
       ],
     },
     {

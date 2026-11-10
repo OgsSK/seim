@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { Link } from "react-router-dom";
 import { Handshake, ArrowUpRight } from "lucide-react";
 import { PageHero } from "../components/PageHero";
 import { Reveal, Stagger, StaggerItem } from "../components/Reveal";
 import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
-import { buildRequestMessage, openWhatsApp } from "../lib/whatsapp";
 
 /* Palette éditoriale premium */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
 const BRONZE = "#B57A0A";
+const GOLD = "#F7B731";
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_LIGHT = "rgba(12,45,82,0.08)";
 
@@ -32,10 +32,6 @@ const TIER_STYLE = {
   media: "font-serif text-base sm:text-lg",
   technique: "font-serif text-sm sm:text-base",
 };
-
-/* Style des champs (ligne éditoriale) */
-const inputCls =
-  "w-full px-0 py-3 bg-transparent border-0 border-b text-[15px] placeholder-[#0C2D52]/30 focus:outline-none focus:ring-0 transition-colors appearance-none";
 
 /* ---------- Empty state ---------- */
 function EmptyState({ lang }) {
@@ -69,13 +65,6 @@ export default function Partenaires() {
   const { t, lang } = useLanguage();
   const [partners, setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    organization: "",
-    message: "",
-  });
-
   useEffect(() => {
     api
       .partners()
@@ -83,19 +72,6 @@ export default function Partenaires() {
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
-
-  const submit = (e) => {
-    e.preventDefault();
-    openWhatsApp(
-      buildRequestMessage({
-        lang,
-        type: "sponsoring",
-        typeLabel: t("contact.types.sponsoring"),
-        ...form,
-      })
-    );
-    toast.success(t("contact.sent"));
-  };
 
   return (
     <div data-testid="partners-page" style={{ backgroundColor: PAPER, color: INK }}>
@@ -197,81 +173,35 @@ export default function Partenaires() {
                 </div>
               </div>
 
-              {/* Colonne formulaire (Droite) */}
-              <div className="lg:col-span-6">
-                <form data-testid="sponsorship-form" onSubmit={submit} className="space-y-8">
-                  
-                  {/* Bloc 1 */}
-                  <div>
-                    <p className="text-[9px] uppercase tracking-[0.24em] mb-4" style={{ color: "rgba(12,45,82,0.45)" }}>
-                      {lang === "fr" ? "Vos coordonnées" : "Your details"}
+              {/* Colonne action (Droite) — renvoie vers le formulaire unique d'inscription */}
+              <div className="lg:col-span-6 flex">
+                <div
+                  data-testid="sponsorship-cta"
+                  className="relative overflow-hidden w-full p-8 sm:p-10 flex flex-col justify-between gap-10"
+                  style={{ backgroundColor: INK, color: PAPER }}
+                >
+                  <div className="seim-pattern" aria-hidden="true" />
+                  <div className="relative">
+                    <Handshake size={28} strokeWidth={1.25} style={{ color: GOLD }} />
+                    <p className="mt-6 font-serif text-xl sm:text-2xl leading-[1.3]">
+                      {lang === "fr"
+                        ? "Inscrivez-vous comme partenaire ou sponsor : votre demande arrive directement à l'équipe SEIM sur WhatsApp."
+                        : "Register as a partner or sponsor: your request goes straight to the SEIM team on WhatsApp."}
                     </p>
-                    
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <input
-                        required
-                        data-testid="sponsor-name-input"
-                        placeholder={t("contact.name")}
-                        value={form.name}
-                        onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        className={`${inputCls} focus:border-[#B57A0A]`}
-                        style={{ borderColor: RULE, color: INK }}
-                      />
-                      <input
-                        type="email"
-                        data-testid="sponsor-email-input"
-                        placeholder={t("contact.email")}
-                        value={form.email}
-                        onChange={(e) => setForm({ ...form, email: e.target.value })}
-                        className={`${inputCls} focus:border-[#B57A0A]`}
-                        style={{ borderColor: RULE, color: INK }}
-                      />
-                    </div>
-
-                    <input
-                      data-testid="sponsor-org-input"
-                      placeholder={t("contact.org")}
-                      value={form.organization}
-                      onChange={(e) => setForm({ ...form, organization: e.target.value })}
-                      className={`${inputCls} focus:border-[#B57A0A] mt-4 sm:mt-6`}
-                      style={{ borderColor: RULE, color: INK }}
+                  </div>
+                  <Link
+                    to="/inscription?type=partenaire"
+                    data-testid="sponsor-submit-button"
+                    className="relative group inline-flex justify-center items-center gap-2 sm:gap-3 w-full sm:w-auto self-start px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90"
+                    style={{ backgroundColor: GOLD, color: INK }}
+                  >
+                    {t("partners.become")}
+                    <ArrowUpRight
+                      size={15}
+                      className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                     />
-                  </div>
-
-                  {/* Bloc 2 */}
-                  <div>
-                    <p className="text-[9px] uppercase tracking-[0.24em] mb-4" style={{ color: "rgba(12,45,82,0.45)" }}>
-                      {lang === "fr" ? "Votre message" : "Your message"}
-                    </p>
-                    <textarea
-                      required
-                      rows={4}
-                      data-testid="sponsor-message-input"
-                      placeholder={t("contact.message")}
-                      value={form.message}
-                      onChange={(e) => setForm({ ...form, message: e.target.value })}
-                      className={`${inputCls} focus:border-[#B57A0A] resize-none`}
-                      style={{ borderColor: RULE, color: INK }}
-                    />
-                  </div>
-
-                  {/* Bouton Submit */}
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      data-testid="sponsor-submit-button"
-                      className="group inline-flex justify-center items-center gap-2 sm:gap-3 w-full sm:w-auto px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90"
-                      style={{ backgroundColor: INK, color: PAPER }}
-                    >
-                      {t("partners.become")}
-                      <ArrowUpRight 
-                        size={15} 
-                        className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" 
-                        style={{ color: BRONZE }} 
-                      />
-                    </button>
-                  </div>
-                </form>
+                  </Link>
+                </div>
               </div>
 
             </div>

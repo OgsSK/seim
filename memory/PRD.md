@@ -67,3 +67,4 @@ Créer une plateforme web événementielle premium (inspiration : semainedelepar
 - Inscription / Contact / Sponsoring → WhatsApp (+223 71 39 53 88) avec message pré-rempli selon pass / type de besoin (src/lib/whatsapp.js). Plus d'appel backend pour ces formulaires.
 - Image de partage OG: public/assets/brand/seim-og.jpg (1200x630), balises og/twitter dans index.html; URL absolue via REACT_APP_SITE_URL ou VERCEL_PROJECT_PRODUCTION_URL (craco.config.js)
 - Inscription simplifiée (plus de pass/prix/badge/confirmation): type d'inscription Participant / Exposant / Partenaire-Sponsor / Intervenant / Presse → message WhatsApp adapté. ?type=exposant|presse|... pré-sélectionne. /confirmation/* redirige vers /inscription.
+- Partenaires: formulaire sponsoring remplacé par CTA vers /inscription?type=partenaire. Écran de remerciement après envoi (dates, lieu, compte à rebours, lien programme, rouvrir WhatsApp).

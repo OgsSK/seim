@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { toast } from "sonner";
-import { MessageCircle, Users, Store, Handshake, Mic, Newspaper } from "lucide-react";
+import { Link, useSearchParams } from "react-router-dom";
+import {
+  MessageCircle, Users, Store, Handshake, Mic, Newspaper,
+  CheckCircle2, CalendarDays, MapPin, ArrowUpRight, RotateCcw,
+} from "lucide-react";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
+import { Countdown } from "../components/Countdown";
 import { useLanguage } from "../i18n/LanguageContext";
 import { EVENT } from "../config/event";
 import { BLANK, buildMessage, openWhatsApp } from "../lib/whatsapp";
@@ -133,10 +136,14 @@ export default function Inscription() {
   });
 
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+  const [sent, setSent] = useState(null);
 
   // Suit le type passé dans l'URL (ex. lien « Devenir exposant » depuis le pied de page)
   useEffect(() => {
-    if (TYPE_KEYS.includes(urlType)) setForm((f) => ({ ...f, type: urlType }));
+    if (TYPE_KEYS.includes(urlType)) {
+      setForm((f) => ({ ...f, type: urlType }));
+      setSent(null);
+    }
   }, [urlType]);
   const toggleInterest = (i) =>
     setForm({
@@ -176,12 +183,14 @@ export default function Inscription() {
     ]);
 
     openWhatsApp(message);
-    toast.success(
-      L(
-        "WhatsApp s'ouvre : appuyez sur Envoyer pour finaliser votre inscription.",
-        "WhatsApp is opening: tap Send to complete your registration."
-      )
-    );
+    setSent({ message, firstName: form.first_name, label: current.label, type: form.type });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const resetForm = () => {
+    setSent(null);
+    setForm((f) => ({ ...f, first_name: "", last_name: "", phone: "", email: "", organization: "", role: "", interests: [], message: "" }));
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const SectionLabel = ({ children, mb = "mb-8" }) => (
@@ -215,6 +224,97 @@ export default function Inscription() {
       />
 
       <section className="py-16 sm:py-24 lg:py-32">
+        {sent ? (
+          <div data-testid="thank-you-screen" className="max-w-4xl mx-auto px-5 sm:px-8">
+            <Reveal>
+              <div className="flex items-center gap-3 mb-6">
+                <CheckCircle2 size={22} style={{ color: "#3AA57C" }} />
+                <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: "#3AA57C" }}>
+                  {L("Demande préparée", "Request ready")}
+                </span>
+              </div>
+              <h2
+                data-testid="thank-you-title"
+                className="font-serif text-3xl sm:text-4xl lg:text-5xl leading-[1.1] tracking-[-0.02em]"
+                style={{ color: INK }}
+              >
+                {L(`Merci ${sent.firstName} !`, `Thank you ${sent.firstName}!`)}
+              </h2>
+              <p className="mt-5 max-w-2xl text-[15px] sm:text-[16px] leading-[1.75]" style={{ color: "rgba(12,45,82,0.7)" }}>
+                {L(
+                  `Votre inscription en tant que « ${sent.label} » a été préparée dans WhatsApp. Si ce n'est pas déjà fait, appuyez sur Envoyer : l'équipe SEIM vous répondra directement sur WhatsApp.`,
+                  `Your registration as “${sent.label}” has been prepared in WhatsApp. If you haven't yet, tap Send: the SEIM team will reply to you directly on WhatsApp.`
+                )}
+              </p>
+            </Reveal>
+
+            {/* Rappel des dates */}
+            <Reveal delay={0.1}>
+              <div
+                className="relative overflow-hidden mt-12 p-8 sm:p-10"
+                style={{ backgroundColor: INK, color: PAPER }}
+                data-testid="thank-you-reminder"
+              >
+                <div className="seim-pattern" aria-hidden="true" />
+                <div className="relative grid gap-8 lg:grid-cols-2 lg:items-center">
+                  <div className="space-y-5">
+                    <p className="text-[10px] uppercase tracking-[0.28em]" style={{ color: "#F7B731" }}>
+                      {L("À noter dans votre agenda", "Save the date")}
+                    </p>
+                    <p className="flex items-start gap-3 font-serif text-2xl sm:text-3xl leading-tight">
+                      <CalendarDays size={22} className="mt-1.5 shrink-0" style={{ color: "#F7B731" }} />
+                      {fr ? EVENT.dates_fr : EVENT.dates_en}
+                    </p>
+                    <p className="flex items-start gap-3 text-[14px] sm:text-[15px] leading-[1.6]" style={{ color: "rgba(242,244,246,0.8)" }}>
+                      <MapPin size={18} className="mt-0.5 shrink-0" style={{ color: "#F7B731" }} />
+                      <span>
+                        {fr ? EVENT.venue_fr : EVENT.venue_en}
+                        <br />
+                        {fr ? EVENT.city_fr : EVENT.city_en}
+                      </span>
+                    </p>
+                  </div>
+                  <Countdown dark />
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Actions */}
+            <Reveal delay={0.15}>
+              <div className="mt-10 flex flex-col sm:flex-row flex-wrap gap-4">
+                <Link
+                  to="/programme"
+                  data-testid="thank-you-program-link"
+                  className="group inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90"
+                  style={{ backgroundColor: "#F7B731", color: INK }}
+                >
+                  {L("Voir le programme", "See the programme")}
+                  <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </Link>
+                <button
+                  type="button"
+                  data-testid="thank-you-reopen-whatsapp"
+                  onClick={() => openWhatsApp(sent.message)}
+                  className="inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-medium border transition-colors hover:border-[#0C2D52]"
+                  style={{ borderColor: RULE, color: INK }}
+                >
+                  <MessageCircle size={16} style={{ color: BRONZE }} />
+                  {L("Rouvrir WhatsApp", "Reopen WhatsApp")}
+                </button>
+                <button
+                  type="button"
+                  data-testid="thank-you-new-registration"
+                  onClick={resetForm}
+                  className="inline-flex items-center justify-center gap-3 px-6 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-colors hover:text-[#B57A0A]"
+                  style={{ color: "rgba(12,45,82,0.6)" }}
+                >
+                  <RotateCcw size={14} />
+                  {L("Nouvelle inscription", "New registration")}
+                </button>
+              </div>
+            </Reveal>
+          </div>
+        ) : (
         <form
           data-testid="registration-form"
           onSubmit={submit}
@@ -351,6 +451,7 @@ export default function Inscription() {
             </div>
           </Reveal>
         </form>
+        )}
       </section>
     </div>
   );

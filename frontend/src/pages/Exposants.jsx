@@ -427,7 +427,7 @@ export default function Exposants() {
                       />
                     </Link>
                     <Link
-                      to="/partenaires"
+                      to="/inscription?type=partenaire"
                       className="group inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-medium border transition-colors hover:bg-white/5"
                       style={{ borderColor: "rgba(242,244,246,0.2)", color: PAPER }}
                     >
