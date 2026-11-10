@@ -10,11 +10,11 @@ import { SmartImg } from "../components/SectionHead";
 import { EditorialIllustration } from "../components/EditorialIllustration";
 import { SpeakerModal } from "../components/SpeakerModal";
 
-/* Palette éditoriale premium */
+/* Palette éditoriale premium — charte SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
 const BRONZE = "#B57A0A";
-const GOLD = "#F7B731"; // jaune doré charte — sur fonds bleu foncé
+const GOLD = "#F7B731";
 const CREAM = "#F2F4F6";
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_INK = "rgba(242,244,246,0.15)";
@@ -25,207 +25,362 @@ const getRole = (sp, lang) =>
   (lang === "fr" ? sp?.role_fr : sp?.role_en) || sp?.role || "";
 
 /* ============================================================
-   Compte à rebours monumental — AVEC PHOTO DE FOND
+   Hook partagé — compte à rebours (Hero + CountdownSection)
    ============================================================ */
-function CountdownSection() {
-  const { t } = useLanguage();
-  const target = new Date(EVENT.startDateISO).getTime();
+function useCountdown(target) {
   const [now, setNow] = useState(Date.now());
-
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);
   }, []);
-
   const diff = Math.max(0, target - now);
-  const d = Math.floor(diff / 86400000);
-  const h = Math.floor((diff % 86400000) / 3600000);
-  const m = Math.floor((diff % 3600000) / 60000);
-  const s = Math.floor((diff % 60000) / 1000);
+  return {
+    d: Math.floor(diff / 86400000),
+    h: Math.floor((diff % 86400000) / 3600000),
+    m: Math.floor((diff % 3600000) / 60000),
+    s: Math.floor((diff % 60000) / 1000),
+  };
+}
 
-  const units = [
-    { v: d, l: t("hero.countdown.days") },
-    { v: h, l: t("hero.countdown.hours") },
-    { v: m, l: t("hero.countdown.minutes") },
-    { v: s, l: t("hero.countdown.seconds") },
-  ];
-
+/* ============================================================
+   HeroBackdrop — grille perspective + anneaux orbitaux
+   ============================================================ */
+function HeroBackdrop() {
   return (
-    <section className="relative py-16 sm:py-24 border-b overflow-hidden" style={{ backgroundColor: INK, color: CREAM, borderColor: RULE_INK }}>
-      
-      {/* Photo : opacité augmentée (mobile plus visible) */}
-      <div className="absolute inset-0 opacity-[0.35] sm:opacity-[0.2] pointer-events-none">
-        <SmartImg
-          src="/assets/seim/stage-bg.jpg"
-          alt=""
-          className="w-full h-full object-cover object-center grayscale"
+    <>
+      {/* Grille perspective — converge vers le haut */}
+      <svg
+        className="absolute inset-x-0 bottom-0 h-[55%] w-full pointer-events-none"
+        viewBox="0 0 800 400"
+        preserveAspectRatio="xMidYMax slice"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="grid-fade" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stopColor={GOLD} stopOpacity="0.45" />
+            <stop offset="60%" stopColor={GOLD} stopOpacity="0.08" />
+            <stop offset="100%" stopColor={GOLD} stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        {/* Lignes verticales qui convergent vers le centre */}
+        {Array.from({ length: 21 }).map((_, i) => {
+          const xBottom = (i / 20) * 800;
+          const xTop = 400 + (xBottom - 400) * 0.15;
+          return (
+            <line
+              key={`v-${i}`}
+              x1={xTop}
+              y1={0}
+              x2={xBottom}
+              y2={400}
+              stroke="url(#grid-fade)"
+              strokeWidth="0.8"
+            />
+          );
+        })}
+        {/* Lignes horizontales — perspective densifiée */}
+        {Array.from({ length: 9 }).map((_, i) => {
+          const y = Math.pow(i / 8, 1.6) * 400;
+          return (
+            <line
+              key={`h-${i}`}
+              x1="0"
+              y1={y}
+              x2="800"
+              y2={y}
+              stroke="url(#grid-fade)"
+              strokeWidth="0.6"
+            />
+          );
+        })}
+      </svg>
+
+      {/* Anneaux orbitaux — desktop uniquement pour ne pas surcharger mobile */}
+      <motion.svg
+        viewBox="0 0 600 600"
+        className="absolute -right-32 top-1/4 w-[520px] h-[520px] pointer-events-none opacity-60 hidden lg:block"
+        aria-hidden="true"
+      >
+        {/* Anneau externe */}
+        <motion.g
+          animate={{ rotate: 360 }}
+          transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "300px 300px" }}
+        >
+          <circle
+            cx="300"
+            cy="300"
+            r="250"
+            stroke={GOLD}
+            strokeWidth="0.6"
+            fill="none"
+            strokeDasharray="2 10"
+            opacity="0.5"
+          />
+          <circle cx="300" cy="50" r="3.5" fill={GOLD} />
+        </motion.g>
+
+        {/* Anneau intermédiaire */}
+        <motion.g
+          animate={{ rotate: -360 }}
+          transition={{ duration: 110, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "300px 300px" }}
+        >
+          <circle
+            cx="300"
+            cy="300"
+            r="180"
+            stroke={BRONZE}
+            strokeWidth="0.7"
+            fill="none"
+            opacity="0.5"
+          />
+          <circle cx="300" cy="120" r="2.5" fill={GOLD} opacity="0.7" />
+        </motion.g>
+
+        {/* Anneau interne — pulsation */}
+        <motion.g
+          animate={{ rotate: 360 }}
+          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "300px 300px" }}
+        >
+          <circle
+            cx="300"
+            cy="300"
+            r="110"
+            stroke={GOLD}
+            strokeWidth="0.5"
+            fill="none"
+            strokeDasharray="1 5"
+            opacity="0.6"
+          />
+        </motion.g>
+
+        {/* Centre lumineux */}
+        <circle cx="300" cy="300" r="55" stroke={GOLD} strokeWidth="1" fill="none" opacity="0.3" />
+        <motion.circle
+          cx="300"
+          cy="300"
+          r="3"
+          fill={GOLD}
+          animate={{ opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.svg>
+
+      {/* Crosshairs coins techniques */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute top-24 sm:top-28 left-4 sm:left-8 w-5 h-5 border-t border-l"
+          style={{ borderColor: GOLD, opacity: 0.35 }}
+        />
+        <div
+          className="absolute top-24 sm:top-28 right-4 sm:right-8 w-5 h-5 border-t border-r"
+          style={{ borderColor: GOLD, opacity: 0.35 }}
+        />
+        <div
+          className="absolute bottom-8 left-4 sm:left-8 w-5 h-5 border-b border-l"
+          style={{ borderColor: GOLD, opacity: 0.35 }}
+        />
+        <div
+          className="absolute bottom-8 right-4 sm:right-8 w-5 h-5 border-b border-r"
+          style={{ borderColor: GOLD, opacity: 0.35 }}
         />
       </div>
-
-      {/* Gradient allégé */}
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `linear-gradient(to bottom, rgba(12,45,82,0.9) 0%, rgba(12,45,82,0.5) 50%, rgba(12,45,82,0.9) 100%)`,
-        }}
-      />
-
-      {/* Grille */}
-      <div className="absolute inset-0 opacity-[0.08] pointer-events-none" style={{
-        backgroundImage: `linear-gradient(${GOLD} 1px, transparent 1px), linear-gradient(90deg, ${GOLD} 1px, transparent 1px)`,
-        backgroundSize: "60px 60px",
-        maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
-        WebkitMaskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)"
-      }} />
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-8 text-center">
-        <Reveal>
-          <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] mb-4" style={{ color: GOLD }}>
-            {t("hero.countdownLabel")}
-          </p>
-          <h2 
-            className="font-serif text-3xl sm:text-5xl lg:text-6xl tracking-[-0.02em] mb-12 sm:mb-16"
-            style={{ textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}
-          >
-            {t("hero.countdownTitle") || "Le décollage est imminent."}
-          </h2>
-        </Reveal>
-
-        <div className="flex flex-wrap justify-center items-start gap-6 sm:gap-12 lg:gap-20">
-          {units.map((u, i) => (
-            <Reveal key={i} delay={i * 0.1}>
-              <div className="flex flex-col items-center">
-                <div 
-                  className="font-serif font-light text-6xl sm:text-7xl lg:text-[8rem] leading-none tracking-[-0.04em] tabular-nums"
-                  style={{ textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}
-                >
-                  {String(u.v).padStart(2, "0")}
-                </div>
-                <div className="mt-4 text-[9px] sm:text-[10px] uppercase tracking-[0.25em] font-mono-num" style={{ color: GOLD }}>
-                  {u.l}
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
+    </>
   );
 }
 
 /* ============================================================
-   Hero
+   MiniCountdown — compte à rebours inline dans le Hero
+   ============================================================ */
+function MiniCountdown({ d, h, m, s, label }) {
+  const units = [
+    { v: d, l: "J" },
+    { v: h, l: "H" },
+    { v: m, l: "M" },
+    { v: s, l: "S" },
+  ];
+  return (
+    <div className="flex flex-col gap-2">
+      <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.28em] text-white/40">
+        {label}
+      </span>
+      <div className="flex items-baseline gap-2 sm:gap-3">
+        {units.map((u, i) => (
+          <div key={i} className="flex items-baseline gap-1">
+            <span
+              className="font-mono-num text-xl sm:text-2xl font-light tabular-nums leading-none"
+              style={{ color: GOLD, textShadow: "0 0 20px rgba(247,183,49,0.35)" }}
+            >
+              {String(u.v).padStart(2, "0")}
+            </span>
+            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.18em] text-white/45">
+              {u.l}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   Hero — cockpit futuriste
    ============================================================ */
 function Hero() {
   const { t, lang } = useLanguage();
+  const target = new Date(EVENT.startDateISO).getTime();
+  const { d, h, m, s } = useCountdown(target);
 
   return (
     <section
       data-testid="hero-section"
       className="relative overflow-hidden"
-      style={{ 
-        backgroundColor: INK, 
+      style={{
+        backgroundColor: INK,
         color: CREAM,
         willChange: "transform",
         transform: "translateZ(0)",
         backfaceVisibility: "hidden",
       }}
     >
-      {/* Photo : opacité augmentée sur mobile */}
-      <div className="absolute inset-0 opacity-[0.45] sm:opacity-[0.3] pointer-events-none">
+      {/* ===== Couche 1 : photo de fond ===== */}
+      <div className="absolute inset-0 opacity-[0.35] sm:opacity-[0.25] pointer-events-none">
         <SmartImg
           src="/assets/seim/hero-bg.jpg"
           alt=""
-          className="w-full h-full object-cover object-center grayscale-[0.2]"
+          className="w-full h-full object-cover object-center grayscale-[0.3]"
         />
       </div>
 
-      {/* Gradient : moins dense sur mobile */}
-      <div 
+      {/* ===== Couche 2 : gradient encre ===== */}
+      <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(to bottom, rgba(12,45,82,0.85) 0%, rgba(12,45,82,0.55) 40%, rgba(12,45,82,0.8) 100%)`,
+          background: `linear-gradient(180deg, rgba(12,45,82,0.88) 0%, rgba(12,45,82,0.55) 35%, rgba(12,45,82,0.75) 80%, rgba(12,45,82,0.95) 100%)`,
         }}
       />
 
-      {/* Grille technique */}
-      <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{
-        backgroundImage: `linear-gradient(${BRONZE} 1px, transparent 1px), linear-gradient(90deg, ${BRONZE} 1px, transparent 1px)`,
-        backgroundSize: "80px 80px",
-        maskImage: "radial-gradient(ellipse at center, black 30%, transparent 80%)",
-        WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 80%)"
-      }} />
-
-      {/* Vignette : plus légère sur mobile */}
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{ boxShadow: `inset 0 0 120px 40px rgba(12,45,82,0.7)` }}
+      {/* ===== Couche 3 : grille technique globale ===== */}
+      <div
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(${BRONZE} 1px, transparent 1px), linear-gradient(90deg, ${BRONZE} 1px, transparent 1px)`,
+          backgroundSize: "80px 80px",
+          maskImage: "radial-gradient(ellipse at center, black 30%, transparent 80%)",
+          WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 80%)",
+        }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-8 pt-20 sm:pt-32 pb-12 sm:pb-20">
-        
+      {/* ===== Couche 4 : backdrop futuriste ===== */}
+      <HeroBackdrop />
+
+      {/* ===== Couche 5 : vignette ===== */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ boxShadow: `inset 0 0 180px 40px rgba(12,45,82,0.85)` }}
+      />
+
+      {/* ===== Contenu ===== */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-8 pt-20 sm:pt-28 pb-12 sm:pb-20">
+
+        {/* STATUS BAR top */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: EASE }}
-          className="hidden sm:flex items-center justify-between gap-4 pb-4 mb-14 border-b"
+          className="flex items-center justify-between gap-3 pb-4 mb-10 sm:mb-16 border-b"
           style={{ borderColor: RULE_INK }}
         >
-          <span className="font-mono-num text-[11px] tracking-[0.22em] uppercase" style={{ color: "#F7B731" }}>
-            SEIM <span className="opacity-50">/</span> 2026
-          </span>
-          <span className="text-[11px] uppercase tracking-[0.2em] text-[#F2F4F6]/55">
+          {/* Live status */}
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-[#F7B731] opacity-75 animate-ping" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#F7B731]" />
+            </span>
+            <span
+              className="font-mono-num text-[9px] sm:text-[10px] uppercase tracking-[0.24em]"
+              style={{ color: GOLD }}
+            >
+              Live · SEIM / 2026
+            </span>
+          </div>
+
+          {/* Lieu */}
+          <span className="hidden sm:inline text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-white/45">
             {lang === "fr" ? EVENT.venue_fr : EVENT.venue_en}
+          </span>
+
+          {/* Édition */}
+          <span className="font-mono-num text-[9px] sm:text-[10px] tracking-[0.18em] uppercase text-white/55">
+            Édition 02
           </span>
         </motion.div>
 
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          <div className="lg:col-span-10 xl:col-span-9 relative z-10">
+        {/* Contenu principal */}
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-end">
+          <div className="lg:col-span-9 xl:col-span-8 relative z-10">
+            {/* Eyebrow */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
               className="inline-flex items-center gap-2 text-[9px] sm:text-[11px] uppercase tracking-[0.25em] mb-5 sm:mb-7 backdrop-blur-[2px]"
-              style={{ color: "#F7B731", willChange: "opacity" }}
+              style={{ color: GOLD }}
             >
-              <span className="w-6 sm:w-8 h-px" style={{ backgroundColor: "#F7B731" }} />
+              <span className="w-6 sm:w-8 h-px" style={{ backgroundColor: GOLD }} />
               {t("hero.eyebrow")}
             </motion.p>
 
+            {/* Titre */}
             <motion.h1
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
-              className="font-serif leading-[1.02] sm:leading-[0.98] tracking-[-0.03em] text-[2.5rem] min-[380px]:text-[3rem] sm:text-5xl lg:text-[4.5rem] xl:text-[5.25rem] max-w-4xl"
-              style={{ willChange: "opacity", textShadow: "0 4px 24px rgba(0,0,0,0.5)" }}
+              transition={{ duration: 0.75, delay: 0.15, ease: EASE }}
+              className="font-serif leading-[1.02] sm:leading-[0.98] tracking-[-0.03em] text-[2.5rem] min-[380px]:text-[3rem] sm:text-5xl lg:text-[4.5rem] xl:text-[5rem] max-w-4xl"
+              style={{ textShadow: "0 4px 30px rgba(0,0,0,0.55)" }}
             >
               <span className="block">{t("hero.line1")}</span>
               <span className="block">{t("hero.line2")}</span>
-              <span className="block italic" style={{ color: "#F7B731" }}>{t("hero.line3")}</span>
+              <span
+                className="block italic"
+                style={{
+                  color: GOLD,
+                  textShadow: "0 0 40px rgba(247,183,49,0.35)",
+                }}
+              >
+                {t("hero.line3")}
+              </span>
             </motion.h1>
 
+            {/* Sous-titre */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.65, delay: 0.3, ease: EASE }}
-              className="mt-5 sm:mt-8 text-[14px] sm:text-[17px] text-[#F2F4F6]/85 max-w-2xl leading-[1.7] sm:leading-[1.8]"
-              style={{ willChange: "opacity", textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}
+              className="mt-5 sm:mt-8 text-[14px] sm:text-[17px] text-white/80 max-w-2xl leading-[1.7] sm:leading-[1.8]"
+              style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}
             >
               {t("hero.subtitle")}
             </motion.p>
 
+            {/* CTAs */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.65, delay: 0.4, ease: EASE }}
               className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5"
-              style={{ willChange: "opacity" }}
             >
               <Link
                 to="/inscription"
                 data-testid="hero-register-button"
                 className="group inline-flex justify-center items-center gap-2 sm:gap-3 px-6 sm:px-7 py-3.5 sm:py-4 text-[13px] sm:text-sm font-semibold tracking-wide transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-black/30"
-                style={{ backgroundColor: "#F7B731", color: INK }}
+                style={{
+                  backgroundColor: GOLD,
+                  color: INK,
+                  boxShadow: "0 10px 40px -10px rgba(247,183,49,0.5)",
+                }}
               >
                 {t("hero.cta1")}
                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
@@ -237,27 +392,227 @@ function Hero() {
                 style={{ borderColor: "rgba(242,244,246,0.35)", color: CREAM }}
               >
                 {t("hero.cta2")}
-                <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight
+                  size={15}
+                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
               </Link>
             </motion.div>
+          </div>
 
-            <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-4 sm:gap-8 pt-5 sm:pt-6 border-t" style={{ borderColor: RULE_INK }}>
-              <div className="flex items-start gap-3">
-                <CalendarDays size={16} className="mt-0.5 shrink-0" style={{ color: "#F7B731" }} />
+          {/* Panneau d'infos — côté droit */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.65, delay: 0.5, ease: EASE }}
+            className="lg:col-span-3 xl:col-span-4 relative z-10 mt-8 lg:mt-0"
+          >
+            <div
+              className="border-t sm:border-t-0 sm:border-l pt-5 sm:pt-0 sm:pl-6 flex flex-col gap-4 sm:gap-5"
+              style={{ borderColor: RULE_INK }}
+            >
+              <div className="flex items-start gap-2.5">
+                <CalendarDays size={14} className="mt-0.5 shrink-0" style={{ color: GOLD }} />
                 <div>
-                  <p className="text-[9px] uppercase tracking-[0.22em] text-[#F2F4F6]/60 mb-1">{lang === "fr" ? "Dates" : "Dates"}</p>
-                  <p className="text-[12px] sm:text-[13px] text-[#F2F4F6]/95">{lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}</p>
+                  <p className="text-[8px] sm:text-[9px] uppercase tracking-[0.24em] text-white/45 mb-1">
+                    {lang === "fr" ? "Dates" : "Dates"}
+                  </p>
+                  <p className="text-[11px] sm:text-[12px] text-white/90 leading-snug">
+                    {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}
+                  </p>
                 </div>
               </div>
-              <div className="flex items-start gap-3">
-                <MapPin size={16} className="mt-0.5 shrink-0" style={{ color: "#F7B731" }} />
+              <div className="flex items-start gap-2.5">
+                <MapPin size={14} className="mt-0.5 shrink-0" style={{ color: GOLD }} />
                 <div>
-                  <p className="text-[9px] uppercase tracking-[0.22em] text-[#F2F4F6]/60 mb-1">{lang === "fr" ? "Lieu" : "Venue"}</p>
-                  <p className="text-[12px] sm:text-[13px] text-[#F2F4F6]/95">CICB · Bamako</p>
+                  <p className="text-[8px] sm:text-[9px] uppercase tracking-[0.24em] text-white/45 mb-1">
+                    {lang === "fr" ? "Lieu" : "Venue"}
+                  </p>
+                  <p className="text-[11px] sm:text-[12px] text-white/90 leading-snug">
+                    CICB · Bamako
+                  </p>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
+        </div>
+
+        {/* Bandeau bas : Mini countdown + status code */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.7, ease: EASE }}
+          className="mt-12 sm:mt-16 pt-6 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-5"
+          style={{ borderColor: RULE_INK }}
+        >
+          <MiniCountdown
+            d={d}
+            h={h}
+            m={m}
+            s={s}
+            label={t("hero.countdownLabel")}
+          />
+          <p className="font-mono-num text-[8px] sm:text-[9px] uppercase tracking-[0.24em] text-white/30">
+            // Signal: stable · Lat 12.6392°N · Lon 8.0029°W
+          </p>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   CountdownSection — version monumentale (harmonisée)
+   ============================================================ */
+function CountdownSection() {
+  const { t, lang } = useLanguage();
+  const target = new Date(EVENT.startDateISO).getTime();
+  const { d, h, m, s } = useCountdown(target);
+
+  return (
+    <section
+      className="relative py-16 sm:py-24 border-b overflow-hidden"
+      style={{ backgroundColor: INK, color: CREAM, borderColor: RULE_INK }}
+    >
+      {/* Photo de fond subtile */}
+      <div className="absolute inset-0 opacity-[0.35] sm:opacity-[0.2] pointer-events-none">
+        <SmartImg
+          src="/assets/seim/stage-bg.jpg"
+          alt=""
+          className="w-full h-full object-cover object-center grayscale"
+        />
+      </div>
+
+      {/* Gradient */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `linear-gradient(to bottom, rgba(12,45,82,0.9) 0%, rgba(12,45,82,0.5) 50%, rgba(12,45,82,0.9) 100%)`,
+        }}
+      />
+
+      {/* Grille technique */}
+      <div
+        className="absolute inset-0 opacity-[0.08] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(${GOLD} 1px, transparent 1px), linear-gradient(90deg, ${GOLD} 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
+          maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
+          WebkitMaskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
+        }}
+      />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-8">
+        {/* Eyebrow global */}
+        <div className="flex items-center gap-3 mb-10 sm:mb-14">
+          <span className="w-8 sm:w-12 h-px" style={{ backgroundColor: GOLD }} />
+          <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em]" style={{ color: GOLD }}>
+            {t("hero.countdownLabel")}
+          </span>
+        </div>
+
+        {/* SPLIT : J-XXX monumental (gauche) + ledger vertical (droite) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end">
+          
+          {/* Colonne gauche — Jour J */}
+          <Reveal className="lg:col-span-7">
+            <div className="flex flex-col">
+              {/* Mention J-XXX */}
+              <p
+                className="font-mono-num text-[11px] sm:text-[12px] uppercase tracking-[0.28em] mb-3"
+                style={{ color: GOLD }}
+              >
+                J&nbsp;−&nbsp;{String(d).padStart(3, "0")}
+              </p>
+
+              {/* Chiffre monumental */}
+              <div className="flex items-baseline">
+                <span
+                  className="font-serif font-light text-[6rem] sm:text-[9rem] lg:text-[11rem] leading-[0.85] tracking-[-0.05em] tabular-nums"
+                  style={{
+                    color: CREAM,
+                    textShadow: "0 4px 40px rgba(0,0,0,0.5)",
+                  }}
+                >
+                  {String(d).padStart(2, "0")}
+                </span>
+                <span
+                  className="font-serif italic text-3xl sm:text-4xl lg:text-5xl ml-2 sm:ml-4"
+                  style={{ color: GOLD }}
+                >
+                  jours
+                </span>
+              </div>
+
+              {/* Ligne titre serif */}
+              <p
+                className="font-serif text-xl sm:text-3xl lg:text-4xl leading-[1.15] mt-6 sm:mt-8 max-w-md"
+                style={{ color: "rgba(242,244,246,0.7)" }}
+              >
+                {lang === "fr"
+                  ? "avant l'ouverture officielle du forum."
+                  : "before the official opening of the forum."}
+              </p>
+            </div>
+          </Reveal>
+
+          {/* Colonne droite — Ledger vertical H/M/S */}
+          <Reveal delay={0.15} className="lg:col-span-5">
+            <div
+              className="border-t sm:border-t-0 sm:border-l pt-6 sm:pt-0 sm:pl-8 flex flex-col gap-0"
+              style={{ borderColor: RULE_INK }}
+            >
+              {[
+                { v: h, l: lang === "fr" ? "Heures" : "Hours", raw: "heures" },
+                { v: m, l: lang === "fr" ? "Minutes" : "Minutes", raw: "minutes" },
+                { v: s, l: lang === "fr" ? "Secondes" : "Seconds", raw: "secondes" },
+              ].map((u, i) => (
+                <div
+                  key={i}
+                  className={`flex items-baseline justify-between gap-4 py-4 sm:py-5 ${
+                    i !== 0 ? "border-t" : ""
+                  }`}
+                  style={{ borderColor: RULE_INK }}
+                >
+                  {/* Label */}
+                  <span
+                    className="font-mono-num text-[9px] sm:text-[10px] uppercase tracking-[0.24em] whitespace-nowrap"
+                    style={{ color: GOLD }}
+                  >
+                    {u.l}
+                  </span>
+
+                  {/* Chiffre */}
+                  <span
+                    className="font-serif font-light text-3xl sm:text-5xl lg:text-6xl leading-none tracking-[-0.03em] tabular-nums"
+                    style={{
+                      color: CREAM,
+                      textShadow: "0 2px 20px rgba(0,0,0,0.4)",
+                    }}
+                  >
+                    {String(u.v).padStart(2, "0")}
+                  </span>
+                </div>
+              ))}
+
+              {/* Mention lat/lon en pied */}
+              <div
+                className="mt-4 pt-4 border-t flex items-center justify-between gap-3"
+                style={{ borderColor: RULE_INK }}
+              >
+                <span
+                  className="font-mono-num text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-white/30"
+                >
+                  CICB · Bamako
+                </span>
+                <span
+                  className="font-mono-num text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-white/30"
+                >
+                  T-minus active
+                </span>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -471,7 +826,7 @@ function WhyAttend() {
 }
 
 /* ============================================================
-   Audience — AVEC BANDEAU PHOTO
+   Audience
    ============================================================ */
 function Audience() {
   const { lang } = useLanguage();
@@ -502,8 +857,6 @@ function Audience() {
   return (
     <section className="py-12 sm:py-24" style={{ backgroundColor: "#E3E8ED", color: INK }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        
-        {/* Header éditorial */}
         <div className="max-w-3xl mb-6 sm:mb-10">
           <Reveal>
             <p className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] mb-3 sm:mb-5" style={{ color: BRONZE }}>{copy.eyebrow}</p>
@@ -512,7 +865,6 @@ function Audience() {
           </Reveal>
         </div>
 
-        {/* NOUVEAU : Bandeau photo pleine largeur */}
         <Reveal delay={0.1}>
           <div className="relative overflow-hidden shadow-sm mb-8 sm:mb-10">
             <SmartImg
@@ -520,7 +872,6 @@ function Audience() {
               alt={copy.caption}
               className="w-full aspect-[16/9] sm:aspect-[21/9] object-cover grayscale-[0.3] hover:grayscale-0 transition-all duration-700"
             />
-            {/* Caption overlay */}
             <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none">
               <p className="text-[9px] sm:text-[11px] uppercase tracking-[0.2em] text-white/90">
                 {copy.caption}
@@ -529,7 +880,6 @@ function Audience() {
           </div>
         </Reveal>
 
-        {/* Grille des 4 profils */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {copy.items.map((item, i) => (
             <Reveal key={item.n} delay={i * 0.06}>
@@ -550,7 +900,7 @@ function Audience() {
 }
 
 /* ============================================================
-   Executive Summary — AVEC PHOTO DANS LA COLONNE STICKY
+   Executive Summary
    ============================================================ */
 function ExecutiveSummary() {
   const { t, lang } = useLanguage();
@@ -567,10 +917,6 @@ function ExecutiveSummary() {
       style={{ backgroundColor: PAPER, borderColor: RULE }}
     >
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8">
-
-        {/* ============================================
-            HEADER MINIMAL — juste l'essentiel
-           ============================================ */}
         <div className="flex items-baseline justify-between gap-4 mb-6 sm:mb-8">
           <div className="flex items-baseline gap-3">
             <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap" style={{ color: BRONZE }}>
@@ -583,14 +929,10 @@ function ExecutiveSummary() {
           </span>
         </div>
 
-        {/* Titre discret */}
         <h2 className="font-serif tracking-[-0.02em] text-xl sm:text-2xl lg:text-[1.75rem] leading-[1.15] mb-8 sm:mb-10 max-w-2xl" style={{ color: INK }}>
           {t("stats.title")}
         </h2>
 
-        {/* ============================================
-            IMAGE DOMINANTE — 90% de la section
-           ============================================ */}
         <Reveal>
           <div className="relative overflow-hidden shadow-lg">
             <SmartImg
@@ -598,23 +940,17 @@ function ExecutiveSummary() {
               alt={lang === "fr" ? "Keynote d'ouverture" : "Opening keynote"}
               className="w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9] object-cover grayscale-[0.1]"
             />
-
-            {/* Overlay dégradé sombre en bas pour lisibilité texte */}
-            <div 
+            <div
               className="absolute inset-x-0 bottom-0 pointer-events-none"
               style={{
                 height: "50%",
                 background: `linear-gradient(to top, rgba(12,45,82,0.9) 0%, rgba(12,45,82,0.6) 40%, transparent 100%)`,
               }}
             />
-
-            {/* Chiffre héro en overlay — style légende de magazine */}
             <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-6">
-              
-              {/* Chiffre principal + label */}
               <div>
                 <div className="flex items-baseline gap-1.5">
-                  <span 
+                  <span
                     className="font-light tracking-[-0.05em] text-[2.5rem] sm:text-[3.5rem] lg:text-[4rem] leading-none"
                     style={{ color: CREAM }}
                   >
@@ -629,12 +965,10 @@ function ExecutiveSummary() {
                     </span>
                   )}
                 </div>
-                <p className="mt-1.5 text-[9px] sm:text-[10px] lg:text-[11px] uppercase tracking-[0.24em]" style={{ color: "#F7B731" }}>
+                <p className="mt-1.5 text-[9px] sm:text-[10px] lg:text-[11px] uppercase tracking-[0.24em]" style={{ color: GOLD }}>
                   {hero.label}
                 </p>
               </div>
-
-              {/* Légende de l'image à droite */}
               <p className="text-[9px] sm:text-[10px] italic font-serif leading-relaxed max-w-xs sm:text-right" style={{ color: "rgba(242,244,246,0.7)" }}>
                 {lang === "fr"
                   ? "Keynote d'ouverture — CICB, Bamako · Édition 2026"
@@ -644,31 +978,25 @@ function ExecutiveSummary() {
           </div>
         </Reveal>
 
-        {/* ============================================
-            BANDEAU 4 SUB-STATS — ledger ultra-fin
-           ============================================ */}
         <Reveal delay={0.1}>
           <div className="mt-8 sm:mt-10 border-y py-5 sm:py-6" style={{ borderColor: RULE }}>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-0">
               {rest.map((item, i) => (
-                <div 
-                  key={i} 
+                <div
+                  key={i}
                   data-testid={`stat-item-${i + 1}`}
                   className={`${i !== 0 ? "border-l" : ""} ${i % 2 === 1 ? "pl-3 sm:pl-5" : "pr-3 sm:pr-5"}`}
                   style={{ borderColor: RULE }}
                 >
                   <div className="flex items-baseline gap-0.5">
-                    <span 
+                    <span
                       className="font-light tracking-[-0.02em] text-lg sm:text-xl lg:text-2xl leading-none"
                       style={{ color: INK }}
                     >
                       <CountUp value={item.value} />
                     </span>
                     {item.suffix && (
-                      <span
-                        className="font-serif italic text-xs sm:text-sm"
-                        style={{ color: BRONZE }}
-                      >
+                      <span className="font-serif italic text-xs sm:text-sm" style={{ color: BRONZE }}>
                         {item.suffix}
                       </span>
                     )}
@@ -682,7 +1010,6 @@ function ExecutiveSummary() {
           </div>
         </Reveal>
 
-        {/* Lien méthodologie discret */}
         <Reveal delay={0.2}>
           <div className="mt-5 flex justify-between items-center">
             <p className="text-[9px] sm:text-[10px] italic font-serif text-[#0C2D52]/40">
@@ -700,6 +1027,7 @@ function ExecutiveSummary() {
     </section>
   );
 }
+
 /* ============================================================
    Program
    ============================================================ */
@@ -714,7 +1042,6 @@ function Program() {
   }, []);
 
   const spMap = Object.fromEntries(speakers.map((s) => [s.id, s]));
-
   const items = sessions
     .filter((s) => ["keynote", "panel", "masterclass"].includes(s.type))
     .slice(0, 4);
@@ -723,7 +1050,6 @@ function Program() {
 
   const featured = items[0];
   const rest = items.slice(1);
-
   const featSpeakers = (featured.speakers || [])
     .map((id) => spMap[id])
     .filter(Boolean)
@@ -827,18 +1153,16 @@ function Program() {
 
           <div className="lg:col-span-6 mt-5 sm:mt-8 lg:mt-0 relative">
             <div className="absolute left-[11px] top-6 bottom-6 w-px bg-[rgba(12,45,82,0.1)] hidden sm:block" />
-
             {rest.map((s) => (
-              <div 
-                key={s.id} 
-                data-testid={`highlight-session-${s.id}`} 
-                className="py-3 sm:py-6 border-b last:border-0 relative flex gap-3 sm:gap-6" 
+              <div
+                key={s.id}
+                data-testid={`highlight-session-${s.id}`}
+                className="py-3 sm:py-6 border-b last:border-0 relative flex gap-3 sm:gap-6"
                 style={{ borderColor: RULE }}
               >
                 <div className="hidden sm:flex flex-col items-center shrink-0 w-6 relative z-10">
-                   <div className="w-2.5 h-2.5 rounded-full border-2 bg-[#F2F4F6] mt-2" style={{ borderColor: BRONZE }} />
+                  <div className="w-2.5 h-2.5 rounded-full border-2 bg-[#F2F4F6] mt-2" style={{ borderColor: BRONZE }} />
                 </div>
-
                 <div className="flex-1 min-w-0">
                   <div className="flex items-baseline justify-between gap-3 mb-1 sm:mb-2">
                     <div className="flex items-center gap-2">
@@ -853,11 +1177,9 @@ function Program() {
                       J{s.day} · {s.time}
                     </span>
                   </div>
-
                   <h4 className="font-serif text-sm sm:text-xl leading-snug tracking-tight break-words" style={{ color: INK }}>
                     {lang === "fr" ? s.title_fr : s.title_en}
                   </h4>
-
                   <p className="mt-1 sm:mt-1.5 flex items-center gap-1 text-[10px] sm:text-[12px] text-[#0C2D52]/45">
                     <MapPin size={9} className="sm:w-[10px] sm:h-[10px]" />
                     <span className="break-words">{lang === "fr" ? s.room_fr : s.room_en}</span>
@@ -873,12 +1195,11 @@ function Program() {
 }
 
 /* ============================================================
-   Voices — AVEC BANDEAU PHOTO "ON STAGE"
+   Voices
    ============================================================ */
 function Voices({ speakers }) {
   const { t, lang } = useLanguage();
   const [selected, setSelected] = useState(null);
-
   if (!speakers || speakers.length === 0) return null;
 
   const displaySpeakers = speakers.slice(0, 4);
@@ -903,7 +1224,6 @@ function Voices({ speakers }) {
           </Link>
         </div>
 
-        {/* NOUVEAU : Bandeau photo "on stage" */}
         <Reveal delay={0.1}>
           <div className="relative overflow-hidden shadow-sm mb-6 sm:mb-8">
             <SmartImg
@@ -913,7 +1233,7 @@ function Voices({ speakers }) {
             />
             <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none">
               <p className="text-[9px] sm:text-[11px] uppercase tracking-[0.2em] text-white/90">
-                {lang === "fr" 
+                {lang === "fr"
                   ? "Panel d'ouverture — CICB, Bamako · Édition 2026"
                   : "Opening panel — CICB, Bamako · 2026 Edition"}
               </p>
@@ -921,7 +1241,6 @@ function Voices({ speakers }) {
           </div>
         </Reveal>
 
-        {/* Grille 2×2 */}
         <Stagger className="grid grid-cols-2 border-t border-l" style={{ borderColor: RULE }}>
           {displaySpeakers.map((sp) => (
             <StaggerItem key={sp.id}>
@@ -934,7 +1253,6 @@ function Voices({ speakers }) {
                 <div className="w-full h-16 sm:w-20 sm:h-24 md:w-24 md:h-32 shrink-0 border flex items-center justify-center bg-[#F2F4F6]" style={{ borderColor: RULE }}>
                   <span className="font-serif text-xl sm:text-3xl md:text-4xl text-[#B57A0A]">{getInitials(sp.name)}</span>
                 </div>
-
                 <div className="flex-1 min-w-0">
                   <p className="text-[7px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] mb-1 sm:mb-2 line-clamp-2" style={{ color: BRONZE }}>
                     {getRole(sp, lang)}
