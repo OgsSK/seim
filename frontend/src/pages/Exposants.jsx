@@ -11,7 +11,7 @@ import { api } from "../lib/api";
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
 const BRONZE = "#B57A0A";
-const GOLD = "#F7B731"; // jaune doré charte — sur fonds bleu foncé
+const GOLD = "#F7B731";
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_LIGHT = "rgba(12,45,82,0.08)";
 const EASE = [0.22, 1, 0.36, 1];
@@ -45,22 +45,32 @@ function ExhibitorCard({ exhibitor, lang, t }) {
   const variant = BADGE[SECTOR_VARIANT[sector] || "neutral"];
   const [imgErr, setImgErr] = useState(false);
 
+  const showLogo = logo && !imgErr;
+
   return (
     <div
       data-testid={`exhibitor-card-${id}`}
       className="group relative h-full flex flex-col p-6 sm:p-7 transition-colors"
       style={{ backgroundColor: PAPER, border: `1px solid ${RULE}` }}
     >
+      {/* En-tête : logo + badge secteur */}
       <div className="flex items-start justify-between gap-3 mb-6">
-        <div 
-          className="w-14 h-14 shrink-0 flex items-center justify-center overflow-hidden" 
-          style={{ backgroundColor: INK }}
+        {/* Conteneur unifié 88×88 — logo ET initiales strictement alignés */}
+        <div
+          className="shrink-0 flex items-center justify-center"
+          style={{
+            width: "88px",
+            height: "88px",
+            backgroundColor: showLogo ? "#FFFFFF" : INK,
+            border: `1px solid ${RULE}`,
+            padding: showLogo ? "12px" : "0",
+          }}
         >
-          {logo && !imgErr ? (
+          {showLogo ? (
             <img
               src={logo}
               alt={name}
-              className="w-full h-full object-cover opacity-90"
+              className="w-full h-full object-contain"
               loading="lazy"
               decoding="async"
               onError={() => setImgErr(true)}
@@ -79,14 +89,14 @@ function ExhibitorCard({ exhibitor, lang, t }) {
         </span>
       </div>
 
-      <h3 
+      <h3
         className="font-serif text-lg sm:text-xl leading-snug tracking-tight mb-2 break-words"
         style={{ color: INK }}
       >
         {name}
       </h3>
       {desc && (
-        <p 
+        <p
           className="text-[14px] leading-[1.65] line-clamp-3 font-serif italic mb-6"
           style={{ color: "rgba(12,45,82,0.55)" }}
         >
@@ -94,11 +104,11 @@ function ExhibitorCard({ exhibitor, lang, t }) {
         </p>
       )}
 
-      <div 
+      <div
         className="mt-auto pt-5 border-t flex items-center justify-between gap-3"
         style={{ borderColor: RULE }}
       >
-        <span 
+        <span
           className="inline-flex items-center gap-1.5 font-mono-num text-[10px] uppercase tracking-[0.1em]"
           style={{ color: "rgba(12,45,82,0.5)" }}
         >
@@ -145,7 +155,7 @@ function EmptyState({ lang }) {
           ? "Les exposants seront annoncés prochainement"
           : "Exhibitors will be announced soon"}
       </h3>
-      <p 
+      <p
         className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed mb-8"
         style={{ color: "rgba(12,45,82,0.55)" }}
       >
@@ -199,10 +209,7 @@ export default function Exposants() {
   );
 
   const availableSectors = useMemo(
-    () => [
-      "all",
-      ...new Set(exhibitors.map((e) => e.sector).filter(Boolean)),
-    ],
+    () => ["all", ...new Set(exhibitors.map((e) => e.sector).filter(Boolean))],
     [exhibitors]
   );
 
@@ -222,11 +229,11 @@ export default function Exposants() {
 
       <section className="py-16 sm:py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          
+
           {/* EN-TÊTE ÉDITORIAL */}
           <div className="flex items-center gap-3 mb-6">
             <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
-            <span 
+            <span
               className="text-[10px] uppercase tracking-[0.28em] whitespace-nowrap"
               style={{ color: BRONZE }}
             >
@@ -235,7 +242,7 @@ export default function Exposants() {
             {exhibitors.length > 0 && (
               <>
                 <span className="flex-1 h-px" style={{ backgroundColor: RULE }} />
-                <span 
+                <span
                   className="font-mono-num text-[11px] uppercase tracking-[0.15em] whitespace-nowrap"
                   style={{ color: "rgba(12,45,82,0.4)" }}
                 >
@@ -245,14 +252,14 @@ export default function Exposants() {
             )}
           </div>
 
-          <h2 
+          <h2
             className="font-serif tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.1] mb-5 break-words"
             style={{ color: INK }}
           >
             {lang === "fr" ? "Ils exposent au SEIM" : "They exhibit at SEIM"}
           </h2>
 
-          <p 
+          <p
             className="font-serif italic text-[15px] sm:text-[16px] leading-[1.75] max-w-2xl mb-12"
             style={{ color: "rgba(12,45,82,0.6)" }}
           >
@@ -263,7 +270,7 @@ export default function Exposants() {
 
           {/* INDICATEURS INLINE */}
           {exhibitors.length > 0 && (
-            <div 
+            <div
               className="flex flex-wrap items-center gap-x-10 sm:gap-x-16 gap-y-6 pb-8 border-b mb-10"
               style={{ borderColor: RULE }}
             >
@@ -327,7 +334,7 @@ export default function Exposants() {
             </div>
           )}
 
-          {/* Grille / états (CORRIGÉ ICI AVEC motion.div AU LIEU DE STAGGER) */}
+          {/* Grille / états */}
           {loading ? (
             <div className="py-20 text-center">
               <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.55)" }}>
@@ -335,11 +342,13 @@ export default function Exposants() {
               </p>
             </div>
           ) : apiError ? (
-             <div className="py-16 text-center border-y" style={{ borderColor: RULE }}>
-               <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.55)" }}>
-                 {lang === "fr" ? "Impossible de charger les exposants pour le moment." : "Unable to load exhibitors at this time."}
-               </p>
-             </div>
+            <div className="py-16 text-center border-y" style={{ borderColor: RULE }}>
+              <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.55)" }}>
+                {lang === "fr"
+                  ? "Impossible de charger les exposants pour le moment."
+                  : "Unable to load exhibitors at this time."}
+              </p>
+            </div>
           ) : exhibitors.length === 0 ? (
             <EmptyState lang={lang} />
           ) : filtered.length === 0 ? (
@@ -361,8 +370,7 @@ export default function Exposants() {
               </button>
             </div>
           ) : (
-            // ON UTILISE UNE GRILLE SIMPLE AVEC ANIMATION AU MONTAGE
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, ease: EASE }}
@@ -384,7 +392,7 @@ export default function Exposants() {
           {/* CTA FINAL */}
           {exhibitors.length > 0 && (
             <Reveal delay={0.1}>
-              <div 
+              <div
                 className="mt-20 p-8 sm:p-12 lg:p-16 relative overflow-hidden"
                 style={{ backgroundColor: INK, color: PAPER }}
               >
@@ -398,14 +406,14 @@ export default function Exposants() {
                     </span>
                   </div>
 
-                  <h3 
+                  <h3
                     className="font-serif tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.6rem] leading-[1.1] mb-4 break-words"
                     style={{ color: PAPER }}
                   >
                     {t("exhibitors.become")}
                   </h3>
-                  
-                  <p 
+
+                  <p
                     className="font-serif italic text-[15px] leading-[1.7] mb-10"
                     style={{ color: "rgba(242,244,246,0.6)" }}
                   >
