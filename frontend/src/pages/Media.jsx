@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { toast } from "sonner";
 import {
-  Play,
   Download,
   FileText,
   Image as ImageIcon,
@@ -60,7 +59,12 @@ function EmptyState({ lang, icon: Icon = Newspaper, title, subtitle }) {
 export default function Media() {
   const { t, lang } = useLanguage();
   const [params, setParams] = useSearchParams();
-  const tab = params.get("tab") || "news";
+  
+  // Sécurité : si l'URL contient ?tab=videos (ancien lien), on bascule sur "news"
+  const validTabs = ["news", "gallery", "press"];
+  const tabParam = params.get("tab");
+  const tab = validTabs.includes(tabParam) ? tabParam : "news";
+
   const [articles, setArticles] = useState([]);
   const [gallery, setGallery] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -75,29 +79,30 @@ export default function Media() {
     ]).finally(() => setLoading(false));
   }, []);
 
-  const tabs = ["news", "gallery", "videos", "press"];
+  // On retire "videos" de cette liste
+  const tabs = ["news", "gallery", "press"];
 
+  // Mise à jour des ressources presse
   const pressItems = [
     {
       icon: FileText,
       title: t("media.press.kit"),
       desc: t("media.press.kitDesc"),
-    },
-    {
-      icon: Download,
-      title: t("media.press.releases"),
-      desc: t("media.press.releasesDesc"),
+      href: "/assets/seim/rapport-seim-2026.pdf",
+      downloadName: "Rapport_SEIM_2026.pdf"
     },
     {
       icon: ImageIcon,
       title: t("media.press.logos"),
       desc: t("media.press.logosDesc"),
+      href: "/assets/seim/charte-graphique-seim.pdf",
+      downloadName: "Charte_Graphique_SEIM.pdf"
     },
     {
       icon: BadgeCheck,
       title: t("media.press.accreditation"),
       desc: t("media.press.accreditationDesc"),
-      link: "/inscription?type=presse",
+      link: "/contact?type=presse",
     },
   ];
 
@@ -146,7 +151,7 @@ export default function Media() {
             })}
           </div>
 
-          {/* ============ NEWS (Sans cadre) ============ */}
+          {/* ============ NEWS ============ */}
           {tab === "news" &&
             (loading ? (
               <Skeleton cols="sm:grid-cols-2 lg:grid-cols-4" />
@@ -154,16 +159,8 @@ export default function Media() {
               <EmptyState
                 lang={lang}
                 icon={Newspaper}
-                title={
-                  lang === "fr"
-                    ? "Les actualités arrivent bientôt"
-                    : "News coming soon"
-                }
-                subtitle={
-                  lang === "fr"
-                    ? "Les articles et communiqués de presse du SEIM seront publiés prochainement."
-                    : "SEIM articles and press releases will be published soon."
-                }
+                title={lang === "fr" ? "Les actualités arrivent bientôt" : "News coming soon"}
+                subtitle={lang === "fr" ? "Les articles et communiqués de presse du SEIM seront publiés prochainement." : "SEIM articles and press releases will be published soon."}
               />
             ) : (
               <Stagger
@@ -178,7 +175,6 @@ export default function Media() {
                       className="group flex flex-col border-b pb-6 h-full"
                       style={{ borderColor: RULE }}
                     >
-                      {/* Image sans cadre */}
                       <div className="overflow-hidden mb-4 shadow-sm">
                         <SmartImg
                           src={a.image}
@@ -197,16 +193,10 @@ export default function Media() {
                           )}
                         </span>
                       </div>
-                      <h3
-                        className="font-serif text-lg leading-tight tracking-tight mb-2"
-                        style={{ color: INK }}
-                      >
+                      <h3 className="font-serif text-lg leading-tight tracking-tight mb-2" style={{ color: INK }}>
                         {lang === "fr" ? a.title_fr : a.title_en}
                       </h3>
-                      <p
-                        className="font-serif italic text-[13px] leading-[1.6] line-clamp-3"
-                        style={{ color: "rgba(12,45,82,0.55)" }}
-                      >
+                      <p className="font-serif italic text-[13px] leading-[1.6] line-clamp-3" style={{ color: "rgba(12,45,82,0.55)" }}>
                         {lang === "fr" ? a.excerpt_fr : a.excerpt_en}
                       </p>
                     </article>
@@ -215,7 +205,7 @@ export default function Media() {
               </Stagger>
             ))}
 
-          {/* ============ GALLERY (Sans cadre) ============ */}
+          {/* ============ GALLERY ============ */}
           {tab === "gallery" &&
             (loading ? (
               <Skeleton cols="sm:grid-cols-2 md:grid-cols-4" />
@@ -223,16 +213,8 @@ export default function Media() {
               <EmptyState
                 lang={lang}
                 icon={ImageIcon}
-                title={
-                  lang === "fr"
-                    ? "La galerie arrive bientôt"
-                    : "Gallery coming soon"
-                }
-                subtitle={
-                  lang === "fr"
-                    ? "Les photos des éditions du SEIM seront publiées prochainement."
-                    : "SEIM editions photos will be published soon."
-                }
+                title={lang === "fr" ? "La galerie arrive bientôt" : "Gallery coming soon"}
+                subtitle={lang === "fr" ? "Les photos des éditions du SEIM seront publiées prochainement." : "SEIM editions photos will be published soon."}
               />
             ) : (
               <Stagger
@@ -247,7 +229,6 @@ export default function Media() {
                       key={i}
                       className={featured ? "md:col-span-2 md:row-span-2" : ""}
                     >
-                      {/* Image nue avec ombre douce */}
                       <div
                         data-testid={`gallery-item-${i}`}
                         className="overflow-hidden shadow-sm h-full"
@@ -265,62 +246,6 @@ export default function Media() {
                 })}
               </Stagger>
             ))}
-
-          {/* ============ VIDEOS (Fond sombre conservé pour la lisibilité) ============ */}
-          {tab === "videos" && (
-            <div data-testid="media-videos-grid">
-              <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[
-                  {
-                    img: "/assets/seim/tv-studio.jpg",
-                    label: "Avis d'expert — plateau TV",
-                  },
-                  {
-                    img: "/assets/seim/tv-camera.jpg",
-                    label: "Coulisses de tournage",
-                  },
-                  {
-                    img: "/assets/seim/tv-cisse.jpg",
-                    label: "Interview expert",
-                  },
-                ].map((v, i) => (
-                  <StaggerItem key={i}>
-                    <div
-                      data-testid={`video-card-${i}`}
-                      className="group relative overflow-hidden aspect-video shadow-md"
-                      style={{ backgroundColor: INK }}
-                    >
-                      <SmartImg
-                        src={v.img}
-                        alt={v.label}
-                        className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500"
-                      />
-                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-4 text-center">
-                        <span 
-                          className="w-12 h-12 rounded-full border flex items-center justify-center transition-transform group-hover:scale-110" 
-                          style={{ borderColor: BRONZE, color: BRONZE }}
-                        >
-                          <Play size={18} strokeWidth={1.5} />
-                        </span>
-                        <span 
-                          className="text-[10px] uppercase tracking-[0.2em] font-medium"
-                          style={{ color: PAPER }}
-                        >
-                          {v.label}
-                        </span>
-                        <span 
-                          className="text-[9px] uppercase tracking-[0.2em]"
-                          style={{ color: "rgba(242,244,246,0.5)" }}
-                        >
-                          WebTV · {t("common.soon")}
-                        </span>
-                      </div>
-                    </div>
-                  </StaggerItem>
-                ))}
-              </Stagger>
-            </div>
-          )}
 
           {/* ============ PRESS ============ */}
           {tab === "press" && (
@@ -341,19 +266,26 @@ export default function Media() {
                         {lang === "fr" ? "Ressource" : "Resource"}
                       </span>
                     </div>
-                    <h3
-                      className="font-serif text-xl tracking-tight"
-                      style={{ color: INK }}
-                    >
+                    <h3 className="font-serif text-xl tracking-tight" style={{ color: INK }}>
                       {p.title}
                     </h3>
-                    <p
-                      className="font-serif italic text-[14px] leading-[1.7] flex-1"
-                      style={{ color: "rgba(12,45,82,0.55)" }}
-                    >
+                    <p className="font-serif italic text-[14px] leading-[1.7] flex-1" style={{ color: "rgba(12,45,82,0.55)" }}>
                       {p.desc}
                     </p>
-                    {p.link ? (
+                    
+                    {/* Affichage conditionnel : Lien de téléchargement ou Lien de contact */}
+                    {p.href ? (
+                      <a
+                        href={p.href}
+                        download={p.downloadName}
+                        data-testid={`press-action-${i}`}
+                        className="mt-3 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] font-medium border-b pb-0.5 self-start transition-colors hover:text-[#B57A0A]"
+                        style={{ color: INK, borderColor: BRONZE }}
+                      >
+                        <Download size={14} />
+                        {t("media.press.download")}
+                      </a>
+                    ) : p.link ? (
                       <Link
                         to={p.link}
                         data-testid={`press-action-${i}`}
@@ -362,16 +294,7 @@ export default function Media() {
                       >
                         {t("media.press.request")}
                       </Link>
-                    ) : (
-                      <button
-                        onClick={() => toast(t("common.soon"))}
-                        data-testid={`press-action-${i}`}
-                        className="mt-3 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] font-medium border-b pb-0.5 self-start transition-colors hover:text-[#B57A0A]"
-                        style={{ color: INK, borderColor: BRONZE }}
-                      >
-                        {t("media.press.download")}
-                      </button>
-                    )}
+                    ) : null}
                   </div>
                 </StaggerItem>
               ))}

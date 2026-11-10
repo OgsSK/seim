@@ -22,7 +22,6 @@ const FILTER_ORDER = [
   "ceo-talk",
   "young-ceo-talk",
   "atelier",
-  "webtv",
   "networking",
   "ceremonie",
   "accueil",

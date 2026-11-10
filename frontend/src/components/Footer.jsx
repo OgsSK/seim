@@ -38,7 +38,7 @@ export function Footer() {
       links: [
         { label: L.news, to: "/media" },
         { label: L.gallery, to: "/media?tab=gallery" },
-        { label: L.videos, to: "/media?tab=videos" },
+        // La ligne Vidéos a été retirée ici
         { label: L.press, to: "/media?tab=press" },
       ],
     },
@@ -55,7 +55,6 @@ export function Footer() {
           
           {/* Bloc identité + réseaux */}
           <div className="col-span-2 lg:col-span-1">
-            {/* Note: Assurez-vous que <Logo /> est bien en couleur Encre ou Noir */}
             <Logo />
             
             <p className="mt-5 text-[14px] leading-[1.7] font-serif italic text-[#0C2D52]/55 max-w-xs">

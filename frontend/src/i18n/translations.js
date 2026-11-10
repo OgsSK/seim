@@ -20,7 +20,7 @@ export const translations = {
       cta2: "Découvrir le programme",
       countdown: { days: "Jours", hours: "Heures", minutes: "Min", seconds: "Sec" },
       countdownLabel: "avant la prochaine édition",
-      countdownTitle: "Le compte à rebours est lancé.", // <-- NOUVELLE LIGNE
+      countdownTitle: "Le compte à rebours est lancé.",
     },
     marquee: ["Épargne", "Investissement", "Patrimoine", "Éducation financière", "Fintech", "Immobilier", "Assurance", "Entrepreneuriat", "BRVM", "Inclusion financière"],
     stats: {
@@ -58,7 +58,6 @@ export const translations = {
         { key: "keynote", title: "Keynotes", desc: "Moments forts portés par le parrain officiel et des personnalités du secteur." },
         { key: "temoignages", title: "Témoignages", desc: "Jeunes entrepreneurs partagent leurs parcours de gestion financière." },
         { key: "apero", title: "Apéro Cash", desc: "Format convivial et interactif pour parler finance autrement." },
-        { key: "webtv", title: "WebTV", desc: "Interviews, coulisses et débats diffusés en direct en ligne." },
         { key: "expo", title: "Expo", desc: "Institutions, fintechs et entreprises présentent leurs solutions." },
       ],
     },
@@ -75,7 +74,7 @@ export const translations = {
       types: {
         all: "Tous", keynote: "Keynote", panel: "Panel", masterclass: "Masterclass",
         "ceo-talk": "CEO Talk", "young-ceo-talk": "Young CEO Talk", atelier: "Atelier",
-        webtv: "WebTV", networking: "Networking", ceremonie: "Cérémonie", accueil: "Accueil", pause: "Pause",
+        networking: "Networking", ceremonie: "Cérémonie", accueil: "Accueil", pause: "Pause",
       },
     },
     speakers: {
@@ -130,8 +129,8 @@ export const translations = {
     media: {
       eyebrow: "Espace Média",
       title: "Actualités, images et replays",
-      subtitle: "Suivez la vie du salon : articles, galerie photos, vidéos et espace presse.",
-      tabs: { news: "Actualités", gallery: "Galerie photos", videos: "Vidéos & WebTV", press: "Presse" },
+      subtitle: "Suivez la vie du salon : articles, galerie photos et espace presse.",
+      tabs: { news: "Actualités", gallery: "Galerie photos", press: "Presse" },
       readMore: "Lire l'article",
       watch: "Regarder",
       press: {
@@ -173,7 +172,7 @@ export const translations = {
       links: {
         about: "À propos", program: "Programme", speakers: "Intervenants", exhibitors: "Exposants",
         register: "S'inscrire", becomeExhibitor: "Devenir exposant", becomeSponsor: "Devenir sponsor",
-        news: "Actualités", gallery: "Galerie", videos: "Vidéos", press: "Presse", editions: "Éditions précédentes",
+        news: "Actualités", gallery: "Galerie", press: "Presse", editions: "Éditions précédentes",
       },
       legal: "Mentions légales", privacy: "Politique de confidentialité",
       rights: "Tous droits réservés.",
@@ -201,7 +200,7 @@ export const translations = {
       cta2: "Discover the program",
       countdown: { days: "Days", hours: "Hours", minutes: "Min", seconds: "Sec" },
       countdownLabel: "until the next edition",
-      countdownTitle: "The countdown has begun.", // <-- NEW LINE
+      countdownTitle: "The countdown has begun.",
     },
     marquee: ["Savings", "Investment", "Wealth", "Financial literacy", "Fintech", "Real estate", "Insurance", "Entrepreneurship", "BRVM", "Financial inclusion"],
     stats: {
@@ -239,7 +238,6 @@ export const translations = {
         { key: "keynote", title: "Keynotes", desc: "Highlight moments led by the official sponsor and sector figures." },
         { key: "temoignages", title: "Testimonials", desc: "Young entrepreneurs share their financial management journeys." },
         { key: "apero", title: "Apéro Cash", desc: "A friendly, interactive format to talk finance differently." },
-        { key: "webtv", title: "WebTV", desc: "Interviews, backstage and debates streamed live online." },
         { key: "expo", title: "Expo", desc: "Institutions, fintechs and companies showcase their solutions." },
       ],
     },
@@ -256,7 +254,7 @@ export const translations = {
       types: {
         all: "All", keynote: "Keynote", panel: "Panel", masterclass: "Masterclass",
         "ceo-talk": "CEO Talk", "young-ceo-talk": "Young CEO Talk", atelier: "Workshop",
-        webtv: "WebTV", networking: "Networking", ceremonie: "Ceremony", accueil: "Welcome", pause: "Break",
+        networking: "Networking", ceremonie: "Ceremony", accueil: "Welcome", pause: "Break",
       },
     },
     speakers: {
@@ -311,8 +309,8 @@ export const translations = {
     media: {
       eyebrow: "Media Center",
       title: "News, images and replays",
-      subtitle: "Follow the life of the show: articles, photo gallery, videos and press area.",
-      tabs: { news: "News", gallery: "Photo gallery", videos: "Videos & WebTV", press: "Press" },
+      subtitle: "Follow the life of the show: articles, photo gallery and press area.",
+      tabs: { news: "News", gallery: "Photo gallery", press: "Press" },
       readMore: "Read article",
       watch: "Watch",
       press: {
@@ -354,7 +352,7 @@ export const translations = {
       links: {
         about: "About", program: "Program", speakers: "Speakers", exhibitors: "Exhibitors",
         register: "Register", becomeExhibitor: "Become an exhibitor", becomeSponsor: "Become a sponsor",
-        news: "News", gallery: "Gallery", videos: "Videos", press: "Press", editions: "Previous editions",
+        news: "News", gallery: "Gallery", press: "Press", editions: "Previous editions",
       },
       legal: "Legal notice", privacy: "Privacy policy",
       rights: "All rights reserved.",

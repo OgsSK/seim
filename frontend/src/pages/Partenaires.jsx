@@ -163,7 +163,7 @@ export default function Partenaires() {
                   {[
                     "Visibilité premium sur tous les supports",
                     "Stand dans l'espace expo",
-                    "Prise de parole & WebTV",
+                    "Prise de parole sur scène",
                   ].map((f, i) => (
                     <p key={i} className="flex items-start gap-3 text-[13px] sm:text-[14px] leading-[1.6]" style={{ color: "rgba(12,45,82,0.7)" }}>
                       <span className="w-1 h-1 rotate-45 shrink-0 mt-2" style={{ backgroundColor: BRONZE }} />
