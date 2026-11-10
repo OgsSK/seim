@@ -61,3 +61,5 @@ Créer une plateforme web événementielle premium (inspiration : semainedelepar
 - Logo officiel: /frontend/public/assets/brand/seim-logo.png (+ seim-logo-white.png pour fonds sombres, seim-icon.png, favicon.ico)
 - Palette: Bleu foncé #0C2D52, Jaune doré #F7B731, neutres #F2F4F6 / #B3C1CC / #334E68, secondaire #3AA57C
 - Accent texte sur fond clair: #B57A0A (doré foncé, lisibilité)
+- Typographie: Poppins partout (charte). Motif pictogramme (.seim-pattern) sur sections bleu foncé (About manifeste, CTA Exposants)
+- Sur fonds bleu foncé: accents en #F7B731 (const GOLD). Confirmation: label succès en vert #3AA57C

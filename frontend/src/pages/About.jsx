@@ -9,6 +9,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
 const BRONZE = "#B57A0A";
+const GOLD = "#F7B731"; // jaune doré charte — sur fonds bleu foncé
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_INK = "rgba(242,244,246,0.15)";
 
@@ -62,7 +63,7 @@ export default function About() {
                     <span className="font-light text-5xl sm:text-6xl tracking-[-0.04em]" style={{ color: PAPER }}>
                       <CountUp value={1000} />
                     </span>
-                    <span className="font-serif italic text-4xl sm:text-5xl" style={{ color: BRONZE }}>
+                    <span className="font-serif italic text-4xl sm:text-5xl" style={{ color: GOLD }}>
                       +
                     </span>
                   </div>
@@ -176,21 +177,22 @@ export default function About() {
       {/* ============================================================
           SECTION 3 · MANIFESTE — moment dark
          ============================================================ */}
-      <section className="py-20 sm:py-28 lg:py-36" style={{ backgroundColor: INK, color: PAPER }}>
-        <div className="max-w-4xl mx-auto px-5 sm:px-8">
+      <section className="py-20 sm:py-28 lg:py-36 relative overflow-hidden" style={{ backgroundColor: INK, color: PAPER }}>
+        <div className="seim-pattern" aria-hidden="true" />
+        <div className="relative max-w-4xl mx-auto px-5 sm:px-8">
           <Reveal>
             <div className="flex items-center gap-3 mb-10">
-              <span className="w-10 h-px" style={{ backgroundColor: BRONZE }} />
-              <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
+              <span className="w-10 h-px" style={{ backgroundColor: GOLD }} />
+              <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: GOLD }}>
                 {manifesto.eyebrow}
               </span>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
             <h2 className="font-serif tracking-[-0.02em] text-[1.6rem] sm:text-4xl lg:text-[2.8rem] leading-[1.15]">
-              <span style={{ color: BRONZE }}>«&nbsp;</span>
+              <span style={{ color: GOLD }}>«&nbsp;</span>
               {manifesto.title}
-              <span style={{ color: BRONZE }}>&nbsp;»</span>
+              <span style={{ color: GOLD }}>&nbsp;»</span>
             </h2>
           </Reveal>
           <Reveal delay={0.2}>

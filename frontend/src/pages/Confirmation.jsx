@@ -12,6 +12,8 @@ import { Logo } from "../components/Logo";
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
 const BRONZE = "#B57A0A";
+const GOLD = "#F7B731"; // jaune doré charte — sur fond bleu
+const SUCCESS = "#3AA57C"; // couleur secondaire charte — confirmation
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_INK = "rgba(242,244,246,0.18)";
 
@@ -95,7 +97,7 @@ export default function Confirmation() {
         >
           <div className="flex items-center justify-center gap-3 mb-8">
             <span className="w-10 h-px" style={{ backgroundColor: RULE }} />
-            <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
+            <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: SUCCESS }}>
               {lang === "fr" ? "Confirmation" : "Confirmed"}
             </span>
             <span className="w-10 h-px" style={{ backgroundColor: RULE }} />
@@ -126,7 +128,7 @@ export default function Confirmation() {
           style={{ backgroundColor: INK, color: PAPER }}
         >
           {/* Filet supérieur bronze — signature visuelle */}
-          <div className="h-[3px]" style={{ backgroundColor: BRONZE }} />
+          <div className="h-[3px]" style={{ backgroundColor: GOLD }} />
 
           {/* Header du billet */}
           <div
@@ -136,7 +138,7 @@ export default function Confirmation() {
             <Logo dark />
             <span
               className="font-mono-num text-[9px] sm:text-[10px] uppercase tracking-[0.22em] px-2.5 py-1 border"
-              style={{ color: BRONZE, borderColor: BRONZE }}
+              style={{ color: GOLD, borderColor: GOLD }}
             >
               {pass.name}
             </span>
@@ -156,7 +158,7 @@ export default function Confirmation() {
             <div className="min-w-0 flex-1 text-center sm:text-left">
               <p
                 className="text-[9px] sm:text-[10px] uppercase tracking-[0.24em] mb-2"
-                style={{ color: BRONZE }}
+                style={{ color: GOLD }}
               >
                 {t("confirmation.badge")}
               </p>
@@ -171,7 +173,7 @@ export default function Confirmation() {
               <p
                 data-testid="badge-code"
                 className="font-mono-num text-[12px] mt-2 tracking-[0.1em]"
-                style={{ color: BRONZE }}
+                style={{ color: GOLD }}
               >
                 {reg.code}
               </p>
@@ -181,11 +183,11 @@ export default function Confirmation() {
                 style={{ borderColor: RULE_INK, color: "rgba(242,244,246,0.55)" }}
               >
                 <p className="flex items-center justify-center sm:justify-start gap-2">
-                  <CalendarDays size={12} style={{ color: BRONZE }} className="shrink-0" />
+                  <CalendarDays size={12} style={{ color: GOLD }} className="shrink-0" />
                   {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}
                 </p>
                 <p className="flex items-center justify-center sm:justify-start gap-2">
-                  <MapPin size={12} style={{ color: BRONZE }} className="shrink-0" />
+                  <MapPin size={12} style={{ color: GOLD }} className="shrink-0" />
                   CICB — Bamako
                 </p>
               </div>
@@ -228,7 +230,7 @@ export default function Confirmation() {
             className="group inline-flex items-center justify-center gap-2.5 px-8 sm:px-9 py-3.5 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90 w-full sm:w-auto"
             style={{ backgroundColor: INK, color: PAPER }}
           >
-            <Printer size={14} style={{ color: BRONZE }} />
+            <Printer size={14} style={{ color: GOLD }} />
             {t("confirmation.print")}
           </button>
 

@@ -11,6 +11,7 @@ import { api } from "../lib/api";
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
 const BRONZE = "#B57A0A";
+const GOLD = "#F7B731"; // jaune doré charte — sur fonds bleu foncé
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_LIGHT = "rgba(12,45,82,0.08)";
 const EASE = [0.22, 1, 0.36, 1];
@@ -65,7 +66,7 @@ function ExhibitorCard({ exhibitor, lang, t }) {
               onError={() => setImgErr(true)}
             />
           ) : (
-            <span className="font-serif text-2xl" style={{ color: BRONZE }}>
+            <span className="font-serif text-2xl" style={{ color: GOLD }}>
               {initial}
             </span>
           )}
@@ -387,11 +388,12 @@ export default function Exposants() {
                 className="mt-20 p-8 sm:p-12 lg:p-16 relative overflow-hidden"
                 style={{ backgroundColor: INK, color: PAPER }}
               >
-                <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ backgroundColor: BRONZE }} />
+                <div className="seim-pattern" aria-hidden="true" />
+                <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ backgroundColor: GOLD }} />
                 <div className="relative max-w-2xl mt-4">
                   <div className="flex items-center gap-3 mb-6">
-                    <span className="w-8 h-px" style={{ backgroundColor: BRONZE }} />
-                    <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
+                    <span className="w-8 h-px" style={{ backgroundColor: GOLD }} />
+                    <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: GOLD }}>
                       {lang === "fr" ? "Rejoignez le salon" : "Join the show"}
                     </span>
                   </div>
@@ -421,7 +423,7 @@ export default function Exposants() {
                       <ArrowUpRight
                         size={15}
                         className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                        style={{ color: BRONZE }}
+                        style={{ color: GOLD }}
                       />
                     </Link>
                     <Link
@@ -433,7 +435,7 @@ export default function Exposants() {
                       <ArrowUpRight
                         size={15}
                         className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                        style={{ color: BRONZE }}
+                        style={{ color: GOLD }}
                       />
                     </Link>
                   </div>

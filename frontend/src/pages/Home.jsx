@@ -14,6 +14,7 @@ import { SpeakerModal } from "../components/SpeakerModal";
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
 const BRONZE = "#B57A0A";
+const GOLD = "#F7B731"; // jaune doré charte — sur fonds bleu foncé
 const CREAM = "#F2F4F6";
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_INK = "rgba(242,244,246,0.15)";
@@ -71,7 +72,7 @@ function CountdownSection() {
 
       {/* Grille */}
       <div className="absolute inset-0 opacity-[0.08] pointer-events-none" style={{
-        backgroundImage: `linear-gradient(${BRONZE} 1px, transparent 1px), linear-gradient(90deg, ${BRONZE} 1px, transparent 1px)`,
+        backgroundImage: `linear-gradient(${GOLD} 1px, transparent 1px), linear-gradient(90deg, ${GOLD} 1px, transparent 1px)`,
         backgroundSize: "60px 60px",
         maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
         WebkitMaskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)"
@@ -79,7 +80,7 @@ function CountdownSection() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8 text-center">
         <Reveal>
-          <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] mb-4" style={{ color: BRONZE }}>
+          <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] mb-4" style={{ color: GOLD }}>
             {t("hero.countdownLabel")}
           </p>
           <h2 
@@ -100,7 +101,7 @@ function CountdownSection() {
                 >
                   {String(u.v).padStart(2, "0")}
                 </div>
-                <div className="mt-4 text-[9px] sm:text-[10px] uppercase tracking-[0.25em] font-mono-num" style={{ color: BRONZE }}>
+                <div className="mt-4 text-[9px] sm:text-[10px] uppercase tracking-[0.25em] font-mono-num" style={{ color: GOLD }}>
                   {u.l}
                 </div>
               </div>
@@ -811,7 +812,7 @@ function Program() {
                         {getImg(sp) ? (
                           <img src={getImg(sp)} alt={sp.name} className="w-7 h-7 rounded-full object-cover" onError={(e) => (e.currentTarget.style.display = "none")} />
                         ) : (
-                          <span className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ backgroundColor: INK, color: BRONZE }}>
+                          <span className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ backgroundColor: INK, color: GOLD }}>
                             {sp.name?.[0]}
                           </span>
                         )}
@@ -994,8 +995,8 @@ function Conviction() {
           <div className="lg:col-span-4">
             <Reveal>
               <div className="flex items-center gap-3 mb-6 sm:mb-8">
-                <span className="w-8 sm:w-10 h-px" style={{ backgroundColor: BRONZE }} />
-                <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>{copy.eyebrow}</span>
+                <span className="w-8 sm:w-10 h-px" style={{ backgroundColor: GOLD }} />
+                <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em]" style={{ color: GOLD }}>{copy.eyebrow}</span>
               </div>
             </Reveal>
           </div>
@@ -1003,9 +1004,9 @@ function Conviction() {
           <div className="lg:col-span-8">
             <Reveal delay={0.1}>
               <h2 className="font-serif tracking-[-0.02em] text-xl sm:text-3xl lg:text-[2.5rem] xl:text-[2.8rem] leading-[1.2] sm:leading-[1.15] break-words">
-                <span style={{ color: BRONZE }}>«&nbsp;</span>
+                <span style={{ color: GOLD }}>«&nbsp;</span>
                 {copy.title}
-                <span style={{ color: BRONZE }}>&nbsp;»</span>
+                <span style={{ color: GOLD }}>&nbsp;»</span>
               </h2>
             </Reveal>
             <Reveal delay={0.2}>
@@ -1025,7 +1026,7 @@ function Conviction() {
             {pillars.map((p, i) => (
               <Reveal key={i} delay={0.05 * i}>
                 <div>
-                  <p className="font-mono-num text-[10px] sm:text-[11px] tracking-[0.2em] mb-2 sm:mb-3" style={{ color: BRONZE }}>{String(i + 1).padStart(2, "0")}</p>
+                  <p className="font-mono-num text-[10px] sm:text-[11px] tracking-[0.2em] mb-2 sm:mb-3" style={{ color: GOLD }}>{String(i + 1).padStart(2, "0")}</p>
                   <h3 className="font-serif text-base sm:text-lg leading-tight mb-1.5 sm:mb-2">{p.title}</h3>
                   <p className="text-[11px] sm:text-[13px] text-[#F2F4F6]/60 leading-[1.6] sm:leading-[1.65]">{p.desc}</p>
                 </div>

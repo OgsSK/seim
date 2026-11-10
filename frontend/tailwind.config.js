@@ -10,10 +10,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Outfit', 'sans-serif'],
-        body: ['Plus Jakarta Sans', 'sans-serif'],
-        serif: ['Cormorant Garamond', 'serif'],
-        mono: ['JetBrains Mono', 'monospace']
+        display: ['Poppins', 'sans-serif'],
+        body: ['Poppins', 'sans-serif'],
+        serif: ['Poppins', 'sans-serif'],
+        mono: ['Poppins', 'sans-serif']
       },
       colors: {
         navy: {
