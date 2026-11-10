@@ -158,15 +158,30 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Barre inférieure — copyright + liens légaux */}
+        {/* Barre inférieure — copyright + liens légaux + powered by */}
         <div 
           className="mt-16 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-[#0C2D52]/40 text-center sm:text-left"
           style={{ borderColor: RULE }}
         >
-          <p className="leading-relaxed">
-            © 2026 SEIM — {lang === "fr" ? "Salon de l'Épargne et de l'Investissement du Mali." : "Mali Savings and Investment Forum."}{" "}
-            {t("footer.rights")}
-          </p>
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-2 gap-y-1 leading-relaxed">
+            <p>
+              © 2026 SEIM — {lang === "fr" ? "Salon de l'Épargne et de l'Investissement du Mali." : "Mali Savings and Investment Forum."}{" "}
+              {t("footer.rights")}
+            </p>
+            <span className="hidden sm:inline text-[#0C2D52]/20">|</span>
+            <p>
+              Powered by{" "}
+              <a
+                href="https://actoos.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-[#0C2D52]/60 hover:text-[#B57A0A] transition-colors"
+              >
+                Actoos
+              </a>
+            </p>
+          </div>
+          
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             <Link
               to="/mentions-legales"
