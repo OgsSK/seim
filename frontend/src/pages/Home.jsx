@@ -734,34 +734,78 @@ function PartnersStrip({ partners }) {
   const { lang } = useLanguage();
   if (!partners || partners.length === 0) return null;
 
+  // Le parrain officiel (tier = "principal") + les autres
+  const official = partners.find((p) => p.tier === "principal");
+  const others = partners.filter((p) => p.tier !== "principal").slice(0, 5);
+  const remaining = partners.filter((p) => p.tier !== "principal").length - others.length;
+
   return (
     <section
       data-testid="partners-strip"
-      className="py-8 sm:py-12 border-y"
+      className="py-8 sm:py-10 border-y"
       style={{ backgroundColor: PAPER, borderColor: RULE }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
-        <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.28em] text-[#0C2D52]/40 whitespace-nowrap text-center sm:text-left">
-          {lang === "fr" ? "Avec le soutien de" : "With the support of"}
-        </p>
-        <div className="hidden sm:block flex-1 h-px" style={{ backgroundColor: RULE }} />
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-          {partners.slice(0, 6).map((p, i) => (
-            <span key={p.id || i} className="text-[11px] sm:text-[13px] tracking-wide text-[#0C2D52]/55">
-              {p.name}
-            </span>
-          ))}
-          {partners.length > 6 && (
-            <span className="text-[10px] font-mono-num text-[#B57A0A]">
-              +{partners.length - 6}
-            </span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
+        <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-8">
+          
+          {/* Label */}
+          <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.28em] text-[#0C2D52]/40 whitespace-nowrap text-center lg:text-left shrink-0">
+            {lang === "fr" ? "Avec le soutien de" : "With the support of"}
+          </p>
+
+          {/* Filet vertical (desktop) */}
+          <div className="hidden lg:block w-px h-12" style={{ backgroundColor: RULE }} />
+
+          {/* Parrain officiel — FACEJ avec logo et nom */}
+          {official && (
+            <div className="flex items-center justify-center gap-3 sm:gap-4 shrink-0">
+              {/* Logo plus grand avec un fond blanc pour bien ressortir */}
+              <div className="bg-white rounded p-1.5 shadow-sm border" style={{ borderColor: RULE }}>
+                <img
+                  src="/assets/seim/logos/facej.png"
+                  alt="FACEJ"
+                  className="h-12 sm:h-14 w-auto object-contain"
+                  loading="lazy"
+                />
+              </div>
+              
+              {/* Nom et rôle à côté du logo */}
+              <div className="flex flex-col text-left">
+                <span className="text-[9px] uppercase tracking-[0.2em] text-[#B57A0A] mb-0.5">
+                  {lang === "fr" ? "Parrain officiel" : "Official Sponsor"}
+                </span>
+                <span className="font-serif font-bold text-[16px] sm:text-[18px] text-[#0C2D52] leading-none">
+                  FACEJ
+                </span>
+              </div>
+            </div>
           )}
+
+          {/* Filet vertical (desktop) */}
+          <div className="hidden lg:block w-px h-12" style={{ backgroundColor: RULE }} />
+
+          {/* Autres partenaires — texte */}
+          <div className="flex-1 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
+            {others.map((p, i) => (
+              <span
+                key={p.id || i}
+                className="text-[11px] sm:text-[12px] tracking-wide text-[#0C2D52]/55 text-center"
+                title={p.name}
+              >
+                {p.name}
+              </span>
+            ))}
+            {remaining > 0 && (
+              <span className="text-[10px] font-mono-num text-[#B57A0A]">
+                +{remaining}
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </section>
   );
 }
-
 /* ============================================================
    Retrospective
    ============================================================ */

@@ -23,16 +23,6 @@ const TIER_ORDER = [
   "technique",
 ];
 
-/* Hiérarchie visuelle des tiers par la typographie */
-const TIER_STYLE = {
-  principal: "font-serif text-3xl sm:text-4xl lg:text-5xl tracking-[-0.02em]",
-  or: "font-serif text-2xl sm:text-3xl lg:text-4xl tracking-[-0.02em]",
-  argent: "font-serif text-xl sm:text-2xl lg:text-3xl tracking-[-0.01em]",
-  institutionnel: "font-serif text-lg sm:text-xl lg:text-2xl",
-  media: "font-serif text-base sm:text-lg",
-  technique: "font-serif text-sm sm:text-base",
-};
-
 /* ---------- Empty state ---------- */
 function EmptyState({ lang }) {
   return (
@@ -61,10 +51,125 @@ function EmptyState({ lang }) {
   );
 }
 
+/* ---------- Carte partenaire — logo si dispo, sinon texte ---------- */
+function PartnerCard({ partner, tier, lang }) {
+  const hasLogo = Boolean(partner.logo);
+
+  // ============================================================
+  // TIER PRINCIPAL — carte premium horizontale
+  // ============================================================
+  if (tier === "principal") {
+    const role = lang === "fr" ? partner.role_fr : partner.role_en;
+
+    return (
+      <div
+        data-testid={`partner-logo-${partner.id}`}
+        className="grid sm:grid-cols-[auto_1fr] gap-6 sm:gap-10 items-center"
+      >
+        {/* Logo XL dans une carte blanche élégante */}
+        {hasLogo && (
+          <div
+            className="bg-white border shadow-sm flex items-center justify-center mx-auto sm:mx-0 shrink-0"
+            style={{
+              borderColor: RULE,
+              width: "180px",
+              height: "140px",
+              padding: "20px",
+            }}
+          >
+            <img
+              src={partner.logo}
+              alt={partner.name}
+              className="max-w-full max-h-full object-contain"
+              loading="lazy"
+            />
+          </div>
+        )}
+
+        {/* Nom + description */}
+        <div className="text-center sm:text-left">
+          {/* Nom en très grande taille */}
+          <p
+            className="font-serif tracking-[-0.03em] text-4xl sm:text-5xl lg:text-6xl leading-[0.95]"
+            style={{ color: INK }}
+          >
+            {partner.name}
+          </p>
+
+          {/* Description du rôle */}
+          {role && (
+            <p
+              className="mt-3 sm:mt-4 font-serif italic text-[15px] sm:text-base lg:text-lg leading-[1.5] max-w-xl mx-auto sm:mx-0"
+              style={{ color: "rgba(12,45,82,0.6)" }}
+            >
+              {role}
+            </p>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // ============================================================
+  // AUTRES TIERS
+  // ============================================================
+  const tierSizes = {
+    or: { logo: "h-14 sm:h-16", name: "text-xl sm:text-2xl lg:text-3xl" },
+    argent: { logo: "h-12 sm:h-14", name: "text-lg sm:text-xl lg:text-2xl" },
+    institutionnel: { logo: "h-10 sm:h-12", name: "text-base sm:text-lg lg:text-xl" },
+    media: { logo: "h-10 sm:h-12", name: "text-base sm:text-lg" },
+    technique: { logo: "h-9 sm:h-10", name: "text-sm sm:text-base" },
+  };
+  const sizing = tierSizes[tier] || tierSizes.technique;
+
+  return (
+    <div
+      data-testid={`partner-logo-${partner.id}`}
+      className="flex flex-col items-center text-center gap-2"
+    >
+      {hasLogo ? (
+        <>
+          <div
+            className="bg-white rounded p-2 border shrink-0 flex items-center justify-center"
+            style={{ borderColor: RULE, width: "120px", height: "80px" }}
+          >
+            <img
+              src={partner.logo}
+              alt={partner.name}
+              className={`${sizing.logo} w-auto max-w-full object-contain`}
+              loading="lazy"
+            />
+          </div>
+          <p
+            className="font-serif text-[13px] sm:text-sm leading-tight tracking-tight max-w-[140px]"
+            style={{ color: INK }}
+          >
+            {partner.name}
+          </p>
+        </>
+      ) : (
+        <p
+          className={`font-serif ${sizing.name} tracking-[-0.01em] leading-tight flex items-baseline gap-2`}
+          style={{ color: INK }}
+        >
+          <span
+            className="font-serif italic shrink-0 leading-none"
+            style={{ color: BRONZE }}
+          >
+            ·
+          </span>
+          {partner.name}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export default function Partenaires() {
   const { t, lang } = useLanguage();
   const [partners, setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     api
       .partners()
@@ -100,6 +205,38 @@ export default function Partenaires() {
             TIER_ORDER.map((tier) => {
               const list = partners.filter((p) => p.tier === tier);
               if (!list.length) return null;
+
+              // Le tier "principal" a un layout dédié (une seule colonne pleine largeur)
+              if (tier === "principal") {
+                return (
+                  <div key={tier} data-testid={`partner-tier-${tier}`}>
+                    <Reveal>
+                      <div className="flex items-center gap-4 mb-6 sm:mb-8">
+                        <span
+                          className="font-mono-num text-[9px] sm:text-[10px] uppercase tracking-[0.24em] whitespace-nowrap"
+                          style={{ color: BRONZE }}
+                        >
+                          {t(`partners.tiers.${tier}`)}
+                        </span>
+                        <span className="h-px flex-1" style={{ backgroundColor: RULE }} />
+                      </div>
+                    </Reveal>
+
+                    <Stagger
+                      key={list.length + tier}
+                      className="flex flex-col gap-8"
+                    >
+                      {list.map((p) => (
+                        <StaggerItem key={p.id}>
+                          <PartnerCard partner={p} tier={tier} lang={lang} />
+                        </StaggerItem>
+                      ))}
+                    </Stagger>
+                  </div>
+                );
+              }
+
+              // Les autres tiers : grille flexible
               return (
                 <div key={tier} data-testid={`partner-tier-${tier}`}>
                   <Reveal>
@@ -116,20 +253,11 @@ export default function Partenaires() {
 
                   <Stagger
                     key={list.length + tier}
-                    className="flex flex-wrap items-baseline gap-x-6 sm:gap-x-12 gap-y-4 sm:gap-y-6"
+                    className="flex flex-wrap items-start gap-x-8 sm:gap-x-12 gap-y-6 sm:gap-y-8"
                   >
                     {list.map((p) => (
                       <StaggerItem key={p.id}>
-                        <div
-                          data-testid={`partner-logo-${p.id}`}
-                          className={`${TIER_STYLE[tier]} cursor-default flex items-baseline gap-2`}
-                          style={{ color: INK }}
-                        >
-                          <span className="font-serif italic shrink-0 leading-none" style={{ color: BRONZE }}>
-                            ·
-                          </span>
-                          {p.name}
-                        </div>
+                        <PartnerCard partner={p} tier={tier} lang={lang} />
                       </StaggerItem>
                     ))}
                   </Stagger>

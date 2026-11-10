@@ -7,7 +7,12 @@ import {
   Image as ImageIcon,
   BadgeCheck,
   Newspaper,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  Plus,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { PageHero } from "../components/PageHero";
 import { Stagger, StaggerItem } from "../components/Reveal";
 import { SmartImg } from "../components/SectionHead";
@@ -18,6 +23,8 @@ import { api } from "../lib/api";
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
 const BRONZE = "#B57A0A";
+const GOLD = "#F7B731";
+const CREAM = "#F2F4F6";
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_LIGHT = "rgba(12,45,82,0.08)";
 
@@ -56,10 +63,147 @@ function EmptyState({ lang, icon: Icon = Newspaper, title, subtitle }) {
   );
 }
 
+/* ============================================================
+   Lightbox — vue détaillée des photos
+   ============================================================ */
+function Lightbox({ images, index, onClose, onPrev, onNext }) {
+  const { lang } = useLanguage();
+
+  // Fermer avec Escape + navigation avec flèches
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") onPrev();
+      if (e.key === "ArrowRight") onNext();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose, onPrev, onNext]);
+
+  // Lock le scroll du body
+  useEffect(() => {
+    if (index === null) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [index]);
+
+  if (index === null || !images[index]) return null;
+
+  const total = images.length;
+  const current = index + 1;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        key="lightbox"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        className="fixed inset-0 z-[80] flex items-center justify-center"
+        style={{ backgroundColor: "rgba(12,45,82,0.96)" }}
+        onClick={onClose}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Galerie photo"
+      >
+        {/* En-tête : compteur + close */}
+        <div className="absolute top-0 inset-x-0 z-10 flex items-center justify-between px-4 sm:px-8 py-5">
+          <span
+            className="font-mono-num text-[10px] sm:text-[11px] uppercase tracking-[0.24em]"
+            style={{ color: GOLD }}
+          >
+            {String(current).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          </span>
+
+          <div className="flex items-center gap-3">
+            <span className="hidden sm:inline text-[10px] uppercase tracking-[0.2em] text-white/30">
+              {lang === "fr" ? "Échap pour fermer" : "Esc to close"}
+            </span>
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-10 h-10 flex items-center justify-center border transition-colors hover:bg-white/10"
+              style={{ borderColor: "rgba(242,244,246,0.2)", color: CREAM }}
+              aria-label={lang === "fr" ? "Fermer" : "Close"}
+            >
+              <X size={18} strokeWidth={1.5} />
+            </button>
+          </div>
+        </div>
+
+        {/* Bouton précédent */}
+        {total > 1 && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onPrev();
+            }}
+            className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center border transition-colors hover:bg-white/10 z-10"
+            style={{ borderColor: "rgba(242,244,246,0.2)", color: CREAM }}
+            aria-label={lang === "fr" ? "Précédent" : "Previous"}
+          >
+            <ChevronLeft size={22} strokeWidth={1.5} />
+          </button>
+        )}
+
+        {/* Bouton suivant */}
+        {total > 1 && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onNext();
+            }}
+            className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center border transition-colors hover:bg-white/10 z-10"
+            style={{ borderColor: "rgba(242,244,246,0.2)", color: CREAM }}
+            aria-label={lang === "fr" ? "Suivant" : "Next"}
+          >
+            <ChevronRight size={22} strokeWidth={1.5} />
+          </button>
+        )}
+
+        {/* Image principale */}
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="relative max-w-[92vw] max-h-[85vh] flex items-center justify-center"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <img
+            src={images[index]}
+            alt={`SEIM ${current}`}
+            className="max-w-full max-h-[85vh] w-auto h-auto object-contain shadow-2xl"
+            style={{ boxShadow: "0 25px 60px rgba(0,0,0,0.6)" }}
+          />
+        </motion.div>
+
+        {/* Pied : légende discrète */}
+        <div className="absolute bottom-0 inset-x-0 z-10 px-4 sm:px-8 py-5 text-center">
+          <p
+            className="font-serif italic text-[11px] sm:text-[12px]"
+            style={{ color: "rgba(242,244,246,0.5)" }}
+          >
+            {lang === "fr"
+              ? "SEIM — CICB, Bamako · Édition 2026"
+              : "SEIM — CICB, Bamako · 2026 Edition"}
+          </p>
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 export default function Media() {
   const { t, lang } = useLanguage();
   const [params, setParams] = useSearchParams();
-  
+
   // Sécurité : si l'URL contient ?tab=videos (ancien lien), on bascule sur "news"
   const validTabs = ["news", "gallery", "press"];
   const tabParam = params.get("tab");
@@ -68,6 +212,7 @@ export default function Media() {
   const [articles, setArticles] = useState([]);
   const [gallery, setGallery] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   useEffect(() => {
     Promise.all([
@@ -79,24 +224,35 @@ export default function Media() {
     ]).finally(() => setLoading(false));
   }, []);
 
-  // On retire "videos" de cette liste
+  /* --- Lightbox handlers --- */
+  const openLightbox = (i) => setLightboxIndex(i);
+  const closeLightbox = () => setLightboxIndex(null);
+  const prevImage = () =>
+    setLightboxIndex((i) =>
+      i === null ? null : (i - 1 + gallery.length) % gallery.length
+    );
+  const nextImage = () =>
+    setLightboxIndex((i) =>
+      i === null ? null : (i + 1) % gallery.length
+    );
+
   const tabs = ["news", "gallery", "press"];
 
-  // Mise à jour des ressources presse
+  // Ressources presse
   const pressItems = [
     {
       icon: FileText,
       title: t("media.press.kit"),
       desc: t("media.press.kitDesc"),
       href: "/assets/seim/rapport-seim-2026.pdf",
-      downloadName: "Rapport_SEIM_2026.pdf"
+      downloadName: "Rapport_SEIM_2026.pdf",
     },
     {
       icon: ImageIcon,
       title: t("media.press.logos"),
       desc: t("media.press.logosDesc"),
       href: "/assets/seim/charte-graphique-seim.pdf",
-      downloadName: "Charte_Graphique_SEIM.pdf"
+      downloadName: "Charte_Graphique_SEIM.pdf",
     },
     {
       icon: BadgeCheck,
@@ -160,7 +316,11 @@ export default function Media() {
                 lang={lang}
                 icon={Newspaper}
                 title={lang === "fr" ? "Les actualités arrivent bientôt" : "News coming soon"}
-                subtitle={lang === "fr" ? "Les articles et communiqués de presse du SEIM seront publiés prochainement." : "SEIM articles and press releases will be published soon."}
+                subtitle={
+                  lang === "fr"
+                    ? "Les articles et communiqués de presse du SEIM seront publiés prochainement."
+                    : "SEIM articles and press releases will be published soon."
+                }
               />
             ) : (
               <Stagger
@@ -193,10 +353,16 @@ export default function Media() {
                           )}
                         </span>
                       </div>
-                      <h3 className="font-serif text-lg leading-tight tracking-tight mb-2" style={{ color: INK }}>
+                      <h3
+                        className="font-serif text-lg leading-tight tracking-tight mb-2"
+                        style={{ color: INK }}
+                      >
                         {lang === "fr" ? a.title_fr : a.title_en}
                       </h3>
-                      <p className="font-serif italic text-[13px] leading-[1.6] line-clamp-3" style={{ color: "rgba(12,45,82,0.55)" }}>
+                      <p
+                        className="font-serif italic text-[13px] leading-[1.6] line-clamp-3"
+                        style={{ color: "rgba(12,45,82,0.55)" }}
+                      >
                         {lang === "fr" ? a.excerpt_fr : a.excerpt_en}
                       </p>
                     </article>
@@ -214,7 +380,11 @@ export default function Media() {
                 lang={lang}
                 icon={ImageIcon}
                 title={lang === "fr" ? "La galerie arrive bientôt" : "Gallery coming soon"}
-                subtitle={lang === "fr" ? "Les photos des éditions du SEIM seront publiées prochainement." : "SEIM editions photos will be published soon."}
+                subtitle={
+                  lang === "fr"
+                    ? "Les photos des éditions du SEIM seront publiées prochainement."
+                    : "SEIM editions photos will be published soon."
+                }
               />
             ) : (
               <Stagger
@@ -229,18 +399,33 @@ export default function Media() {
                       key={i}
                       className={featured ? "md:col-span-2 md:row-span-2" : ""}
                     >
-                      <div
+                      <button
+                        type="button"
+                        onClick={() => openLightbox(i)}
                         data-testid={`gallery-item-${i}`}
-                        className="overflow-hidden shadow-sm h-full"
+                        className="group relative overflow-hidden shadow-sm h-full w-full block cursor-zoom-in"
+                        aria-label={`Voir la photo ${i + 1}`}
                       >
                         <div className="w-full h-full aspect-square md:aspect-auto">
                           <SmartImg
                             src={img}
                             alt={`SEIM ${i + 1}`}
-                            className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.03]"
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                           />
                         </div>
-                      </div>
+                        {/* Overlay au hover */}
+                        <div
+                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+                          style={{ backgroundColor: "rgba(12,45,82,0.55)" }}
+                        >
+                          <span
+                            className="w-11 h-11 flex items-center justify-center border rounded-full"
+                            style={{ borderColor: GOLD, color: GOLD }}
+                          >
+                            <Plus size={20} strokeWidth={1.5} />
+                          </span>
+                        </div>
+                      </button>
                     </StaggerItem>
                   );
                 })}
@@ -269,11 +454,13 @@ export default function Media() {
                     <h3 className="font-serif text-xl tracking-tight" style={{ color: INK }}>
                       {p.title}
                     </h3>
-                    <p className="font-serif italic text-[14px] leading-[1.7] flex-1" style={{ color: "rgba(12,45,82,0.55)" }}>
+                    <p
+                      className="font-serif italic text-[14px] leading-[1.7] flex-1"
+                      style={{ color: "rgba(12,45,82,0.55)" }}
+                    >
                       {p.desc}
                     </p>
-                    
-                    {/* Affichage conditionnel : Lien de téléchargement ou Lien de contact */}
+
                     {p.href ? (
                       <a
                         href={p.href}
@@ -302,6 +489,15 @@ export default function Media() {
           )}
         </div>
       </section>
+
+      {/* Lightbox */}
+      <Lightbox
+        images={gallery}
+        index={lightboxIndex}
+        onClose={closeLightbox}
+        onPrev={prevImage}
+        onNext={nextImage}
+      />
     </div>
   );
 }
