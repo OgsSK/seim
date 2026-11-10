@@ -196,7 +196,7 @@ function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
-              className="font-serif leading-[1.02] sm:leading-[0.98] tracking-[-0.03em] text-[3rem] sm:text-5xl lg:text-[4.5rem] xl:text-[5.25rem] max-w-4xl"
+              className="font-serif leading-[1.02] sm:leading-[0.98] tracking-[-0.03em] text-[2.5rem] min-[380px]:text-[3rem] sm:text-5xl lg:text-[4.5rem] xl:text-[5.25rem] max-w-4xl"
               style={{ willChange: "opacity", textShadow: "0 4px 24px rgba(0,0,0,0.5)" }}
             >
               <span className="block">{t("hero.line1")}</span>

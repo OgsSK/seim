@@ -44,7 +44,7 @@ function InfoCard({ icon: Icon, label, value, href, external, testid }) {
           {label}
         </p>
         <p
-          className="font-serif text-[15px] sm:text-base truncate"
+          className="font-serif text-[15px] sm:text-base [overflow-wrap:anywhere]"
           style={{ color: INK }}
         >
           {value}
@@ -133,7 +133,7 @@ export default function Contact() {
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
             
             {/* ============ COLONNE GAUCHE — Coordonnées ============ */}
-            <Reveal className="lg:col-span-5">
+            <Reveal className="lg:col-span-5 min-w-0">
               <div className="lg:sticky lg:top-32">
                 <div className="flex items-center gap-3 mb-8">
                   <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
@@ -225,7 +225,7 @@ export default function Contact() {
             </Reveal>
 
             {/* ============ COLONNE DROITE — Formulaire ============ */}
-            <Reveal delay={0.12} className="lg:col-span-7">
+            <Reveal delay={0.12} className="lg:col-span-7 min-w-0">
               <div className="pt-2">
                 <div className="flex items-center gap-3 mb-8">
                   <span className="w-8 h-px" style={{ backgroundColor: RULE }} />

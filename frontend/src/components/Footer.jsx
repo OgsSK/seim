@@ -168,7 +168,7 @@ export function Footer() {
             © 2026 SEIM — {lang === "fr" ? "Salon de l'Épargne et de l'Investissement du Mali." : "Mali Savings and Investment Forum."}{" "}
             {t("footer.rights")}
           </p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             <Link
               to="/mentions-legales"
               data-testid="footer-legal-link"

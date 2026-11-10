@@ -176,7 +176,7 @@ export default function Editions() {
           
           {/* Ligne verticale de timeline */}
           <div 
-            className="absolute left-0 sm:left-1/2 top-0 bottom-0 w-px sm:-translate-x-1/2 pointer-events-none" 
+            className="absolute left-5 sm:left-1/2 top-0 bottom-0 w-px sm:-translate-x-1/2 pointer-events-none" 
             style={{ backgroundColor: RULE }} 
           />
 
