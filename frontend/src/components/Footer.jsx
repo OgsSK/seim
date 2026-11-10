@@ -38,7 +38,6 @@ export function Footer() {
       links: [
         { label: L.news, to: "/media" },
         { label: L.gallery, to: "/media?tab=gallery" },
-        // La ligne Vidéos a été retirée ici
         { label: L.press, to: "/media?tab=press" },
       ],
     },
@@ -61,7 +60,6 @@ export function Footer() {
               {t("footer.tagline")}
             </p>
 
-            {/* Réseaux sociaux — minimalistes, sans pastille */}
             <div className="flex gap-4 mt-6">
               <a
                 href={EVENT.facebook}
@@ -170,7 +168,7 @@ export function Footer() {
             </p>
             <span className="hidden sm:inline text-[#0C2D52]/20">|</span>
             <p>
-              Powered by{" "}
+              {lang === "fr" ? "Propulsé par" : "Powered by"}{" "}
               <a
                 href="https://actoos.com"
                 target="_blank"
