@@ -69,7 +69,7 @@ function AnimatedNumber({ value, className = "", style = {} }) {
 }
 
 /* ============================================================
-   Hero — version sobre et premium
+   Hero — sobre et premium
    ============================================================ */
 function Hero() {
   const { t, lang } = useLanguage();
@@ -86,7 +86,6 @@ function Hero() {
         backfaceVisibility: "hidden",
       }}
     >
-      {/* Photo de fond */}
       <div className="absolute inset-0 opacity-[0.35] sm:opacity-[0.28] pointer-events-none">
         <SmartImg
           src="/assets/seim/hero-bg.jpg"
@@ -95,7 +94,6 @@ function Hero() {
         />
       </div>
 
-      {/* Gradient encre */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -103,15 +101,12 @@ function Hero() {
         }}
       />
 
-      {/* Vignette douce */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ boxShadow: `inset 0 0 200px 60px rgba(12,45,82,0.8)` }}
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8 pt-20 sm:pt-32 pb-16 sm:pb-24">
-
-        {/* Masthead minimal */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -130,9 +125,7 @@ function Hero() {
           </span>
         </motion.div>
 
-        {/* Contenu — tout aligné à gauche, sobre */}
         <div className="max-w-4xl">
-          {/* Eyebrow */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -144,7 +137,6 @@ function Hero() {
             {t("hero.eyebrow")}
           </motion.p>
 
-          {/* Titre */}
           <motion.h1
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -158,7 +150,6 @@ function Hero() {
             </span>
           </motion.h1>
 
-          {/* Sous-titre */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -168,7 +159,6 @@ function Hero() {
             {t("hero.subtitle")}
           </motion.p>
 
-          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -201,7 +191,6 @@ function Hero() {
             </Link>
           </motion.div>
 
-          {/* Bandeau bas : dates + lieu */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -243,7 +232,7 @@ function Hero() {
 }
 
 /* ============================================================
-   CountdownSection — Living Ticket (desktop + mobile)
+   CountdownSection — la forme parle d'elle-même
    ============================================================ */
 function CountdownSection() {
   const { t, lang } = useLanguage();
@@ -256,32 +245,22 @@ function CountdownSection() {
 
   const copy = {
     fr: {
-      badge: "Billet d'entrée",
-      serial: "N° SEIM-2026-0428",
+      sideLabel: "Compte à rebours",
+      stubLabel: "Temps",
       days: "jours",
       narrative: "avant l'ouverture officielle du forum.",
       narrativeShort: "avant l'ouverture officielle.",
-      access: "Accès",
-      admit: "Admit One",
-      venueLabel: "Lieu",
-      stub: "Souche",
-      timeMarker: "Repère temporel",
       hours: "Heures",
       minutes: "Minutes",
       seconds: "Secondes",
       active: "T-Minus Active",
     },
     en: {
-      badge: "Entry ticket",
-      serial: "N° SEIM-2026-0428",
+      sideLabel: "Countdown",
+      stubLabel: "Time",
       days: "days",
       narrative: "before the official opening of the forum.",
       narrativeShort: "before the official opening.",
-      access: "Access",
-      admit: "Admit One",
-      venueLabel: "Venue",
-      stub: "Stub",
-      timeMarker: "Time marker",
       hours: "Hours",
       minutes: "Minutes",
       seconds: "Seconds",
@@ -298,10 +277,9 @@ function CountdownSection() {
 
   return (
     <section
-      className="relative py-14 sm:py-20 lg:py-28 border-b overflow-hidden"
+      className="relative py-14 sm:py-20 lg:py-24 border-b overflow-hidden"
       style={{ backgroundColor: INK, color: CREAM, borderColor: RULE_INK }}
     >
-      {/* Photo de fond */}
       <div className="absolute inset-0 opacity-[0.15] pointer-events-none">
         <SmartImg
           src="/assets/seim/stage-bg.jpg"
@@ -316,7 +294,7 @@ function CountdownSection() {
         }}
       />
 
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-5xl lg:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* En-tête global */}
         <div className="flex items-center justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 lg:mb-14">
@@ -333,7 +311,7 @@ function CountdownSection() {
         <Reveal>
 
           {/* =========================================================
-              MOBILE / TABLETTE : Pass compact horizontal
+              MOBILE / TABLETTE : pass compact horizontal
               ========================================================= */}
           <div className="lg:hidden">
             <motion.div
@@ -347,7 +325,6 @@ function CountdownSection() {
                 className="relative overflow-hidden rounded-xl shadow-[0_20px_50px_-15px_rgba(0,0,0,0.75)]"
                 style={{ backgroundColor: TICKET_PAPER, color: INK }}
               >
-                {/* Shimmer */}
                 <motion.div
                   aria-hidden="true"
                   className="absolute inset-y-0 w-1/3 z-20 pointer-events-none"
@@ -365,7 +342,6 @@ function CountdownSection() {
                   }}
                 />
 
-                {/* Bandeau haut */}
                 <div
                   className="flex items-center justify-between gap-2 px-4 py-2 border-b relative z-10"
                   style={{ borderColor: TICKET_LINE }}
@@ -377,16 +353,14 @@ function CountdownSection() {
                     SEIM <span style={{ color: BRONZE }}>/</span> 2026
                   </span>
                   <span
-                    className="text-[8px] uppercase tracking-[0.22em]"
+                    className="text-[8px] uppercase tracking-[0.18em]"
                     style={{ color: BRONZE }}
                   >
-                    {copy.badge}
+                    {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}
                   </span>
                 </div>
 
-                {/* Corps */}
                 <div className="relative flex z-10">
-                  {/* Zone gauche */}
                   <div className="flex-1 min-w-0 px-4 py-3.5">
                     <div className="flex items-baseline">
                       <AnimatedNumber
@@ -409,7 +383,6 @@ function CountdownSection() {
                     </p>
                   </div>
 
-                  {/* Perforation + encoches */}
                   <div className="relative w-px shrink-0">
                     <span
                       aria-hidden="true"
@@ -428,7 +401,6 @@ function CountdownSection() {
                     />
                   </div>
 
-                  {/* Zone droite : 3 colonnes */}
                   <div className="w-[42%] shrink-0 px-2 py-3.5 grid grid-cols-3 gap-0.5">
                     {[
                       { v: h, l: copy.hours },
@@ -456,45 +428,37 @@ function CountdownSection() {
                   </div>
                 </div>
 
-                {/* Bandeau bas */}
                 <div
                   className="flex items-center justify-between gap-2 px-4 py-2 border-t relative z-10"
                   style={{ borderColor: TICKET_LINE }}
                 >
-                  <div className="flex items-center gap-2">
-                    {/* Code-barres + scan */}
-                    <div
-                      className="relative flex items-end gap-[1px] h-3 overflow-hidden"
-                      aria-hidden="true"
-                    >
-                      {barcode.slice(0, 12).map((w, i) => (
-                        <span
-                          key={i}
-                          className="block h-full"
-                          style={{ width: `${w}px`, backgroundColor: INK }}
-                        />
-                      ))}
-                      <motion.span
-                        className="absolute inset-y-0 w-px z-10 pointer-events-none"
-                        style={{
-                          backgroundColor: GOLD,
-                          boxShadow: "0 0 6px 1px rgba(247,183,49,0.8)",
-                        }}
-                        animate={{ left: ["0%", "100%", "0%"] }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          repeatDelay: 2,
-                        }}
+                  <div
+                    className="relative flex items-end gap-[1px] h-3 overflow-hidden"
+                    aria-hidden="true"
+                  >
+                    {barcode.slice(0, 12).map((w, i) => (
+                      <span
+                        key={i}
+                        className="block h-full"
+                        style={{ width: `${w}px`, backgroundColor: INK }}
                       />
-                    </div>
-                    <span className="font-serif italic text-[10px]" style={{ color: INK }}>
-                      {copy.admit}
-                    </span>
+                    ))}
+                    <motion.span
+                      className="absolute inset-y-0 w-px z-10 pointer-events-none"
+                      style={{
+                        backgroundColor: GOLD,
+                        boxShadow: "0 0 6px 1px rgba(247,183,49,0.8)",
+                      }}
+                      animate={{ left: ["0%", "100%", "0%"] }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        repeatDelay: 2,
+                      }}
+                    />
                   </div>
 
-                  {/* Double pulse */}
                   <div className="flex items-center gap-1.5">
                     <span className="relative flex h-1 w-1">
                       <span
@@ -527,7 +491,7 @@ function CountdownSection() {
           </div>
 
           {/* =========================================================
-              DESKTOP : Billet vertical incliné
+              DESKTOP : forme longue horizontale (proportions ~3.2:1)
               ========================================================= */}
           <div className="hidden lg:block">
             <motion.div
@@ -545,7 +509,7 @@ function CountdownSection() {
 
                   {/* PARTIE PRINCIPALE */}
                   <div
-                    className="flex-1 relative flex flex-col justify-between p-12 rounded-l-xl overflow-hidden"
+                    className="flex-1 relative flex flex-col justify-between py-8 px-12 rounded-l-xl overflow-hidden"
                     style={{ backgroundColor: TICKET_PAPER, color: INK }}
                   >
                     {/* Shimmer */}
@@ -566,56 +530,35 @@ function CountdownSection() {
                       }}
                     />
 
+                    {/* Header */}
                     <div
-                      className="flex items-start justify-between gap-4 pb-5 mb-2 border-b relative z-10"
+                      className="flex items-baseline justify-between gap-4 pb-4 border-b relative z-10"
                       style={{ borderColor: TICKET_LINE }}
                     >
-                      <div>
-                        <p
-                          className="text-[10px] uppercase tracking-[0.28em] mb-1"
-                          style={{ color: BRONZE }}
-                        >
-                          {copy.badge}
-                        </p>
-                        <p
-                          className="font-mono-num text-[11px] tracking-[0.18em]"
-                          style={{ color: "rgba(12,45,82,0.45)" }}
-                        >
-                          {copy.serial}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <p
-                          className="font-mono-num text-[11px] tracking-[0.24em] uppercase"
-                          style={{ color: INK }}
-                        >
-                          SEIM <span style={{ color: BRONZE }}>/</span> 2026
-                        </p>
-                      </div>
+                      <span
+                        className="font-mono-num text-[11px] tracking-[0.24em] uppercase"
+                        style={{ color: INK }}
+                      >
+                        SEIM <span style={{ color: BRONZE }}>/</span> 2026
+                      </span>
+                      <span
+                        className="text-[10px] uppercase tracking-[0.28em]"
+                        style={{ color: BRONZE }}
+                      >
+                        {copy.sideLabel}
+                      </span>
                     </div>
 
-                    <div className="my-12 relative z-10">
-                      <div
-                        className="inline-flex items-center gap-2 mb-5 px-2.5 py-1 rounded border"
-                        style={{
-                          color: BRONZE,
-                          borderColor: "rgba(181,122,10,0.35)",
-                          backgroundColor: "rgba(181,122,10,0.08)",
-                        }}
-                      >
-                        <span className="font-mono-num text-[10px] tracking-[0.2em] uppercase">
-                          {lang === "fr" ? "Compte à rebours" : "Countdown"}
-                        </span>
-                      </div>
-
+                    {/* Corps — plus compact verticalement */}
+                    <div className="my-9 relative z-10">
                       <div className="flex items-baseline flex-wrap">
                         <AnimatedNumber
                           value={d}
-                          className="font-serif font-light text-[8rem] leading-[0.85] tracking-[-0.05em]"
+                          className="font-serif font-light text-[6.5rem] leading-[0.85] tracking-[-0.05em]"
                           style={{ color: INK }}
                         />
                         <span
-                          className="font-serif italic text-5xl ml-3"
+                          className="font-serif italic text-4xl ml-3"
                           style={{ color: BRONZE }}
                         >
                           {copy.days}
@@ -623,39 +566,27 @@ function CountdownSection() {
                       </div>
 
                       <p
-                        className="font-serif text-xl leading-[1.4] mt-5 max-w-sm"
+                        className="font-serif text-lg leading-[1.35] mt-4 max-w-sm"
                         style={{ color: "rgba(12,45,82,0.7)" }}
                       >
                         {copy.narrative}
                       </p>
                     </div>
 
+                    {/* Footer */}
                     <div
-                      className="flex items-end justify-between gap-4 pt-5 border-t relative z-10"
+                      className="flex items-end justify-between gap-4 pt-4 border-t relative z-10"
                       style={{ borderColor: TICKET_LINE }}
                     >
-                      <div>
-                        <p
-                          className="text-[9px] uppercase tracking-[0.24em] mb-1"
-                          style={{ color: "rgba(12,45,82,0.4)" }}
-                        >
-                          {copy.access}
-                        </p>
-                        <p className="font-serif italic text-lg" style={{ color: INK }}>
-                          {copy.admit}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <p
-                          className="text-[9px] uppercase tracking-[0.24em] mb-1"
-                          style={{ color: "rgba(12,45,82,0.4)" }}
-                        >
-                          {copy.venueLabel}
-                        </p>
-                        <p className="font-serif text-base" style={{ color: INK }}>
-                          CICB · Bamako
-                        </p>
-                      </div>
+                      <span
+                        className="font-mono-num text-[11px] tracking-[0.22em] uppercase"
+                        style={{ color: INK }}
+                      >
+                        {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}
+                      </span>
+                      <span className="font-serif text-base" style={{ color: INK }}>
+                        CICB · Bamako
+                      </span>
                     </div>
                   </div>
 
@@ -678,48 +609,42 @@ function CountdownSection() {
                     />
                   </div>
 
-                  {/* SOUCHE */}
+                  {/* SOUCHE — plus compacte */}
                   <div
-                    className="lg:w-[36%] relative flex flex-col justify-between p-10 rounded-r-xl"
+                    className="lg:w-[30%] relative flex flex-col justify-between py-8 px-8 rounded-r-xl"
                     style={{ backgroundColor: TICKET_PAPER_DARK, color: INK }}
                   >
-                    <div className="pb-4 border-b" style={{ borderColor: TICKET_LINE }}>
-                      <p
+                    <div className="pb-3 border-b" style={{ borderColor: TICKET_LINE }}>
+                      <span
                         className="text-[10px] uppercase tracking-[0.28em]"
                         style={{ color: BRONZE }}
                       >
-                        {copy.stub}
-                      </p>
-                      <p
-                        className="font-mono-num text-[10px] tracking-[0.15em] mt-1"
-                        style={{ color: "rgba(12,45,82,0.45)" }}
-                      >
-                        {copy.timeMarker}
-                      </p>
+                        {copy.stubLabel}
+                      </span>
                     </div>
 
-                    <div className="flex flex-col gap-6 my-8">
+                    <div className="flex flex-col gap-4 my-6">
                       {[
                         { v: h, l: copy.hours },
                         { v: m, l: copy.minutes },
                         { v: s, l: copy.seconds },
                       ].map((u, i) => (
-                        <div key={i} className="flex items-end justify-between gap-3">
+                        <div key={i} className="flex items-end justify-between gap-2">
                           <div className="flex flex-col gap-1">
                             <span
-                              className="font-mono-num text-[10px] uppercase tracking-[0.24em]"
+                              className="font-mono-num text-[9px] uppercase tracking-[0.22em]"
                               style={{ color: "rgba(12,45,82,0.55)" }}
                             >
                               {u.l}
                             </span>
                             <span
-                              className="w-6 h-px"
+                              className="w-5 h-px"
                               style={{ backgroundColor: "rgba(12,45,82,0.25)" }}
                             />
                           </div>
                           <AnimatedNumber
                             value={u.v}
-                            className="font-serif font-light text-[3.5rem] leading-none tracking-[-0.03em]"
+                            className="font-serif font-light text-[2.75rem] leading-none tracking-[-0.03em]"
                             style={{ color: INK }}
                           />
                         </div>
@@ -727,9 +652,8 @@ function CountdownSection() {
                     </div>
 
                     <div>
-                      {/* Code-barres + scan */}
                       <div
-                        className="relative flex items-end gap-[1.5px] h-9 mb-3 overflow-hidden"
+                        className="relative flex items-end gap-[1.5px] h-7 mb-2.5 overflow-hidden"
                         aria-hidden="true"
                       >
                         {barcode.map((w, i) => (
@@ -756,15 +680,9 @@ function CountdownSection() {
                       </div>
 
                       <div
-                        className="pt-3 border-t flex items-center justify-between gap-2"
+                        className="pt-2.5 border-t flex items-center justify-end gap-2"
                         style={{ borderColor: TICKET_LINE }}
                       >
-                        <span
-                          className="font-mono-num text-[9px] uppercase tracking-[0.2em]"
-                          style={{ color: "rgba(12,45,82,0.55)" }}
-                        >
-                          CICB · Bamako
-                        </span>
                         <div className="flex items-center gap-1.5">
                           <span className="relative flex h-1.5 w-1.5">
                             <span
