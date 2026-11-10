@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
   MessageCircle, Users, Store, Handshake, Mic, Newspaper,
-  CheckCircle2, CalendarDays, MapPin, ArrowUpRight, RotateCcw,
+  CheckCircle2, CalendarDays, MapPin, ArrowUpRight, RotateCcw, CalendarPlus, UserPlus,
 } from "lucide-react";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
@@ -10,6 +10,7 @@ import { Countdown } from "../components/Countdown";
 import { useLanguage } from "../i18n/LanguageContext";
 import { EVENT } from "../config/event";
 import { BLANK, buildMessage, openWhatsApp } from "../lib/whatsapp";
+import { downloadIcs, googleCalendarUrl } from "../lib/calendar";
 
 /* Palette charte SEIM */
 const PAPER = "#F2F4F6";
@@ -275,6 +276,48 @@ export default function Inscription() {
                     </p>
                   </div>
                   <Countdown dark />
+                </div>
+
+                {/* Agenda + invitation */}
+                <div className="relative mt-8 pt-8 border-t flex flex-col sm:flex-row flex-wrap gap-3 sm:items-center" style={{ borderColor: "rgba(242,244,246,0.15)" }}>
+                  <button
+                    type="button"
+                    data-testid="thank-you-add-calendar"
+                    onClick={() => downloadIcs(lang)}
+                    className="inline-flex items-center justify-center gap-3 px-6 py-3.5 text-[11px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90"
+                    style={{ backgroundColor: PAPER, color: INK }}
+                  >
+                    <CalendarPlus size={16} style={{ color: BRONZE }} />
+                    {L("Ajouter à mon agenda", "Add to my calendar")}
+                  </button>
+                  <button
+                    type="button"
+                    data-testid="thank-you-invite-friend"
+                    onClick={() =>
+                      openWhatsApp(
+                        L(
+                          `Je viens de m'inscrire au SEIM — Salon de l'Épargne et de l'Investissement du Mali, ${EVENT.dates_fr} au CICB de Bamako. Conférences, masterclasses et networking autour de l'épargne et de l'investissement. Inscris-toi toi aussi : ${window.location.origin}/inscription`,
+                          `I just registered for SEIM — Mali Savings & Investment Forum, ${EVENT.dates_en} at the CICB in Bamako. Conferences, masterclasses and networking on savings and investment. Join me: ${window.location.origin}/inscription`
+                        ),
+                        { share: true }
+                      )
+                    }
+                    className="inline-flex items-center justify-center gap-3 px-6 py-3.5 text-[11px] uppercase tracking-[0.18em] font-medium border transition-colors hover:bg-white/5"
+                    style={{ borderColor: "rgba(242,244,246,0.3)", color: PAPER }}
+                  >
+                    <UserPlus size={16} style={{ color: "#F7B731" }} />
+                    {L("Inviter un ami sur WhatsApp", "Invite a friend on WhatsApp")}
+                  </button>
+                  <a
+                    href={googleCalendarUrl(lang)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid="thank-you-google-calendar"
+                    className="text-[12px] underline underline-offset-4 sm:ml-2 text-center transition-colors hover:text-[#F7B731]"
+                    style={{ color: "rgba(242,244,246,0.7)" }}
+                  >
+                    {L("ou Google Agenda", "or Google Calendar")}
+                  </a>
                 </div>
               </div>
             </Reveal>

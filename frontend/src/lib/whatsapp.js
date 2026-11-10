@@ -7,12 +7,16 @@ export const WHATSAPP_NUMBER = EVENT.whatsapp.replace(/[^\d]/g, "");
 export const whatsappLink = (message) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
+/** Lien de partage WhatsApp sans destinataire : l'utilisateur choisit le contact */
+export const whatsappShareLink = (message) =>
+  `https://wa.me/?text=${encodeURIComponent(message)}`;
+
 /**
  * Ouvre WhatsApp (application sur mobile, WhatsApp Web sur ordinateur)
  * avec le message pré-rempli. Doit être appelé directement dans un clic/submit.
  */
-export const openWhatsApp = (message) => {
-  const url = whatsappLink(message);
+export const openWhatsApp = (message, { share = false } = {}) => {
+  const url = share ? whatsappShareLink(message) : whatsappLink(message);
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   if (isMobile) {
     window.location.href = url;
