@@ -63,3 +63,4 @@ Créer une plateforme web événementielle premium (inspiration : semainedelepar
 - Accent texte sur fond clair: #B57A0A (doré foncé, lisibilité)
 - Typographie: Poppins partout (charte). Motif pictogramme (.seim-pattern) sur sections bleu foncé (About manifeste, CTA Exposants)
 - Sur fonds bleu foncé: accents en #F7B731 (const GOLD). Confirmation: label succès en vert #3AA57C
+- Emails de contact (config/event.js EVENT.emails): ousmanemohamedlamine1@gmail.com, babaalitoure@gmail.com — ancien contact@seim-mali.com supprimé

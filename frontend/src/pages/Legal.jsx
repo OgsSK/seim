@@ -68,13 +68,18 @@ export default function Legal({ type }) {
               <LegalSection num="01" title="Éditeur">
                 <p>
                   {EVENT.name_fr} (SEIM) — {EVENT.address_fr}. Contact :{" "}
-                  <a
-                    href={`mailto:${EVENT.email}`}
-                    className="border-b transition-colors hover:text-[#B57A0A] hover:border-[#B57A0A]"
-                    style={{ color: INK, borderColor: BRONZE }}
-                  >
-                    {EVENT.email}
-                  </a>{" "}
+                  {EVENT.emails.map((mail, i) => (
+                    <span key={mail}>
+                      {i > 0 && " ou "}
+                      <a
+                        href={`mailto:${mail}`}
+                        className="border-b transition-colors hover:text-[#B57A0A] hover:border-[#B57A0A] break-all"
+                        style={{ color: INK, borderColor: BRONZE }}
+                      >
+                        {mail}
+                      </a>
+                    </span>
+                  ))}{" "}
                   ·{" "}
                   <a
                     href={`tel:${EVENT.phone.replace(/\s/g, "")}`}
@@ -117,13 +122,18 @@ export default function Legal({ type }) {
                 <p>
                   Vous pouvez demander la modification ou la suppression de vos
                   données à tout moment en écrivant à{" "}
-                  <a
-                    href={`mailto:${EVENT.email}`}
-                    className="border-b transition-colors hover:text-[#B57A0A] hover:border-[#B57A0A]"
-                    style={{ color: INK, borderColor: BRONZE }}
-                  >
-                    {EVENT.email}
-                  </a>
+                  {EVENT.emails.map((mail, i) => (
+                    <span key={mail}>
+                      {i > 0 && " ou "}
+                      <a
+                        href={`mailto:${mail}`}
+                        className="border-b transition-colors hover:text-[#B57A0A] hover:border-[#B57A0A] break-all"
+                        style={{ color: INK, borderColor: BRONZE }}
+                      >
+                        {mail}
+                      </a>
+                    </span>
+                  ))}
                   .
                 </p>
               </LegalSection>

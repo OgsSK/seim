@@ -169,13 +169,16 @@ export default function Contact() {
                     external
                     testid="contact-whatsapp"
                   />
-                  <InfoCard
-                    icon={Mail}
-                    label="Email"
-                    value={EVENT.email}
-                    href={`mailto:${EVENT.email}`}
-                    testid="contact-email"
-                  />
+                  {EVENT.emails.map((mail, i) => (
+                    <InfoCard
+                      key={mail}
+                      icon={Mail}
+                      label="Email"
+                      value={mail}
+                      href={`mailto:${mail}`}
+                      testid={i === 0 ? "contact-email" : `contact-email-${i + 1}`}
+                    />
+                  ))}
                   <InfoCard
                     icon={MapPin}
                     label={lang === "fr" ? "Adresse" : "Address"}

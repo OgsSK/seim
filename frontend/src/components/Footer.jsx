@@ -134,15 +134,17 @@ export function Footer() {
                   {EVENT.phone}
                 </a>
               </li>
-              <li className="flex gap-3 items-start">
-                <Mail size={14} className="shrink-0 mt-0.5" style={{ color: BRONZE }} />
-                <a
-                  href={`mailto:${EVENT.email}`}
-                  className="hover:text-[#B57A0A] transition-colors break-all"
-                >
-                  {EVENT.email}
-                </a>
-              </li>
+              {EVENT.emails.map((mail) => (
+                <li key={mail} className="flex gap-3 items-start">
+                  <Mail size={14} className="shrink-0 mt-0.5" style={{ color: BRONZE }} />
+                  <a
+                    href={`mailto:${mail}`}
+                    className="hover:text-[#B57A0A] transition-colors break-all"
+                  >
+                    {mail}
+                  </a>
+                </li>
+              ))}
               <li className="flex gap-3 items-start">
                 <MapPin
                   size={14}
