@@ -16,7 +16,7 @@ import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { EVENT } from "../config/event";
 import { useLanguage } from "../i18n/LanguageContext";
-import { api } from "../lib/api";
+import { buildRequestMessage, openWhatsApp } from "../lib/whatsapp";
 
 /* Palette éditoriale premium */
 const PAPER = "#F2F4F6";
@@ -87,7 +87,6 @@ function InfoCard({ icon: Icon, label, value, href, external, testid }) {
 export default function Contact() {
   const { t, lang } = useLanguage();
   const [params] = useSearchParams();
-  const [sending, setSending] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -105,20 +104,20 @@ export default function Contact() {
     "intervention",
   ];
 
-  const submit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
-    setSending(true);
-    try {
-      await api.contact(form);
-      toast.success(t("contact.sent"));
-      setForm({ ...form, name: "", email: "", organization: "", message: "" });
-    } catch {
-      toast.error(
-        lang === "fr" ? "Erreur — veuillez réessayer" : "Error — please try again"
-      );
-    } finally {
-      setSending(false);
-    }
+    openWhatsApp(
+      buildRequestMessage({
+        lang,
+        type: form.request_type,
+        typeLabel: t(`contact.types.${form.request_type}`),
+        name: form.name,
+        email: form.email,
+        organization: form.organization,
+        message: form.message,
+      })
+    );
+    toast.success(t("contact.sent"));
   };
 
   return (
@@ -282,7 +281,6 @@ export default function Contact() {
                         style={{ borderColor: RULE, color: INK }}
                       />
                       <input
-                        required
                         type="email"
                         data-testid="contact-email-input"
                         placeholder={t("contact.email")}
@@ -370,12 +368,11 @@ export default function Contact() {
                   <div className="pt-4">
                     <button
                       type="submit"
-                      disabled={sending}
                       data-testid="contact-submit-button"
-                      className="group inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity disabled:opacity-50"
+                      className="group inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90"
                       style={{ backgroundColor: INK, color: PAPER }}
                     >
-                      {sending ? t("contact.sending") : t("contact.send")}
+                      {t("contact.send")}
                       <Send
                         size={15}
                         className="transition-transform group-hover:translate-x-1"

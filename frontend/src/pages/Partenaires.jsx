@@ -5,6 +5,7 @@ import { PageHero } from "../components/PageHero";
 import { Reveal, Stagger, StaggerItem } from "../components/Reveal";
 import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
+import { buildRequestMessage, openWhatsApp } from "../lib/whatsapp";
 
 /* Palette éditoriale premium */
 const PAPER = "#F2F4F6";
@@ -74,7 +75,6 @@ export default function Partenaires() {
     organization: "",
     message: "",
   });
-  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     api
@@ -84,20 +84,17 @@ export default function Partenaires() {
       .finally(() => setLoading(false));
   }, []);
 
-  const submit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
-    setSending(true);
-    try {
-      await api.contact({ ...form, request_type: "sponsoring" });
-      toast.success(t("contact.sent"));
-      setForm({ name: "", email: "", organization: "", message: "" });
-    } catch {
-      toast.error(
-        lang === "fr" ? "Erreur — veuillez réessayer" : "Error — please try again"
-      );
-    } finally {
-      setSending(false);
-    }
+    openWhatsApp(
+      buildRequestMessage({
+        lang,
+        type: "sponsoring",
+        typeLabel: t("contact.types.sponsoring"),
+        ...form,
+      })
+    );
+    toast.success(t("contact.sent"));
   };
 
   return (
@@ -221,7 +218,6 @@ export default function Partenaires() {
                         style={{ borderColor: RULE, color: INK }}
                       />
                       <input
-                        required
                         type="email"
                         data-testid="sponsor-email-input"
                         placeholder={t("contact.email")}
@@ -263,12 +259,11 @@ export default function Partenaires() {
                   <div className="pt-2">
                     <button
                       type="submit"
-                      disabled={sending}
                       data-testid="sponsor-submit-button"
-                      className="group inline-flex justify-center items-center gap-2 sm:gap-3 w-full sm:w-auto px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity disabled:opacity-50"
+                      className="group inline-flex justify-center items-center gap-2 sm:gap-3 w-full sm:w-auto px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90"
                       style={{ backgroundColor: INK, color: PAPER }}
                     >
-                      {sending ? t("contact.sending") : t("partners.become")}
+                      {t("partners.become")}
                       <ArrowUpRight 
                         size={15} 
                         className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" 

@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { MessageCircle } from "lucide-react";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { useLanguage } from "../i18n/LanguageContext";
-import { api } from "../lib/api";
+import { EVENT } from "../config/event";
+import { BLANK, buildMessage, openWhatsApp } from "../lib/whatsapp";
 
 /* Palette éditoriale premium */
 const PAPER = "#F2F4F6";
@@ -19,8 +20,6 @@ const inputCls =
 
 export default function Inscription() {
   const { t, lang } = useLanguage();
-  const navigate = useNavigate();
-  const [sending, setSending] = useState(false);
   const [form, setForm] = useState({
     first_name: "",
     last_name: "",
@@ -43,20 +42,47 @@ export default function Inscription() {
         : [...form.interests, i],
     });
 
-  const submit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
-    setSending(true);
-    try {
-      const reg = await api.register(form);
-      toast.success(t("register.success"));
-      navigate(`/confirmation/${reg.code}`);
-    } catch {
-      toast.error(
-        lang === "fr" ? "Erreur — veuillez réessayer" : "Error — please try again"
-      );
-    } finally {
-      setSending(false);
-    }
+    const fr = lang === "fr";
+    const pass = t(`register.passes.${form.pass_type}`);
+    const interests = form.interests
+      .map((i) => t("register.interestsList")[Number(i)])
+      .filter(Boolean)
+      .join(", ");
+    const paid = form.pass_type !== "visiteur";
+    const L = (frTxt, enTxt) => (fr ? frTxt : enTxt);
+
+    const message = buildMessage([
+      L("Bonjour l'équipe SEIM,", "Hello SEIM team,"),
+      L(
+        `Je souhaite m'inscrire au ${EVENT.shortName} — ${EVENT.dates_fr}, CICB Bamako.`,
+        `I would like to register for ${EVENT.shortName} — ${EVENT.dates_en}, CICB Bamako.`
+      ),
+      BLANK,
+      `*${L("Pass", "Pass")} :* ${pass.name} (${pass.price})`,
+      `*${L("Nom", "Name")} :* ${form.first_name} ${form.last_name}`,
+      `*${L("Téléphone", "Phone")} :* ${form.phone}`,
+      form.email && `*Email :* ${form.email}`,
+      form.profession && `*${L("Profession", "Profession")} :* ${form.profession}`,
+      form.company && `*${L("Entreprise", "Company")} :* ${form.company}`,
+      `*${L("Pays", "Country")} :* ${form.country}`,
+      `*${L("Profil", "Profile")} :* ${t(`register.categories.${form.category}`)}`,
+      interests && `*${L("Centres d'intérêt", "Interests")} :* ${interests}`,
+      BLANK,
+      paid
+        ? L(
+            "Merci de me confirmer mon inscription et de m'indiquer les modalités de paiement.",
+            "Please confirm my registration and let me know the payment details."
+          )
+        : L("Merci de me confirmer mon inscription.", "Please confirm my registration."),
+    ]);
+
+    openWhatsApp(message);
+    toast.success(
+      L("WhatsApp s'ouvre : envoyez le message pour finaliser votre inscription.",
+        "WhatsApp is opening: send the message to complete your registration.")
+    );
   };
 
   const passes = ["visiteur", "pro", "vip"];
@@ -159,7 +185,6 @@ export default function Inscription() {
                 style={{ borderColor: RULE, color: INK }}
               />
               <input
-                required
                 type="email"
                 data-testid="reg-email"
                 placeholder={t("register.email")}
@@ -278,13 +303,16 @@ export default function Inscription() {
             <div className="pt-4 border-t" style={{ borderColor: RULE }}>
               <button
                 type="submit"
-                disabled={sending}
                 data-testid="reg-submit-button"
-                className="mt-8 w-full sm:w-auto px-10 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity disabled:opacity-50"
+                className="mt-8 w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90"
                 style={{ backgroundColor: INK, color: PAPER }}
               >
-                {sending ? t("register.submitting") : t("register.submit")}
+                <MessageCircle size={16} style={{ color: "#F7B731" }} />
+                {t("register.submit")}
               </button>
+              <p className="mt-4 text-[13px] leading-[1.6]" style={{ color: "rgba(12,45,82,0.55)" }}>
+                {t("register.whatsappNote")}
+              </p>
             </div>
           </Reveal>
         </form>

@@ -2,6 +2,14 @@
 const path = require("path");
 require("dotenv").config();
 
+// URL publique du site (balises de partage og:image). Priorité : REACT_APP_SITE_URL,
+// sinon domaine de production Vercel fourni automatiquement au build.
+if (!process.env.REACT_APP_SITE_URL) {
+  const vercelHost =
+    process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL || "";
+  process.env.REACT_APP_SITE_URL = vercelHost ? `https://${vercelHost}` : "";
+}
+
 // Check if we're in development/preview mode (not production build)
 // Craco sets NODE_ENV=development for start, NODE_ENV=production for build
 const isDevServer = process.env.NODE_ENV !== "production";

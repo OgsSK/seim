@@ -64,3 +64,5 @@ Créer une plateforme web événementielle premium (inspiration : semainedelepar
 - Typographie: Poppins partout (charte). Motif pictogramme (.seim-pattern) sur sections bleu foncé (About manifeste, CTA Exposants)
 - Sur fonds bleu foncé: accents en #F7B731 (const GOLD). Confirmation: label succès en vert #3AA57C
 - Emails de contact (config/event.js EVENT.emails): ousmanemohamedlamine1@gmail.com, babaalitoure@gmail.com — ancien contact@seim-mali.com supprimé
+- Inscription / Contact / Sponsoring → WhatsApp (+223 71 39 53 88) avec message pré-rempli selon pass / type de besoin (src/lib/whatsapp.js). Plus d'appel backend pour ces formulaires.
+- Image de partage OG: public/assets/brand/seim-og.jpg (1200x630), balises og/twitter dans index.html; URL absolue via REACT_APP_SITE_URL ou VERCEL_PROJECT_PRODUCTION_URL (craco.config.js)
