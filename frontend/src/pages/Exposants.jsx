@@ -10,8 +10,8 @@ import { api } from "../lib/api";
 /* Palette éditoriale premium — jaune du logo SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#D49B0F";
-const GOLD = "#F7B731";
+const BRONZE = "#D49B0F"; // Jaune assombri pour lisibilité
+const GOLD = "#F7B731";   // Jaune exact du logo
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_LIGHT = "rgba(12,45,82,0.08)";
 const EASE = [0.22, 1, 0.36, 1];
@@ -96,8 +96,8 @@ function ExhibitorCard({ exhibitor, lang, t }) {
       </h3>
       {desc && (
         <p
-          className="text-[14px] leading-[1.65] line-clamp-3 font-serif italic mb-6"
-          style={{ color: "rgba(12,45,82,0.6)" }}
+          className="text-[14px] leading-[1.65] line-clamp-3 font-serif italic mb-6 font-medium"
+          style={{ color: "rgba(12,45,82,0.7)" }}
         >
           {desc}
         </p>
@@ -108,8 +108,8 @@ function ExhibitorCard({ exhibitor, lang, t }) {
         style={{ borderColor: RULE }}
       >
         <span
-          className="inline-flex items-center gap-1.5 font-mono-num text-[10px] uppercase tracking-[0.1em] font-semibold"
-          style={{ color: "rgba(12,45,82,0.55)" }}
+          className="inline-flex items-center gap-1.5 font-mono-num text-[10px] uppercase tracking-[0.1em] font-bold"
+          style={{ color: "rgba(12,45,82,0.65)" }}
         >
           <Store size={13} strokeWidth={1.5} style={{ color: BRONZE }} className="shrink-0" />
           <span className="whitespace-nowrap">{t("exhibitors.stand")}</span>
@@ -154,9 +154,10 @@ function EmptyState({ lang }) {
           ? "Les exposants seront annoncés prochainement"
           : "Exhibitors will be announced soon"}
       </h3>
+      {/* Texte mis en gras (font-medium) */}
       <p
-        className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed mb-8"
-        style={{ color: "rgba(12,45,82,0.6)" }}
+        className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed mb-8 font-medium"
+        style={{ color: "rgba(12,45,82,0.7)" }}
       >
         {lang === "fr"
           ? "La liste des institutions, fintechs et entreprises présentes à la 2ᵉ édition est en cours de finalisation. Revenez bientôt pour la découvrir."
@@ -258,9 +259,10 @@ export default function Exposants() {
             {lang === "fr" ? "Ils exposent au SEIM" : "They exhibit at SEIM"}
           </h2>
 
+          {/* Paragraphe d'introduction mis en gras (font-medium) */}
           <p
-            className="font-serif italic text-[15px] sm:text-[16px] leading-[1.75] max-w-2xl mb-12"
-            style={{ color: "rgba(12,45,82,0.65)" }}
+            className="font-serif italic text-[15px] sm:text-[16px] leading-[1.75] max-w-2xl mb-12 font-medium"
+            style={{ color: "rgba(12,45,82,0.75)" }}
           >
             {lang === "fr"
               ? "Institutions financières, fintechs, cabinets et médias spécialisés — découvrez les acteurs qui font vivre l'écosystème économique africain sur les deux jours du salon."
@@ -336,13 +338,13 @@ export default function Exposants() {
           {/* Grille / états */}
           {loading ? (
             <div className="py-20 text-center">
-              <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.6)" }}>
+              <p className="font-serif italic text-[15px] font-medium" style={{ color: "rgba(12,45,82,0.6)" }}>
                 {lang === "fr" ? "Chargement des exposants..." : "Loading exhibitors..."}
               </p>
             </div>
           ) : apiError ? (
             <div className="py-16 text-center border-y" style={{ borderColor: RULE }}>
-              <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.6)" }}>
+              <p className="font-serif italic text-[15px] font-medium" style={{ color: "rgba(12,45,82,0.6)" }}>
                 {lang === "fr"
                   ? "Impossible de charger les exposants pour le moment."
                   : "Unable to load exhibitors at this time."}
@@ -352,7 +354,7 @@ export default function Exposants() {
             <EmptyState lang={lang} />
           ) : filtered.length === 0 ? (
             <div className="py-16 text-center border-y" style={{ borderColor: RULE }}>
-              <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.6)" }}>
+              <p className="font-serif italic text-[15px] font-medium" style={{ color: "rgba(12,45,82,0.6)" }}>
                 {lang === "fr"
                   ? "Aucun exposant dans ce secteur pour le moment."
                   : "No exhibitors in this sector yet."}
@@ -412,9 +414,10 @@ export default function Exposants() {
                     {t("exhibitors.become")}
                   </h3>
 
+                  {/* Description mise en gras (font-medium) */}
                   <p
-                    className="font-serif italic text-[15px] leading-[1.7] mb-10"
-                    style={{ color: "rgba(242,244,246,0.7)" }}
+                    className="font-serif italic text-[15px] leading-[1.7] mb-10 font-medium"
+                    style={{ color: "rgba(242,244,246,0.85)" }}
                   >
                     {t("partners.form.desc")}
                   </p>

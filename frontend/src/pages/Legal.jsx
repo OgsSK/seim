@@ -4,7 +4,7 @@ import { EVENT } from "../config/event";
 /* Palette éditoriale premium — jaune du logo SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#D49B0F";
+const BRONZE = "#D49B0F"; // Jaune assombri pour lisibilité
 const RULE = "rgba(12,45,82,0.15)";
 
 /* ---------- Composant Section ---------- */
@@ -27,9 +27,10 @@ function LegalSection({ num, title, children }) {
         >
           {title}
         </h2>
+        {/* Texte mis en gras (font-medium) */}
         <div 
-          className="font-serif text-[15px] sm:text-[16px] leading-[1.75]"
-          style={{ color: "rgba(12,45,82,0.7)" }}
+          className="font-serif text-[15px] sm:text-[16px] leading-[1.75] font-medium"
+          style={{ color: "rgba(12,45,82,0.75)" }}
         >
           {children}
         </div>
@@ -73,7 +74,7 @@ export default function Legal({ type }) {
                       {i > 0 && " ou "}
                       <a
                         href={`mailto:${mail}`}
-                        className="border-b font-semibold transition-colors hover:text-[#D49B0F] hover:border-[#D49B0F] break-all"
+                        className="border-b font-bold transition-colors hover:text-[#D49B0F] hover:border-[#D49B0F] break-all"
                         style={{ color: INK, borderColor: BRONZE }}
                       >
                         {mail}
@@ -83,7 +84,7 @@ export default function Legal({ type }) {
                   ·{" "}
                   <a
                     href={`tel:${EVENT.phone.replace(/\s/g, "")}`}
-                    className="border-b font-semibold transition-colors hover:text-[#D49B0F] hover:border-[#D49B0F]"
+                    className="border-b font-bold transition-colors hover:text-[#D49B0F] hover:border-[#D49B0F]"
                     style={{ color: INK, borderColor: BRONZE }}
                   >
                     {EVENT.phone}
@@ -129,7 +130,7 @@ export default function Legal({ type }) {
                       {i > 0 && " ou "}
                       <a
                         href={`mailto:${mail}`}
-                        className="border-b font-semibold transition-colors hover:text-[#D49B0F] hover:border-[#D49B0F] break-all"
+                        className="border-b font-bold transition-colors hover:text-[#D49B0F] hover:border-[#D49B0F] break-all"
                         style={{ color: INK, borderColor: BRONZE }}
                       >
                         {mail}
@@ -149,8 +150,8 @@ export default function Legal({ type }) {
             </div>
           )}
 
-          {/* Pied de page documentaire */}
-          <div className="mt-16 pt-6 border-t flex items-center justify-between text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ borderColor: RULE, color: "rgba(12,45,82,0.5)" }}>
+          {/* Pied de page documentaire — passé en font-bold et opacité augmentée */}
+          <div className="mt-16 pt-6 border-t flex items-center justify-between text-[10px] uppercase tracking-[0.2em] font-bold" style={{ borderColor: RULE, color: "rgba(12,45,82,0.6)" }}>
             <span>SEIM · {isLegal ? "Légal" : "Confidentialité"}</span>
             <span className="font-mono-num">Édition 02 — MMXXVI</span>
           </div>

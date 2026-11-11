@@ -10,11 +10,11 @@ import { SmartImg } from "../components/SectionHead";
 import { EditorialIllustration } from "../components/EditorialIllustration";
 import { SpeakerModal } from "../components/SpeakerModal";
 
-/* Palette — jaune du logo SEIM #F7B731, version lisible sur clair = #D49B0F */
-const PAPER = "#F2F4F6";
-const INK = "#0C2D52";
-const BRONZE = "#D49B0F";
-const GOLD = "#F7B731";
+/* Palette officielle SEIM (Charte Graphique) */
+const PAPER = "#F2F4F6"; // Gris clair de la charte
+const INK = "#0C2D52";   // Bleu foncé de la charte
+const GOLD = "#F7B731";  // Jaune exact du logo
+const BRONZE = "#D49B0F"; // Version assombrie du jaune pour lisibilité sur fond clair
 const CREAM = "#F2F4F6";
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_INK = "rgba(242,244,246,0.15)";
@@ -94,16 +94,17 @@ function Hero() {
         />
       </div>
 
+      {/* Overlay assombri pour une meilleure lisibilité du texte blanc (Feedback Word) */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(180deg, rgba(12,45,82,0.85) 0%, rgba(12,45,82,0.6) 40%, rgba(12,45,82,0.92) 100%)`,
+          background: `linear-gradient(180deg, rgba(12,45,82,0.95) 0%, rgba(12,45,82,0.75) 40%, rgba(12,45,82,0.95) 100%)`,
         }}
       />
 
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ boxShadow: `inset 0 0 200px 60px rgba(12,45,82,0.8)` }}
+        style={{ boxShadow: `inset 0 0 200px 60px rgba(12,45,82,0.9)` }}
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8 pt-20 sm:pt-32 pb-16 sm:pb-24">
@@ -120,7 +121,7 @@ function Hero() {
           >
             SEIM <span className="opacity-50">/</span> 2026
           </span>
-          <span className="text-[11px] uppercase tracking-[0.2em] text-white/45">
+          <span className="text-[11px] uppercase tracking-[0.2em] text-white/60">
             {lang === "fr" ? EVENT.venue_fr : EVENT.venue_en}
           </span>
         </motion.div>
@@ -130,7 +131,7 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
-            className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] uppercase tracking-[0.28em] mb-6 sm:mb-8"
+            className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] uppercase tracking-[0.28em] mb-6 sm:mb-8 font-bold"
             style={{ color: GOLD }}
           >
             <span className="w-8 h-px" style={{ backgroundColor: GOLD }} />
@@ -150,11 +151,12 @@ function Hero() {
             </span>
           </motion.h1>
 
+          {/* Sous-titre mis en gras (Feedback Word) */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.65, delay: 0.3, ease: EASE }}
-            className="mt-6 sm:mt-8 text-[14px] sm:text-[17px] text-white/80 max-w-2xl leading-[1.75]"
+            className="mt-6 sm:mt-8 text-[15px] sm:text-[18px] text-white font-semibold max-w-2xl leading-[1.6]"
           >
             {t("hero.subtitle")}
           </motion.p>
@@ -180,8 +182,8 @@ function Hero() {
             <Link
               to="/programme"
               data-testid="hero-program-button"
-              className="group inline-flex justify-center items-center gap-2 px-5 py-3.5 sm:py-4 border text-[13px] sm:text-sm font-semibold tracking-wide transition-colors hover:bg-white/10 backdrop-blur-sm"
-              style={{ borderColor: "rgba(242,244,246,0.3)", color: CREAM }}
+              className="group inline-flex justify-center items-center gap-2 px-5 py-3.5 sm:py-4 border text-[13px] sm:text-sm font-bold tracking-wide transition-colors hover:bg-white/10 backdrop-blur-sm"
+              style={{ borderColor: "rgba(242,244,246,0.4)", color: CREAM }}
             >
               {t("hero.cta2")}
               <ArrowUpRight
@@ -205,10 +207,10 @@ function Hero() {
                 style={{ color: GOLD }}
               />
               <div>
-                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 mb-1">
+                <p className="text-[10px] uppercase tracking-[0.22em] text-white/70 mb-1 font-semibold">
                   {lang === "fr" ? "Dates" : "Dates"}
                 </p>
-                <p className="text-[12px] sm:text-[13px] text-white/90 font-medium">
+                <p className="text-[13px] sm:text-[14px] text-white font-bold">
                   {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}
                 </p>
               </div>
@@ -216,10 +218,10 @@ function Hero() {
             <div className="flex items-start gap-3">
               <MapPin size={16} className="mt-0.5 shrink-0" style={{ color: GOLD }} />
               <div>
-                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 mb-1">
+                <p className="text-[10px] uppercase tracking-[0.22em] text-white/70 mb-1 font-semibold">
                   {lang === "fr" ? "Lieu" : "Venue"}
                 </p>
-                <p className="text-[12px] sm:text-[13px] text-white/90 font-medium">
+                <p className="text-[13px] sm:text-[14px] text-white font-bold">
                   CICB · Bamako
                 </p>
               </div>
@@ -298,7 +300,7 @@ function CountdownSection() {
         <div className="flex items-center justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 lg:mb-14">
           <span className="w-6 sm:w-8 lg:w-12 h-px" style={{ backgroundColor: GOLD }} />
           <span
-            className="text-[9px] sm:text-[10px] lg:text-[11px] uppercase tracking-[0.24em] sm:tracking-[0.3em] text-center font-semibold"
+            className="text-[10px] sm:text-[11px] lg:text-[12px] uppercase tracking-[0.24em] sm:tracking-[0.3em] text-center font-bold"
             style={{ color: GOLD }}
           >
             {t("hero.countdownLabel")}
@@ -307,9 +309,7 @@ function CountdownSection() {
         </div>
 
         <Reveal>
-          {/* =========================================================
-              MOBILE / TABLETTE : ticket compact horizontal
-              ========================================================= */}
+          {/* MOBILE / TABLETTE : ticket compact horizontal */}
           <div className="lg:hidden">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -344,13 +344,13 @@ function CountdownSection() {
                   style={{ borderColor: TICKET_LINE }}
                 >
                   <span
-                    className="font-mono-num text-[9px] tracking-[0.2em] uppercase font-semibold"
+                    className="font-mono-num text-[9px] tracking-[0.2em] uppercase font-bold"
                     style={{ color: INK }}
                   >
-                    SEIM <span style={{ color: BRONZE }}>/</span> 2026
+                    SEIM <span style={{ color: GOLD }}>/</span> 2026
                   </span>
                   <span
-                    className="text-[8px] uppercase tracking-[0.18em] font-semibold"
+                    className="text-[8px] uppercase tracking-[0.18em] font-bold"
                     style={{ color: BRONZE }}
                   >
                     {copy.access}
@@ -366,14 +366,14 @@ function CountdownSection() {
                         style={{ color: INK }}
                       />
                       <span
-                        className="font-serif italic text-lg min-[380px]:text-xl ml-1.5"
+                        className="font-serif italic text-lg min-[380px]:text-xl ml-1.5 font-bold"
                         style={{ color: BRONZE }}
                       >
                         {copy.days}
                       </span>
                     </div>
                     <p
-                      className="font-serif text-[10.5px] leading-[1.35] mt-1.5 pr-2"
+                      className="font-serif text-[10.5px] leading-[1.35] mt-1.5 pr-2 font-medium"
                       style={{ color: "rgba(12,45,82,0.7)" }}
                     >
                       {copy.narrativeShort}
@@ -415,7 +415,7 @@ function CountdownSection() {
                           style={{ backgroundColor: "rgba(12,45,82,0.28)" }}
                         />
                         <span
-                          className="font-mono-num text-[7px] uppercase tracking-[0.12em] leading-none font-semibold"
+                          className="font-mono-num text-[7px] uppercase tracking-[0.12em] leading-none font-bold"
                           style={{ color: "rgba(12,45,82,0.6)" }}
                         >
                           {u.l}
@@ -457,7 +457,7 @@ function CountdownSection() {
                   </div>
 
                   <span
-                    className="font-mono-num text-[7px] uppercase tracking-[0.15em] font-semibold"
+                    className="font-mono-num text-[7px] uppercase tracking-[0.15em] font-bold"
                     style={{ color: BRONZE }}
                   >
                     CICB · Bamako
@@ -467,9 +467,7 @@ function CountdownSection() {
             </motion.div>
           </div>
 
-          {/* =========================================================
-              DESKTOP : ticket horizontal 3.2:1
-              ========================================================= */}
+          {/* DESKTOP : ticket horizontal 3.2:1 */}
           <div className="hidden lg:block">
             <motion.div
               initial={{ opacity: 0, y: 50, rotate: -3 }}
@@ -510,13 +508,13 @@ function CountdownSection() {
                       style={{ borderColor: TICKET_LINE }}
                     >
                       <span
-                        className="font-mono-num text-[11px] tracking-[0.24em] uppercase font-semibold"
+                        className="font-mono-num text-[11px] tracking-[0.24em] uppercase font-bold"
                         style={{ color: INK }}
                       >
-                        SEIM <span style={{ color: BRONZE }}>/</span> 2026
+                        SEIM <span style={{ color: GOLD }}>/</span> 2026
                       </span>
                       <span
-                        className="text-[10px] uppercase tracking-[0.28em] font-semibold"
+                        className="text-[10px] uppercase tracking-[0.28em] font-bold"
                         style={{ color: BRONZE }}
                       >
                         {copy.sideLabel}
@@ -531,7 +529,7 @@ function CountdownSection() {
                           style={{ color: INK }}
                         />
                         <span
-                          className="font-serif italic text-4xl ml-3"
+                          className="font-serif italic text-4xl ml-3 font-bold"
                           style={{ color: BRONZE }}
                         >
                           {copy.days}
@@ -539,7 +537,7 @@ function CountdownSection() {
                       </div>
 
                       <p
-                        className="font-serif text-lg leading-[1.35] mt-4 max-w-sm"
+                        className="font-serif text-lg leading-[1.35] mt-4 max-w-sm font-medium"
                         style={{ color: "rgba(12,45,82,0.7)" }}
                       >
                         {copy.narrative}
@@ -551,13 +549,13 @@ function CountdownSection() {
                       style={{ borderColor: TICKET_LINE }}
                     >
                       <span
-                        className="font-mono-num text-[11px] tracking-[0.22em] uppercase font-semibold"
+                        className="font-mono-num text-[11px] tracking-[0.22em] uppercase font-bold"
                         style={{ color: INK }}
                       >
                         {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}
                       </span>
                       <span
-                        className="font-serif text-base font-semibold"
+                        className="font-serif text-base font-bold"
                         style={{ color: INK }}
                       >
                         CICB · Bamako
@@ -591,7 +589,7 @@ function CountdownSection() {
                   >
                     <div className="pb-3 border-b" style={{ borderColor: TICKET_LINE }}>
                       <span
-                        className="text-[10px] uppercase tracking-[0.28em] font-semibold"
+                        className="text-[10px] uppercase tracking-[0.28em] font-bold"
                         style={{ color: BRONZE }}
                       >
                         {copy.stubLabel}
@@ -607,7 +605,7 @@ function CountdownSection() {
                         <div key={i} className="flex items-end justify-between gap-2">
                           <div className="flex flex-col gap-1">
                             <span
-                              className="font-mono-num text-[9px] uppercase tracking-[0.22em] font-semibold"
+                              className="font-mono-num text-[9px] uppercase tracking-[0.22em] font-bold"
                               style={{ color: "rgba(12,45,82,0.6)" }}
                             >
                               {u.l}
@@ -659,7 +657,7 @@ function CountdownSection() {
                         style={{ borderColor: TICKET_LINE }}
                       >
                         <span
-                          className="font-mono-num text-[9px] uppercase tracking-[0.2em] font-semibold"
+                          className="font-mono-num text-[9px] uppercase tracking-[0.2em] font-bold"
                           style={{ color: BRONZE }}
                         >
                           {copy.access}
@@ -696,7 +694,7 @@ function PartnersStrip({ partners }) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-8">
-          <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.28em] text-[#0C2D52]/40 whitespace-nowrap text-center lg:text-left shrink-0 font-semibold">
+          <p className="text-[10px] uppercase tracking-[0.28em] text-[#0C2D52]/50 whitespace-nowrap text-center lg:text-left shrink-0 font-bold">
             {lang === "fr" ? "Avec le soutien de" : "With the support of"}
           </p>
 
@@ -713,10 +711,10 @@ function PartnersStrip({ partners }) {
                 />
               </div>
               <div className="flex flex-col text-left">
-                <span className="text-[9px] uppercase tracking-[0.2em] mb-0.5 font-semibold" style={{ color: BRONZE }}>
+                <span className="text-[10px] uppercase tracking-[0.2em] mb-0.5 font-bold" style={{ color: BRONZE }}>
                   {lang === "fr" ? "Parrain officiel" : "Official Sponsor"}
                 </span>
-                <span className="font-serif font-extrabold text-[16px] sm:text-[18px] text-[#0C2D52] leading-none">
+                <span className="font-serif font-extrabold text-[18px] text-[#0C2D52] leading-none">
                   FACEJ
                 </span>
               </div>
@@ -729,14 +727,14 @@ function PartnersStrip({ partners }) {
             {others.map((p, i) => (
               <span
                 key={p.id || i}
-                className="text-[11px] sm:text-[12px] tracking-wide text-[#0C2D52]/60 text-center font-medium"
+                className="text-[12px] tracking-wide text-[#0C2D52]/70 text-center font-semibold"
                 title={p.name}
               >
                 {p.name}
               </span>
             ))}
             {remaining > 0 && (
-              <span className="text-[10px] font-mono-num font-bold" style={{ color: BRONZE }}>
+              <span className="text-[11px] font-mono-num font-bold" style={{ color: BRONZE }}>
                 +{remaining}
               </span>
             )}
@@ -791,7 +789,7 @@ function Retrospective() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 sm:mb-14">
           <div>
             <div className="flex items-baseline gap-3 mb-4 sm:mb-6">
-              <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap font-semibold" style={{ color: BRONZE }}>
+              <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap font-bold" style={{ color: BRONZE }}>
                 {copy.eyebrow}
               </span>
               <span className="w-12 sm:w-20 h-px" style={{ backgroundColor: RULE }} />
@@ -799,27 +797,28 @@ function Retrospective() {
             <h2 className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.6rem] leading-[1.15] sm:leading-[1.08] break-words" style={{ color: INK }}>
               {copy.title}
             </h2>
-            <p className="mt-4 max-w-2xl text-[13px] sm:text-[15px] leading-[1.7] text-[#0C2D52]/60">
+            <p className="mt-4 max-w-2xl text-[14px] sm:text-[16px] leading-[1.7] text-[#0C2D52]/70 font-medium">
               {copy.subtitle}
             </p>
           </div>
         </div>
 
+        {/* Ajustement des tailles d'images (Feedback Word) */}
         <div className="md:hidden grid grid-cols-2 gap-2">
           {photos.map((p, i) => {
             const isWide = i === 0 || i === 5;
             return (
               <div
                 key={i}
-                className={`relative overflow-hidden ${isWide ? "col-span-2 aspect-[16/9]" : "aspect-[4/3]"}`}
+                className={`relative overflow-hidden rounded-sm ${isWide ? "col-span-2 aspect-[16/9]" : "aspect-[4/3]"}`}
               >
                 <SmartImg
                   src={p.src}
                   alt={p.caption}
                   className="absolute inset-0 w-full h-full object-cover grayscale-[0.3]"
                 />
-                <div className="absolute inset-x-0 bottom-0 p-2 bg-[#0C2D52]/90 backdrop-blur-sm pointer-events-none">
-                  <p className="text-[9px] uppercase tracking-[0.12em] text-white font-bold line-clamp-1">
+                <div className="absolute inset-x-0 bottom-0 p-2 bg-[#0C2D52]/95 backdrop-blur-sm pointer-events-none">
+                  <p className="text-[10px] uppercase tracking-[0.12em] text-white font-bold line-clamp-1">
                     {p.caption}
                   </p>
                 </div>
@@ -828,16 +827,16 @@ function Retrospective() {
           })}
         </div>
 
-        <div className="hidden md:grid grid-cols-4 gap-4 auto-rows-[200px]">
+        <div className="hidden md:grid grid-cols-4 gap-4 auto-rows-[220px]">
           {photos.map((p, i) => (
-            <div key={i} className={`group relative overflow-hidden ${p.span || ""}`}>
+            <div key={i} className={`group relative overflow-hidden rounded-sm ${p.span || ""}`}>
               <SmartImg
                 src={p.src}
                 alt={p.caption}
                 className="absolute inset-0 w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-700"
               />
-              <div className="absolute inset-x-0 bottom-0 p-4 bg-[#0C2D52]/90 backdrop-blur-sm pointer-events-none">
-                <p className="text-[10px] uppercase tracking-[0.18em] text-white font-bold">
+              <div className="absolute inset-x-0 bottom-0 p-4 bg-[#0C2D52]/95 backdrop-blur-sm pointer-events-none">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-white font-bold">
                   {p.caption}
                 </p>
               </div>
@@ -845,7 +844,7 @@ function Retrospective() {
           ))}
         </div>
 
-        <p className="mt-4 text-[10px] sm:text-[11px] italic font-serif text-right" style={{ color: "rgba(12,45,82,0.45)" }}>
+        <p className="mt-4 text-[11px] italic font-serif text-right font-medium" style={{ color: "rgba(12,45,82,0.5)" }}>
           {copy.caption}
         </p>
       </div>
@@ -888,14 +887,15 @@ function WhyAttend() {
             <Reveal>
               <div className="flex items-center gap-3 mb-4 sm:mb-6">
                 <span className="w-8 sm:w-10 h-px" style={{ backgroundColor: BRONZE }} />
-                <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] font-semibold" style={{ color: BRONZE }}>{copy.eyebrow}</span>
+                <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.28em] font-bold" style={{ color: BRONZE }}>{copy.eyebrow}</span>
               </div>
             </Reveal>
           </div>
           <div className="lg:col-span-8">
             <Reveal delay={0.1}>
               <h2 className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.8rem] leading-[1.15] sm:leading-[1.1]" style={{ color: INK }}>{copy.title}</h2>
-              <p className="mt-4 sm:mt-5 max-w-2xl text-[13px] sm:text-[15px] leading-[1.7] sm:leading-[1.8] text-[#0C2D52]/60">{copy.intro}</p>
+              {/* Texte mis en gras (Feedback Word) */}
+              <p className="mt-4 sm:mt-5 max-w-2xl text-[14px] sm:text-[16px] font-semibold leading-[1.7] sm:leading-[1.8] text-[#0C2D52]/70">{copy.intro}</p>
             </Reveal>
           </div>
         </div>
@@ -903,12 +903,12 @@ function WhyAttend() {
           {copy.items.map((item, i) => (
             <Reveal key={item.n} delay={i * 0.06} className="h-full">
               <article className={`h-full py-6 sm:py-8 sm:px-6 ${i === 0 ? "lg:pl-0" : "lg:border-l"} border-b sm:border-b-0 flex flex-col`} style={{ borderColor: RULE }}>
-                <div className="w-14 h-14 sm:w-16 sm:h-16 mb-4 sm:mb-5">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 mb-4 sm:mb-5">
                   <EditorialIllustration variant={item.icon} className="w-full h-full" />
                 </div>
-                <p className="font-mono-num text-[10px] sm:text-[11px] tracking-[0.2em] mb-2 font-bold" style={{ color: BRONZE }}>{item.n}</p>
+                <p className="font-mono-num text-[11px] sm:text-[12px] tracking-[0.2em] mb-2 font-bold" style={{ color: BRONZE }}>{item.n}</p>
                 <h3 className="font-serif font-extrabold text-lg sm:text-[1.35rem] leading-tight mb-2 sm:mb-3" style={{ color: INK }}>{item.title}</h3>
-                <p className="text-[12px] sm:text-[13px] leading-[1.65] sm:leading-[1.75] text-[#0C2D52]/55 flex-1">{item.desc}</p>
+                <p className="text-[13px] leading-[1.65] sm:leading-[1.75] text-[#0C2D52]/65 flex-1 font-medium">{item.desc}</p>
               </article>
             </Reveal>
           ))}
@@ -952,21 +952,21 @@ function Audience() {
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <div className="max-w-3xl mb-6 sm:mb-10">
           <Reveal>
-            <p className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] mb-3 sm:mb-5 font-semibold" style={{ color: BRONZE }}>{copy.eyebrow}</p>
+            <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.28em] mb-3 sm:mb-5 font-bold" style={{ color: BRONZE }}>{copy.eyebrow}</p>
             <h2 className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.8rem] leading-[1.15] sm:leading-[1.1]">{copy.title}</h2>
-            <p className="mt-4 sm:mt-5 text-[13px] sm:text-[15px] leading-[1.7] sm:leading-[1.8] text-[#0C2D52]/60">{copy.intro}</p>
+            <p className="mt-4 sm:mt-5 text-[14px] sm:text-[16px] font-semibold leading-[1.7] sm:leading-[1.8] text-[#0C2D52]/70">{copy.intro}</p>
           </Reveal>
         </div>
 
         <Reveal delay={0.1}>
-          <div className="relative overflow-hidden shadow-sm mb-8 sm:mb-10">
+          <div className="relative overflow-hidden shadow-sm mb-8 sm:mb-10 rounded-md">
             <SmartImg
               src="/assets/seim/audience-band.jpg"
               alt={copy.caption}
               className="w-full aspect-[16/9] sm:aspect-[21/9] object-cover grayscale-[0.3] hover:grayscale-0 transition-all duration-700"
             />
-            <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5 bg-[#0C2D52]/90 backdrop-blur-sm pointer-events-none">
-              <p className="text-[10px] sm:text-[12px] uppercase tracking-[0.2em] text-white font-bold">
+            <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6 bg-[#0C2D52]/95 backdrop-blur-sm pointer-events-none">
+              <p className="text-[11px] sm:text-[13px] uppercase tracking-[0.2em] text-white font-bold">
                 {copy.caption}
               </p>
             </div>
@@ -976,13 +976,13 @@ function Audience() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {copy.items.map((item, i) => (
             <Reveal key={item.n} delay={i * 0.06}>
-              <article className="h-full min-h-[200px] sm:min-h-[240px] p-5 sm:p-7 border bg-[#F2F4F6] flex flex-col" style={{ borderColor: RULE }}>
-                <div className="w-14 h-14 mb-4">
+              <article className="h-full min-h-[220px] sm:min-h-[260px] p-5 sm:p-7 border bg-[#F2F4F6] flex flex-col rounded-sm" style={{ borderColor: RULE }}>
+                <div className="w-16 h-16 mb-4">
                   <EditorialIllustration variant={item.icon} className="w-full h-full" />
                 </div>
-                <p className="font-mono-num text-[10px] sm:text-[11px] tracking-[0.2em] mb-2 sm:mb-3 font-bold" style={{ color: BRONZE }}>{item.n}</p>
+                <p className="font-mono-num text-[11px] sm:text-[12px] tracking-[0.2em] mb-2 sm:mb-3 font-bold" style={{ color: BRONZE }}>{item.n}</p>
                 <h3 className="font-serif font-extrabold text-lg sm:text-xl leading-tight mb-2 sm:mb-3">{item.title}</h3>
-                <p className="text-[12px] sm:text-[13px] leading-[1.65] sm:leading-[1.75] text-[#0C2D52]/55 flex-1">{item.desc}</p>
+                <p className="text-[13px] leading-[1.65] sm:leading-[1.75] text-[#0C2D52]/65 flex-1 font-medium">{item.desc}</p>
               </article>
             </Reveal>
           ))}
@@ -1012,12 +1012,12 @@ function ExecutiveSummary() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex items-baseline justify-between gap-4 mb-6 sm:mb-8">
           <div className="flex items-baseline gap-3">
-            <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap font-semibold" style={{ color: BRONZE }}>
+            <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap font-bold" style={{ color: BRONZE }}>
               {t("stats.eyebrow")}
             </span>
             <span className="w-8 sm:w-12 h-px" style={{ backgroundColor: RULE }} />
           </div>
-          <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#0C2D52]/35 whitespace-nowrap hidden sm:block font-semibold">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-[#0C2D52]/50 whitespace-nowrap hidden sm:block font-bold">
             {lang === "fr" ? "Données officielles" : "Official data"}
           </span>
         </div>
@@ -1027,7 +1027,7 @@ function ExecutiveSummary() {
         </h2>
 
         <Reveal>
-          <div className="relative overflow-hidden shadow-lg">
+          <div className="relative overflow-hidden shadow-lg rounded-md">
             <SmartImg
               src="/assets/seim/keynote-closeup.jpg"
               alt={lang === "fr" ? "Keynote d'ouverture" : "Opening keynote"}
@@ -1036,33 +1036,33 @@ function ExecutiveSummary() {
             <div
               className="absolute inset-x-0 bottom-0 pointer-events-none"
               style={{
-                height: "60%",
-                background: `linear-gradient(to top, rgba(12,45,82,0.95) 0%, rgba(12,45,82,0.7) 40%, transparent 100%)`,
+                height: "70%",
+                background: `linear-gradient(to top, rgba(12,45,82,0.98) 0%, rgba(12,45,82,0.8) 40%, transparent 100%)`,
               }}
             />
-            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-6">
+            <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 lg:p-12 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 sm:gap-6">
               <div>
-                <div className="flex items-baseline gap-1.5">
+                <div className="flex items-baseline gap-2">
                   <span
-                    className="font-serif font-extrabold tracking-[-0.05em] text-[2.5rem] sm:text-[3.5rem] lg:text-[4rem] leading-none"
+                    className="font-serif font-extrabold tracking-[-0.05em] text-[3rem] sm:text-[4rem] lg:text-[5rem] leading-none"
                     style={{ color: CREAM }}
                   >
                     <CountUp value={hero.value} />
                   </span>
                   {hero.suffix && (
                     <span
-                      className="font-serif italic text-xl sm:text-2xl lg:text-3xl font-bold"
+                      className="font-serif italic text-2xl sm:text-3xl lg:text-4xl font-bold"
                       style={{ color: GOLD }}
                     >
                       {hero.suffix}
                     </span>
                   )}
                 </div>
-                <p className="mt-1.5 text-[10px] sm:text-[11px] lg:text-[12px] uppercase tracking-[0.24em] font-bold" style={{ color: GOLD }}>
+                <p className="mt-2 text-[11px] sm:text-[12px] lg:text-[13px] uppercase tracking-[0.24em] font-bold" style={{ color: GOLD }}>
                   {hero.label}
                 </p>
               </div>
-              <p className="text-[10px] sm:text-[11px] italic font-serif leading-relaxed max-w-xs sm:text-right font-medium" style={{ color: "rgba(242,244,246,0.85)" }}>
+              <p className="text-[11px] sm:text-[12px] italic font-serif leading-relaxed max-w-xs sm:text-right font-medium" style={{ color: "rgba(242,244,246,0.9)" }}>
                 {lang === "fr"
                   ? "Keynote d'ouverture — CICB, Bamako · Édition 2026"
                   : "Opening keynote — CICB, Bamako · 2026 Edition"}
@@ -1081,7 +1081,7 @@ function ExecutiveSummary() {
                   className={`${i !== 0 ? "border-l" : ""} ${i % 2 === 1 ? "pl-3 sm:pl-5" : "pr-3 sm:pr-5"}`}
                   style={{ borderColor: RULE }}
                 >
-                  <div className="flex items-baseline gap-0.5">
+                  <div className="flex items-baseline gap-1">
                     <span
                       className="font-serif font-extrabold tracking-[-0.02em] text-xl sm:text-2xl lg:text-3xl leading-none"
                       style={{ color: INK }}
@@ -1094,7 +1094,7 @@ function ExecutiveSummary() {
                       </span>
                     )}
                   </div>
-                  <p className="mt-1.5 text-[9px] sm:text-[10px] uppercase tracking-[0.15em] text-[#0C2D52]/55 leading-snug font-semibold">
+                  <p className="mt-2 text-[10px] uppercase tracking-[0.15em] text-[#0C2D52]/70 leading-snug font-bold">
                     {item.label}
                   </p>
                 </div>
@@ -1105,10 +1105,10 @@ function ExecutiveSummary() {
 
         <Reveal delay={0.2}>
           <div className="mt-5 flex justify-between items-center">
-            <p className="text-[9px] sm:text-[10px] italic font-serif text-[#0C2D52]/40">
+            <p className="text-[10px] italic font-serif text-[#0C2D52]/50 font-medium">
               {lang === "fr" ? "Source : organisation SEIM" : "Source: SEIM organization"}
             </p>
-            <Link to="/a-propos" className="group inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] uppercase tracking-[0.15em] font-bold" style={{ color: INK }}>
+            <Link to="/a-propos" className="group inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.15em] font-bold" style={{ color: INK }}>
               <span className="border-b pb-0.5" style={{ borderColor: BRONZE }}>
                 {lang === "fr" ? "Méthodologie" : "Methodology"}
               </span>
@@ -1143,6 +1143,7 @@ function Program() {
 
   const featured = items[0];
   const rest = items.slice(1);
+  
   const featSpeakers = (featured.speakers || [])
     .map((id) => spMap[id])
     .filter(Boolean)
@@ -1160,7 +1161,7 @@ function Program() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 sm:gap-5 mb-6 sm:mb-16">
           <div>
             <div className="flex items-baseline gap-3 mb-4 sm:mb-6">
-              <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap font-semibold" style={{ color: BRONZE }}>
+              <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap font-bold" style={{ color: BRONZE }}>
                 {t("program.eyebrow")}
               </span>
               <span className="w-12 sm:w-20 h-px" style={{ backgroundColor: RULE }} />
@@ -1176,76 +1177,64 @@ function Program() {
         </div>
 
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+          {/* Featured Session (Gauche) */}
           <div data-testid={`highlight-session-${featured.id}`} className="lg:col-span-6">
-            <div className="overflow-hidden mb-3 sm:mb-5 shadow-sm">
+            <div className="overflow-hidden mb-4 shadow-sm rounded-sm">
               <SmartImg
                 src="/assets/seim/featured-session.jpg"
                 alt={lang === "fr" ? featured.title_fr : featured.title_en}
-                className="w-full aspect-[16/9] sm:aspect-[16/10] object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
+                className="w-full aspect-[16/9] object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
               />
             </div>
 
-            <div className="pt-3 sm:pt-4 border-t-2" style={{ borderColor: BRONZE }}>
-              <div className="flex items-center justify-between gap-3 mb-2 sm:mb-6">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="w-4 h-4 sm:w-6 sm:h-6 opacity-80">
+            <div className="pt-4 border-t-2" style={{ borderColor: BRONZE }}>
+              <div className="flex items-center justify-between gap-3 mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-5 h-5 opacity-80">
                     <EditorialIllustration variant={getIconVariant(featured.type)} className="w-full h-full" />
                   </div>
-                  <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.24em] font-semibold" style={{ color: BRONZE }}>
+                  <span className="text-[11px] uppercase tracking-[0.24em] font-bold" style={{ color: BRONZE }}>
                     {t(`program.types.${featured.type}`)}
                   </span>
                 </div>
-                <span className="font-mono-num text-[9px] sm:text-[11px] tracking-[0.15em] text-[#0C2D52]/50 font-semibold">
+                <span className="font-mono-num text-[12px] tracking-[0.15em] text-[#0C2D52]/60 font-bold">
                   J{featured.day} · {featured.time}
                 </span>
               </div>
 
-              <h3 className="font-serif font-extrabold tracking-[-0.02em] text-lg sm:text-3xl lg:text-[2.2rem] leading-[1.2] sm:leading-[1.15] break-words" style={{ color: INK }}>
+              <h3 className="font-serif font-extrabold tracking-[-0.01em] text-xl leading-snug mb-4 break-words" style={{ color: INK }}>
                 {lang === "fr" ? featured.title_fr : featured.title_en}
               </h3>
 
-              <p className="mt-2 sm:mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] sm:text-[13px] text-[#0C2D52]/55">
-                <span className="inline-flex items-center gap-1.5">
-                  <MapPin size={11} className="sm:w-[13px] sm:h-[13px] shrink-0" style={{ color: BRONZE }} />
-                  {lang === "fr" ? featured.room_fr : featured.room_en}
-                </span>
-                {featSpeakers.length > 0 && (
-                  <>
-                    <span className="hidden sm:inline-block w-1 h-1 rounded-full" style={{ backgroundColor: BRONZE }} />
-                    <span className="sm:hidden">·</span>
-                    <span className="text-[#0C2D52]/65 font-medium">
-                      {featSpeakers.map(sp => sp.name).join(" · ")}
-                    </span>
-                  </>
-                )}
-              </p>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+                <p className="flex items-center gap-1.5 text-[13px] text-[#0C2D52]/70 font-medium">
+                  <MapPin size={14} style={{ color: BRONZE }} />
+                  <span className="break-words">
+                    {lang === "fr" ? featured.room_fr : featured.room_en}
+                  </span>
+                </p>
 
-              {featSpeakers.length > 0 && (
-                <div className="hidden sm:block mt-8 pt-6 border-t" style={{ borderColor: RULE }}>
-                  <p className="text-[10px] uppercase tracking-[0.22em] text-[#0C2D52]/45 mb-3 font-semibold">
-                    {lang === "fr" ? "Avec" : "With"}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                {featSpeakers.length > 0 && (
+                  <span className="hidden sm:block w-1 h-1 rounded-full bg-[#0C2D52]/30" />
+                )}
+
+                {/* Intervenants (Noms uniquement, sans images - Feedback) */}
+                {featSpeakers.length > 0 && (
+                  <div className="flex flex-wrap items-center gap-4">
                     {featSpeakers.map((sp) => (
-                      <div key={sp.id} className="flex items-center gap-2">
-                        {getImg(sp) ? (
-                          <img src={getImg(sp)} alt={sp.name} className="w-7 h-7 rounded-full object-cover" onError={(e) => (e.currentTarget.style.display = "none")} />
-                        ) : (
-                          <span className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ backgroundColor: INK, color: GOLD }}>
-                            {sp.name?.[0]}
-                          </span>
-                        )}
-                        <span className="text-[13px] text-[#0C2D52]/80 font-medium">{sp.name}</span>
+                      <div key={sp.id} className="flex items-center">
+                        <span className="text-[13px] font-semibold text-[#0C2D52]/90">{sp.name}</span>
                       </div>
                     ))}
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
 
+          {/* Liste des 3 autres sessions (Droite) */}
           <div className="lg:col-span-6 mt-5 sm:mt-8 lg:mt-0 relative">
-            <div className="absolute left-[11px] top-6 bottom-6 w-px bg-[rgba(12,45,82,0.1)] hidden sm:block" />
+            <div className="absolute left-[11px] top-6 bottom-6 w-px bg-[rgba(12,45,82,0.15)] hidden sm:block" />
             {rest.map((s) => (
               <div
                 key={s.id}
@@ -1254,27 +1243,27 @@ function Program() {
                 style={{ borderColor: RULE }}
               >
                 <div className="hidden sm:flex flex-col items-center shrink-0 w-6 relative z-10">
-                  <div className="w-2.5 h-2.5 rounded-full border-2 bg-[#F2F4F6] mt-2" style={{ borderColor: BRONZE }} />
+                  <div className="w-3 h-3 rounded-full border-2 bg-[#F2F4F6] mt-2" style={{ borderColor: BRONZE }} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-baseline justify-between gap-3 mb-1 sm:mb-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 sm:w-5 sm:h-5 opacity-70">
+                      <div className="w-4 h-4 opacity-75">
                         <EditorialIllustration variant={getIconVariant(s.type)} className="w-full h-full" />
                       </div>
-                      <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.22em] font-semibold" style={{ color: BRONZE }}>
+                      <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.22em] font-bold" style={{ color: BRONZE }}>
                         {t(`program.types.${s.type}`)}
                       </span>
                     </div>
-                    <span className="font-mono-num text-[9px] sm:text-[11px] tracking-[0.15em] text-[#0C2D52]/45 shrink-0 font-semibold">
+                    <span className="font-mono-num text-[10px] sm:text-[11px] tracking-[0.15em] text-[#0C2D52]/60 shrink-0 font-bold">
                       J{s.day} · {s.time}
                     </span>
                   </div>
-                  <h4 className="font-serif font-extrabold text-sm sm:text-xl leading-snug tracking-tight break-words" style={{ color: INK }}>
+                  <h4 className="font-serif font-extrabold text-base sm:text-lg leading-snug tracking-tight break-words" style={{ color: INK }}>
                     {lang === "fr" ? s.title_fr : s.title_en}
                   </h4>
-                  <p className="mt-1 sm:mt-1.5 flex items-center gap-1 text-[10px] sm:text-[12px] text-[#0C2D52]/50">
-                    <MapPin size={9} className="sm:w-[10px] sm:h-[10px]" />
+                  <p className="mt-1 sm:mt-1.5 flex items-center gap-1 text-[11px] sm:text-[12px] text-[#0C2D52]/60 font-medium">
+                    <MapPin size={10} className="sm:w-[11px] sm:h-[11px]" />
                     <span className="break-words">{lang === "fr" ? s.room_fr : s.room_en}</span>
                   </p>
                 </div>
@@ -1304,7 +1293,7 @@ function Voices({ speakers }) {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 sm:gap-5 mb-6 sm:mb-10">
           <div>
             <div className="flex items-baseline gap-3 mb-4 sm:mb-6">
-              <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap font-semibold" style={{ color: BRONZE }}>{t("speakers.eyebrow")}</span>
+              <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap font-bold" style={{ color: BRONZE }}>{t("speakers.eyebrow")}</span>
               <span className="w-12 sm:w-20 h-px" style={{ backgroundColor: RULE }} />
             </div>
             <h2 className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.6rem] leading-[1.15] sm:leading-[1.08] break-words" style={{ color: INK }}>
@@ -1318,14 +1307,14 @@ function Voices({ speakers }) {
         </div>
 
         <Reveal delay={0.1}>
-          <div className="relative overflow-hidden shadow-sm mb-6 sm:mb-8">
+          <div className="relative overflow-hidden shadow-sm mb-6 sm:mb-8 rounded-md">
             <SmartImg
               src="/assets/seim/speakers-stage.jpg"
               alt={lang === "fr" ? "Intervenants sur scène" : "Speakers on stage"}
               className="w-full aspect-[16/9] sm:aspect-[21/9] object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
             />
-            <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5 bg-[#0C2D52]/90 backdrop-blur-sm pointer-events-none">
-              <p className="text-[10px] sm:text-[12px] uppercase tracking-[0.2em] text-white font-bold">
+            <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6 bg-[#0C2D52]/95 backdrop-blur-sm pointer-events-none">
+              <p className="text-[11px] sm:text-[13px] uppercase tracking-[0.2em] text-white font-bold">
                 {lang === "fr"
                   ? "Panel d'ouverture — CICB, Bamako · Édition 2026"
                   : "Opening panel — CICB, Bamako · 2026 Edition"}
@@ -1347,14 +1336,14 @@ function Voices({ speakers }) {
                   <span className="font-serif font-extrabold text-xl sm:text-3xl md:text-4xl" style={{ color: BRONZE }}>{getInitials(sp.name)}</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[8px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] mb-1 sm:mb-2 line-clamp-2 font-semibold" style={{ color: BRONZE }}>
+                  <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] mb-1 sm:mb-2 line-clamp-2 font-bold" style={{ color: BRONZE }}>
                     {getRole(sp, lang)}
                   </p>
-                  <h3 className="font-serif font-extrabold text-sm sm:text-xl leading-tight tracking-tight mb-0.5 sm:mb-1.5" style={{ color: INK }}>
+                  <h3 className="font-serif font-extrabold text-base sm:text-xl leading-tight tracking-tight mb-0.5 sm:mb-1.5" style={{ color: INK }}>
                     {sp.name}
                   </h3>
                   {sp.company && (
-                    <p className="text-[9px] sm:text-[12px] text-[#0C2D52]/55 italic font-serif line-clamp-1">
+                    <p className="text-[10px] sm:text-[12px] text-[#0C2D52]/60 italic font-serif line-clamp-1 font-medium">
                       {sp.company}
                     </p>
                   )}
@@ -1396,7 +1385,7 @@ function Conviction() {
       <div className="absolute inset-0 opacity-[0.15] pointer-events-none">
         <SmartImg src="/assets/seim/ambiance.jpg" alt="" className="w-full h-full object-cover grayscale" />
       </div>
-      <div className="absolute inset-0 pointer-events-none" style={{ background: `linear-gradient(to bottom, ${INK} 0%, rgba(12,45,82,0.4) 30%, rgba(12,45,82,0.4) 70%, ${INK} 100%)` }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `linear-gradient(to bottom, ${INK} 0%, rgba(12,45,82,0.5) 30%, rgba(12,45,82,0.5) 70%, ${INK} 100%)` }} />
       <div className="absolute top-0 right-0 w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] opacity-10 pointer-events-none -mt-20 -mr-20">
         <EditorialIllustration variant="network" className="w-full h-full" />
       </div>
@@ -1407,7 +1396,7 @@ function Conviction() {
             <Reveal>
               <div className="flex items-center gap-3 mb-6 sm:mb-8">
                 <span className="w-8 sm:w-10 h-px" style={{ backgroundColor: GOLD }} />
-                <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] font-semibold" style={{ color: GOLD }}>{copy.eyebrow}</span>
+                <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.28em] font-bold" style={{ color: GOLD }}>{copy.eyebrow}</span>
               </div>
             </Reveal>
           </div>
@@ -1421,12 +1410,12 @@ function Conviction() {
               </h2>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="mt-5 sm:mt-10 text-[13px] sm:text-[16px] text-[#F2F4F6]/80 max-w-2xl leading-[1.7] sm:leading-[1.8]">{copy.body}</p>
+              <p className="mt-5 sm:mt-10 text-[14px] sm:text-[16px] text-[#F2F4F6]/90 max-w-2xl leading-[1.7] sm:leading-[1.8] font-medium">{copy.body}</p>
             </Reveal>
             <Reveal delay={0.3}>
               <div className="mt-6 sm:mt-10 flex items-center gap-3">
                 <span className="w-5 sm:w-6 h-px" style={{ backgroundColor: RULE_INK }} />
-                <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.24em] text-[#F2F4F6]/50 font-semibold">{copy.sign}</span>
+                <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[#F2F4F6]/60 font-bold">{copy.sign}</span>
               </div>
             </Reveal>
           </div>
@@ -1437,9 +1426,9 @@ function Conviction() {
             {pillars.map((p, i) => (
               <Reveal key={i} delay={0.05 * i}>
                 <div>
-                  <p className="font-mono-num text-[10px] sm:text-[11px] tracking-[0.2em] mb-2 sm:mb-3 font-bold" style={{ color: GOLD }}>{String(i + 1).padStart(2, "0")}</p>
+                  <p className="font-mono-num text-[11px] tracking-[0.2em] mb-2 sm:mb-3 font-bold" style={{ color: GOLD }}>{String(i + 1).padStart(2, "0")}</p>
                   <h3 className="font-serif font-extrabold text-base sm:text-lg leading-tight mb-1.5 sm:mb-2">{p.title}</h3>
-                  <p className="text-[11px] sm:text-[13px] text-[#F2F4F6]/65 leading-[1.6] sm:leading-[1.65]">{p.desc}</p>
+                  <p className="text-[12px] sm:text-[13px] text-[#F2F4F6]/70 leading-[1.6] sm:leading-[1.65] font-medium">{p.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -1468,7 +1457,7 @@ function CtaBand() {
         <Reveal>
           <div className="flex items-center justify-center gap-2 sm:gap-3 mb-5 sm:mb-8">
             <span className="w-6 sm:w-10 h-px" style={{ backgroundColor: RULE }} />
-            <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] font-semibold" style={{ color: BRONZE }}>
+            <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.28em] font-bold" style={{ color: BRONZE }}>
               {lang === "fr" ? "Inscription · Places limitées" : "Registration · Limited seats"}
             </span>
             <span className="w-6 sm:w-10 h-px" style={{ backgroundColor: RULE }} />
@@ -1482,12 +1471,12 @@ function CtaBand() {
         </Reveal>
 
         <Reveal delay={0.2}>
-          <p className="mt-4 sm:mt-7 text-[13px] sm:text-[16px] text-[#0C2D52]/70 max-w-xl mx-auto leading-[1.7] sm:leading-[1.75]">{t("cta.subtitle")}</p>
+          <p className="mt-4 sm:mt-7 text-[14px] sm:text-[16px] text-[#0C2D52]/80 max-w-xl mx-auto leading-[1.7] sm:leading-[1.75] font-semibold">{t("cta.subtitle")}</p>
         </Reveal>
 
         <Reveal delay={0.3}>
           <div className="mt-8 sm:mt-12 flex items-center justify-center">
-            <Link to="/inscription" data-testid="cta-register-button" className="group inline-flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto px-8 sm:px-11 py-3.5 sm:py-4 text-[12px] sm:text-sm font-bold tracking-wide transition-opacity hover:opacity-90" style={{ backgroundColor: INK, color: CREAM }}>
+            <Link to="/inscription" data-testid="cta-register-button" className="group inline-flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto px-8 sm:px-11 py-3.5 sm:py-4 text-[13px] sm:text-sm font-bold tracking-wide transition-opacity hover:opacity-90" style={{ backgroundColor: INK, color: CREAM }}>
               {t("cta.button")}
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" style={{ color: GOLD }} />
             </Link>
@@ -1495,7 +1484,7 @@ function CtaBand() {
         </Reveal>
 
         <Reveal delay={0.4}>
-          <p className="mt-8 sm:mt-10 font-mono-num text-[9px] sm:text-[11px] uppercase tracking-[0.22em] text-[#0C2D52]/55 font-semibold">
+          <p className="mt-8 sm:mt-10 font-mono-num text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-[#0C2D52]/60 font-bold">
             {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}{" · "}CICB · Bamako
           </p>
         </Reveal>

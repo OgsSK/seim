@@ -6,10 +6,11 @@ import { SmartImg } from "../components/SectionHead";
 import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
 
-/* Palette éditoriale premium */
+/* Palette éditoriale premium SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#B57A0A";
+const BRONZE = "#D49B0F"; // CORRIGÉ : Jaune assombri pour lisibilité sur fond clair
+const GOLD = "#F7B731";   // Jaune exact du logo
 const RULE = "rgba(12,45,82,0.12)";
 
 /* ---------- Skeleton ---------- */
@@ -33,12 +34,12 @@ function EmptyState({ lang }) {
       <div className="mx-auto w-12 h-12 flex items-center justify-center mb-6" style={{ color: BRONZE }}>
         <CalendarDays size={28} strokeWidth={1} />
       </div>
-      <h3 className="font-serif text-xl sm:text-2xl mb-3" style={{ color: INK }}>
+      <h3 className="font-serif font-extrabold text-xl sm:text-2xl mb-3" style={{ color: INK }}>
         {lang === "fr"
           ? "Les éditions seront présentées ici"
           : "Editions will be shown here"}
       </h3>
-      <p className="font-serif italic text-[15px] max-w-md mx-auto leading-relaxed" style={{ color: "rgba(12,45,82,0.55)" }}>
+      <p className="font-serif italic text-[15px] max-w-md mx-auto leading-relaxed font-medium" style={{ color: "rgba(12,45,82,0.65)" }}>
         {lang === "fr"
           ? "L'historique des éditions du SEIM sera publié prochainement."
           : "The SEIM editions history will be published soon."}
@@ -72,29 +73,32 @@ function EditionCard({ ed, index, lang, t }) {
           }`}
         >
           <span 
-            className="font-serif italic text-5xl sm:text-7xl leading-none block mb-4"
+            className="font-serif font-bold italic text-5xl sm:text-7xl leading-none block mb-4"
             style={{ color: BRONZE }}
           >
             {ed.year}
           </span>
           
+          {/* Titre mis en gras (font-bold) */}
           <h3 
-            className="font-serif text-xl sm:text-2xl leading-[1.15] tracking-[-0.01em] mb-3"
+            className="font-serif font-bold text-xl sm:text-2xl leading-[1.15] tracking-[-0.01em] mb-3"
             style={{ color: INK }}
           >
             {lang === "fr" ? ed.theme_fr : ed.theme_en}
           </h3>
           
+          {/* Lieu mis en gras (font-bold) */}
           <p 
-            className="text-[10px] uppercase tracking-[0.2em] font-medium mb-5"
-            style={{ color: "rgba(12,45,82,0.45)" }}
+            className="text-[10px] uppercase tracking-[0.2em] font-bold mb-5"
+            style={{ color: "rgba(12,45,82,0.55)" }}
           >
             {lang === "fr" ? ed.venue_fr : ed.venue_en}
           </p>
           
+          {/* Résumé mis en gras (font-medium) */}
           <p 
-            className="text-[14px] sm:text-[15px] leading-[1.75] font-serif"
-            style={{ color: "rgba(12,45,82,0.65)" }}
+            className="text-[14px] sm:text-[15px] leading-[1.75] font-serif font-medium"
+            style={{ color: "rgba(12,45,82,0.75)" }}
           >
             {lang === "fr" ? ed.summary_fr : ed.summary_en}
           </p>
@@ -112,10 +116,11 @@ function EditionCard({ ed, index, lang, t }) {
               { v: ed.exhibitors, l: t("editions.exhibitorsCount") },
             ].map((s, j) => (
               <div key={j} className={isReversed ? "text-left" : "sm:text-right"}>
-                <p className="font-serif font-light text-2xl sm:text-3xl leading-none" style={{ color: INK }}>
+                <p className="font-serif font-extrabold text-2xl sm:text-3xl leading-none" style={{ color: INK }}>
                   {s.v}
                 </p>
-                <p className="mt-2 text-[9px] sm:text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(12,45,82,0.45)" }}>
+                {/* Label mis en gras (font-bold) */}
+                <p className="mt-2 text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: "rgba(12,45,82,0.55)" }}>
                   {s.l}
                 </p>
               </div>
@@ -129,7 +134,7 @@ function EditionCard({ ed, index, lang, t }) {
             isReversed ? "sm:order-1 sm:pr-16" : "sm:pl-16"
           }`}
         >
-          <div className="overflow-hidden shadow-2xl shadow-black/10">
+          <div className="overflow-hidden shadow-2xl shadow-black/10 rounded-sm">
             <SmartImg
               src={ed.image}
               alt={ed.year}
@@ -139,8 +144,8 @@ function EditionCard({ ed, index, lang, t }) {
           
           {/* Légende éditoriale sous l'image */}
           <p 
-            className={`mt-3 text-[10px] sm:text-[11px] italic font-serif ${isReversed ? "text-left" : "sm:text-right"}`}
-            style={{ color: "rgba(12,45,82,0.45)" }}
+            className={`mt-3 text-[10px] sm:text-[11px] italic font-serif font-medium ${isReversed ? "text-left" : "sm:text-right"}`}
+            style={{ color: "rgba(12,45,82,0.55)" }}
           >
             {lang === "fr" ? "Archives SEIM — CICB, Bamako." : "SEIM Archives — CICB, Bamako."}
           </p>

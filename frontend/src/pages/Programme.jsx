@@ -8,8 +8,8 @@ import { api } from "../lib/api";
 /* Palette éditoriale premium — jaune du logo SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#D49B0F";
-const GOLD = "#F7B731";
+const BRONZE = "#D49B0F"; // Jaune assombri pour lisibilité
+const GOLD = "#F7B731";   // Jaune exact du logo
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_LIGHT = "rgba(12,45,82,0.08)";
 const EASE = [0.22, 1, 0.36, 1];
@@ -383,33 +383,18 @@ export default function Programme() {
                                         ? "Speakers"
                                         : "Speaker"}
                                     </p>
-                                    <div className="flex flex-wrap gap-2.5">
+                                    <div className="flex flex-wrap gap-x-6 gap-y-3">
+                                      {/* MODIFIÉ ICI : Uniquement les noms, sans images */}
                                       {sSpeakers.map((sp) => (
-                                        <div
-                                          key={sp.id}
-                                          className="flex items-center gap-2 pl-1.5 pr-3 py-1 border"
-                                          style={{ borderColor: RULE, backgroundColor: PAPER }}
-                                        >
-                                          {sp.photo ? (
-                                            <img
-                                              src={sp.photo}
-                                              alt={sp.name}
-                                              className="w-7 h-7 object-cover shrink-0"
-                                              onError={(e) => (e.currentTarget.style.display = "none")}
-                                            />
-                                          ) : (
-                                            <span className="w-7 h-7 flex items-center justify-center text-[10px] font-bold shrink-0" style={{ backgroundColor: INK, color: GOLD }}>
-                                              {sp.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
-                                            </span>
+                                        <div key={sp.id} className="flex items-center py-1">
+                                          <p className="text-[12px] font-bold" style={{ color: INK }}>
+                                            {sp.name}
+                                          </p>
+                                          {sp.company && (
+                                            <p className="text-[11px] ml-1.5" style={{ color: "rgba(12,45,82,0.55)" }}>
+                                              — {sp.company}
+                                            </p>
                                           )}
-                                          <div className="leading-tight min-w-0">
-                                            <p className="text-[11px] font-bold truncate" style={{ color: INK }}>
-                                              {sp.name}
-                                            </p>
-                                            <p className="text-[10px] truncate" style={{ color: "rgba(12,45,82,0.55)" }}>
-                                              {sp.company}
-                                            </p>
-                                          </div>
                                         </div>
                                       ))}
                                     </div>

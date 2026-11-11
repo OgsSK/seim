@@ -15,8 +15,8 @@ import { downloadIcs, googleCalendarUrl } from "../lib/calendar";
 /* Palette charte SEIM — jaune du logo */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#D49B0F";
-const GOLD = "#F7B731";
+const BRONZE = "#D49B0F"; // Jaune assombri pour lisibilité sur fond clair
+const GOLD = "#F7B731";   // Jaune exact du logo
 const RULE = "rgba(12,45,82,0.15)";
 
 /* Style des champs de saisie */
@@ -212,6 +212,7 @@ export default function Inscription() {
       setSent(null);
     }
   }, [urlType]);
+  
   const toggleInterest = (i) =>
     setForm({
       ...form,
@@ -306,7 +307,8 @@ export default function Inscription() {
               >
                 {L(`Merci ${sent.firstName} !`, `Thank you ${sent.firstName}!`)}
               </h2>
-              <p className="mt-5 max-w-2xl text-[15px] sm:text-[16px] leading-[1.75]" style={{ color: "rgba(12,45,82,0.7)" }}>
+              {/* Texte mis en gras (font-medium) */}
+              <p className="mt-5 max-w-2xl text-[15px] sm:text-[16px] leading-[1.75] font-medium" style={{ color: "rgba(12,45,82,0.7)" }}>
                 {L(
                   `Votre inscription en tant que « ${sent.label} » a été préparée dans WhatsApp. Si ce n'est pas déjà fait, appuyez sur Envoyer : l'équipe SEIM vous répondra directement sur WhatsApp.`,
                   `Your registration as "${sent.label}" has been prepared in WhatsApp. If you haven't yet, tap Send: the SEIM team will reply to you directly on WhatsApp.`
@@ -463,7 +465,8 @@ export default function Inscription() {
                       <h3 className="font-serif font-extrabold text-lg leading-tight" style={{ color: INK }}>
                         {item.label}
                       </h3>
-                      <p className="mt-2 text-[13px] leading-[1.6]" style={{ color: "rgba(12,45,82,0.6)" }}>
+                      {/* Description de la carte mise en gras (font-semibold) */}
+                      <p className="mt-2 text-[13px] leading-[1.6] font-semibold" style={{ color: "rgba(12,45,82,0.65)" }}>
                         {item.desc}
                       </p>
                     </div>
@@ -514,7 +517,8 @@ export default function Inscription() {
                   "aria-label": f.label[lk],
                   value: form.extra[f.key] || "",
                   onChange: setExtra(f.key),
-                  style: { borderColor: RULE, color: form.extra[f.key] || f.kind !== "select" ? INK : "rgba(12,45,82,0.35)" },
+                  // Correction de la logique de couleur : ajout de parenthèses pour éviter l'erreur d'évaluation
+                  style: { borderColor: RULE, color: (form.extra[f.key] || f.kind !== "select") ? INK : "rgba(12,45,82,0.35)" },
                 };
                 const span = f.full ? "sm:col-span-2" : "";
                 if (f.kind === "select") {
@@ -601,7 +605,8 @@ export default function Inscription() {
                 <MessageCircle size={16} style={{ color: GOLD }} />
                 {t("register.submit")}
               </button>
-              <p className="mt-4 text-[13px] leading-[1.6] font-medium" style={{ color: "rgba(12,45,82,0.6)" }}>
+              {/* Note mise en gras (font-semibold) */}
+              <p className="mt-4 text-[13px] leading-[1.6] font-semibold" style={{ color: "rgba(12,45,82,0.65)" }}>
                 {t("register.whatsappNote")}
               </p>
             </div>

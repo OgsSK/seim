@@ -22,8 +22,8 @@ import { api } from "../lib/api";
 /* Palette éditoriale premium — jaune du logo SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#D49B0F";
-const GOLD = "#F7B731";
+const BRONZE = "#D49B0F"; // Jaune assombri pour lisibilité
+const GOLD = "#F7B731";   // Jaune exact du logo
 const CREAM = "#F2F4F6";
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_LIGHT = "rgba(12,45,82,0.08)";
@@ -53,9 +53,10 @@ function EmptyState({ lang, icon: Icon = Newspaper, title, subtitle }) {
       <h3 className="font-serif font-extrabold text-xl sm:text-2xl mb-3" style={{ color: INK }}>
         {title}
       </h3>
+      {/* Texte mis en gras (font-medium) et opacité augmentée */}
       <p
-        className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed"
-        style={{ color: "rgba(12,45,82,0.6)" }}
+        className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed font-medium"
+        style={{ color: "rgba(12,45,82,0.7)" }}
       >
         {subtitle}
       </p>
@@ -118,7 +119,7 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
           </span>
 
           <div className="flex items-center gap-3">
-            <span className="hidden sm:inline text-[10px] uppercase tracking-[0.2em] text-white/30 font-semibold">
+            <span className="hidden sm:inline text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold">
               {lang === "fr" ? "Échap pour fermer" : "Esc to close"}
             </span>
             <button
@@ -186,7 +187,7 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
         <div className="absolute bottom-0 inset-x-0 z-10 px-4 sm:px-8 py-5 text-center">
           <p
             className="font-serif italic text-[11px] sm:text-[12px] font-medium"
-            style={{ color: "rgba(242,244,246,0.6)" }}
+            style={{ color: "rgba(242,244,246,0.7)" }}
           >
             {lang === "fr"
               ? "SEIM — CICB, Bamako · Édition 2026"
@@ -337,11 +338,11 @@ export default function Media() {
                           className="w-full aspect-[16/10] object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                         />
                       </div>
-                      <div className="flex items-center gap-3 text-[9px] uppercase tracking-[0.2em] mb-3 font-semibold">
+                      <div className="flex items-center gap-3 text-[9px] uppercase tracking-[0.2em] mb-3 font-bold">
                         <span style={{ color: BRONZE }}>
                           {lang === "fr" ? a.category_fr : a.category_en}
                         </span>
-                        <span style={{ color: "rgba(12,45,82,0.4)" }}>
+                        <span style={{ color: "rgba(12,45,82,0.5)" }}>
                           {new Date(a.date).toLocaleDateString(
                             lang === "fr" ? "fr-FR" : "en-GB",
                             { day: "numeric", month: "short" }
@@ -354,9 +355,10 @@ export default function Media() {
                       >
                         {lang === "fr" ? a.title_fr : a.title_en}
                       </h3>
+                      {/* Extrait mis en gras (font-medium) */}
                       <p
-                        className="font-serif italic text-[13px] leading-[1.6] line-clamp-3"
-                        style={{ color: "rgba(12,45,82,0.6)" }}
+                        className="font-serif italic text-[13px] leading-[1.6] line-clamp-3 font-medium"
+                        style={{ color: "rgba(12,45,82,0.7)" }}
                       >
                         {lang === "fr" ? a.excerpt_fr : a.excerpt_en}
                       </p>
@@ -448,9 +450,10 @@ export default function Media() {
                     <h3 className="font-serif font-extrabold text-xl tracking-tight" style={{ color: INK }}>
                       {p.title}
                     </h3>
+                    {/* Description mise en gras (font-medium) */}
                     <p
-                      className="font-serif italic text-[14px] leading-[1.7] flex-1"
-                      style={{ color: "rgba(12,45,82,0.6)" }}
+                      className="font-serif italic text-[14px] leading-[1.7] flex-1 font-medium"
+                      style={{ color: "rgba(12,45,82,0.7)" }}
                     >
                       {p.desc}
                     </p>

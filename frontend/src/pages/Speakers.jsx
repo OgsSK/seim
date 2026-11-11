@@ -10,7 +10,7 @@ import { api } from "../lib/api";
 /* Palette éditoriale premium — jaune du logo SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#D49B0F";
+const BRONZE = "#D49B0F"; // Jaune assombri pour lisibilité
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_LIGHT = "rgba(12,45,82,0.08)";
 
@@ -44,9 +44,10 @@ function EmptyState({ lang }) {
           ? "Les intervenants seront annoncés prochainement"
           : "Speakers will be announced soon"}
       </h3>
+      {/* Texte mis en gras (font-medium) */}
       <p
-        className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed"
-        style={{ color: "rgba(12,45,82,0.6)" }}
+        className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed font-medium"
+        style={{ color: "rgba(12,45,82,0.7)" }}
       >
         {lang === "fr"
           ? "Le casting des experts et personnalités de la 2ᵉ édition est en cours de finalisation. Revenez bientôt pour les découvrir."
@@ -94,9 +95,10 @@ export default function Speakers() {
                   {lang === "fr" ? "Le casting" : "The line-up"}
                 </span>
                 <span className="flex-1 h-px" style={{ backgroundColor: RULE }} />
+                {/* Compteur mis en gras (font-bold) */}
                 <span
-                  className="font-mono-num text-[11px] uppercase tracking-[0.15em] whitespace-nowrap font-semibold"
-                  style={{ color: "rgba(12,45,82,0.45)" }}
+                  className="font-mono-num text-[11px] uppercase tracking-[0.15em] whitespace-nowrap font-bold"
+                  style={{ color: "rgba(12,45,82,0.55)" }}
                 >
                   {speakers.length}{" "}
                   {lang === "fr"
@@ -119,10 +121,10 @@ export default function Speakers() {
                   : "SEIM speakers"}
               </h2>
 
-              {/* Description éditoriale */}
+              {/* Description éditoriale mise en gras (font-medium) */}
               <p
-                className="font-serif italic text-[15px] sm:text-[16px] leading-[1.75] max-w-2xl mt-5"
-                style={{ color: "rgba(12,45,82,0.65)" }}
+                className="font-serif italic text-[15px] sm:text-[16px] leading-[1.75] max-w-2xl mt-5 font-medium"
+                style={{ color: "rgba(12,45,82,0.75)" }}
               >
                 {lang === "fr"
                   ? "Experts, décideurs, entrepreneurs et personnalités du monde économique — une sélection de voix qui structurent l'écosystème africain."

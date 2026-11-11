@@ -21,13 +21,13 @@ import { buildRequestMessage, openWhatsApp } from "../lib/whatsapp";
 /* Palette éditoriale premium — jaune du logo SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#D49B0F";
-const GOLD = "#F7B731";
+const BRONZE = "#D49B0F"; // Jaune assombri pour lisibilité
+const GOLD = "#F7B731";   // Jaune exact du logo
 const RULE = "rgba(12,45,82,0.15)";
 
-/* Style commun pour les champs de saisie */
+/* Style commun pour les champs de saisie - Placeholder plus visible (opacité 40%) */
 const inputCls =
-  "w-full px-0 py-3 bg-transparent border-0 border-b text-[15px] placeholder-[#0C2D52]/30 focus:outline-none focus:ring-0 transition-colors appearance-none";
+  "w-full px-0 py-3 bg-transparent border-0 border-b text-[15px] placeholder-[#0C2D52]/40 focus:outline-none focus:ring-0 transition-colors appearance-none";
 
 /* ---------- Carte d'info éditoriale ---------- */
 function InfoCard({ icon: Icon, label, value, href, external, testid }) {
@@ -40,12 +40,12 @@ function InfoCard({ icon: Icon, label, value, href, external, testid }) {
       <div className="flex-1 min-w-0">
         <p
           className="text-[9px] uppercase tracking-[0.24em] mb-1 font-bold"
-          style={{ color: "rgba(12,45,82,0.5)" }}
+          style={{ color: "rgba(12,45,82,0.6)" }}
         >
           {label}
         </p>
         <p
-          className="font-serif font-semibold text-[15px] sm:text-base [overflow-wrap:anywhere]"
+          className="font-serif font-bold text-[15px] sm:text-base [overflow-wrap:anywhere]"
           style={{ color: INK }}
         >
           {value}
@@ -245,9 +245,10 @@ export default function Contact() {
                   >
                     {lang === "fr" ? "Envoyez-nous un message" : "Send us a message"}
                   </h3>
+                  {/* Texte mis en gras (font-semibold) */}
                   <p
-                    className="text-[13px] sm:text-[14px] font-serif italic flex items-center gap-2 font-medium"
-                    style={{ color: "rgba(12,45,82,0.6)" }}
+                    className="text-[13px] sm:text-[14px] font-serif italic flex items-center gap-2 font-semibold"
+                    style={{ color: "rgba(12,45,82,0.7)" }}
                   >
                     <Clock size={13} style={{ color: BRONZE }} />
                     {lang === "fr"
@@ -265,7 +266,7 @@ export default function Contact() {
                   <div>
                     <p
                       className="text-[9px] uppercase tracking-[0.24em] mb-4 font-bold"
-                      style={{ color: "rgba(12,45,82,0.5)" }}
+                      style={{ color: "rgba(12,45,82,0.6)" }}
                     >
                       {lang === "fr" ? "Vos coordonnées" : "Your details"}
                     </p>
@@ -309,7 +310,7 @@ export default function Contact() {
                   <div>
                     <p
                       className="text-[9px] uppercase tracking-[0.24em] mb-4 font-bold"
-                      style={{ color: "rgba(12,45,82,0.5)" }}
+                      style={{ color: "rgba(12,45,82,0.6)" }}
                     >
                       {lang === "fr" ? "Votre demande" : "Your request"}
                     </p>
@@ -347,7 +348,7 @@ export default function Contact() {
                   <div>
                     <p
                       className="text-[9px] uppercase tracking-[0.24em] mb-4 font-bold"
-                      style={{ color: "rgba(12,45,82,0.5)" }}
+                      style={{ color: "rgba(12,45,82,0.6)" }}
                     >
                       {lang === "fr" ? "Votre message" : "Your message"}
                     </p>

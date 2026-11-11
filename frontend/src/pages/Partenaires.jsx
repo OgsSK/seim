@@ -9,8 +9,8 @@ import { api } from "../lib/api";
 /* Palette éditoriale premium — jaune du logo SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#D49B0F";
-const GOLD = "#F7B731";
+const BRONZE = "#D49B0F"; // Jaune assombri pour lisibilité
+const GOLD = "#F7B731";   // Jaune exact du logo
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_LIGHT = "rgba(12,45,82,0.08)";
 
@@ -96,11 +96,11 @@ function PartnerCard({ partner, tier, lang }) {
             {partner.name}
           </p>
 
-          {/* Description du rôle */}
+          {/* Description du rôle - MIS EN GRAS (font-semibold) */}
           {role && (
             <p
-              className="mt-3 sm:mt-4 font-serif italic text-[15px] sm:text-base lg:text-lg leading-[1.5] max-w-xl mx-auto sm:mx-0 font-medium"
-              style={{ color: "rgba(12,45,82,0.65)" }}
+              className="mt-3 sm:mt-4 font-serif italic text-[15px] sm:text-base lg:text-lg leading-[1.5] max-w-xl mx-auto sm:mx-0 font-semibold"
+              style={{ color: "rgba(12,45,82,0.75)" }}
             >
               {role}
             </p>
@@ -283,7 +283,8 @@ export default function Partenaires() {
                   {t("partners.form.title")}
                 </h2>
 
-                <p className="font-serif italic text-[14px] sm:text-[15px] leading-[1.75] mb-8" style={{ color: "rgba(12,45,82,0.65)" }}>
+                {/* Description - MIS EN GRAS (font-semibold) */}
+                <p className="font-serif italic text-[14px] sm:text-[15px] leading-[1.75] mb-8 font-semibold" style={{ color: "rgba(12,45,82,0.75)" }}>
                   {t("partners.form.desc")}
                 </p>
 
@@ -293,8 +294,8 @@ export default function Partenaires() {
                     "Stand dans l'espace expo",
                     "Prise de parole sur scène",
                   ].map((f, i) => (
-                    <p key={i} className="flex items-start gap-3 text-[13px] sm:text-[14px] leading-[1.6] font-medium" style={{ color: "rgba(12,45,82,0.75)" }}>
-                      <span className="w-1 h-1 rotate-45 shrink-0 mt-2" style={{ backgroundColor: BRONZE }} />
+                    <p key={i} className="flex items-start gap-3 text-[13px] sm:text-[14px] leading-[1.6] font-semibold" style={{ color: "rgba(12,45,82,0.85)" }}>
+                      <span className="w-1.5 h-1.5 rotate-45 shrink-0 mt-1.5" style={{ backgroundColor: BRONZE }} />
                       <span>{f}</span>
                     </p>
                   ))}
