@@ -7,10 +7,10 @@ import { Stagger, StaggerItem } from "../components/Reveal";
 import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
 
-/* Palette éditoriale premium */
+/* Palette éditoriale premium — jaune du logo SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#B57A0A";
+const BRONZE = "#D49B0F";
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_LIGHT = "rgba(12,45,82,0.08)";
 
@@ -39,14 +39,14 @@ function EmptyState({ lang }) {
       <div className="mx-auto mb-6 flex justify-center" style={{ color: BRONZE }}>
         <UserRound size={32} strokeWidth={1} />
       </div>
-      <h3 className="font-serif text-xl sm:text-2xl mb-3" style={{ color: INK }}>
+      <h3 className="font-serif font-extrabold text-xl sm:text-2xl mb-3" style={{ color: INK }}>
         {lang === "fr"
           ? "Les intervenants seront annoncés prochainement"
           : "Speakers will be announced soon"}
       </h3>
       <p
         className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed"
-        style={{ color: "rgba(12,45,82,0.55)" }}
+        style={{ color: "rgba(12,45,82,0.6)" }}
       >
         {lang === "fr"
           ? "Le casting des experts et personnalités de la 2ᵉ édition est en cours de finalisation. Revenez bientôt pour les découvrir."
@@ -81,22 +81,22 @@ export default function Speakers() {
       <section className="py-16 sm:py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           
-          {/* En-tête de section — masqué si empty state pour ne pas faire doublon */}
+          {/* En-tête de section */}
           {!loading && speakers.length > 0 && (
             <div className="mb-12 sm:mb-16">
               {/* Ligne eyebrow + compteur */}
               <div className="flex items-center gap-3 mb-6">
                 <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
                 <span
-                  className="text-[10px] uppercase tracking-[0.28em] whitespace-nowrap"
+                  className="text-[10px] uppercase tracking-[0.28em] whitespace-nowrap font-bold"
                   style={{ color: BRONZE }}
                 >
                   {lang === "fr" ? "Le casting" : "The line-up"}
                 </span>
                 <span className="flex-1 h-px" style={{ backgroundColor: RULE }} />
                 <span
-                  className="font-mono-num text-[11px] uppercase tracking-[0.15em] whitespace-nowrap"
-                  style={{ color: "rgba(12,45,82,0.4)" }}
+                  className="font-mono-num text-[11px] uppercase tracking-[0.15em] whitespace-nowrap font-semibold"
+                  style={{ color: "rgba(12,45,82,0.45)" }}
                 >
                   {speakers.length}{" "}
                   {lang === "fr"
@@ -111,7 +111,7 @@ export default function Speakers() {
 
               {/* Titre principal */}
               <h2
-                className="font-serif tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.1] break-words max-w-3xl"
+                className="font-serif font-extrabold tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.1] break-words max-w-3xl"
                 style={{ color: INK }}
               >
                 {lang === "fr"
@@ -122,7 +122,7 @@ export default function Speakers() {
               {/* Description éditoriale */}
               <p
                 className="font-serif italic text-[15px] sm:text-[16px] leading-[1.75] max-w-2xl mt-5"
-                style={{ color: "rgba(12,45,82,0.6)" }}
+                style={{ color: "rgba(12,45,82,0.65)" }}
               >
                 {lang === "fr"
                   ? "Experts, décideurs, entrepreneurs et personnalités du monde économique — une sélection de voix qui structurent l'écosystème africain."

@@ -5,11 +5,11 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
-/* Palette éditoriale premium */
+/* Palette éditoriale premium — jaune du logo SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#B57A0A";
-const GOLD = "#F7B731"; // jaune doré charte — sur fonds bleu foncé
+const BRONZE = "#D49B0F";
+const GOLD = "#F7B731";
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_INK = "rgba(242,244,246,0.15)";
 
@@ -18,7 +18,7 @@ export default function About() {
   const pillars = t("about.pillars");
   const stats = t("stats.items");
 
-  /* Contenu du manifeste — inline FR/EN pour ne dépendre d'aucune clé manquante */
+  /* Contenu du manifeste — inline FR/EN */
   const manifesto = {
     fr: {
       eyebrow: "Notre conviction",
@@ -60,14 +60,14 @@ export default function About() {
                 {/* Bloc caption / KPI en bas de l'image */}
                 <div className="absolute bottom-0 left-0 right-0 p-6" style={{ backgroundColor: INK }}>
                   <div className="flex items-baseline gap-1.5">
-                    <span className="font-light text-5xl sm:text-6xl tracking-[-0.04em]" style={{ color: PAPER }}>
+                    <span className="font-serif font-extrabold text-5xl sm:text-6xl tracking-[-0.04em]" style={{ color: PAPER }}>
                       <CountUp value={1000} />
                     </span>
-                    <span className="font-serif italic text-4xl sm:text-5xl" style={{ color: GOLD }}>
+                    <span className="font-serif italic font-bold text-4xl sm:text-5xl" style={{ color: GOLD }}>
                       +
                     </span>
                   </div>
-                  <p className="mt-2.5 text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(242,244,246,0.6)" }}>
+                  <p className="mt-2.5 text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ color: "rgba(242,244,246,0.7)" }}>
                     {stats[0]?.label}
                   </p>
                 </div>
@@ -80,14 +80,14 @@ export default function About() {
             <Reveal>
               <div className="flex items-center gap-3 mb-6">
                 <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
-                <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
+                <span className="text-[10px] uppercase tracking-[0.28em] font-bold" style={{ color: BRONZE }}>
                   {lang === "fr" ? "Vision" : "Vision"}
                 </span>
               </div>
             </Reveal>
 
             <Reveal delay={0.05}>
-              <h2 className="font-serif tracking-[-0.02em] text-2xl sm:text-3xl lg:text-[2.4rem] leading-[1.15] mb-8" style={{ color: INK }}>
+              <h2 className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-3xl lg:text-[2.4rem] leading-[1.15] mb-8" style={{ color: INK }}>
                 <span style={{ color: BRONZE }}>«&nbsp;</span>
                 {t("hero.line1")} {t("hero.line2").toLowerCase()}{" "}
                 {t("hero.line3").toLowerCase()}
@@ -96,7 +96,7 @@ export default function About() {
             </Reveal>
 
             <Reveal delay={0.15}>
-              <p className="text-[15px] sm:text-[16px] leading-[1.75] mb-10" style={{ color: "rgba(12,45,82,0.65)" }}>
+              <p className="text-[15px] sm:text-[16px] leading-[1.75] mb-10" style={{ color: "rgba(12,45,82,0.7)" }}>
                 {t("about.p2")}
               </p>
             </Reveal>
@@ -106,7 +106,7 @@ export default function About() {
                 <Link
                   to="/inscription"
                   data-testid="about-vision-register"
-                  className="group inline-flex items-center gap-2.5 text-[13px] font-medium"
+                  className="group inline-flex items-center gap-2.5 text-[13px] font-bold"
                   style={{ color: INK }}
                 >
                   <span className="border-b pb-0.5" style={{ borderColor: BRONZE }}>
@@ -116,7 +116,7 @@ export default function About() {
                 </Link>
                 <Link
                   to="/intervenants"
-                  className="group inline-flex items-center gap-2 text-[13px] font-medium"
+                  className="group inline-flex items-center gap-2 text-[13px] font-bold"
                   style={{ color: INK }}
                 >
                   <span className="border-b pb-0.5" style={{ borderColor: BRONZE }}>
@@ -139,15 +139,15 @@ export default function About() {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
-                <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
+                <span className="text-[10px] uppercase tracking-[0.28em] font-bold" style={{ color: BRONZE }}>
                   {lang === "fr" ? "Ce qui nous guide" : "What guides us"}
                 </span>
               </div>
-              <h2 className="font-serif tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.6rem] leading-[1.08]" style={{ color: INK }}>
+              <h2 className="font-serif font-extrabold tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.6rem] leading-[1.08]" style={{ color: INK }}>
                 {lang === "fr" ? "Quatre piliers, une même direction" : "Four pillars, one direction"}
               </h2>
             </div>
-            <span className="font-mono-num text-[11px] uppercase tracking-[0.15em] text-[#0C2D52]/40 whitespace-nowrap">
+            <span className="font-mono-num text-[11px] uppercase tracking-[0.15em] text-[#0C2D52]/45 whitespace-nowrap font-semibold">
               04 {lang === "fr" ? "Piliers" : "Pillars"}
             </span>
           </div>
@@ -157,14 +157,14 @@ export default function About() {
               <StaggerItem key={i}>
                 <div data-testid={`about-pillar-${i}`} className="border-t pt-6" style={{ borderColor: RULE }}>
                   <div className="flex items-baseline justify-between mb-4">
-                    <span className="font-mono-num text-[11px] tracking-[0.15em]" style={{ color: BRONZE }}>
+                    <span className="font-mono-num text-[11px] tracking-[0.15em] font-bold" style={{ color: BRONZE }}>
                       0{i + 1}
                     </span>
                   </div>
-                  <h3 className="font-serif text-xl sm:text-2xl tracking-tight mb-3" style={{ color: INK }}>
+                  <h3 className="font-serif font-extrabold text-xl sm:text-2xl tracking-tight mb-3" style={{ color: INK }}>
                     {p.title}
                   </h3>
-                  <p className="text-[14px] sm:text-[15px] leading-[1.7]" style={{ color: "rgba(12,45,82,0.6)" }}>
+                  <p className="text-[14px] sm:text-[15px] leading-[1.7]" style={{ color: "rgba(12,45,82,0.65)" }}>
                     {p.desc}
                   </p>
                 </div>
@@ -183,27 +183,27 @@ export default function About() {
           <Reveal>
             <div className="flex items-center gap-3 mb-10">
               <span className="w-10 h-px" style={{ backgroundColor: GOLD }} />
-              <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: GOLD }}>
+              <span className="text-[10px] uppercase tracking-[0.28em] font-bold" style={{ color: GOLD }}>
                 {manifesto.eyebrow}
               </span>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="font-serif tracking-[-0.02em] text-[1.6rem] sm:text-4xl lg:text-[2.8rem] leading-[1.15]">
+            <h2 className="font-serif font-extrabold tracking-[-0.02em] text-[1.6rem] sm:text-4xl lg:text-[2.8rem] leading-[1.15]">
               <span style={{ color: GOLD }}>«&nbsp;</span>
               {manifesto.title}
               <span style={{ color: GOLD }}>&nbsp;»</span>
             </h2>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mt-8 sm:mt-10 text-[15px] sm:text-[16px] leading-[1.8]" style={{ color: "rgba(242,244,246,0.55)" }}>
+            <p className="mt-8 sm:mt-10 text-[15px] sm:text-[16px] leading-[1.8]" style={{ color: "rgba(242,244,246,0.7)" }}>
               {manifesto.body}
             </p>
           </Reveal>
           <Reveal delay={0.3}>
             <div className="mt-10 flex items-center gap-3">
               <span className="w-6 h-px" style={{ backgroundColor: RULE_INK }} />
-              <span className="text-[10px] uppercase tracking-[0.24em]" style={{ color: "rgba(242,244,246,0.4)" }}>
+              <span className="text-[10px] uppercase tracking-[0.24em] font-semibold" style={{ color: "rgba(242,244,246,0.5)" }}>
                 {lang === "fr"
                   ? "Semaine de l'Économie et de l'Innovation au Mali"
                   : "Week of Economy and Innovation in Mali"}
@@ -221,7 +221,7 @@ export default function About() {
           
           <div className="flex items-center gap-3 mb-12">
             <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
-            <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
+            <span className="text-[10px] uppercase tracking-[0.28em] font-bold" style={{ color: BRONZE }}>
               {t("stats.eyebrow")}
             </span>
           </div>
@@ -231,16 +231,16 @@ export default function About() {
               <StaggerItem key={i}>
                 <div data-testid={`about-stat-${i}`} className="pt-4 border-t" style={{ borderColor: RULE }}>
                   <div className="flex items-baseline">
-                    <span className="font-light tracking-[-0.04em] text-3xl sm:text-4xl" style={{ color: INK }}>
+                    <span className="font-serif font-extrabold tracking-[-0.04em] text-3xl sm:text-4xl" style={{ color: INK }}>
                       <CountUp value={s.value} />
                     </span>
                     {s.suffix && (
-                      <span className="font-serif italic text-xl sm:text-2xl ml-1" style={{ color: BRONZE }}>
+                      <span className="font-serif italic font-bold text-xl sm:text-2xl ml-1" style={{ color: BRONZE }}>
                         {s.suffix}
                       </span>
                     )}
                   </div>
-                  <p className="mt-3 text-[10px] uppercase tracking-[0.2em] leading-snug" style={{ color: "rgba(12,45,82,0.45)" }}>
+                  <p className="mt-3 text-[10px] uppercase tracking-[0.2em] leading-snug font-semibold" style={{ color: "rgba(12,45,82,0.55)" }}>
                     {s.label}
                   </p>
                 </div>
@@ -252,7 +252,7 @@ export default function About() {
             <div className="mt-20 flex flex-col items-center">
               <div className="flex items-center gap-3 mb-8">
                 <span className="w-10 h-px" style={{ backgroundColor: RULE }} />
-                <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
+                <span className="text-[10px] uppercase tracking-[0.28em] font-bold" style={{ color: BRONZE }}>
                   {lang === "fr" ? "Prêt à rejoindre ?" : "Ready to join?"}
                 </span>
                 <span className="w-10 h-px" style={{ backgroundColor: RULE }} />
@@ -260,11 +260,11 @@ export default function About() {
               <Link
                 to="/inscription"
                 data-testid="about-register-button"
-                className="group inline-flex items-center gap-3 px-9 sm:px-11 py-4 text-[13px] sm:text-sm font-medium tracking-wide transition-opacity hover:opacity-90"
+                className="group inline-flex items-center gap-3 px-9 sm:px-11 py-4 text-[13px] sm:text-sm font-bold tracking-wide transition-opacity hover:opacity-90"
                 style={{ backgroundColor: INK, color: PAPER }}
               >
                 {t("nav.register")}
-                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" style={{ color: BRONZE }} />
+                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" style={{ color: GOLD }} />
               </Link>
             </div>
           </Reveal>

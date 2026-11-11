@@ -10,7 +10,7 @@ import {
   Send,
   Clock,
   ArrowUpRight,
-  ChevronDown, // Ajouté pour le select
+  ChevronDown,
 } from "lucide-react";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
@@ -18,13 +18,14 @@ import { EVENT } from "../config/event";
 import { useLanguage } from "../i18n/LanguageContext";
 import { buildRequestMessage, openWhatsApp } from "../lib/whatsapp";
 
-/* Palette éditoriale premium */
+/* Palette éditoriale premium — jaune du logo SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#B57A0A";
+const BRONZE = "#D49B0F";
+const GOLD = "#F7B731";
 const RULE = "rgba(12,45,82,0.15)";
 
-/* Style commun pour les champs de saisie (style formulaire papier) */
+/* Style commun pour les champs de saisie */
 const inputCls =
   "w-full px-0 py-3 bg-transparent border-0 border-b text-[15px] placeholder-[#0C2D52]/30 focus:outline-none focus:ring-0 transition-colors appearance-none";
 
@@ -38,13 +39,13 @@ function InfoCard({ icon: Icon, label, value, href, external, testid }) {
 
       <div className="flex-1 min-w-0">
         <p
-          className="text-[9px] uppercase tracking-[0.24em] mb-1"
-          style={{ color: "rgba(12,45,82,0.45)" }}
+          className="text-[9px] uppercase tracking-[0.24em] mb-1 font-bold"
+          style={{ color: "rgba(12,45,82,0.5)" }}
         >
           {label}
         </p>
         <p
-          className="font-serif text-[15px] sm:text-base [overflow-wrap:anywhere]"
+          className="font-serif font-semibold text-[15px] sm:text-base [overflow-wrap:anywhere]"
           style={{ color: INK }}
         >
           {value}
@@ -70,7 +71,7 @@ function InfoCard({ icon: Icon, label, value, href, external, testid }) {
         href={href}
         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         data-testid={testid}
-        className={`${baseCls} hover:border-[#B57A0A]`}
+        className={`${baseCls} hover:border-[#D49B0F]`}
         style={{ borderColor: RULE }}
       >
         {inner}
@@ -138,7 +139,7 @@ export default function Contact() {
                 <div className="flex items-center gap-3 mb-8">
                   <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
                   <span
-                    className="text-[10px] uppercase tracking-[0.28em]"
+                    className="text-[10px] uppercase tracking-[0.28em] font-bold"
                     style={{ color: BRONZE }}
                   >
                     {lang === "fr" ? "Nous joindre" : "Reach us"}
@@ -146,7 +147,7 @@ export default function Contact() {
                 </div>
 
                 <h2
-                  className="font-serif tracking-[-0.02em] text-2xl sm:text-3xl mb-8"
+                  className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-3xl mb-8"
                   style={{ color: INK }}
                 >
                   {t("contact.info")}
@@ -194,17 +195,17 @@ export default function Contact() {
                   />
                 </div>
 
-                {/* CARTE GÉO — Design Éditorial */}
+                {/* CARTE GÉO */}
                 <div className="mt-8">
                   <div className="flex items-end justify-between mb-3 border-b pb-2" style={{ borderColor: RULE }}>
-                    <p className="text-[9px] uppercase tracking-[0.24em]" style={{ color: BRONZE }}>
+                    <p className="text-[9px] uppercase tracking-[0.24em] font-bold" style={{ color: BRONZE }}>
                       {lang === "fr" ? "Localisation" : "Location"}
                     </p>
                     <a
                       href="https://maps.google.com/maps?q=Centre%20International%20de%20Conf%C3%A9rences%20de%20Bamako"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] font-medium transition-colors hover:text-[#B57A0A]"
+                      className="group inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] font-bold transition-colors hover:text-[#D49B0F]"
                       style={{ color: INK }}
                     >
                       {lang === "fr" ? "Ouvrir dans Maps" : "Open in Maps"}
@@ -230,7 +231,7 @@ export default function Contact() {
                 <div className="flex items-center gap-3 mb-8">
                   <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
                   <span
-                    className="text-[10px] uppercase tracking-[0.28em]"
+                    className="text-[10px] uppercase tracking-[0.28em] font-bold"
                     style={{ color: BRONZE }}
                   >
                     {lang === "fr" ? "Formulaire" : "Form"}
@@ -239,14 +240,14 @@ export default function Contact() {
 
                 <div className="mb-10">
                   <h3
-                    className="font-serif tracking-[-0.02em] text-2xl sm:text-3xl mb-3"
+                    className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-3xl mb-3"
                     style={{ color: INK }}
                   >
                     {lang === "fr" ? "Envoyez-nous un message" : "Send us a message"}
                   </h3>
                   <p
-                    className="text-[13px] sm:text-[14px] font-serif italic flex items-center gap-2"
-                    style={{ color: "rgba(12,45,82,0.55)" }}
+                    className="text-[13px] sm:text-[14px] font-serif italic flex items-center gap-2 font-medium"
+                    style={{ color: "rgba(12,45,82,0.6)" }}
                   >
                     <Clock size={13} style={{ color: BRONZE }} />
                     {lang === "fr"
@@ -263,8 +264,8 @@ export default function Contact() {
                   {/* Bloc 1 */}
                   <div>
                     <p
-                      className="text-[9px] uppercase tracking-[0.24em] mb-4"
-                      style={{ color: "rgba(12,45,82,0.45)" }}
+                      className="text-[9px] uppercase tracking-[0.24em] mb-4 font-bold"
+                      style={{ color: "rgba(12,45,82,0.5)" }}
                     >
                       {lang === "fr" ? "Vos coordonnées" : "Your details"}
                     </p>
@@ -277,7 +278,7 @@ export default function Contact() {
                         onChange={(e) =>
                           setForm({ ...form, name: e.target.value })
                         }
-                        className={`${inputCls} focus:border-[#B57A0A]`}
+                        className={`${inputCls} focus:border-[#D49B0F]`}
                         style={{ borderColor: RULE, color: INK }}
                       />
                       <input
@@ -288,7 +289,7 @@ export default function Contact() {
                         onChange={(e) =>
                           setForm({ ...form, email: e.target.value })
                         }
-                        className={`${inputCls} focus:border-[#B57A0A]`}
+                        className={`${inputCls} focus:border-[#D49B0F]`}
                         style={{ borderColor: RULE, color: INK }}
                       />
                     </div>
@@ -299,7 +300,7 @@ export default function Contact() {
                       onChange={(e) =>
                         setForm({ ...form, organization: e.target.value })
                       }
-                      className={`${inputCls} focus:border-[#B57A0A] mt-4 sm:mt-6`}
+                      className={`${inputCls} focus:border-[#D49B0F] mt-4 sm:mt-6`}
                       style={{ borderColor: RULE, color: INK }}
                     />
                   </div>
@@ -307,8 +308,8 @@ export default function Contact() {
                   {/* Bloc 2 — Select avec Chevron personnalisé */}
                   <div>
                     <p
-                      className="text-[9px] uppercase tracking-[0.24em] mb-4"
-                      style={{ color: "rgba(12,45,82,0.45)" }}
+                      className="text-[9px] uppercase tracking-[0.24em] mb-4 font-bold"
+                      style={{ color: "rgba(12,45,82,0.5)" }}
                     >
                       {lang === "fr" ? "Votre demande" : "Your request"}
                     </p>
@@ -320,7 +321,7 @@ export default function Contact() {
                         onChange={(e) =>
                           setForm({ ...form, request_type: e.target.value })
                         }
-                        className={`${inputCls} focus:border-[#B57A0A] cursor-pointer pr-10`}
+                        className={`${inputCls} focus:border-[#D49B0F] cursor-pointer pr-10`}
                         style={{ borderColor: RULE, color: INK }}
                       >
                         {types.map((ty) => (
@@ -345,8 +346,8 @@ export default function Contact() {
                   {/* Bloc 3 */}
                   <div>
                     <p
-                      className="text-[9px] uppercase tracking-[0.24em] mb-4"
-                      style={{ color: "rgba(12,45,82,0.45)" }}
+                      className="text-[9px] uppercase tracking-[0.24em] mb-4 font-bold"
+                      style={{ color: "rgba(12,45,82,0.5)" }}
                     >
                       {lang === "fr" ? "Votre message" : "Your message"}
                     </p>
@@ -359,7 +360,7 @@ export default function Contact() {
                       onChange={(e) =>
                         setForm({ ...form, message: e.target.value })
                       }
-                      className={`${inputCls} focus:border-[#B57A0A] resize-none`}
+                      className={`${inputCls} focus:border-[#D49B0F] resize-none`}
                       style={{ borderColor: RULE, color: INK }}
                     />
                   </div>
@@ -369,14 +370,14 @@ export default function Contact() {
                     <button
                       type="submit"
                       data-testid="contact-submit-button"
-                      className="group inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90"
+                      className="group inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-4 text-[12px] uppercase tracking-[0.18em] font-bold transition-opacity hover:opacity-90"
                       style={{ backgroundColor: INK, color: PAPER }}
                     >
                       {t("contact.send")}
                       <Send
                         size={15}
                         className="transition-transform group-hover:translate-x-1"
-                        style={{ color: BRONZE }}
+                        style={{ color: GOLD }}
                       />
                     </button>
                   </div>

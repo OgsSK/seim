@@ -5,15 +5,16 @@ import { PageHero } from "../components/PageHero";
 import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
 
-/* Palette éditoriale premium */
+/* Palette éditoriale premium — jaune du logo SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#B57A0A";
+const BRONZE = "#D49B0F";
+const GOLD = "#F7B731";
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_LIGHT = "rgba(12,45,82,0.08)";
 const EASE = [0.22, 1, 0.36, 1];
 
-/* Ordre stable des filtres — hors composant pour ne pas être recréé */
+/* Ordre stable des filtres */
 const FILTER_ORDER = [
   "all",
   "keynote",
@@ -56,7 +57,7 @@ function EmptyState({ lang, hasFilter }) {
       <div className="mx-auto mb-6 flex justify-center" style={{ color: BRONZE }}>
         <CalendarDays size={32} strokeWidth={1} />
       </div>
-      <h3 className="font-serif text-xl sm:text-2xl mb-3" style={{ color: INK }}>
+      <h3 className="font-serif font-extrabold text-xl sm:text-2xl mb-3" style={{ color: INK }}>
         {hasFilter
           ? lang === "fr"
             ? "Aucune session pour cette sélection"
@@ -67,7 +68,7 @@ function EmptyState({ lang, hasFilter }) {
       </h3>
       <p
         className="font-serif italic text-[15px] max-w-md mx-auto leading-relaxed"
-        style={{ color: "rgba(12,45,82,0.55)" }}
+        style={{ color: "rgba(12,45,82,0.6)" }}
       >
         {hasFilter
           ? lang === "fr"
@@ -149,20 +150,20 @@ export default function Programme() {
           {/* En-tête */}
           <div className="flex items-center gap-3 mb-8">
             <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
-            <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
+            <span className="text-[10px] uppercase tracking-[0.28em] font-bold" style={{ color: BRONZE }}>
               {lang === "fr" ? "Planning" : "Schedule"}
             </span>
             {sessions.length > 0 && (
               <>
                 <span className="flex-1 h-px" style={{ backgroundColor: RULE }} />
-                <span className="font-mono-num text-[11px] uppercase tracking-[0.15em]" style={{ color: "rgba(12,45,82,0.4)" }}>
+                <span className="font-mono-num text-[11px] uppercase tracking-[0.15em] font-semibold" style={{ color: "rgba(12,45,82,0.45)" }}>
                   {sessions.length} {lang === "fr" ? "Sessions" : "Sessions"}
                 </span>
               </>
             )}
           </div>
 
-          <h2 className="font-serif tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.1] mb-10" style={{ color: INK }}>
+          <h2 className="font-serif font-extrabold tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.1] mb-10" style={{ color: INK }}>
             {lang === "fr" ? "Déroulé des deux journées" : "Two-day schedule"}
           </h2>
 
@@ -170,10 +171,10 @@ export default function Programme() {
           {sessions.length > 0 && (
             <div className="flex flex-wrap items-center gap-x-10 sm:gap-x-16 gap-y-6 pb-8 border-b mb-10" style={{ borderColor: RULE }}>
               <div>
-                <p className="font-light text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
+                <p className="font-serif font-extrabold text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
                   {countByDay(day)}
                 </p>
-                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(12,45,82,0.45)" }}>
+                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ color: "rgba(12,45,82,0.5)" }}>
                   {lang === "fr" ? "Sessions" : "Sessions"}
                 </p>
               </div>
@@ -181,10 +182,10 @@ export default function Programme() {
               <span className="hidden sm:block w-px h-10" style={{ backgroundColor: RULE }} />
 
               <div>
-                <p className="font-light text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
+                <p className="font-serif font-extrabold text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
                   {uniqueSpeakersInDay}
                 </p>
-                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(12,45,82,0.45)" }}>
+                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ color: "rgba(12,45,82,0.5)" }}>
                   {lang === "fr" ? "Intervenants" : "Speakers"}
                 </p>
               </div>
@@ -192,10 +193,10 @@ export default function Programme() {
               <span className="hidden sm:block w-px h-10" style={{ backgroundColor: RULE }} />
 
               <div>
-                <p className="font-light text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
+                <p className="font-serif font-extrabold text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
                   {availableDays.length}
                 </p>
-                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(12,45,82,0.45)" }}>
+                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ color: "rgba(12,45,82,0.5)" }}>
                   {lang === "fr"
                     ? availableDays.length > 1
                       ? "Journées"
@@ -221,12 +222,12 @@ export default function Programme() {
                     setDay(d);
                     setOpenId(null);
                   }}
-                  className={`text-[11px] uppercase tracking-[0.18em] font-medium pb-1 border-b-2 transition-colors ${
+                  className={`text-[11px] uppercase tracking-[0.18em] font-bold pb-1 border-b-2 transition-colors ${
                     active
-                      ? "border-[#B57A0A]"
+                      ? "border-[#D49B0F]"
                       : "border-transparent hover:text-[#0C2D52]"
                   }`}
-                  style={{ color: active ? INK : "rgba(12,45,82,0.4)" }}
+                  style={{ color: active ? INK : "rgba(12,45,82,0.45)" }}
                 >
                   {d === 1 ? t("program.day1") : t("program.day2")}
                   {count > 0 && (
@@ -249,12 +250,12 @@ export default function Programme() {
                     key={f}
                     data-testid={`program-filter-${f}`}
                     onClick={() => setType(f)}
-                    className={`text-[10px] uppercase tracking-[0.18em] font-medium pb-1 border-b-2 transition-colors ${
+                    className={`text-[10px] uppercase tracking-[0.18em] font-bold pb-1 border-b-2 transition-colors ${
                       active
-                        ? "border-[#B57A0A]"
+                        ? "border-[#D49B0F]"
                         : "border-transparent hover:text-[#0C2D52]"
                     }`}
-                    style={{ color: active ? INK : "rgba(12,45,82,0.4)" }}
+                    style={{ color: active ? INK : "rgba(12,45,82,0.45)" }}
                   >
                     {t(`program.types.${f}`)}
                   </button>
@@ -302,12 +303,12 @@ export default function Programme() {
                           className="relative w-full text-left py-6 sm:py-7 flex flex-col sm:flex-row sm:items-baseline gap-3 sm:gap-6"
                         >
                           {/* Heure */}
-                          <div className="font-mono-num text-xs sm:text-sm font-semibold text-gold-dark sm:w-24 shrink-0 flex sm:block items-center gap-2" style={{ color: BRONZE }}>
+                          <div className="font-mono-num text-xs sm:text-sm font-bold sm:w-24 shrink-0 flex sm:block items-center gap-2" style={{ color: BRONZE }}>
                             <span className="flex items-center gap-1.5">
                               <Clock size={13} /> {s.time}
                             </span>
                             {s.end && (
-                              <span className="text-[11px] sm:text-xs sm:ml-[18px]" style={{ color: "rgba(12,45,82,0.35)" }}>
+                              <span className="text-[11px] sm:text-xs sm:ml-[18px] font-medium" style={{ color: "rgba(12,45,82,0.4)" }}>
                                 → {s.end}
                               </span>
                             )}
@@ -316,21 +317,21 @@ export default function Programme() {
                           {/* Titre + salle */}
                           <div className="flex-1 min-w-0 pr-8 sm:pr-0">
                             <h3
-                              className={`font-serif text-base sm:text-lg leading-snug transition-colors tracking-tight break-words ${
-                                isOpen ? "text-[#B57A0A]" : ""
+                              className={`font-serif font-extrabold text-base sm:text-lg leading-snug transition-colors tracking-tight break-words ${
+                                isOpen ? "" : ""
                               }`}
                               style={{ color: isOpen ? BRONZE : INK }}
                             >
                               {lang === "fr" ? s.title_fr : s.title_en}
                             </h3>
                             <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5">
-                              <p className="text-[12px] flex items-center gap-1.5" style={{ color: "rgba(12,45,82,0.5)" }}>
+                              <p className="text-[12px] flex items-center gap-1.5" style={{ color: "rgba(12,45,82,0.55)" }}>
                                 <MapPin size={12} className="shrink-0" />
                                 <span className="break-words">
                                   {lang === "fr" ? s.room_fr : s.room_en}
                                 </span>
                               </p>
-                              <span className="text-[10px] uppercase tracking-[0.15em]" style={{ color: BRONZE }}>
+                              <span className="text-[10px] uppercase tracking-[0.15em] font-bold" style={{ color: BRONZE }}>
                                 {t(`program.types.${s.type}`)}
                               </span>
                             </div>
@@ -366,13 +367,13 @@ export default function Programme() {
                             >
                               <div className="pb-6 pl-0 sm:pl-[7.5rem] pr-4">
                                 {(lang === "fr" ? s.desc_fr : s.desc_en) && (
-                                  <p className="font-serif text-[14px] leading-[1.75]" style={{ color: "rgba(12,45,82,0.65)" }}>
+                                  <p className="font-serif text-[14px] leading-[1.75]" style={{ color: "rgba(12,45,82,0.7)" }}>
                                     {lang === "fr" ? s.desc_fr : s.desc_en}
                                   </p>
                                 )}
                                 {sSpeakers.length > 0 && (
                                   <div className="mt-5">
-                                    <p className="text-[9px] uppercase tracking-[0.24em] mb-3 flex items-center gap-2" style={{ color: BRONZE }}>
+                                    <p className="text-[9px] uppercase tracking-[0.24em] mb-3 flex items-center gap-2 font-bold" style={{ color: BRONZE }}>
                                       <Users size={12} />
                                       {lang === "fr"
                                         ? sSpeakers.length > 1
@@ -397,7 +398,7 @@ export default function Programme() {
                                               onError={(e) => (e.currentTarget.style.display = "none")}
                                             />
                                           ) : (
-                                            <span className="w-7 h-7 flex items-center justify-center text-[10px] font-bold shrink-0" style={{ backgroundColor: INK, color: BRONZE }}>
+                                            <span className="w-7 h-7 flex items-center justify-center text-[10px] font-bold shrink-0" style={{ backgroundColor: INK, color: GOLD }}>
                                               {sp.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
                                             </span>
                                           )}
@@ -405,7 +406,7 @@ export default function Programme() {
                                             <p className="text-[11px] font-bold truncate" style={{ color: INK }}>
                                               {sp.name}
                                             </p>
-                                            <p className="text-[10px] truncate" style={{ color: "rgba(12,45,82,0.5)" }}>
+                                            <p className="text-[10px] truncate" style={{ color: "rgba(12,45,82,0.55)" }}>
                                               {sp.company}
                                             </p>
                                           </div>

@@ -1,10 +1,10 @@
 import { PageHero } from "../components/PageHero";
 import { EVENT } from "../config/event";
 
-/* Palette éditoriale premium */
+/* Palette éditoriale premium — jaune du logo SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#B57A0A";
+const BRONZE = "#D49B0F";
 const RULE = "rgba(12,45,82,0.15)";
 
 /* ---------- Composant Section ---------- */
@@ -13,7 +13,7 @@ function LegalSection({ num, title, children }) {
     <section className="grid grid-cols-[auto_1fr] gap-4 sm:gap-8 items-start py-8 border-b last:border-0" style={{ borderColor: RULE }}>
       {/* Numérotation éditoriale */}
       <span 
-        className="font-mono-num text-[11px] tracking-[0.15em] pt-1"
+        className="font-mono-num text-[11px] tracking-[0.15em] pt-1 font-bold"
         style={{ color: BRONZE }}
       >
         {num}
@@ -22,14 +22,14 @@ function LegalSection({ num, title, children }) {
       {/* Contenu */}
       <div>
         <h2 
-          className="font-serif text-lg sm:text-xl tracking-[-0.01em] mb-3"
+          className="font-serif font-extrabold text-lg sm:text-xl tracking-[-0.01em] mb-3"
           style={{ color: INK }}
         >
           {title}
         </h2>
         <div 
           className="font-serif text-[15px] sm:text-[16px] leading-[1.75]"
-          style={{ color: "rgba(12,45,82,0.65)" }}
+          style={{ color: "rgba(12,45,82,0.7)" }}
         >
           {children}
         </div>
@@ -56,7 +56,7 @@ export default function Legal({ type }) {
           <div className="flex items-center gap-3 mb-12">
             <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
             <span 
-              className="font-mono-num text-[10px] uppercase tracking-[0.28em]"
+              className="font-mono-num text-[10px] uppercase tracking-[0.28em] font-bold"
               style={{ color: BRONZE }}
             >
               {isLegal ? "Document officiel" : "Données personnelles"}
@@ -73,7 +73,7 @@ export default function Legal({ type }) {
                       {i > 0 && " ou "}
                       <a
                         href={`mailto:${mail}`}
-                        className="border-b transition-colors hover:text-[#B57A0A] hover:border-[#B57A0A] break-all"
+                        className="border-b font-semibold transition-colors hover:text-[#D49B0F] hover:border-[#D49B0F] break-all"
                         style={{ color: INK, borderColor: BRONZE }}
                       >
                         {mail}
@@ -83,7 +83,7 @@ export default function Legal({ type }) {
                   ·{" "}
                   <a
                     href={`tel:${EVENT.phone.replace(/\s/g, "")}`}
-                    className="border-b transition-colors hover:text-[#B57A0A] hover:border-[#B57A0A]"
+                    className="border-b font-semibold transition-colors hover:text-[#D49B0F] hover:border-[#D49B0F]"
                     style={{ color: INK, borderColor: BRONZE }}
                   >
                     {EVENT.phone}
@@ -129,7 +129,7 @@ export default function Legal({ type }) {
                       {i > 0 && " ou "}
                       <a
                         href={`mailto:${mail}`}
-                        className="border-b transition-colors hover:text-[#B57A0A] hover:border-[#B57A0A] break-all"
+                        className="border-b font-semibold transition-colors hover:text-[#D49B0F] hover:border-[#D49B0F] break-all"
                         style={{ color: INK, borderColor: BRONZE }}
                       >
                         {mail}
@@ -150,7 +150,7 @@ export default function Legal({ type }) {
           )}
 
           {/* Pied de page documentaire */}
-          <div className="mt-16 pt-6 border-t flex items-center justify-between text-[10px] uppercase tracking-[0.2em]" style={{ borderColor: RULE, color: "rgba(12,45,82,0.4)" }}>
+          <div className="mt-16 pt-6 border-t flex items-center justify-between text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ borderColor: RULE, color: "rgba(12,45,82,0.5)" }}>
             <span>SEIM · {isLegal ? "Légal" : "Confidentialité"}</span>
             <span className="font-mono-num">Édition 02 — MMXXVI</span>
           </div>

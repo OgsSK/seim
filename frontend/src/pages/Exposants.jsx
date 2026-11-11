@@ -7,10 +7,10 @@ import { Reveal } from "../components/Reveal";
 import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
 
-/* Palette éditoriale premium */
+/* Palette éditoriale premium — jaune du logo SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#B57A0A";
+const BRONZE = "#D49B0F";
 const GOLD = "#F7B731";
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_LIGHT = "rgba(12,45,82,0.08)";
@@ -21,7 +21,7 @@ const EASE = [0.22, 1, 0.36, 1];
    ============================================================ */
 const BADGE = {
   primary: "bg-[#0C2D52] text-[#F2F4F6]",
-  accent: "border border-[#B57A0A] text-[#B57A0A]",
+  accent: "border border-[#D49B0F] text-[#D49B0F]",
   neutral: "border border-[rgba(12,45,82,0.2)] text-[#0C2D52]/60",
 };
 
@@ -55,7 +55,6 @@ function ExhibitorCard({ exhibitor, lang, t }) {
     >
       {/* En-tête : logo + badge secteur */}
       <div className="flex items-start justify-between gap-3 mb-6">
-        {/* Conteneur unifié 88×88 — logo ET initiales strictement alignés */}
         <div
           className="shrink-0 flex items-center justify-center"
           style={{
@@ -76,21 +75,21 @@ function ExhibitorCard({ exhibitor, lang, t }) {
               onError={() => setImgErr(true)}
             />
           ) : (
-            <span className="font-serif text-2xl" style={{ color: GOLD }}>
+            <span className="font-serif font-extrabold text-2xl" style={{ color: GOLD }}>
               {initial}
             </span>
           )}
         </div>
 
         <span
-          className={`px-2.5 py-1 text-[9px] uppercase tracking-[0.18em] whitespace-nowrap ${variant}`}
+          className={`px-2.5 py-1 text-[9px] uppercase tracking-[0.18em] font-bold whitespace-nowrap ${variant}`}
         >
           {t(`exhibitors.sectors.${sector}`)}
         </span>
       </div>
 
       <h3
-        className="font-serif text-lg sm:text-xl leading-snug tracking-tight mb-2 break-words"
+        className="font-serif font-extrabold text-lg sm:text-xl leading-snug tracking-tight mb-2 break-words"
         style={{ color: INK }}
       >
         {name}
@@ -98,7 +97,7 @@ function ExhibitorCard({ exhibitor, lang, t }) {
       {desc && (
         <p
           className="text-[14px] leading-[1.65] line-clamp-3 font-serif italic mb-6"
-          style={{ color: "rgba(12,45,82,0.55)" }}
+          style={{ color: "rgba(12,45,82,0.6)" }}
         >
           {desc}
         </p>
@@ -109,8 +108,8 @@ function ExhibitorCard({ exhibitor, lang, t }) {
         style={{ borderColor: RULE }}
       >
         <span
-          className="inline-flex items-center gap-1.5 font-mono-num text-[10px] uppercase tracking-[0.1em]"
-          style={{ color: "rgba(12,45,82,0.5)" }}
+          className="inline-flex items-center gap-1.5 font-mono-num text-[10px] uppercase tracking-[0.1em] font-semibold"
+          style={{ color: "rgba(12,45,82,0.55)" }}
         >
           <Store size={13} strokeWidth={1.5} style={{ color: BRONZE }} className="shrink-0" />
           <span className="whitespace-nowrap">{t("exhibitors.stand")}</span>
@@ -123,7 +122,7 @@ function ExhibitorCard({ exhibitor, lang, t }) {
             target="_blank"
             rel="noopener noreferrer"
             data-testid={`exhibitor-site-${id}`}
-            className="group/link inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.15em] font-medium transition-colors hover:text-[#B57A0A] shrink-0"
+            className="group/link inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.15em] font-bold transition-colors hover:text-[#D49B0F] shrink-0"
             style={{ color: INK }}
           >
             {t("exhibitors.visitSite")}
@@ -150,14 +149,14 @@ function EmptyState({ lang }) {
       <div className="mx-auto mb-6 flex justify-center" style={{ color: BRONZE }}>
         <Building2 size={32} strokeWidth={1} />
       </div>
-      <h3 className="font-serif text-xl sm:text-2xl mb-3" style={{ color: INK }}>
+      <h3 className="font-serif font-extrabold text-xl sm:text-2xl mb-3" style={{ color: INK }}>
         {lang === "fr"
           ? "Les exposants seront annoncés prochainement"
           : "Exhibitors will be announced soon"}
       </h3>
       <p
         className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed mb-8"
-        style={{ color: "rgba(12,45,82,0.55)" }}
+        style={{ color: "rgba(12,45,82,0.6)" }}
       >
         {lang === "fr"
           ? "La liste des institutions, fintechs et entreprises présentes à la 2ᵉ édition est en cours de finalisation. Revenez bientôt pour la découvrir."
@@ -165,7 +164,7 @@ function EmptyState({ lang }) {
       </p>
       <Link
         to="/inscription?type=exposant"
-        className="group inline-flex items-center gap-2.5 text-[13px] font-medium transition-colors hover:text-[#B57A0A]"
+        className="group inline-flex items-center gap-2.5 text-[13px] font-bold transition-colors hover:text-[#D49B0F]"
         style={{ color: INK }}
       >
         <span className="border-b pb-0.5" style={{ borderColor: BRONZE }}>
@@ -234,7 +233,7 @@ export default function Exposants() {
           <div className="flex items-center gap-3 mb-6">
             <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
             <span
-              className="text-[10px] uppercase tracking-[0.28em] whitespace-nowrap"
+              className="text-[10px] uppercase tracking-[0.28em] whitespace-nowrap font-bold"
               style={{ color: BRONZE }}
             >
               {lang === "fr" ? "Sur le salon" : "At the show"}
@@ -243,8 +242,8 @@ export default function Exposants() {
               <>
                 <span className="flex-1 h-px" style={{ backgroundColor: RULE }} />
                 <span
-                  className="font-mono-num text-[11px] uppercase tracking-[0.15em] whitespace-nowrap"
-                  style={{ color: "rgba(12,45,82,0.4)" }}
+                  className="font-mono-num text-[11px] uppercase tracking-[0.15em] whitespace-nowrap font-semibold"
+                  style={{ color: "rgba(12,45,82,0.45)" }}
                 >
                   {filtered.length} {lang === "fr" ? "Exposants" : "Exhibitors"}
                 </span>
@@ -253,7 +252,7 @@ export default function Exposants() {
           </div>
 
           <h2
-            className="font-serif tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.1] mb-5 break-words"
+            className="font-serif font-extrabold tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.1] mb-5 break-words"
             style={{ color: INK }}
           >
             {lang === "fr" ? "Ils exposent au SEIM" : "They exhibit at SEIM"}
@@ -261,7 +260,7 @@ export default function Exposants() {
 
           <p
             className="font-serif italic text-[15px] sm:text-[16px] leading-[1.75] max-w-2xl mb-12"
-            style={{ color: "rgba(12,45,82,0.6)" }}
+            style={{ color: "rgba(12,45,82,0.65)" }}
           >
             {lang === "fr"
               ? "Institutions financières, fintechs, cabinets et médias spécialisés — découvrez les acteurs qui font vivre l'écosystème économique africain sur les deux jours du salon."
@@ -275,10 +274,10 @@ export default function Exposants() {
               style={{ borderColor: RULE }}
             >
               <div>
-                <p className="font-light text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
+                <p className="font-serif font-extrabold text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
                   {exhibitors.length}
                 </p>
-                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(12,45,82,0.45)" }}>
+                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ color: "rgba(12,45,82,0.5)" }}>
                   {lang === "fr" ? "Exposants" : "Exhibitors"}
                 </p>
               </div>
@@ -286,10 +285,10 @@ export default function Exposants() {
               <span className="hidden sm:block w-px h-10" style={{ backgroundColor: RULE }} />
 
               <div>
-                <p className="font-light text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
+                <p className="font-serif font-extrabold text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
                   {totalSectors}
                 </p>
-                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(12,45,82,0.45)" }}>
+                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ color: "rgba(12,45,82,0.5)" }}>
                   {lang === "fr" ? "Secteurs" : "Sectors"}
                 </p>
               </div>
@@ -297,10 +296,10 @@ export default function Exposants() {
               <span className="hidden sm:block w-px h-10" style={{ backgroundColor: RULE }} />
 
               <div>
-                <p className="font-light text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
+                <p className="font-serif font-extrabold text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
                   {totalStands || "—"}
                 </p>
-                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(12,45,82,0.45)" }}>
+                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ color: "rgba(12,45,82,0.5)" }}>
                   {lang === "fr" ? "Stands" : "Stands"}
                 </p>
               </div>
@@ -320,12 +319,12 @@ export default function Exposants() {
                     key={s}
                     data-testid={`exhibitor-filter-${s}`}
                     onClick={() => setSector(s)}
-                    className={`text-[11px] uppercase tracking-[0.18em] font-medium pb-1 border-b-2 transition-colors ${
+                    className={`text-[11px] uppercase tracking-[0.18em] font-bold pb-1 border-b-2 transition-colors ${
                       active
-                        ? "border-[#B57A0A]"
+                        ? "border-[#D49B0F]"
                         : "border-transparent hover:text-[#0C2D52]"
                     }`}
-                    style={{ color: active ? INK : "rgba(12,45,82,0.4)" }}
+                    style={{ color: active ? INK : "rgba(12,45,82,0.45)" }}
                   >
                     {t(`exhibitors.sectors.${s}`)}
                   </button>
@@ -337,13 +336,13 @@ export default function Exposants() {
           {/* Grille / états */}
           {loading ? (
             <div className="py-20 text-center">
-              <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.55)" }}>
+              <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.6)" }}>
                 {lang === "fr" ? "Chargement des exposants..." : "Loading exhibitors..."}
               </p>
             </div>
           ) : apiError ? (
             <div className="py-16 text-center border-y" style={{ borderColor: RULE }}>
-              <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.55)" }}>
+              <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.6)" }}>
                 {lang === "fr"
                   ? "Impossible de charger les exposants pour le moment."
                   : "Unable to load exhibitors at this time."}
@@ -353,14 +352,14 @@ export default function Exposants() {
             <EmptyState lang={lang} />
           ) : filtered.length === 0 ? (
             <div className="py-16 text-center border-y" style={{ borderColor: RULE }}>
-              <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.55)" }}>
+              <p className="font-serif italic text-[15px]" style={{ color: "rgba(12,45,82,0.6)" }}>
                 {lang === "fr"
                   ? "Aucun exposant dans ce secteur pour le moment."
                   : "No exhibitors in this sector yet."}
               </p>
               <button
                 onClick={() => setSector("all")}
-                className="mt-6 group inline-flex items-center gap-2 text-[13px] font-medium transition-colors hover:text-[#B57A0A]"
+                className="mt-6 group inline-flex items-center gap-2 text-[13px] font-bold transition-colors hover:text-[#D49B0F]"
                 style={{ color: INK }}
               >
                 <span className="border-b pb-0.5" style={{ borderColor: BRONZE }}>
@@ -401,13 +400,13 @@ export default function Exposants() {
                 <div className="relative max-w-2xl mt-4">
                   <div className="flex items-center gap-3 mb-6">
                     <span className="w-8 h-px" style={{ backgroundColor: GOLD }} />
-                    <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: GOLD }}>
+                    <span className="text-[10px] uppercase tracking-[0.28em] font-bold" style={{ color: GOLD }}>
                       {lang === "fr" ? "Rejoignez le salon" : "Join the show"}
                     </span>
                   </div>
 
                   <h3
-                    className="font-serif tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.6rem] leading-[1.1] mb-4 break-words"
+                    className="font-serif font-extrabold tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.6rem] leading-[1.1] mb-4 break-words"
                     style={{ color: PAPER }}
                   >
                     {t("exhibitors.become")}
@@ -415,7 +414,7 @@ export default function Exposants() {
 
                   <p
                     className="font-serif italic text-[15px] leading-[1.7] mb-10"
-                    style={{ color: "rgba(242,244,246,0.6)" }}
+                    style={{ color: "rgba(242,244,246,0.7)" }}
                   >
                     {t("partners.form.desc")}
                   </p>
@@ -424,7 +423,7 @@ export default function Exposants() {
                     <Link
                       to="/inscription?type=exposant"
                       data-testid="become-exhibitor-button"
-                      className="group inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90"
+                      className="group inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-bold transition-opacity hover:opacity-90"
                       style={{ backgroundColor: PAPER, color: INK }}
                     >
                       {lang === "fr" ? "Réserver un stand" : "Book a stand"}
@@ -436,8 +435,8 @@ export default function Exposants() {
                     </Link>
                     <Link
                       to="/inscription?type=partenaire"
-                      className="group inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-medium border transition-colors hover:bg-white/5"
-                      style={{ borderColor: "rgba(242,244,246,0.2)", color: PAPER }}
+                      className="group inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-bold border transition-colors hover:bg-white/5"
+                      style={{ borderColor: "rgba(242,244,246,0.25)", color: PAPER }}
                     >
                       {lang === "fr" ? "Devenir partenaire" : "Become a partner"}
                       <ArrowUpRight

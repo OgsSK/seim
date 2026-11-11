@@ -6,10 +6,10 @@ import { Reveal, Stagger, StaggerItem } from "../components/Reveal";
 import { useLanguage } from "../i18n/LanguageContext";
 import { api } from "../lib/api";
 
-/* Palette éditoriale premium */
+/* Palette éditoriale premium — jaune du logo SEIM */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#B57A0A";
+const BRONZE = "#D49B0F";
 const GOLD = "#F7B731";
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_LIGHT = "rgba(12,45,82,0.08)";
@@ -34,14 +34,14 @@ function EmptyState({ lang }) {
       <div className="mx-auto mb-6 flex justify-center" style={{ color: BRONZE }}>
         <Handshake size={32} strokeWidth={1} />
       </div>
-      <h3 className="font-serif text-xl sm:text-2xl mb-3" style={{ color: INK }}>
+      <h3 className="font-serif font-extrabold text-xl sm:text-2xl mb-3" style={{ color: INK }}>
         {lang === "fr"
           ? "Les partenaires seront annoncés prochainement"
           : "Partners will be announced soon"}
       </h3>
       <p
         className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed"
-        style={{ color: "rgba(12,45,82,0.55)" }}
+        style={{ color: "rgba(12,45,82,0.6)" }}
       >
         {lang === "fr"
           ? "La liste des partenaires et sponsors de la 2ᵉ édition est en cours de finalisation."
@@ -90,7 +90,7 @@ function PartnerCard({ partner, tier, lang }) {
         <div className="text-center sm:text-left">
           {/* Nom en très grande taille */}
           <p
-            className="font-serif tracking-[-0.03em] text-4xl sm:text-5xl lg:text-6xl leading-[0.95]"
+            className="font-serif font-extrabold tracking-[-0.03em] text-4xl sm:text-5xl lg:text-6xl leading-[0.95]"
             style={{ color: INK }}
           >
             {partner.name}
@@ -99,8 +99,8 @@ function PartnerCard({ partner, tier, lang }) {
           {/* Description du rôle */}
           {role && (
             <p
-              className="mt-3 sm:mt-4 font-serif italic text-[15px] sm:text-base lg:text-lg leading-[1.5] max-w-xl mx-auto sm:mx-0"
-              style={{ color: "rgba(12,45,82,0.6)" }}
+              className="mt-3 sm:mt-4 font-serif italic text-[15px] sm:text-base lg:text-lg leading-[1.5] max-w-xl mx-auto sm:mx-0 font-medium"
+              style={{ color: "rgba(12,45,82,0.65)" }}
             >
               {role}
             </p>
@@ -141,7 +141,7 @@ function PartnerCard({ partner, tier, lang }) {
             />
           </div>
           <p
-            className="font-serif text-[13px] sm:text-sm leading-tight tracking-tight max-w-[140px]"
+            className="font-serif font-bold text-[13px] sm:text-sm leading-tight tracking-tight max-w-[140px]"
             style={{ color: INK }}
           >
             {partner.name}
@@ -149,7 +149,7 @@ function PartnerCard({ partner, tier, lang }) {
         </>
       ) : (
         <p
-          className={`font-serif ${sizing.name} tracking-[-0.01em] leading-tight flex items-baseline gap-2`}
+          className={`font-serif font-extrabold ${sizing.name} tracking-[-0.01em] leading-tight flex items-baseline gap-2`}
           style={{ color: INK }}
         >
           <span
@@ -206,14 +206,14 @@ export default function Partenaires() {
               const list = partners.filter((p) => p.tier === tier);
               if (!list.length) return null;
 
-              // Le tier "principal" a un layout dédié (une seule colonne pleine largeur)
+              // Le tier "principal" a un layout dédié
               if (tier === "principal") {
                 return (
                   <div key={tier} data-testid={`partner-tier-${tier}`}>
                     <Reveal>
                       <div className="flex items-center gap-4 mb-6 sm:mb-8">
                         <span
-                          className="font-mono-num text-[9px] sm:text-[10px] uppercase tracking-[0.24em] whitespace-nowrap"
+                          className="font-mono-num text-[9px] sm:text-[10px] uppercase tracking-[0.24em] whitespace-nowrap font-bold"
                           style={{ color: BRONZE }}
                         >
                           {t(`partners.tiers.${tier}`)}
@@ -242,7 +242,7 @@ export default function Partenaires() {
                   <Reveal>
                     <div className="flex items-center gap-4 mb-6 sm:mb-8">
                       <span
-                        className="font-mono-num text-[9px] sm:text-[10px] uppercase tracking-[0.24em] whitespace-nowrap"
+                        className="font-mono-num text-[9px] sm:text-[10px] uppercase tracking-[0.24em] whitespace-nowrap font-bold"
                         style={{ color: BRONZE }}
                       >
                         {t(`partners.tiers.${tier}`)}
@@ -274,16 +274,16 @@ export default function Partenaires() {
               <div className="lg:col-span-6">
                 <div className="flex items-center gap-3 mb-6">
                   <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
-                  <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
+                  <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.28em] font-bold" style={{ color: BRONZE }}>
                     {lang === "fr" ? "Partenariat" : "Partnership"}
                   </span>
                 </div>
 
-                <h2 className="font-serif tracking-[-0.02em] text-2xl sm:text-3xl lg:text-[2.4rem] leading-[1.1] mb-5" style={{ color: INK }}>
+                <h2 className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-3xl lg:text-[2.4rem] leading-[1.1] mb-5" style={{ color: INK }}>
                   {t("partners.form.title")}
                 </h2>
 
-                <p className="font-serif italic text-[14px] sm:text-[15px] leading-[1.75] mb-8" style={{ color: "rgba(12,45,82,0.6)" }}>
+                <p className="font-serif italic text-[14px] sm:text-[15px] leading-[1.75] mb-8" style={{ color: "rgba(12,45,82,0.65)" }}>
                   {t("partners.form.desc")}
                 </p>
 
@@ -293,7 +293,7 @@ export default function Partenaires() {
                     "Stand dans l'espace expo",
                     "Prise de parole sur scène",
                   ].map((f, i) => (
-                    <p key={i} className="flex items-start gap-3 text-[13px] sm:text-[14px] leading-[1.6]" style={{ color: "rgba(12,45,82,0.7)" }}>
+                    <p key={i} className="flex items-start gap-3 text-[13px] sm:text-[14px] leading-[1.6] font-medium" style={{ color: "rgba(12,45,82,0.75)" }}>
                       <span className="w-1 h-1 rotate-45 shrink-0 mt-2" style={{ backgroundColor: BRONZE }} />
                       <span>{f}</span>
                     </p>
@@ -301,7 +301,7 @@ export default function Partenaires() {
                 </div>
               </div>
 
-              {/* Colonne action (Droite) — renvoie vers le formulaire unique d'inscription */}
+              {/* Colonne action (Droite) */}
               <div className="lg:col-span-6 flex">
                 <div
                   data-testid="sponsorship-cta"
@@ -311,7 +311,7 @@ export default function Partenaires() {
                   <div className="seim-pattern" aria-hidden="true" />
                   <div className="relative">
                     <Handshake size={28} strokeWidth={1.25} style={{ color: GOLD }} />
-                    <p className="mt-6 font-serif text-xl sm:text-2xl leading-[1.3]">
+                    <p className="mt-6 font-serif font-extrabold text-xl sm:text-2xl leading-[1.3]">
                       {lang === "fr"
                         ? "Inscrivez-vous comme partenaire ou sponsor : votre demande arrive directement à l'équipe SEIM sur WhatsApp."
                         : "Register as a partner or sponsor: your request goes straight to the SEIM team on WhatsApp."}
@@ -320,7 +320,7 @@ export default function Partenaires() {
                   <Link
                     to="/inscription?type=partenaire"
                     data-testid="sponsor-submit-button"
-                    className="relative group inline-flex justify-center items-center gap-2 sm:gap-3 w-full sm:w-auto self-start px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90"
+                    className="relative group inline-flex justify-center items-center gap-2 sm:gap-3 w-full sm:w-auto self-start px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-bold transition-opacity hover:opacity-90"
                     style={{ backgroundColor: GOLD, color: INK }}
                   >
                     {t("partners.become")}

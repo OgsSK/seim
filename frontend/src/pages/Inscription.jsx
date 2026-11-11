@@ -12,20 +12,17 @@ import { EVENT } from "../config/event";
 import { BLANK, buildMessage, openWhatsApp } from "../lib/whatsapp";
 import { downloadIcs, googleCalendarUrl } from "../lib/calendar";
 
-/* Palette charte SEIM */
+/* Palette charte SEIM — jaune du logo */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#B57A0A";
+const BRONZE = "#D49B0F";
+const GOLD = "#F7B731";
 const RULE = "rgba(12,45,82,0.15)";
 
-/* Style des champs de saisie (ligne éditoriale) */
+/* Style des champs de saisie */
 const inputCls =
   "w-full px-0 py-3 bg-transparent border-0 border-b text-[15px] placeholder-[#0C2D52]/30 focus:outline-none focus:ring-0 transition-colors appearance-none";
 
-/*
- * Base d'inscription : chaque type adapte le formulaire et le message WhatsApp.
- * intro = phrase d'ouverture du message, ask = demande de clôture.
- */
 const TYPES = {
   visiteur: {
     icon: Users,
@@ -108,10 +105,7 @@ const TYPE_KEYS = Object.keys(TYPES);
 /* Options de liste (fr/en) */
 const opt = (fr, en) => ({ fr, en: en || fr });
 
-/*
- * Champs spécifiques à chaque type d'inscription.
- * kind: "text" | "url" | "select" | "textarea" — full: occupe toute la largeur.
- */
+/* Champs spécifiques */
 const FIELDS = {
   visiteur: {
     section: opt("Votre profil", "Your profile"),
@@ -177,12 +171,12 @@ const FIELDS = {
   },
 };
 
-/* Libellé de section (trait + titre doré) */
+/* Libellé de section */
 function SectionLabel({ children, mb = "mb-8" }) {
   return (
     <div className={`flex items-center gap-3 ${mb}`}>
       <span className="w-8 h-px" style={{ backgroundColor: RULE }} />
-      <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
+      <span className="text-[10px] uppercase tracking-[0.28em] font-bold" style={{ color: BRONZE }}>
         {children}
       </span>
     </div>
@@ -212,7 +206,6 @@ export default function Inscription() {
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
   const [sent, setSent] = useState(null);
 
-  // Suit le type passé dans l'URL (ex. lien « Devenir exposant » depuis le pied de page)
   useEffect(() => {
     if (TYPE_KEYS.includes(urlType)) {
       setForm((f) => ({ ...f, type: urlType }));
@@ -283,7 +276,7 @@ export default function Inscription() {
       placeholder={placeholder}
       value={form[key]}
       onChange={set(key)}
-      className={`${inputCls} focus:border-[#B57A0A]`}
+      className={`${inputCls} focus:border-[#D49B0F]`}
       style={{ borderColor: RULE, color: INK }}
     />
   );
@@ -302,13 +295,13 @@ export default function Inscription() {
             <Reveal>
               <div className="flex items-center gap-3 mb-6">
                 <CheckCircle2 size={22} style={{ color: "#3AA57C" }} />
-                <span className="text-[10px] uppercase tracking-[0.28em]" style={{ color: "#3AA57C" }}>
+                <span className="text-[10px] uppercase tracking-[0.28em] font-bold" style={{ color: "#3AA57C" }}>
                   {L("Demande préparée", "Request ready")}
                 </span>
               </div>
               <h2
                 data-testid="thank-you-title"
-                className="font-serif text-3xl sm:text-4xl lg:text-5xl leading-[1.1] tracking-[-0.02em]"
+                className="font-serif font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-[1.1] tracking-[-0.02em]"
                 style={{ color: INK }}
               >
                 {L(`Merci ${sent.firstName} !`, `Thank you ${sent.firstName}!`)}
@@ -316,7 +309,7 @@ export default function Inscription() {
               <p className="mt-5 max-w-2xl text-[15px] sm:text-[16px] leading-[1.75]" style={{ color: "rgba(12,45,82,0.7)" }}>
                 {L(
                   `Votre inscription en tant que « ${sent.label} » a été préparée dans WhatsApp. Si ce n'est pas déjà fait, appuyez sur Envoyer : l'équipe SEIM vous répondra directement sur WhatsApp.`,
-                  `Your registration as “${sent.label}” has been prepared in WhatsApp. If you haven't yet, tap Send: the SEIM team will reply to you directly on WhatsApp.`
+                  `Your registration as "${sent.label}" has been prepared in WhatsApp. If you haven't yet, tap Send: the SEIM team will reply to you directly on WhatsApp.`
                 )}
               </p>
             </Reveal>
@@ -331,15 +324,15 @@ export default function Inscription() {
                 <div className="seim-pattern" aria-hidden="true" />
                 <div className="relative grid gap-8 lg:grid-cols-2 lg:items-center">
                   <div className="space-y-5">
-                    <p className="text-[10px] uppercase tracking-[0.28em]" style={{ color: "#F7B731" }}>
+                    <p className="text-[10px] uppercase tracking-[0.28em] font-bold" style={{ color: GOLD }}>
                       {L("À noter dans votre agenda", "Save the date")}
                     </p>
-                    <p className="flex items-start gap-3 font-serif text-2xl sm:text-3xl leading-tight">
-                      <CalendarDays size={22} className="mt-1.5 shrink-0" style={{ color: "#F7B731" }} />
+                    <p className="flex items-start gap-3 font-serif font-extrabold text-2xl sm:text-3xl leading-tight">
+                      <CalendarDays size={22} className="mt-1.5 shrink-0" style={{ color: GOLD }} />
                       {fr ? EVENT.dates_fr : EVENT.dates_en}
                     </p>
-                    <p className="flex items-start gap-3 text-[14px] sm:text-[15px] leading-[1.6]" style={{ color: "rgba(242,244,246,0.8)" }}>
-                      <MapPin size={18} className="mt-0.5 shrink-0" style={{ color: "#F7B731" }} />
+                    <p className="flex items-start gap-3 text-[14px] sm:text-[15px] leading-[1.6] font-medium" style={{ color: "rgba(242,244,246,0.8)" }}>
+                      <MapPin size={18} className="mt-0.5 shrink-0" style={{ color: GOLD }} />
                       <span>
                         {fr ? EVENT.venue_fr : EVENT.venue_en}
                         <br />
@@ -356,7 +349,7 @@ export default function Inscription() {
                     type="button"
                     data-testid="thank-you-add-calendar"
                     onClick={() => downloadIcs(lang)}
-                    className="inline-flex items-center justify-center gap-3 px-6 py-3.5 text-[11px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90"
+                    className="inline-flex items-center justify-center gap-3 px-6 py-3.5 text-[11px] uppercase tracking-[0.18em] font-bold transition-opacity hover:opacity-90"
                     style={{ backgroundColor: PAPER, color: INK }}
                   >
                     <CalendarPlus size={16} style={{ color: BRONZE }} />
@@ -374,10 +367,10 @@ export default function Inscription() {
                         { share: true }
                       )
                     }
-                    className="inline-flex items-center justify-center gap-3 px-6 py-3.5 text-[11px] uppercase tracking-[0.18em] font-medium border transition-colors hover:bg-white/5"
+                    className="inline-flex items-center justify-center gap-3 px-6 py-3.5 text-[11px] uppercase tracking-[0.18em] font-bold border transition-colors hover:bg-white/5"
                     style={{ borderColor: "rgba(242,244,246,0.3)", color: PAPER }}
                   >
-                    <UserPlus size={16} style={{ color: "#F7B731" }} />
+                    <UserPlus size={16} style={{ color: GOLD }} />
                     {L("Inviter un ami sur WhatsApp", "Invite a friend on WhatsApp")}
                   </button>
                   <a
@@ -385,8 +378,8 @@ export default function Inscription() {
                     target="_blank"
                     rel="noopener noreferrer"
                     data-testid="thank-you-google-calendar"
-                    className="text-[12px] underline underline-offset-4 sm:ml-2 text-center transition-colors hover:text-[#F7B731]"
-                    style={{ color: "rgba(242,244,246,0.7)" }}
+                    className="text-[12px] underline underline-offset-4 sm:ml-2 text-center font-medium transition-colors hover:text-[#F7B731]"
+                    style={{ color: "rgba(242,244,246,0.75)" }}
                   >
                     {L("ou Google Agenda", "or Google Calendar")}
                   </a>
@@ -400,8 +393,8 @@ export default function Inscription() {
                 <Link
                   to="/programme"
                   data-testid="thank-you-program-link"
-                  className="group inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90"
-                  style={{ backgroundColor: "#F7B731", color: INK }}
+                  className="group inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-bold transition-opacity hover:opacity-90"
+                  style={{ backgroundColor: GOLD, color: INK }}
                 >
                   {L("Voir le programme", "See the programme")}
                   <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -410,7 +403,7 @@ export default function Inscription() {
                   type="button"
                   data-testid="thank-you-reopen-whatsapp"
                   onClick={() => openWhatsApp(sent.message)}
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-medium border transition-colors hover:border-[#0C2D52]"
+                  className="inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.18em] font-bold border transition-colors hover:border-[#0C2D52]"
                   style={{ borderColor: RULE, color: INK }}
                 >
                   <MessageCircle size={16} style={{ color: BRONZE }} />
@@ -420,8 +413,8 @@ export default function Inscription() {
                   type="button"
                   data-testid="thank-you-new-registration"
                   onClick={resetForm}
-                  className="inline-flex items-center justify-center gap-3 px-6 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-colors hover:text-[#B57A0A]"
-                  style={{ color: "rgba(12,45,82,0.6)" }}
+                  className="inline-flex items-center justify-center gap-3 px-6 py-4 text-[12px] uppercase tracking-[0.18em] font-bold transition-colors hover:text-[#D49B0F]"
+                  style={{ color: "rgba(12,45,82,0.65)" }}
                 >
                   <RotateCcw size={14} />
                   {L("Nouvelle inscription", "New registration")}
@@ -435,7 +428,7 @@ export default function Inscription() {
           onSubmit={submit}
           className="max-w-4xl mx-auto px-5 sm:px-8"
         >
-          {/* ============ Base d'inscription ============ */}
+          {/* Base d'inscription */}
           <Reveal>
             <SectionLabel>{L("Je m'inscris en tant que", "I am registering as")}</SectionLabel>
 
@@ -454,11 +447,11 @@ export default function Inscription() {
                     className={`text-left p-6 border transition-colors flex flex-col gap-4 ${
                       active
                         ? "border-[#0C2D52] bg-white"
-                        : "border-[rgba(12,45,82,0.15)] bg-transparent hover:border-[#B57A0A]"
+                        : "border-[rgba(12,45,82,0.15)] bg-transparent hover:border-[#D49B0F]"
                     }`}
                   >
                     <div className="flex items-center justify-between gap-3">
-                      <Icon size={20} style={{ color: active ? "#F7B731" : BRONZE }} />
+                      <Icon size={20} style={{ color: active ? GOLD : BRONZE }} />
                       <span
                         className="w-3.5 h-3.5 rounded-full border flex items-center justify-center"
                         style={{ borderColor: active ? INK : RULE }}
@@ -467,10 +460,10 @@ export default function Inscription() {
                       </span>
                     </div>
                     <div>
-                      <h3 className="font-serif text-lg leading-tight" style={{ color: INK }}>
+                      <h3 className="font-serif font-extrabold text-lg leading-tight" style={{ color: INK }}>
                         {item.label}
                       </h3>
-                      <p className="mt-2 text-[13px] leading-[1.6]" style={{ color: "rgba(12,45,82,0.55)" }}>
+                      <p className="mt-2 text-[13px] leading-[1.6]" style={{ color: "rgba(12,45,82,0.6)" }}>
                         {item.desc}
                       </p>
                     </div>
@@ -480,7 +473,7 @@ export default function Inscription() {
             </div>
           </Reveal>
 
-          {/* ============ Coordonnées ============ */}
+          {/* Coordonnées */}
           <Reveal delay={0.1}>
             <SectionLabel>{L("Vos coordonnées", "Your details")}</SectionLabel>
 
@@ -495,7 +488,7 @@ export default function Inscription() {
                   aria-label={L("Pays", "Country")}
                   value={form.country}
                   onChange={set("country")}
-                  className={`${inputCls} pr-8 focus:border-[#B57A0A] cursor-pointer`}
+                  className={`${inputCls} pr-8 focus:border-[#D49B0F] cursor-pointer`}
                   style={{ borderColor: RULE, color: INK }}
                 >
                   {t("register.countries").map((c) => (
@@ -509,7 +502,7 @@ export default function Inscription() {
             </div>
           </Reveal>
 
-          {/* ============ Champs adaptés au type d'inscription ============ */}
+          {/* Champs adaptés au type */}
           <Reveal delay={0.12} key={`fields-${form.type}`}>
             <SectionLabel>{spec.section[lk]}</SectionLabel>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 mb-16" data-testid={`reg-fields-${form.type}`}>
@@ -527,7 +520,7 @@ export default function Inscription() {
                 if (f.kind === "select") {
                   return (
                     <div key={f.key} className={`relative ${span}`}>
-                      <select {...common} className={`${inputCls} pr-8 focus:border-[#B57A0A] cursor-pointer`}>
+                      <select {...common} className={`${inputCls} pr-8 focus:border-[#D49B0F] cursor-pointer`}>
                         <option value="" disabled>
                           {placeholder}
                         </option>
@@ -548,14 +541,14 @@ export default function Inscription() {
                     type="text"
                     inputMode={f.kind === "url" ? "url" : undefined}
                     placeholder={placeholder}
-                    className={`${inputCls} ${span} focus:border-[#B57A0A]`}
+                    className={`${inputCls} ${span} focus:border-[#D49B0F]`}
                   />
                 );
               })}
             </div>
           </Reveal>
 
-          {/* ============ Thèmes d'intérêt (participants) ============ */}
+          {/* Thèmes d'intérêt */}
           {form.type === "visiteur" && (
             <Reveal delay={0.15}>
               <SectionLabel mb="mb-6">{t("register.interests")}</SectionLabel>
@@ -568,10 +561,10 @@ export default function Inscription() {
                       key={i}
                       data-testid={`interest-chip-${i}`}
                       onClick={() => toggleInterest(String(i))}
-                      className={`px-4 py-2 text-[11px] uppercase tracking-[0.15em] font-medium border transition-colors ${
+                      className={`px-4 py-2 text-[11px] uppercase tracking-[0.15em] font-bold border transition-colors ${
                         active
                           ? "bg-[#0C2D52] text-[#F2F4F6] border-[#0C2D52]"
-                          : "bg-transparent text-[#0C2D52]/60 border-[rgba(12,45,82,0.2)] hover:border-[#B57A0A] hover:text-[#0C2D52]"
+                          : "bg-transparent text-[#0C2D52]/70 border-[rgba(12,45,82,0.2)] hover:border-[#D49B0F] hover:text-[#0C2D52]"
                       }`}
                     >
                       {int_}
@@ -582,7 +575,7 @@ export default function Inscription() {
             </Reveal>
           )}
 
-          {/* ============ Précisions ============ */}
+          {/* Précisions */}
           <Reveal delay={0.2}>
             <SectionLabel>{L("Précisions (facultatif)", "Details (optional)")}</SectionLabel>
             <textarea
@@ -591,24 +584,24 @@ export default function Inscription() {
               placeholder={L("Un mot à ajouter pour l'équipe SEIM ?", "Anything to add for the SEIM team?")}
               value={form.message}
               onChange={set("message")}
-              className={`${inputCls} resize-none mb-16 focus:border-[#B57A0A]`}
+              className={`${inputCls} resize-none mb-16 focus:border-[#D49B0F]`}
               style={{ borderColor: RULE, color: INK }}
             />
           </Reveal>
 
-          {/* ============ Envoi WhatsApp ============ */}
+          {/* Envoi WhatsApp */}
           <Reveal delay={0.25}>
             <div className="pt-4 border-t" style={{ borderColor: RULE }}>
               <button
                 type="submit"
                 data-testid="reg-submit-button"
-                className="mt-8 w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 text-[12px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-90"
+                className="mt-8 w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 text-[12px] uppercase tracking-[0.18em] font-bold transition-opacity hover:opacity-90"
                 style={{ backgroundColor: INK, color: PAPER }}
               >
-                <MessageCircle size={16} style={{ color: "#F7B731" }} />
+                <MessageCircle size={16} style={{ color: GOLD }} />
                 {t("register.submit")}
               </button>
-              <p className="mt-4 text-[13px] leading-[1.6]" style={{ color: "rgba(12,45,82,0.55)" }}>
+              <p className="mt-4 text-[13px] leading-[1.6] font-medium" style={{ color: "rgba(12,45,82,0.6)" }}>
                 {t("register.whatsappNote")}
               </p>
             </div>

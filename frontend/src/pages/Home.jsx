@@ -10,10 +10,10 @@ import { SmartImg } from "../components/SectionHead";
 import { EditorialIllustration } from "../components/EditorialIllustration";
 import { SpeakerModal } from "../components/SpeakerModal";
 
-/* Palette éditoriale premium — charte SEIM */
+/* Palette — jaune du logo SEIM #F7B731, version lisible sur clair = #D49B0F */
 const PAPER = "#F2F4F6";
 const INK = "#0C2D52";
-const BRONZE = "#B57A0A";
+const BRONZE = "#D49B0F";
 const GOLD = "#F7B731";
 const CREAM = "#F2F4F6";
 const RULE = "rgba(12,45,82,0.12)";
@@ -43,7 +43,7 @@ function useCountdown(target) {
 }
 
 /* ============================================================
-   AnimatedNumber — chiffre qui slide à chaque changement
+   AnimatedNumber
    ============================================================ */
 function AnimatedNumber({ value, className = "", style = {} }) {
   const formatted = String(value).padStart(2, "0");
@@ -141,7 +141,7 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.75, delay: 0.15, ease: EASE }}
-            className="font-serif leading-[1.02] tracking-[-0.03em] text-[2.5rem] min-[380px]:text-[3rem] sm:text-5xl lg:text-[4.5rem] xl:text-[5rem]"
+            className="font-serif font-extrabold leading-[1.02] tracking-[-0.03em] text-[2.5rem] min-[380px]:text-[3rem] sm:text-5xl lg:text-[4.5rem] xl:text-[5rem]"
           >
             <span className="block">{t("hero.line1")}</span>
             <span className="block">{t("hero.line2")}</span>
@@ -154,7 +154,7 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.65, delay: 0.3, ease: EASE }}
-            className="mt-6 sm:mt-8 text-[14px] sm:text-[17px] text-white/75 max-w-2xl leading-[1.75]"
+            className="mt-6 sm:mt-8 text-[14px] sm:text-[17px] text-white/80 max-w-2xl leading-[1.75]"
           >
             {t("hero.subtitle")}
           </motion.p>
@@ -168,7 +168,7 @@ function Hero() {
             <Link
               to="/inscription"
               data-testid="hero-register-button"
-              className="group inline-flex justify-center items-center gap-2 sm:gap-3 px-6 sm:px-7 py-3.5 sm:py-4 text-[13px] sm:text-sm font-semibold tracking-wide transition-all duration-200 hover:-translate-y-0.5"
+              className="group inline-flex justify-center items-center gap-2 sm:gap-3 px-6 sm:px-7 py-3.5 sm:py-4 text-[13px] sm:text-sm font-bold tracking-wide transition-all duration-200 hover:-translate-y-0.5"
               style={{ backgroundColor: GOLD, color: INK }}
             >
               {t("hero.cta1")}
@@ -180,7 +180,7 @@ function Hero() {
             <Link
               to="/programme"
               data-testid="hero-program-button"
-              className="group inline-flex justify-center items-center gap-2 px-5 py-3.5 sm:py-4 border text-[13px] sm:text-sm tracking-wide transition-colors hover:bg-white/10 backdrop-blur-sm"
+              className="group inline-flex justify-center items-center gap-2 px-5 py-3.5 sm:py-4 border text-[13px] sm:text-sm font-semibold tracking-wide transition-colors hover:bg-white/10 backdrop-blur-sm"
               style={{ borderColor: "rgba(242,244,246,0.3)", color: CREAM }}
             >
               {t("hero.cta2")}
@@ -208,7 +208,7 @@ function Hero() {
                 <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 mb-1">
                   {lang === "fr" ? "Dates" : "Dates"}
                 </p>
-                <p className="text-[12px] sm:text-[13px] text-white/90">
+                <p className="text-[12px] sm:text-[13px] text-white/90 font-medium">
                   {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}
                 </p>
               </div>
@@ -219,7 +219,7 @@ function Hero() {
                 <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 mb-1">
                   {lang === "fr" ? "Lieu" : "Venue"}
                 </p>
-                <p className="text-[12px] sm:text-[13px] text-white/90">
+                <p className="text-[12px] sm:text-[13px] text-white/90 font-medium">
                   CICB · Bamako
                 </p>
               </div>
@@ -232,7 +232,7 @@ function Hero() {
 }
 
 /* ============================================================
-   CountdownSection — la forme parle d'elle-même
+   CountdownSection — ticket
    ============================================================ */
 function CountdownSection() {
   const { t, lang } = useLanguage();
@@ -253,7 +253,7 @@ function CountdownSection() {
       hours: "Heures",
       minutes: "Minutes",
       seconds: "Secondes",
-      active: "T-Minus Active",
+      access: "ACCÈS · Admit One",
     },
     en: {
       sideLabel: "Countdown",
@@ -264,11 +264,11 @@ function CountdownSection() {
       hours: "Hours",
       minutes: "Minutes",
       seconds: "Seconds",
-      active: "T-Minus Active",
+      access: "ACCESS · Admit One",
     },
   }[lang];
 
-  const barcode = [2,1,1,3,1,2,1,1,3,2,1,1,2,3,1,1,2,1,3,1,1,2,1,1,3,2,1,1,2,1,1,3];
+  const barcode = [2, 1, 1, 3, 1, 2, 1, 1, 3, 2, 1, 1, 2, 3, 1, 1, 2, 1, 3, 1, 1, 2, 1, 1, 3, 2, 1, 1, 2, 1, 1, 3];
 
   const notchStyle = {
     backgroundColor: INK,
@@ -295,12 +295,10 @@ function CountdownSection() {
       />
 
       <div className="relative max-w-5xl lg:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* En-tête global */}
         <div className="flex items-center justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 lg:mb-14">
           <span className="w-6 sm:w-8 lg:w-12 h-px" style={{ backgroundColor: GOLD }} />
           <span
-            className="text-[9px] sm:text-[10px] lg:text-[11px] uppercase tracking-[0.24em] sm:tracking-[0.3em] text-center"
+            className="text-[9px] sm:text-[10px] lg:text-[11px] uppercase tracking-[0.24em] sm:tracking-[0.3em] text-center font-semibold"
             style={{ color: GOLD }}
           >
             {t("hero.countdownLabel")}
@@ -309,9 +307,8 @@ function CountdownSection() {
         </div>
 
         <Reveal>
-
           {/* =========================================================
-              MOBILE / TABLETTE : pass compact horizontal
+              MOBILE / TABLETTE : ticket compact horizontal
               ========================================================= */}
           <div className="lg:hidden">
             <motion.div
@@ -347,16 +344,16 @@ function CountdownSection() {
                   style={{ borderColor: TICKET_LINE }}
                 >
                   <span
-                    className="font-mono-num text-[9px] tracking-[0.2em] uppercase"
+                    className="font-mono-num text-[9px] tracking-[0.2em] uppercase font-semibold"
                     style={{ color: INK }}
                   >
                     SEIM <span style={{ color: BRONZE }}>/</span> 2026
                   </span>
                   <span
-                    className="text-[8px] uppercase tracking-[0.18em]"
+                    className="text-[8px] uppercase tracking-[0.18em] font-semibold"
                     style={{ color: BRONZE }}
                   >
-                    {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}
+                    {copy.access}
                   </span>
                 </div>
 
@@ -377,7 +374,7 @@ function CountdownSection() {
                     </div>
                     <p
                       className="font-serif text-[10.5px] leading-[1.35] mt-1.5 pr-2"
-                      style={{ color: "rgba(12,45,82,0.65)" }}
+                      style={{ color: "rgba(12,45,82,0.7)" }}
                     >
                       {copy.narrativeShort}
                     </p>
@@ -418,8 +415,8 @@ function CountdownSection() {
                           style={{ backgroundColor: "rgba(12,45,82,0.28)" }}
                         />
                         <span
-                          className="font-mono-num text-[7px] uppercase tracking-[0.12em] leading-none"
-                          style={{ color: "rgba(12,45,82,0.55)" }}
+                          className="font-mono-num text-[7px] uppercase tracking-[0.12em] leading-none font-semibold"
+                          style={{ color: "rgba(12,45,82,0.6)" }}
                         >
                           {u.l}
                         </span>
@@ -446,8 +443,8 @@ function CountdownSection() {
                     <motion.span
                       className="absolute inset-y-0 w-px z-10 pointer-events-none"
                       style={{
-                        backgroundColor: GOLD,
-                        boxShadow: "0 0 6px 1px rgba(247,183,49,0.8)",
+                        backgroundColor: BRONZE,
+                        boxShadow: "0 0 6px 1px rgba(212,155,15,0.8)",
                       }}
                       animate={{ left: ["0%", "100%", "0%"] }}
                       transition={{
@@ -459,39 +456,19 @@ function CountdownSection() {
                     />
                   </div>
 
-                  <div className="flex items-center gap-1.5">
-                    <span className="relative flex h-1 w-1">
-                      <span
-                        className="absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping"
-                        style={{ backgroundColor: BRONZE, animationDuration: "1.5s" }}
-                      />
-                      <span
-                        className="absolute inline-flex h-full w-full rounded-full opacity-40 animate-ping"
-                        style={{
-                          backgroundColor: BRONZE,
-                          animationDuration: "1.5s",
-                          animationDelay: "0.4s",
-                        }}
-                      />
-                      <span
-                        className="relative inline-flex rounded-full h-1 w-1"
-                        style={{ backgroundColor: BRONZE }}
-                      />
-                    </span>
-                    <span
-                      className="font-mono-num text-[7px] uppercase tracking-[0.15em]"
-                      style={{ color: BRONZE }}
-                    >
-                      {copy.active}
-                    </span>
-                  </div>
+                  <span
+                    className="font-mono-num text-[7px] uppercase tracking-[0.15em] font-semibold"
+                    style={{ color: BRONZE }}
+                  >
+                    CICB · Bamako
+                  </span>
                 </div>
               </motion.div>
             </motion.div>
           </div>
 
           {/* =========================================================
-              DESKTOP : forme longue horizontale (proportions ~3.2:1)
+              DESKTOP : ticket horizontal 3.2:1
               ========================================================= */}
           <div className="hidden lg:block">
             <motion.div
@@ -506,13 +483,11 @@ function CountdownSection() {
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               >
                 <div className="relative flex flex-row shadow-[0_40px_90px_-25px_rgba(0,0,0,0.85)]">
-
                   {/* PARTIE PRINCIPALE */}
                   <div
                     className="flex-1 relative flex flex-col justify-between py-8 px-12 rounded-l-xl overflow-hidden"
                     style={{ backgroundColor: TICKET_PAPER, color: INK }}
                   >
-                    {/* Shimmer */}
                     <motion.div
                       aria-hidden="true"
                       className="absolute inset-y-0 w-1/3 z-20 pointer-events-none"
@@ -530,26 +505,24 @@ function CountdownSection() {
                       }}
                     />
 
-                    {/* Header */}
                     <div
                       className="flex items-baseline justify-between gap-4 pb-4 border-b relative z-10"
                       style={{ borderColor: TICKET_LINE }}
                     >
                       <span
-                        className="font-mono-num text-[11px] tracking-[0.24em] uppercase"
+                        className="font-mono-num text-[11px] tracking-[0.24em] uppercase font-semibold"
                         style={{ color: INK }}
                       >
                         SEIM <span style={{ color: BRONZE }}>/</span> 2026
                       </span>
                       <span
-                        className="text-[10px] uppercase tracking-[0.28em]"
+                        className="text-[10px] uppercase tracking-[0.28em] font-semibold"
                         style={{ color: BRONZE }}
                       >
                         {copy.sideLabel}
                       </span>
                     </div>
 
-                    {/* Corps — plus compact verticalement */}
                     <div className="my-9 relative z-10">
                       <div className="flex items-baseline flex-wrap">
                         <AnimatedNumber
@@ -573,18 +546,20 @@ function CountdownSection() {
                       </p>
                     </div>
 
-                    {/* Footer */}
                     <div
                       className="flex items-end justify-between gap-4 pt-4 border-t relative z-10"
                       style={{ borderColor: TICKET_LINE }}
                     >
                       <span
-                        className="font-mono-num text-[11px] tracking-[0.22em] uppercase"
+                        className="font-mono-num text-[11px] tracking-[0.22em] uppercase font-semibold"
                         style={{ color: INK }}
                       >
                         {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}
                       </span>
-                      <span className="font-serif text-base" style={{ color: INK }}>
+                      <span
+                        className="font-serif text-base font-semibold"
+                        style={{ color: INK }}
+                      >
                         CICB · Bamako
                       </span>
                     </div>
@@ -609,14 +584,14 @@ function CountdownSection() {
                     />
                   </div>
 
-                  {/* SOUCHE — plus compacte */}
+                  {/* SOUCHE */}
                   <div
                     className="lg:w-[30%] relative flex flex-col justify-between py-8 px-8 rounded-r-xl"
                     style={{ backgroundColor: TICKET_PAPER_DARK, color: INK }}
                   >
                     <div className="pb-3 border-b" style={{ borderColor: TICKET_LINE }}>
                       <span
-                        className="text-[10px] uppercase tracking-[0.28em]"
+                        className="text-[10px] uppercase tracking-[0.28em] font-semibold"
                         style={{ color: BRONZE }}
                       >
                         {copy.stubLabel}
@@ -632,8 +607,8 @@ function CountdownSection() {
                         <div key={i} className="flex items-end justify-between gap-2">
                           <div className="flex flex-col gap-1">
                             <span
-                              className="font-mono-num text-[9px] uppercase tracking-[0.22em]"
-                              style={{ color: "rgba(12,45,82,0.55)" }}
+                              className="font-mono-num text-[9px] uppercase tracking-[0.22em] font-semibold"
+                              style={{ color: "rgba(12,45,82,0.6)" }}
                             >
                               {u.l}
                             </span>
@@ -666,8 +641,8 @@ function CountdownSection() {
                         <motion.span
                           className="absolute inset-y-0 w-[2px] z-10 pointer-events-none"
                           style={{
-                            backgroundColor: GOLD,
-                            boxShadow: "0 0 10px 2px rgba(247,183,49,0.85)",
+                            backgroundColor: BRONZE,
+                            boxShadow: "0 0 10px 2px rgba(212,155,15,0.85)",
                           }}
                           animate={{ left: ["0%", "100%", "0%"] }}
                           transition={{
@@ -683,44 +658,19 @@ function CountdownSection() {
                         className="pt-2.5 border-t flex items-center justify-end gap-2"
                         style={{ borderColor: TICKET_LINE }}
                       >
-                        <div className="flex items-center gap-1.5">
-                          <span className="relative flex h-1.5 w-1.5">
-                            <span
-                              className="absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping"
-                              style={{
-                                backgroundColor: BRONZE,
-                                animationDuration: "1.5s",
-                              }}
-                            />
-                            <span
-                              className="absolute inline-flex h-full w-full rounded-full opacity-40 animate-ping"
-                              style={{
-                                backgroundColor: BRONZE,
-                                animationDuration: "1.5s",
-                                animationDelay: "0.4s",
-                              }}
-                            />
-                            <span
-                              className="relative inline-flex rounded-full h-1.5 w-1.5"
-                              style={{ backgroundColor: BRONZE }}
-                            />
-                          </span>
-                          <span
-                            className="font-mono-num text-[9px] uppercase tracking-[0.2em]"
-                            style={{ color: BRONZE }}
-                          >
-                            {copy.active}
-                          </span>
-                        </div>
+                        <span
+                          className="font-mono-num text-[9px] uppercase tracking-[0.2em] font-semibold"
+                          style={{ color: BRONZE }}
+                        >
+                          {copy.access}
+                        </span>
                       </div>
                     </div>
                   </div>
-
                 </div>
               </motion.div>
             </motion.div>
           </div>
-
         </Reveal>
       </div>
     </section>
@@ -734,7 +684,6 @@ function PartnersStrip({ partners }) {
   const { lang } = useLanguage();
   if (!partners || partners.length === 0) return null;
 
-  // Le parrain officiel (tier = "principal") + les autres
   const official = partners.find((p) => p.tier === "principal");
   const others = partners.filter((p) => p.tier !== "principal").slice(0, 5);
   const remaining = partners.filter((p) => p.tier !== "principal").length - others.length;
@@ -747,19 +696,14 @@ function PartnersStrip({ partners }) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-8">
-          
-          {/* Label */}
-          <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.28em] text-[#0C2D52]/40 whitespace-nowrap text-center lg:text-left shrink-0">
+          <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.28em] text-[#0C2D52]/40 whitespace-nowrap text-center lg:text-left shrink-0 font-semibold">
             {lang === "fr" ? "Avec le soutien de" : "With the support of"}
           </p>
 
-          {/* Filet vertical (desktop) */}
           <div className="hidden lg:block w-px h-12" style={{ backgroundColor: RULE }} />
 
-          {/* Parrain officiel — FACEJ avec logo et nom */}
           {official && (
             <div className="flex items-center justify-center gap-3 sm:gap-4 shrink-0">
-              {/* Logo plus grand avec un fond blanc pour bien ressortir */}
               <div className="bg-white rounded p-1.5 shadow-sm border" style={{ borderColor: RULE }}>
                 <img
                   src="/assets/seim/logos/facej.png"
@@ -768,35 +712,31 @@ function PartnersStrip({ partners }) {
                   loading="lazy"
                 />
               </div>
-              
-              {/* Nom et rôle à côté du logo */}
               <div className="flex flex-col text-left">
-                <span className="text-[9px] uppercase tracking-[0.2em] text-[#B57A0A] mb-0.5">
+                <span className="text-[9px] uppercase tracking-[0.2em] mb-0.5 font-semibold" style={{ color: BRONZE }}>
                   {lang === "fr" ? "Parrain officiel" : "Official Sponsor"}
                 </span>
-                <span className="font-serif font-bold text-[16px] sm:text-[18px] text-[#0C2D52] leading-none">
+                <span className="font-serif font-extrabold text-[16px] sm:text-[18px] text-[#0C2D52] leading-none">
                   FACEJ
                 </span>
               </div>
             </div>
           )}
 
-          {/* Filet vertical (desktop) */}
           <div className="hidden lg:block w-px h-12" style={{ backgroundColor: RULE }} />
 
-          {/* Autres partenaires — texte */}
           <div className="flex-1 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
             {others.map((p, i) => (
               <span
                 key={p.id || i}
-                className="text-[11px] sm:text-[12px] tracking-wide text-[#0C2D52]/55 text-center"
+                className="text-[11px] sm:text-[12px] tracking-wide text-[#0C2D52]/60 text-center font-medium"
                 title={p.name}
               >
                 {p.name}
               </span>
             ))}
             {remaining > 0 && (
-              <span className="text-[10px] font-mono-num text-[#B57A0A]">
+              <span className="text-[10px] font-mono-num font-bold" style={{ color: BRONZE }}>
                 +{remaining}
               </span>
             )}
@@ -806,6 +746,7 @@ function PartnersStrip({ partners }) {
     </section>
   );
 }
+
 /* ============================================================
    Retrospective
    ============================================================ */
@@ -850,12 +791,12 @@ function Retrospective() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 sm:mb-14">
           <div>
             <div className="flex items-baseline gap-3 mb-4 sm:mb-6">
-              <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap" style={{ color: BRONZE }}>
+              <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap font-semibold" style={{ color: BRONZE }}>
                 {copy.eyebrow}
               </span>
               <span className="w-12 sm:w-20 h-px" style={{ backgroundColor: RULE }} />
             </div>
-            <h2 className="font-serif tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.6rem] leading-[1.15] sm:leading-[1.08] break-words" style={{ color: INK }}>
+            <h2 className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.6rem] leading-[1.15] sm:leading-[1.08] break-words" style={{ color: INK }}>
               {copy.title}
             </h2>
             <p className="mt-4 max-w-2xl text-[13px] sm:text-[15px] leading-[1.7] text-[#0C2D52]/60">
@@ -877,8 +818,8 @@ function Retrospective() {
                   alt={p.caption}
                   className="absolute inset-0 w-full h-full object-cover grayscale-[0.3]"
                 />
-                <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none">
-                  <p className="text-[8px] uppercase tracking-[0.15em] text-white/90 line-clamp-1">
+                <div className="absolute inset-x-0 bottom-0 p-2 bg-[#0C2D52]/90 backdrop-blur-sm pointer-events-none">
+                  <p className="text-[9px] uppercase tracking-[0.12em] text-white font-bold line-clamp-1">
                     {p.caption}
                   </p>
                 </div>
@@ -895,8 +836,8 @@ function Retrospective() {
                 alt={p.caption}
                 className="absolute inset-0 w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-700"
               />
-              <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none">
-                <p className="text-[10px] uppercase tracking-[0.18em] text-white/90">
+              <div className="absolute inset-x-0 bottom-0 p-4 bg-[#0C2D52]/90 backdrop-blur-sm pointer-events-none">
+                <p className="text-[10px] uppercase tracking-[0.18em] text-white font-bold">
                   {p.caption}
                 </p>
               </div>
@@ -913,7 +854,7 @@ function Retrospective() {
 }
 
 /* ============================================================
-   Why attend
+   Why attend — illustrations plus grandes
    ============================================================ */
 function WhyAttend() {
   const { lang } = useLanguage();
@@ -947,13 +888,13 @@ function WhyAttend() {
             <Reveal>
               <div className="flex items-center gap-3 mb-4 sm:mb-6">
                 <span className="w-8 sm:w-10 h-px" style={{ backgroundColor: BRONZE }} />
-                <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>{copy.eyebrow}</span>
+                <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] font-semibold" style={{ color: BRONZE }}>{copy.eyebrow}</span>
               </div>
             </Reveal>
           </div>
           <div className="lg:col-span-8">
             <Reveal delay={0.1}>
-              <h2 className="font-serif tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.8rem] leading-[1.15] sm:leading-[1.1]" style={{ color: INK }}>{copy.title}</h2>
+              <h2 className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.8rem] leading-[1.15] sm:leading-[1.1]" style={{ color: INK }}>{copy.title}</h2>
               <p className="mt-4 sm:mt-5 max-w-2xl text-[13px] sm:text-[15px] leading-[1.7] sm:leading-[1.8] text-[#0C2D52]/60">{copy.intro}</p>
             </Reveal>
           </div>
@@ -962,11 +903,11 @@ function WhyAttend() {
           {copy.items.map((item, i) => (
             <Reveal key={item.n} delay={i * 0.06} className="h-full">
               <article className={`h-full py-6 sm:py-8 sm:px-6 ${i === 0 ? "lg:pl-0" : "lg:border-l"} border-b sm:border-b-0 flex flex-col`} style={{ borderColor: RULE }}>
-                <div className="w-10 h-10 mb-4 sm:mb-5 opacity-80">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 mb-4 sm:mb-5">
                   <EditorialIllustration variant={item.icon} className="w-full h-full" />
                 </div>
-                <p className="font-mono-num text-[10px] sm:text-[11px] tracking-[0.2em] mb-2" style={{ color: BRONZE }}>{item.n}</p>
-                <h3 className="font-serif text-lg sm:text-[1.35rem] leading-tight mb-2 sm:mb-3" style={{ color: INK }}>{item.title}</h3>
+                <p className="font-mono-num text-[10px] sm:text-[11px] tracking-[0.2em] mb-2 font-bold" style={{ color: BRONZE }}>{item.n}</p>
+                <h3 className="font-serif font-extrabold text-lg sm:text-[1.35rem] leading-tight mb-2 sm:mb-3" style={{ color: INK }}>{item.title}</h3>
                 <p className="text-[12px] sm:text-[13px] leading-[1.65] sm:leading-[1.75] text-[#0C2D52]/55 flex-1">{item.desc}</p>
               </article>
             </Reveal>
@@ -1011,8 +952,8 @@ function Audience() {
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <div className="max-w-3xl mb-6 sm:mb-10">
           <Reveal>
-            <p className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] mb-3 sm:mb-5" style={{ color: BRONZE }}>{copy.eyebrow}</p>
-            <h2 className="font-serif tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.8rem] leading-[1.15] sm:leading-[1.1]">{copy.title}</h2>
+            <p className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] mb-3 sm:mb-5 font-semibold" style={{ color: BRONZE }}>{copy.eyebrow}</p>
+            <h2 className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.8rem] leading-[1.15] sm:leading-[1.1]">{copy.title}</h2>
             <p className="mt-4 sm:mt-5 text-[13px] sm:text-[15px] leading-[1.7] sm:leading-[1.8] text-[#0C2D52]/60">{copy.intro}</p>
           </Reveal>
         </div>
@@ -1024,8 +965,8 @@ function Audience() {
               alt={copy.caption}
               className="w-full aspect-[16/9] sm:aspect-[21/9] object-cover grayscale-[0.3] hover:grayscale-0 transition-all duration-700"
             />
-            <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none">
-              <p className="text-[9px] sm:text-[11px] uppercase tracking-[0.2em] text-white/90">
+            <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5 bg-[#0C2D52]/90 backdrop-blur-sm pointer-events-none">
+              <p className="text-[10px] sm:text-[12px] uppercase tracking-[0.2em] text-white font-bold">
                 {copy.caption}
               </p>
             </div>
@@ -1036,11 +977,11 @@ function Audience() {
           {copy.items.map((item, i) => (
             <Reveal key={item.n} delay={i * 0.06}>
               <article className="h-full min-h-[200px] sm:min-h-[240px] p-5 sm:p-7 border bg-[#F2F4F6] flex flex-col" style={{ borderColor: RULE }}>
-                <div className="w-10 h-10 mb-4 opacity-80">
+                <div className="w-14 h-14 mb-4">
                   <EditorialIllustration variant={item.icon} className="w-full h-full" />
                 </div>
-                <p className="font-mono-num text-[10px] sm:text-[11px] tracking-[0.2em] mb-2 sm:mb-3" style={{ color: BRONZE }}>{item.n}</p>
-                <h3 className="font-serif text-lg sm:text-xl leading-tight mb-2 sm:mb-3">{item.title}</h3>
+                <p className="font-mono-num text-[10px] sm:text-[11px] tracking-[0.2em] mb-2 sm:mb-3 font-bold" style={{ color: BRONZE }}>{item.n}</p>
+                <h3 className="font-serif font-extrabold text-lg sm:text-xl leading-tight mb-2 sm:mb-3">{item.title}</h3>
                 <p className="text-[12px] sm:text-[13px] leading-[1.65] sm:leading-[1.75] text-[#0C2D52]/55 flex-1">{item.desc}</p>
               </article>
             </Reveal>
@@ -1071,17 +1012,17 @@ function ExecutiveSummary() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex items-baseline justify-between gap-4 mb-6 sm:mb-8">
           <div className="flex items-baseline gap-3">
-            <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap" style={{ color: BRONZE }}>
+            <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap font-semibold" style={{ color: BRONZE }}>
               {t("stats.eyebrow")}
             </span>
             <span className="w-8 sm:w-12 h-px" style={{ backgroundColor: RULE }} />
           </div>
-          <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#0C2D52]/35 whitespace-nowrap hidden sm:block">
+          <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#0C2D52]/35 whitespace-nowrap hidden sm:block font-semibold">
             {lang === "fr" ? "Données officielles" : "Official data"}
           </span>
         </div>
 
-        <h2 className="font-serif tracking-[-0.02em] text-xl sm:text-2xl lg:text-[1.75rem] leading-[1.15] mb-8 sm:mb-10 max-w-2xl" style={{ color: INK }}>
+        <h2 className="font-serif font-extrabold tracking-[-0.02em] text-xl sm:text-2xl lg:text-[1.75rem] leading-[1.15] mb-8 sm:mb-10 max-w-2xl" style={{ color: INK }}>
           {t("stats.title")}
         </h2>
 
@@ -1095,33 +1036,33 @@ function ExecutiveSummary() {
             <div
               className="absolute inset-x-0 bottom-0 pointer-events-none"
               style={{
-                height: "50%",
-                background: `linear-gradient(to top, rgba(12,45,82,0.9) 0%, rgba(12,45,82,0.6) 40%, transparent 100%)`,
+                height: "60%",
+                background: `linear-gradient(to top, rgba(12,45,82,0.95) 0%, rgba(12,45,82,0.7) 40%, transparent 100%)`,
               }}
             />
             <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-6">
               <div>
                 <div className="flex items-baseline gap-1.5">
                   <span
-                    className="font-light tracking-[-0.05em] text-[2.5rem] sm:text-[3.5rem] lg:text-[4rem] leading-none"
+                    className="font-serif font-extrabold tracking-[-0.05em] text-[2.5rem] sm:text-[3.5rem] lg:text-[4rem] leading-none"
                     style={{ color: CREAM }}
                   >
                     <CountUp value={hero.value} />
                   </span>
                   {hero.suffix && (
                     <span
-                      className="font-serif italic text-xl sm:text-2xl lg:text-3xl"
-                      style={{ color: BRONZE }}
+                      className="font-serif italic text-xl sm:text-2xl lg:text-3xl font-bold"
+                      style={{ color: GOLD }}
                     >
                       {hero.suffix}
                     </span>
                   )}
                 </div>
-                <p className="mt-1.5 text-[9px] sm:text-[10px] lg:text-[11px] uppercase tracking-[0.24em]" style={{ color: GOLD }}>
+                <p className="mt-1.5 text-[10px] sm:text-[11px] lg:text-[12px] uppercase tracking-[0.24em] font-bold" style={{ color: GOLD }}>
                   {hero.label}
                 </p>
               </div>
-              <p className="text-[9px] sm:text-[10px] italic font-serif leading-relaxed max-w-xs sm:text-right" style={{ color: "rgba(242,244,246,0.7)" }}>
+              <p className="text-[10px] sm:text-[11px] italic font-serif leading-relaxed max-w-xs sm:text-right font-medium" style={{ color: "rgba(242,244,246,0.85)" }}>
                 {lang === "fr"
                   ? "Keynote d'ouverture — CICB, Bamako · Édition 2026"
                   : "Opening keynote — CICB, Bamako · 2026 Edition"}
@@ -1142,18 +1083,18 @@ function ExecutiveSummary() {
                 >
                   <div className="flex items-baseline gap-0.5">
                     <span
-                      className="font-light tracking-[-0.02em] text-lg sm:text-xl lg:text-2xl leading-none"
+                      className="font-serif font-extrabold tracking-[-0.02em] text-xl sm:text-2xl lg:text-3xl leading-none"
                       style={{ color: INK }}
                     >
                       <CountUp value={item.value} />
                     </span>
                     {item.suffix && (
-                      <span className="font-serif italic text-xs sm:text-sm" style={{ color: BRONZE }}>
+                      <span className="font-serif italic text-sm sm:text-base font-bold" style={{ color: BRONZE }}>
                         {item.suffix}
                       </span>
                     )}
                   </div>
-                  <p className="mt-1.5 text-[8px] sm:text-[9px] uppercase tracking-[0.15em] text-[#0C2D52]/45 leading-snug">
+                  <p className="mt-1.5 text-[9px] sm:text-[10px] uppercase tracking-[0.15em] text-[#0C2D52]/55 leading-snug font-semibold">
                     {item.label}
                   </p>
                 </div>
@@ -1167,7 +1108,7 @@ function ExecutiveSummary() {
             <p className="text-[9px] sm:text-[10px] italic font-serif text-[#0C2D52]/40">
               {lang === "fr" ? "Source : organisation SEIM" : "Source: SEIM organization"}
             </p>
-            <Link to="/a-propos" className="group inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] uppercase tracking-[0.15em] font-medium" style={{ color: INK }}>
+            <Link to="/a-propos" className="group inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] uppercase tracking-[0.15em] font-bold" style={{ color: INK }}>
               <span className="border-b pb-0.5" style={{ borderColor: BRONZE }}>
                 {lang === "fr" ? "Méthodologie" : "Methodology"}
               </span>
@@ -1219,16 +1160,16 @@ function Program() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 sm:gap-5 mb-6 sm:mb-16">
           <div>
             <div className="flex items-baseline gap-3 mb-4 sm:mb-6">
-              <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap" style={{ color: BRONZE }}>
+              <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap font-semibold" style={{ color: BRONZE }}>
                 {t("program.eyebrow")}
               </span>
               <span className="w-12 sm:w-20 h-px" style={{ backgroundColor: RULE }} />
             </div>
-            <h2 className="font-serif tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.6rem] leading-[1.15] sm:leading-[1.08] break-words" style={{ color: INK }}>
+            <h2 className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.6rem] leading-[1.15] sm:leading-[1.08] break-words" style={{ color: INK }}>
               {t("program.previewTitle")}
             </h2>
           </div>
-          <Link to="/programme" className="group inline-flex items-center gap-2 text-[12px] sm:text-[13px] font-medium shrink-0 mt-2 sm:mt-0" style={{ color: INK }}>
+          <Link to="/programme" className="group inline-flex items-center gap-2 text-[12px] sm:text-[13px] font-bold shrink-0 mt-2 sm:mt-0" style={{ color: INK }}>
             <span className="border-b pb-0.5" style={{ borderColor: BRONZE }}>{t("program.viewFull")}</span>
             <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" style={{ color: BRONZE }} />
           </Link>
@@ -1250,20 +1191,20 @@ function Program() {
                   <div className="w-4 h-4 sm:w-6 sm:h-6 opacity-80">
                     <EditorialIllustration variant={getIconVariant(featured.type)} className="w-full h-full" />
                   </div>
-                  <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.24em]" style={{ color: BRONZE }}>
+                  <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.24em] font-semibold" style={{ color: BRONZE }}>
                     {t(`program.types.${featured.type}`)}
                   </span>
                 </div>
-                <span className="font-mono-num text-[9px] sm:text-[11px] tracking-[0.15em] text-[#0C2D52]/45">
+                <span className="font-mono-num text-[9px] sm:text-[11px] tracking-[0.15em] text-[#0C2D52]/50 font-semibold">
                   J{featured.day} · {featured.time}
                 </span>
               </div>
 
-              <h3 className="font-serif tracking-[-0.02em] text-lg sm:text-3xl lg:text-[2.2rem] leading-[1.2] sm:leading-[1.15] break-words" style={{ color: INK }}>
+              <h3 className="font-serif font-extrabold tracking-[-0.02em] text-lg sm:text-3xl lg:text-[2.2rem] leading-[1.2] sm:leading-[1.15] break-words" style={{ color: INK }}>
                 {lang === "fr" ? featured.title_fr : featured.title_en}
               </h3>
 
-              <p className="mt-2 sm:mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] sm:text-[13px] text-[#0C2D52]/50">
+              <p className="mt-2 sm:mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] sm:text-[13px] text-[#0C2D52]/55">
                 <span className="inline-flex items-center gap-1.5">
                   <MapPin size={11} className="sm:w-[13px] sm:h-[13px] shrink-0" style={{ color: BRONZE }} />
                   {lang === "fr" ? featured.room_fr : featured.room_en}
@@ -1272,7 +1213,7 @@ function Program() {
                   <>
                     <span className="hidden sm:inline-block w-1 h-1 rounded-full" style={{ backgroundColor: BRONZE }} />
                     <span className="sm:hidden">·</span>
-                    <span className="text-[#0C2D52]/60">
+                    <span className="text-[#0C2D52]/65 font-medium">
                       {featSpeakers.map(sp => sp.name).join(" · ")}
                     </span>
                   </>
@@ -1281,7 +1222,7 @@ function Program() {
 
               {featSpeakers.length > 0 && (
                 <div className="hidden sm:block mt-8 pt-6 border-t" style={{ borderColor: RULE }}>
-                  <p className="text-[10px] uppercase tracking-[0.22em] text-[#0C2D52]/40 mb-3">
+                  <p className="text-[10px] uppercase tracking-[0.22em] text-[#0C2D52]/45 mb-3 font-semibold">
                     {lang === "fr" ? "Avec" : "With"}
                   </p>
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -1294,7 +1235,7 @@ function Program() {
                             {sp.name?.[0]}
                           </span>
                         )}
-                        <span className="text-[13px] text-[#0C2D52]/75">{sp.name}</span>
+                        <span className="text-[13px] text-[#0C2D52]/80 font-medium">{sp.name}</span>
                       </div>
                     ))}
                   </div>
@@ -1321,18 +1262,18 @@ function Program() {
                       <div className="w-4 h-4 sm:w-5 sm:h-5 opacity-70">
                         <EditorialIllustration variant={getIconVariant(s.type)} className="w-full h-full" />
                       </div>
-                      <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.22em]" style={{ color: BRONZE }}>
+                      <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.22em] font-semibold" style={{ color: BRONZE }}>
                         {t(`program.types.${s.type}`)}
                       </span>
                     </div>
-                    <span className="font-mono-num text-[9px] sm:text-[11px] tracking-[0.15em] text-[#0C2D52]/40 shrink-0">
+                    <span className="font-mono-num text-[9px] sm:text-[11px] tracking-[0.15em] text-[#0C2D52]/45 shrink-0 font-semibold">
                       J{s.day} · {s.time}
                     </span>
                   </div>
-                  <h4 className="font-serif text-sm sm:text-xl leading-snug tracking-tight break-words" style={{ color: INK }}>
+                  <h4 className="font-serif font-extrabold text-sm sm:text-xl leading-snug tracking-tight break-words" style={{ color: INK }}>
                     {lang === "fr" ? s.title_fr : s.title_en}
                   </h4>
-                  <p className="mt-1 sm:mt-1.5 flex items-center gap-1 text-[10px] sm:text-[12px] text-[#0C2D52]/45">
+                  <p className="mt-1 sm:mt-1.5 flex items-center gap-1 text-[10px] sm:text-[12px] text-[#0C2D52]/50">
                     <MapPin size={9} className="sm:w-[10px] sm:h-[10px]" />
                     <span className="break-words">{lang === "fr" ? s.room_fr : s.room_en}</span>
                   </p>
@@ -1363,14 +1304,14 @@ function Voices({ speakers }) {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 sm:gap-5 mb-6 sm:mb-10">
           <div>
             <div className="flex items-baseline gap-3 mb-4 sm:mb-6">
-              <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap" style={{ color: BRONZE }}>{t("speakers.eyebrow")}</span>
+              <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] whitespace-nowrap font-semibold" style={{ color: BRONZE }}>{t("speakers.eyebrow")}</span>
               <span className="w-12 sm:w-20 h-px" style={{ backgroundColor: RULE }} />
             </div>
-            <h2 className="font-serif tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.6rem] leading-[1.15] sm:leading-[1.08] break-words" style={{ color: INK }}>
+            <h2 className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.6rem] leading-[1.15] sm:leading-[1.08] break-words" style={{ color: INK }}>
               {t("speakers.previewTitle")}
             </h2>
           </div>
-          <Link to="/intervenants" className="group inline-flex items-center gap-2 text-[12px] sm:text-[13px] font-medium shrink-0 mt-2 sm:mt-0" style={{ color: INK }}>
+          <Link to="/intervenants" className="group inline-flex items-center gap-2 text-[12px] sm:text-[13px] font-bold shrink-0 mt-2 sm:mt-0" style={{ color: INK }}>
             <span className="border-b pb-0.5" style={{ borderColor: BRONZE }}>{t("common.viewAll")}</span>
             <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" style={{ color: BRONZE }} />
           </Link>
@@ -1383,8 +1324,8 @@ function Voices({ speakers }) {
               alt={lang === "fr" ? "Intervenants sur scène" : "Speakers on stage"}
               className="w-full aspect-[16/9] sm:aspect-[21/9] object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
             />
-            <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none">
-              <p className="text-[9px] sm:text-[11px] uppercase tracking-[0.2em] text-white/90">
+            <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5 bg-[#0C2D52]/90 backdrop-blur-sm pointer-events-none">
+              <p className="text-[10px] sm:text-[12px] uppercase tracking-[0.2em] text-white font-bold">
                 {lang === "fr"
                   ? "Panel d'ouverture — CICB, Bamako · Édition 2026"
                   : "Opening panel — CICB, Bamako · 2026 Edition"}
@@ -1403,17 +1344,17 @@ function Voices({ speakers }) {
                 style={{ borderColor: RULE }}
               >
                 <div className="w-full h-16 sm:w-20 sm:h-24 md:w-24 md:h-32 shrink-0 border flex items-center justify-center bg-[#F2F4F6]" style={{ borderColor: RULE }}>
-                  <span className="font-serif text-xl sm:text-3xl md:text-4xl text-[#B57A0A]">{getInitials(sp.name)}</span>
+                  <span className="font-serif font-extrabold text-xl sm:text-3xl md:text-4xl" style={{ color: BRONZE }}>{getInitials(sp.name)}</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[7px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] mb-1 sm:mb-2 line-clamp-2" style={{ color: BRONZE }}>
+                  <p className="text-[8px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] mb-1 sm:mb-2 line-clamp-2 font-semibold" style={{ color: BRONZE }}>
                     {getRole(sp, lang)}
                   </p>
-                  <h3 className="font-serif text-sm sm:text-xl leading-tight tracking-tight mb-0.5 sm:mb-1.5" style={{ color: INK }}>
+                  <h3 className="font-serif font-extrabold text-sm sm:text-xl leading-tight tracking-tight mb-0.5 sm:mb-1.5" style={{ color: INK }}>
                     {sp.name}
                   </h3>
                   {sp.company && (
-                    <p className="text-[9px] sm:text-[12px] text-[#0C2D52]/50 italic font-serif line-clamp-1">
+                    <p className="text-[9px] sm:text-[12px] text-[#0C2D52]/55 italic font-serif line-clamp-1">
                       {sp.company}
                     </p>
                   )}
@@ -1466,26 +1407,26 @@ function Conviction() {
             <Reveal>
               <div className="flex items-center gap-3 mb-6 sm:mb-8">
                 <span className="w-8 sm:w-10 h-px" style={{ backgroundColor: GOLD }} />
-                <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em]" style={{ color: GOLD }}>{copy.eyebrow}</span>
+                <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] font-semibold" style={{ color: GOLD }}>{copy.eyebrow}</span>
               </div>
             </Reveal>
           </div>
 
           <div className="lg:col-span-8">
             <Reveal delay={0.1}>
-              <h2 className="font-serif tracking-[-0.02em] text-xl sm:text-3xl lg:text-[2.5rem] xl:text-[2.8rem] leading-[1.2] sm:leading-[1.15] break-words">
+              <h2 className="font-serif font-extrabold tracking-[-0.02em] text-xl sm:text-3xl lg:text-[2.5rem] xl:text-[2.8rem] leading-[1.2] sm:leading-[1.15] break-words">
                 <span style={{ color: GOLD }}>«&nbsp;</span>
                 {copy.title}
                 <span style={{ color: GOLD }}>&nbsp;»</span>
               </h2>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="mt-5 sm:mt-10 text-[13px] sm:text-[16px] text-[#F2F4F6]/70 max-w-2xl leading-[1.7] sm:leading-[1.8]">{copy.body}</p>
+              <p className="mt-5 sm:mt-10 text-[13px] sm:text-[16px] text-[#F2F4F6]/80 max-w-2xl leading-[1.7] sm:leading-[1.8]">{copy.body}</p>
             </Reveal>
             <Reveal delay={0.3}>
               <div className="mt-6 sm:mt-10 flex items-center gap-3">
                 <span className="w-5 sm:w-6 h-px" style={{ backgroundColor: RULE_INK }} />
-                <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.24em] text-[#F2F4F6]/40">{copy.sign}</span>
+                <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.24em] text-[#F2F4F6]/50 font-semibold">{copy.sign}</span>
               </div>
             </Reveal>
           </div>
@@ -1496,9 +1437,9 @@ function Conviction() {
             {pillars.map((p, i) => (
               <Reveal key={i} delay={0.05 * i}>
                 <div>
-                  <p className="font-mono-num text-[10px] sm:text-[11px] tracking-[0.2em] mb-2 sm:mb-3" style={{ color: GOLD }}>{String(i + 1).padStart(2, "0")}</p>
-                  <h3 className="font-serif text-base sm:text-lg leading-tight mb-1.5 sm:mb-2">{p.title}</h3>
-                  <p className="text-[11px] sm:text-[13px] text-[#F2F4F6]/60 leading-[1.6] sm:leading-[1.65]">{p.desc}</p>
+                  <p className="font-mono-num text-[10px] sm:text-[11px] tracking-[0.2em] mb-2 sm:mb-3 font-bold" style={{ color: GOLD }}>{String(i + 1).padStart(2, "0")}</p>
+                  <h3 className="font-serif font-extrabold text-base sm:text-lg leading-tight mb-1.5 sm:mb-2">{p.title}</h3>
+                  <p className="text-[11px] sm:text-[13px] text-[#F2F4F6]/65 leading-[1.6] sm:leading-[1.65]">{p.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -1527,7 +1468,7 @@ function CtaBand() {
         <Reveal>
           <div className="flex items-center justify-center gap-2 sm:gap-3 mb-5 sm:mb-8">
             <span className="w-6 sm:w-10 h-px" style={{ backgroundColor: RULE }} />
-            <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em]" style={{ color: BRONZE }}>
+            <span className="text-[9px] sm:text-[11px] uppercase tracking-[0.28em] font-semibold" style={{ color: BRONZE }}>
               {lang === "fr" ? "Inscription · Places limitées" : "Registration · Limited seats"}
             </span>
             <span className="w-6 sm:w-10 h-px" style={{ backgroundColor: RULE }} />
@@ -1535,7 +1476,7 @@ function CtaBand() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <h2 className="font-serif tracking-[-0.02em] text-2xl sm:text-5xl lg:text-[3.4rem] leading-[1.15] sm:leading-[1.05] break-words" style={{ color: INK }}>
+          <h2 className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-5xl lg:text-[3.4rem] leading-[1.15] sm:leading-[1.05] break-words" style={{ color: INK }}>
             {t("cta.title")}
           </h2>
         </Reveal>
@@ -1546,15 +1487,15 @@ function CtaBand() {
 
         <Reveal delay={0.3}>
           <div className="mt-8 sm:mt-12 flex items-center justify-center">
-            <Link to="/inscription" data-testid="cta-register-button" className="group inline-flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto px-8 sm:px-11 py-3.5 sm:py-4 text-[12px] sm:text-sm font-medium tracking-wide transition-opacity hover:opacity-90" style={{ backgroundColor: INK, color: CREAM }}>
+            <Link to="/inscription" data-testid="cta-register-button" className="group inline-flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto px-8 sm:px-11 py-3.5 sm:py-4 text-[12px] sm:text-sm font-bold tracking-wide transition-opacity hover:opacity-90" style={{ backgroundColor: INK, color: CREAM }}>
               {t("cta.button")}
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" style={{ color: BRONZE }} />
+              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" style={{ color: GOLD }} />
             </Link>
           </div>
         </Reveal>
 
         <Reveal delay={0.4}>
-          <p className="mt-8 sm:mt-10 font-mono-num text-[9px] sm:text-[11px] uppercase tracking-[0.22em] text-[#0C2D52]/50">
+          <p className="mt-8 sm:mt-10 font-mono-num text-[9px] sm:text-[11px] uppercase tracking-[0.22em] text-[#0C2D52]/55 font-semibold">
             {lang === "fr" ? EVENT.dates_fr : EVENT.dates_en}{" · "}CICB · Bamako
           </p>
         </Reveal>
