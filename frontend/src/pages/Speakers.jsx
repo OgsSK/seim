@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { UserRound } from "lucide-react";
+import { UserRound, ArrowRight } from "lucide-react";
 import { PageHero } from "../components/PageHero";
-import { SpeakerCard } from "../components/SpeakerCard";
 import { SpeakerModal } from "../components/SpeakerModal";
 import { Stagger, StaggerItem } from "../components/Reveal";
 import { useLanguage } from "../i18n/LanguageContext";
@@ -14,14 +13,59 @@ const BRONZE = "#D49B0F"; // Jaune assombri pour lisibilité
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_LIGHT = "rgba(12,45,82,0.08)";
 
-/* ---------- Skeleton ---------- */
+const getRole = (sp, lang) =>
+  (lang === "fr" ? sp?.role_fr : sp?.role_en) || sp?.role || "";
+
+/* ---------- Carte Intervenant (Nouveau Design) ---------- */
+function LocalSpeakerCard({ speaker, lang, onOpen }) {
+  return (
+    <button
+      type="button"
+      onClick={() => onOpen(speaker)}
+      className="group relative flex flex-col justify-between p-6 sm:p-7 h-full text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-lg bg-white rounded-sm"
+      style={{ 
+        border: `1px solid ${RULE}`,
+        borderLeft: `4px solid ${BRONZE}` // Liseré doré SEIM
+      }}
+    >
+      <div>
+        {/* Rôle */}
+        <p className="text-[10px] uppercase tracking-[0.15em] mb-3 font-bold" style={{ color: BRONZE }}>
+          {getRole(speaker, lang)}
+        </p>
+        
+        {/* Nom */}
+        <h3 className="font-sans font-extrabold text-xl sm:text-2xl leading-tight mb-2" style={{ color: INK }}>
+          {speaker.name}
+        </h3>
+        
+        {/* Entreprise */}
+        {speaker.company && (
+          <p className="font-sans text-[13px] text-[#0C2D52]/60 italic font-medium">
+            {speaker.company}
+          </p>
+        )}
+      </div>
+      
+      {/* Indicateur visuel au survol */}
+      <div className="mt-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <span className="text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: INK }}>
+          {lang === "fr" ? "Voir le profil" : "View profile"}
+        </span>
+        <ArrowRight size={12} style={{ color: BRONZE }} />
+      </div>
+    </button>
+  );
+}
+
+/* ---------- Skeleton (adapté au nouveau design) ---------- */
 function Skeleton() {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
         <div
           key={i}
-          className="aspect-[3/4] animate-pulse border"
+          className="h-48 animate-pulse border border-r-4 border-r-[#D49B0F] rounded-sm"
           style={{ backgroundColor: RULE_LIGHT, borderColor: RULE }}
         />
       ))}
@@ -39,14 +83,13 @@ function EmptyState({ lang }) {
       <div className="mx-auto mb-6 flex justify-center" style={{ color: BRONZE }}>
         <UserRound size={32} strokeWidth={1} />
       </div>
-      <h3 className="font-serif font-extrabold text-xl sm:text-2xl mb-3" style={{ color: INK }}>
+      <h3 className="font-sans font-extrabold text-xl sm:text-2xl mb-3" style={{ color: INK }}>
         {lang === "fr"
           ? "Les intervenants seront annoncés prochainement"
           : "Speakers will be announced soon"}
       </h3>
-      {/* Texte mis en gras (font-medium) */}
       <p
-        className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed font-medium"
+        className="font-sans italic text-[15px] max-w-lg mx-auto leading-relaxed font-medium"
         style={{ color: "rgba(12,45,82,0.7)" }}
       >
         {lang === "fr"
@@ -95,7 +138,6 @@ export default function Speakers() {
                   {lang === "fr" ? "Le casting" : "The line-up"}
                 </span>
                 <span className="flex-1 h-px" style={{ backgroundColor: RULE }} />
-                {/* Compteur mis en gras (font-bold) */}
                 <span
                   className="font-mono-num text-[11px] uppercase tracking-[0.15em] whitespace-nowrap font-bold"
                   style={{ color: "rgba(12,45,82,0.55)" }}
@@ -113,7 +155,7 @@ export default function Speakers() {
 
               {/* Titre principal */}
               <h2
-                className="font-serif font-extrabold tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.1] break-words max-w-3xl"
+                className="font-sans font-extrabold tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.1] break-words max-w-3xl"
                 style={{ color: INK }}
               >
                 {lang === "fr"
@@ -121,9 +163,9 @@ export default function Speakers() {
                   : "SEIM speakers"}
               </h2>
 
-              {/* Description éditoriale mise en gras (font-medium) */}
+              {/* Description */}
               <p
-                className="font-serif italic text-[15px] sm:text-[16px] leading-[1.75] max-w-2xl mt-5 font-medium"
+                className="font-sans italic text-[15px] sm:text-[16px] leading-[1.75] max-w-2xl mt-5 font-medium"
                 style={{ color: "rgba(12,45,82,0.75)" }}
               >
                 {lang === "fr"
@@ -141,11 +183,11 @@ export default function Speakers() {
           ) : (
             <Stagger
               key={speakers.length}
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12 sm:gap-x-8 sm:gap-y-14"
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
             >
               {speakers.map((sp) => (
                 <StaggerItem key={sp.id}>
-                  <SpeakerCard speaker={sp} onOpen={setSelected} />
+                  <LocalSpeakerCard speaker={sp} lang={lang} onOpen={setSelected} />
                 </StaggerItem>
               ))}
             </Stagger>

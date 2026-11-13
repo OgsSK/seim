@@ -32,11 +32,11 @@ const FILTER_ORDER = [
 /* ---------- Skeleton ---------- */
 function Skeleton() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {[0, 1, 2].map((i) => (
         <div
           key={i}
-          className="h-24 animate-pulse border-b"
+          className="h-24 animate-pulse border border-r-4 border-r-[#D49B0F] rounded-sm"
           style={{ backgroundColor: RULE_LIGHT, borderColor: RULE }}
         />
       ))}
@@ -57,7 +57,7 @@ function EmptyState({ lang, hasFilter }) {
       <div className="mx-auto mb-6 flex justify-center" style={{ color: BRONZE }}>
         <CalendarDays size={32} strokeWidth={1} />
       </div>
-      <h3 className="font-serif font-extrabold text-xl sm:text-2xl mb-3" style={{ color: INK }}>
+      <h3 className="font-sans font-extrabold text-xl sm:text-2xl mb-3" style={{ color: INK }}>
         {hasFilter
           ? lang === "fr"
             ? "Aucune session pour cette sélection"
@@ -67,8 +67,8 @@ function EmptyState({ lang, hasFilter }) {
           : "Program being finalized"}
       </h3>
       <p
-        className="font-serif italic text-[15px] max-w-md mx-auto leading-relaxed"
-        style={{ color: "rgba(12,45,82,0.6)" }}
+        className="font-sans italic text-[15px] max-w-md mx-auto leading-relaxed font-medium"
+        style={{ color: "rgba(12,45,82,0.7)" }}
       >
         {hasFilter
           ? lang === "fr"
@@ -156,14 +156,14 @@ export default function Programme() {
             {sessions.length > 0 && (
               <>
                 <span className="flex-1 h-px" style={{ backgroundColor: RULE }} />
-                <span className="font-mono-num text-[11px] uppercase tracking-[0.15em] font-semibold" style={{ color: "rgba(12,45,82,0.45)" }}>
+                <span className="font-mono-num text-[11px] uppercase tracking-[0.15em] font-bold" style={{ color: "rgba(12,45,82,0.55)" }}>
                   {sessions.length} {lang === "fr" ? "Sessions" : "Sessions"}
                 </span>
               </>
             )}
           </div>
 
-          <h2 className="font-serif font-extrabold tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.1] mb-10" style={{ color: INK }}>
+          <h2 className="font-sans font-extrabold tracking-[-0.02em] text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.1] mb-10" style={{ color: INK }}>
             {lang === "fr" ? "Déroulé des deux journées" : "Two-day schedule"}
           </h2>
 
@@ -171,10 +171,10 @@ export default function Programme() {
           {sessions.length > 0 && (
             <div className="flex flex-wrap items-center gap-x-10 sm:gap-x-16 gap-y-6 pb-8 border-b mb-10" style={{ borderColor: RULE }}>
               <div>
-                <p className="font-serif font-extrabold text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
+                <p className="font-sans font-extrabold text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
                   {countByDay(day)}
                 </p>
-                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ color: "rgba(12,45,82,0.5)" }}>
+                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: "rgba(12,45,82,0.55)" }}>
                   {lang === "fr" ? "Sessions" : "Sessions"}
                 </p>
               </div>
@@ -182,10 +182,10 @@ export default function Programme() {
               <span className="hidden sm:block w-px h-10" style={{ backgroundColor: RULE }} />
 
               <div>
-                <p className="font-serif font-extrabold text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
+                <p className="font-sans font-extrabold text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
                   {uniqueSpeakersInDay}
                 </p>
-                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ color: "rgba(12,45,82,0.5)" }}>
+                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: "rgba(12,45,82,0.55)" }}>
                   {lang === "fr" ? "Intervenants" : "Speakers"}
                 </p>
               </div>
@@ -193,10 +193,10 @@ export default function Programme() {
               <span className="hidden sm:block w-px h-10" style={{ backgroundColor: RULE }} />
 
               <div>
-                <p className="font-serif font-extrabold text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
+                <p className="font-sans font-extrabold text-3xl sm:text-4xl leading-none tracking-[-0.04em]" style={{ color: INK }}>
                   {availableDays.length}
                 </p>
-                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ color: "rgba(12,45,82,0.5)" }}>
+                <p className="mt-2 font-mono-num text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: "rgba(12,45,82,0.55)" }}>
                   {lang === "fr"
                     ? availableDays.length > 1
                       ? "Journées"
@@ -279,95 +279,88 @@ export default function Programme() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.35, ease: EASE }}
+                className="flex flex-col gap-4"
               >
-                <div className="border-t" style={{ borderColor: RULE }}>
-                  {filtered.map((s, i) => {
-                    const isOpen = openId === s.id;
-                    const sSpeakers = (s.speakers || [])
-                      .map((id) => spMap[id])
-                      .filter(Boolean);
+                {filtered.map((s, i) => {
+                  const isOpen = openId === s.id;
+                  const sSpeakers = (s.speakers || [])
+                    .map((id) => spMap[id])
+                    .filter(Boolean);
 
-                    return (
-                      <motion.div
-                        key={s.id}
-                        initial={{ opacity: 0, x: -8 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4, delay: i * 0.04, ease: EASE }}
-                        data-testid={`session-card-${s.id}`}
-                        className="border-b"
-                        style={{ borderColor: RULE }}
+                  return (
+                    <motion.div
+                      key={s.id}
+                      initial={{ opacity: 0, x: -8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: i * 0.04, ease: EASE }}
+                      data-testid={`session-card-${s.id}`}
+                      className="bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-md rounded-sm overflow-hidden"
+                      style={{ 
+                        border: `1px solid ${RULE}`,
+                        borderLeft: `4px solid ${BRONZE}` // Liseré doré SEIM
+                      }}
+                    >
+                      <button
+                        data-testid={`session-toggle-${s.id}`}
+                        onClick={() => setOpenId(isOpen ? null : s.id)}
+                        className="relative w-full text-left p-5 sm:p-6 flex flex-col sm:flex-row sm:items-baseline gap-3 sm:gap-6"
                       >
-                        <button
-                          data-testid={`session-toggle-${s.id}`}
-                          onClick={() => setOpenId(isOpen ? null : s.id)}
-                          className="relative w-full text-left py-6 sm:py-7 flex flex-col sm:flex-row sm:items-baseline gap-3 sm:gap-6"
-                        >
-                          {/* Heure */}
-                          <div className="font-mono-num text-xs sm:text-sm font-bold sm:w-24 shrink-0 flex sm:block items-center gap-2" style={{ color: BRONZE }}>
-                            <span className="flex items-center gap-1.5">
-                              <Clock size={13} /> {s.time}
+                        {/* Heure */}
+                        <div className="font-mono-num text-xs sm:text-sm font-bold sm:w-24 shrink-0 flex sm:block items-center gap-2" style={{ color: BRONZE }}>
+                          <span className="flex items-center gap-1.5">
+                            <Clock size={13} /> {s.time}
+                          </span>
+                          {s.end && (
+                            <span className="text-[11px] sm:text-xs sm:ml-[18px] font-medium" style={{ color: "rgba(12,45,82,0.5)" }}>
+                              → {s.end}
                             </span>
-                            {s.end && (
-                              <span className="text-[11px] sm:text-xs sm:ml-[18px] font-medium" style={{ color: "rgba(12,45,82,0.4)" }}>
-                                → {s.end}
+                          )}
+                        </div>
+
+                        {/* Titre + salle */}
+                        <div className="flex-1 min-w-0 pr-8 sm:pr-0">
+                          <h3
+                            className={`font-sans font-extrabold text-base sm:text-lg leading-snug transition-colors tracking-tight break-words`}
+                            style={{ color: isOpen ? BRONZE : INK }}
+                          >
+                            {lang === "fr" ? s.title_fr : s.title_en}
+                          </h3>
+                          <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5">
+                            <p className="text-[12px] flex items-center gap-1.5 font-medium" style={{ color: "rgba(12,45,82,0.65)" }}>
+                              <MapPin size={12} className="shrink-0" />
+                              <span className="break-words">
+                                {lang === "fr" ? s.room_fr : s.room_en}
                               </span>
-                            )}
+                            </p>
+                            <span className="text-[10px] uppercase tracking-[0.15em] font-bold" style={{ color: BRONZE }}>
+                              {t(`program.types.${s.type}`)}
+                            </span>
                           </div>
+                        </div>
 
-                          {/* Titre + salle */}
-                          <div className="flex-1 min-w-0 pr-8 sm:pr-0">
-                            <h3
-                              className={`font-serif font-extrabold text-base sm:text-lg leading-snug transition-colors tracking-tight break-words ${
-                                isOpen ? "" : ""
-                              }`}
-                              style={{ color: isOpen ? BRONZE : INK }}
-                            >
-                              {lang === "fr" ? s.title_fr : s.title_en}
-                            </h3>
-                            <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5">
-                              <p className="text-[12px] flex items-center gap-1.5" style={{ color: "rgba(12,45,82,0.55)" }}>
-                                <MapPin size={12} className="shrink-0" />
-                                <span className="break-words">
-                                  {lang === "fr" ? s.room_fr : s.room_en}
-                                </span>
-                              </p>
-                              <span className="text-[10px] uppercase tracking-[0.15em] font-bold" style={{ color: BRONZE }}>
-                                {t(`program.types.${s.type}`)}
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Chevron */}
-                          <ChevronDown
-                            size={18}
-                            className={`hidden sm:block shrink-0 transition-transform duration-300 ${
-                              isOpen ? "rotate-180" : ""
-                            }`}
-                            style={{ color: isOpen ? BRONZE : "rgba(12,45,82,0.3)" }}
-                          />
-                        </button>
-
-                        {/* Chevron mobile */}
+                        {/* Chevron */}
                         <ChevronDown
                           size={18}
-                          className={`sm:hidden absolute right-0 top-6 transition-transform duration-300 ${
+                          className={`shrink-0 transition-transform duration-300 ml-auto sm:ml-0 ${
                             isOpen ? "rotate-180" : ""
                           }`}
-                          style={{ color: isOpen ? BRONZE : "rgba(12,45,82,0.3)" }}
+                          style={{ color: isOpen ? BRONZE : "rgba(12,45,82,0.4)" }}
                         />
+                      </button>
 
-                        <AnimatePresence initial={false}>
-                          {isOpen && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.3, ease: EASE }}
-                              className="overflow-hidden"
-                            >
-                              <div className="pb-6 pl-0 sm:pl-[7.5rem] pr-4">
+                      <AnimatePresence initial={false}>
+                        {isOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: EASE }}
+                            className="overflow-hidden"
+                          >
+                            <div className="px-5 sm:px-6 pb-6">
+                              <div className="pt-4 border-t" style={{ borderColor: RULE }}>
                                 {(lang === "fr" ? s.desc_fr : s.desc_en) && (
-                                  <p className="font-serif text-[14px] leading-[1.75]" style={{ color: "rgba(12,45,82,0.7)" }}>
+                                  <p className="font-sans text-[14px] leading-[1.75] font-medium" style={{ color: "rgba(12,45,82,0.75)" }}>
                                     {lang === "fr" ? s.desc_fr : s.desc_en}
                                   </p>
                                 )}
@@ -384,14 +377,13 @@ export default function Programme() {
                                         : "Speaker"}
                                     </p>
                                     <div className="flex flex-wrap gap-x-6 gap-y-3">
-                                      {/* MODIFIÉ ICI : Uniquement les noms, sans images */}
                                       {sSpeakers.map((sp) => (
                                         <div key={sp.id} className="flex items-center py-1">
-                                          <p className="text-[12px] font-bold" style={{ color: INK }}>
+                                          <p className="text-[13px] font-bold font-sans" style={{ color: INK }}>
                                             {sp.name}
                                           </p>
                                           {sp.company && (
-                                            <p className="text-[11px] ml-1.5" style={{ color: "rgba(12,45,82,0.55)" }}>
+                                            <p className="text-[11px] ml-1.5 font-sans font-medium" style={{ color: "rgba(12,45,82,0.6)" }}>
                                               — {sp.company}
                                             </p>
                                           )}
@@ -401,13 +393,13 @@ export default function Programme() {
                                   </div>
                                 )}
                               </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </motion.div>
-                    );
-                  })}
-                </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  );
+                })}
               </motion.div>
             </AnimatePresence>
           )}

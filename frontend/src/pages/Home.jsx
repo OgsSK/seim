@@ -94,7 +94,7 @@ function Hero() {
         />
       </div>
 
-      {/* Overlay assombri pour une meilleure lisibilité du texte blanc (Feedback Word) */}
+      {/* Overlay assombri pour une meilleure lisibilité du texte blanc */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -151,7 +151,6 @@ function Hero() {
             </span>
           </motion.h1>
 
-          {/* Sous-titre mis en gras (Feedback Word) */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -803,7 +802,6 @@ function Retrospective() {
           </div>
         </div>
 
-        {/* Ajustement des tailles d'images (Feedback Word) */}
         <div className="md:hidden grid grid-cols-2 gap-2">
           {photos.map((p, i) => {
             const isWide = i === 0 || i === 5;
@@ -853,7 +851,7 @@ function Retrospective() {
 }
 
 /* ============================================================
-   Why attend — illustrations plus grandes
+   Why attend
    ============================================================ */
 function WhyAttend() {
   const { lang } = useLanguage();
@@ -894,7 +892,6 @@ function WhyAttend() {
           <div className="lg:col-span-8">
             <Reveal delay={0.1}>
               <h2 className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-4xl lg:text-[2.8rem] leading-[1.15] sm:leading-[1.1]" style={{ color: INK }}>{copy.title}</h2>
-              {/* Texte mis en gras (Feedback Word) */}
               <p className="mt-4 sm:mt-5 max-w-2xl text-[14px] sm:text-[16px] font-semibold leading-[1.7] sm:leading-[1.8] text-[#0C2D52]/70">{copy.intro}</p>
             </Reveal>
           </div>
@@ -1218,7 +1215,7 @@ function Program() {
                   <span className="hidden sm:block w-1 h-1 rounded-full bg-[#0C2D52]/30" />
                 )}
 
-                {/* Intervenants (Noms uniquement, sans images - Feedback) */}
+                {/* Intervenants (Noms uniquement, sans images) */}
                 {featSpeakers.length > 0 && (
                   <div className="flex flex-wrap items-center gap-4">
                     {featSpeakers.map((sp) => (
@@ -1277,7 +1274,7 @@ function Program() {
 }
 
 /* ============================================================
-   Voices
+   Voices — NOUVEAU DESIGN "CLEAN CARDS"
    ============================================================ */
 function Voices({ speakers }) {
   const { t, lang } = useLanguage();
@@ -1285,7 +1282,6 @@ function Voices({ speakers }) {
   if (!speakers || speakers.length === 0) return null;
 
   const displaySpeakers = speakers.slice(0, 4);
-  const getInitials = (name) => name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
 
   return (
     <section data-testid="speakers-preview-section" className="py-12 sm:py-24 lg:py-32 border-t" style={{ backgroundColor: PAPER, borderColor: RULE }}>
@@ -1323,30 +1319,45 @@ function Voices({ speakers }) {
           </div>
         </Reveal>
 
-        <Stagger className="grid grid-cols-2 border-t border-l" style={{ borderColor: RULE }}>
+        {/* Grille de cartes modernes (sans effet tableau) */}
+        <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {displaySpeakers.map((sp) => (
             <StaggerItem key={sp.id}>
               <button
                 type="button"
                 onClick={() => setSelected(sp)}
-                className="group flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-6 p-3 sm:p-8 border-b border-r w-full h-full text-left transition-colors hover:bg-[#E3E8ED]/50"
-                style={{ borderColor: RULE }}
+                className="group relative flex flex-col justify-between p-6 sm:p-7 h-full text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                style={{ 
+                  backgroundColor: "#FFFFFF", 
+                  border: `1px solid ${RULE}`,
+                  borderLeft: `4px solid ${BRONZE}` // Liseré doré à gauche
+                }}
               >
-                <div className="w-full h-16 sm:w-20 sm:h-24 md:w-24 md:h-32 shrink-0 border flex items-center justify-center bg-[#F2F4F6]" style={{ borderColor: RULE }}>
-                  <span className="font-serif font-extrabold text-xl sm:text-3xl md:text-4xl" style={{ color: BRONZE }}>{getInitials(sp.name)}</span>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] mb-1 sm:mb-2 line-clamp-2 font-bold" style={{ color: BRONZE }}>
+                <div>
+                  {/* Rôle */}
+                  <p className="text-[10px] uppercase tracking-[0.15em] mb-3 font-bold" style={{ color: BRONZE }}>
                     {getRole(sp, lang)}
                   </p>
-                  <h3 className="font-serif font-extrabold text-base sm:text-xl leading-tight tracking-tight mb-0.5 sm:mb-1.5" style={{ color: INK }}>
+                  
+                  {/* Nom */}
+                  <h3 className="font-sans font-extrabold text-xl sm:text-2xl leading-tight mb-2" style={{ color: INK }}>
                     {sp.name}
                   </h3>
+                  
+                  {/* Entreprise */}
                   {sp.company && (
-                    <p className="text-[10px] sm:text-[12px] text-[#0C2D52]/60 italic font-serif line-clamp-1 font-medium">
+                    <p className="font-sans text-[13px] text-[#0C2D52]/60 italic font-medium">
                       {sp.company}
                     </p>
                   )}
+                </div>
+                
+                {/* Petit indicateur visuel discret au survol */}
+                <div className="mt-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: INK }}>
+                    {lang === "fr" ? "Voir le profil" : "View profile"}
+                  </span>
+                  <ArrowRight size={12} style={{ color: BRONZE }} />
                 </div>
               </button>
             </StaggerItem>
