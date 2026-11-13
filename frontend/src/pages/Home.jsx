@@ -1068,17 +1068,23 @@ function ExecutiveSummary() {
 
         <Reveal delay={0.1}>
           <div className="mt-8 sm:mt-10 border-y py-5 sm:py-6" style={{ borderColor: RULE }}>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-0">
+            {/* CORRECTION ICI : grid-cols-2 pour mobile, gap-y-8, gap-x-4 */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-8 gap-x-4 sm:gap-0">
               {rest.map((item, i) => (
                 <div
                   key={i}
                   data-testid={`stat-item-${i + 1}`}
-                  className={`${i !== 0 ? "border-l" : ""} ${i % 2 === 1 ? "pl-3 sm:pl-5" : "pr-3 sm:pr-5"}`}
+                  className={`
+                    flex flex-col justify-start
+                    ${i !== 0 ? "sm:border-l" : ""} 
+                    ${i % 2 === 1 ? "sm:pl-6" : "sm:pr-6"}
+                    ${i >= 2 ? "border-t pt-6 sm:border-t-0 sm:pt-0" : ""}
+                  `}
                   style={{ borderColor: RULE }}
                 >
                   <div className="flex items-baseline gap-1">
                     <span
-                      className="font-serif font-extrabold tracking-[-0.02em] text-xl sm:text-2xl lg:text-3xl leading-none"
+                      className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-2xl lg:text-3xl leading-none"
                       style={{ color: INK }}
                     >
                       <CountUp value={item.value} />
@@ -1089,7 +1095,7 @@ function ExecutiveSummary() {
                       </span>
                     )}
                   </div>
-                  <p className="mt-2 text-[10px] uppercase tracking-[0.15em] text-[#0C2D52]/70 leading-snug font-bold">
+                  <p className="mt-2 text-[10px] sm:text-[11px] uppercase tracking-[0.1em] sm:tracking-[0.15em] text-[#0C2D52]/80 leading-snug font-bold">
                     {item.label}
                   </p>
                 </div>
