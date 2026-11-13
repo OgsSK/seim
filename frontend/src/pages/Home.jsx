@@ -1117,7 +1117,7 @@ function ExecutiveSummary() {
 }
 
 /* ============================================================
-   Program (MIS À JOUR AVEC CLEAN CARDS POUR LES 3 AUTRES SESSIONS)
+   Program
    ============================================================ */
 function Program() {
   const { t, lang } = useLanguage();
@@ -1226,7 +1226,7 @@ function Program() {
             </div>
           </div>
 
-          {/* Liste des 3 autres sessions (Droite) — MAINTENANT EN CLEAN CARDS */}
+          {/* Liste des 3 autres sessions (Droite) — CLEAN CARDS */}
           <div className="lg:col-span-6 mt-5 sm:mt-8 lg:mt-0 flex flex-col gap-4">
             {rest.map((s) => (
               <div
@@ -1270,7 +1270,7 @@ function Program() {
 }
 
 /* ============================================================
-   Voices — CLEAN CARDS
+   Voices — CLEAN CARDS (CORRIGÉ POUR MOBILE 2 COLONNES)
    ============================================================ */
 function Voices({ speakers }) {
   const { t, lang } = useLanguage();
@@ -1315,33 +1315,37 @@ function Voices({ speakers }) {
           </div>
         </Reveal>
 
-        <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        {/* MODIFIÉ ICI : grid-cols-2 pour mobile */}
+        <Stagger className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {displaySpeakers.map((sp) => (
             <StaggerItem key={sp.id}>
               <button
                 type="button"
                 onClick={() => setSelected(sp)}
-                className="group relative flex flex-col justify-between p-6 sm:p-7 h-full text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-lg bg-white rounded-sm"
+                className="group relative flex flex-col justify-between p-4 sm:p-6 lg:p-7 h-full text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-lg bg-white rounded-sm"
                 style={{ 
                   border: `1px solid ${RULE}`,
                   borderLeft: `4px solid ${BRONZE}`
                 }}
               >
                 <div>
-                  <p className="text-[10px] uppercase tracking-[0.15em] mb-3 font-bold" style={{ color: BRONZE }}>
+                  {/* Rôle - Taille réduite sur mobile */}
+                  <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] mb-2 sm:mb-3 font-bold line-clamp-2" style={{ color: BRONZE }}>
                     {getRole(sp, lang)}
                   </p>
-                  <h3 className="font-sans font-extrabold text-xl sm:text-2xl leading-tight mb-2" style={{ color: INK }}>
+                  {/* Nom - Taille réduite sur mobile */}
+                  <h3 className="font-sans font-extrabold text-lg sm:text-xl lg:text-2xl leading-tight mb-1 sm:mb-2" style={{ color: INK }}>
                     {sp.name}
                   </h3>
+                  {/* Entreprise */}
                   {sp.company && (
-                    <p className="font-sans text-[13px] text-[#0C2D52]/60 italic font-medium">
+                    <p className="font-sans text-[11px] sm:text-[13px] text-[#0C2D52]/60 italic font-medium line-clamp-2">
                       {sp.company}
                     </p>
                   )}
                 </div>
-                <div className="mt-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: INK }}>
+                <div className="mt-4 sm:mt-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: INK }}>
                     {lang === "fr" ? "Voir le profil" : "View profile"}
                   </span>
                   <ArrowRight size={12} style={{ color: BRONZE }} />
