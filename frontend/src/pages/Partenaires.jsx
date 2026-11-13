@@ -34,14 +34,14 @@ function EmptyState({ lang }) {
       <div className="mx-auto mb-6 flex justify-center" style={{ color: BRONZE }}>
         <Handshake size={32} strokeWidth={1} />
       </div>
-      <h3 className="font-serif font-extrabold text-xl sm:text-2xl mb-3" style={{ color: INK }}>
+      <h3 className="font-sans font-extrabold text-xl sm:text-2xl mb-3" style={{ color: INK }}>
         {lang === "fr"
           ? "Les partenaires seront annoncés prochainement"
           : "Partners will be announced soon"}
       </h3>
       <p
-        className="font-serif italic text-[15px] max-w-lg mx-auto leading-relaxed"
-        style={{ color: "rgba(12,45,82,0.6)" }}
+        className="font-sans italic text-[15px] max-w-lg mx-auto leading-relaxed font-medium"
+        style={{ color: "rgba(12,45,82,0.7)" }}
       >
         {lang === "fr"
           ? "La liste des partenaires et sponsors de la 2ᵉ édition est en cours de finalisation."
@@ -51,7 +51,7 @@ function EmptyState({ lang }) {
   );
 }
 
-/* ---------- Carte partenaire — logo si dispo, sinon texte ---------- */
+/* ---------- Carte partenaire (NOUVEAU DESIGN "CLEAN CARDS") ---------- */
 function PartnerCard({ partner, tier, lang }) {
   const hasLogo = Boolean(partner.logo);
 
@@ -64,18 +64,17 @@ function PartnerCard({ partner, tier, lang }) {
     return (
       <div
         data-testid={`partner-logo-${partner.id}`}
-        className="grid sm:grid-cols-[auto_1fr] gap-6 sm:gap-10 items-center"
+        className="group relative flex flex-col sm:flex-row items-center gap-6 sm:gap-10 p-6 sm:p-10 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded-sm"
+        style={{ 
+          border: `1px solid ${RULE}`,
+          borderLeft: `4px solid ${BRONZE}` // Liseré doré SEIM
+        }}
       >
-        {/* Logo XL dans une carte blanche élégante */}
+        {/* Logo XL */}
         {hasLogo && (
           <div
-            className="bg-white border shadow-sm flex items-center justify-center mx-auto sm:mx-0 shrink-0"
-            style={{
-              borderColor: RULE,
-              width: "180px",
-              height: "140px",
-              padding: "20px",
-            }}
+            className="shrink-0 flex items-center justify-center bg-white"
+            style={{ width: "180px", height: "140px" }}
           >
             <img
               src={partner.logo}
@@ -88,18 +87,16 @@ function PartnerCard({ partner, tier, lang }) {
 
         {/* Nom + description */}
         <div className="text-center sm:text-left">
-          {/* Nom en très grande taille */}
           <p
-            className="font-serif font-extrabold tracking-[-0.03em] text-4xl sm:text-5xl lg:text-6xl leading-[0.95]"
+            className="font-sans font-extrabold tracking-[-0.03em] text-3xl sm:text-4xl lg:text-5xl leading-[0.95]"
             style={{ color: INK }}
           >
             {partner.name}
           </p>
 
-          {/* Description du rôle - MIS EN GRAS (font-semibold) */}
           {role && (
             <p
-              className="mt-3 sm:mt-4 font-serif italic text-[15px] sm:text-base lg:text-lg leading-[1.5] max-w-xl mx-auto sm:mx-0 font-semibold"
+              className="mt-3 sm:mt-4 font-sans italic text-[15px] sm:text-base lg:text-lg leading-[1.5] max-w-xl mx-auto sm:mx-0 font-semibold"
               style={{ color: "rgba(12,45,82,0.75)" }}
             >
               {role}
@@ -111,28 +108,29 @@ function PartnerCard({ partner, tier, lang }) {
   }
 
   // ============================================================
-  // AUTRES TIERS
+  // AUTRES TIERS — Cartes individuelles
   // ============================================================
   const tierSizes = {
-    or: { logo: "h-14 sm:h-16", name: "text-xl sm:text-2xl lg:text-3xl" },
-    argent: { logo: "h-12 sm:h-14", name: "text-lg sm:text-xl lg:text-2xl" },
-    institutionnel: { logo: "h-10 sm:h-12", name: "text-base sm:text-lg lg:text-xl" },
-    media: { logo: "h-10 sm:h-12", name: "text-base sm:text-lg" },
-    technique: { logo: "h-9 sm:h-10", name: "text-sm sm:text-base" },
+    or: { logo: "h-14 sm:h-16", name: "text-lg sm:text-xl lg:text-2xl" },
+    argent: { logo: "h-12 sm:h-14", name: "text-base sm:text-lg lg:text-xl" },
+    institutionnel: { logo: "h-10 sm:h-12", name: "text-sm sm:text-base lg:text-lg" },
+    media: { logo: "h-10 sm:h-12", name: "text-sm sm:text-base" },
+    technique: { logo: "h-9 sm:h-10", name: "text-xs sm:text-sm" },
   };
   const sizing = tierSizes[tier] || tierSizes.technique;
 
   return (
     <div
       data-testid={`partner-logo-${partner.id}`}
-      className="flex flex-col items-center text-center gap-2"
+      className="group relative flex flex-col items-center justify-center text-center p-5 sm:p-6 h-full min-w-[160px] max-w-[220px] bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded-sm"
+      style={{ 
+        border: `1px solid ${RULE}`,
+        borderLeft: `4px solid ${BRONZE}` // Liseré doré SEIM
+      }}
     >
       {hasLogo ? (
         <>
-          <div
-            className="bg-white rounded p-2 border shrink-0 flex items-center justify-center"
-            style={{ borderColor: RULE, width: "120px", height: "80px" }}
-          >
+          <div className="shrink-0 flex items-center justify-center mb-4 h-16">
             <img
               src={partner.logo}
               alt={partner.name}
@@ -141,7 +139,7 @@ function PartnerCard({ partner, tier, lang }) {
             />
           </div>
           <p
-            className="font-serif font-bold text-[13px] sm:text-sm leading-tight tracking-tight max-w-[140px]"
+            className="font-sans font-bold text-[13px] sm:text-sm leading-tight tracking-tight"
             style={{ color: INK }}
           >
             {partner.name}
@@ -149,11 +147,11 @@ function PartnerCard({ partner, tier, lang }) {
         </>
       ) : (
         <p
-          className={`font-serif font-extrabold ${sizing.name} tracking-[-0.01em] leading-tight flex items-baseline gap-2`}
+          className={`font-sans font-extrabold ${sizing.name} tracking-[-0.01em] leading-tight flex items-baseline gap-2`}
           style={{ color: INK }}
         >
           <span
-            className="font-serif italic shrink-0 leading-none"
+            className="font-sans italic shrink-0 leading-none"
             style={{ color: BRONZE }}
           >
             ·
@@ -224,7 +222,7 @@ export default function Partenaires() {
 
                     <Stagger
                       key={list.length + tier}
-                      className="flex flex-col gap-8"
+                      className="flex flex-col gap-6"
                     >
                       {list.map((p) => (
                         <StaggerItem key={p.id}>
@@ -236,7 +234,7 @@ export default function Partenaires() {
                 );
               }
 
-              // Les autres tiers : grille flexible
+              // Les autres tiers : grille de cartes
               return (
                 <div key={tier} data-testid={`partner-tier-${tier}`}>
                   <Reveal>
@@ -253,7 +251,7 @@ export default function Partenaires() {
 
                   <Stagger
                     key={list.length + tier}
-                    className="flex flex-wrap items-start gap-x-8 sm:gap-x-12 gap-y-6 sm:gap-y-8"
+                    className="flex flex-wrap items-stretch gap-4 sm:gap-6"
                   >
                     {list.map((p) => (
                       <StaggerItem key={p.id}>
@@ -279,12 +277,11 @@ export default function Partenaires() {
                   </span>
                 </div>
 
-                <h2 className="font-serif font-extrabold tracking-[-0.02em] text-2xl sm:text-3xl lg:text-[2.4rem] leading-[1.1] mb-5" style={{ color: INK }}>
+                <h2 className="font-sans font-extrabold tracking-[-0.02em] text-2xl sm:text-3xl lg:text-[2.4rem] leading-[1.1] mb-5" style={{ color: INK }}>
                   {t("partners.form.title")}
                 </h2>
 
-                {/* Description - MIS EN GRAS (font-semibold) */}
-                <p className="font-serif italic text-[14px] sm:text-[15px] leading-[1.75] mb-8 font-semibold" style={{ color: "rgba(12,45,82,0.75)" }}>
+                <p className="font-sans italic text-[14px] sm:text-[15px] leading-[1.75] mb-8 font-semibold" style={{ color: "rgba(12,45,82,0.75)" }}>
                   {t("partners.form.desc")}
                 </p>
 
@@ -294,7 +291,7 @@ export default function Partenaires() {
                     "Stand dans l'espace expo",
                     "Prise de parole sur scène",
                   ].map((f, i) => (
-                    <p key={i} className="flex items-start gap-3 text-[13px] sm:text-[14px] leading-[1.6] font-semibold" style={{ color: "rgba(12,45,82,0.85)" }}>
+                    <p key={i} className="flex items-start gap-3 text-[13px] sm:text-[14px] leading-[1.6] font-semibold font-sans" style={{ color: "rgba(12,45,82,0.85)" }}>
                       <span className="w-1.5 h-1.5 rotate-45 shrink-0 mt-1.5" style={{ backgroundColor: BRONZE }} />
                       <span>{f}</span>
                     </p>
@@ -306,13 +303,13 @@ export default function Partenaires() {
               <div className="lg:col-span-6 flex">
                 <div
                   data-testid="sponsorship-cta"
-                  className="relative overflow-hidden w-full p-8 sm:p-10 flex flex-col justify-between gap-10"
+                  className="relative overflow-hidden w-full p-8 sm:p-10 flex flex-col justify-between gap-10 rounded-sm"
                   style={{ backgroundColor: INK, color: PAPER }}
                 >
                   <div className="seim-pattern" aria-hidden="true" />
                   <div className="relative">
                     <Handshake size={28} strokeWidth={1.25} style={{ color: GOLD }} />
-                    <p className="mt-6 font-serif font-extrabold text-xl sm:text-2xl leading-[1.3]">
+                    <p className="mt-6 font-sans font-extrabold text-xl sm:text-2xl leading-[1.3]">
                       {lang === "fr"
                         ? "Inscrivez-vous comme partenaire ou sponsor : votre demande arrive directement à l'équipe SEIM sur WhatsApp."
                         : "Register as a partner or sponsor: your request goes straight to the SEIM team on WhatsApp."}

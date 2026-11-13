@@ -11,16 +11,15 @@ import { EditorialIllustration } from "../components/EditorialIllustration";
 import { SpeakerModal } from "../components/SpeakerModal";
 
 /* Palette officielle SEIM (Charte Graphique) */
-const PAPER = "#F2F4F6"; // Gris clair de la charte
-const INK = "#0C2D52";   // Bleu foncé de la charte
-const GOLD = "#F7B731";  // Jaune exact du logo
-const BRONZE = "#D49B0F"; // Version assombrie du jaune pour lisibilité sur fond clair
+const PAPER = "#F2F4F6";
+const INK = "#0C2D52";
+const GOLD = "#F7B731";
+const BRONZE = "#D49B0F";
 const CREAM = "#F2F4F6";
 const RULE = "rgba(12,45,82,0.12)";
 const RULE_INK = "rgba(242,244,246,0.15)";
 const EASE = [0.22, 1, 0.36, 1];
 
-const getImg = (sp) => sp?.image || sp?.photo || sp?.avatar || null;
 const getRole = (sp, lang) =>
   (lang === "fr" ? sp?.role_fr : sp?.role_en) || sp?.role || "";
 
@@ -94,7 +93,6 @@ function Hero() {
         />
       </div>
 
-      {/* Overlay assombri pour une meilleure lisibilité du texte blanc */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -1119,7 +1117,7 @@ function ExecutiveSummary() {
 }
 
 /* ============================================================
-   Program
+   Program (MIS À JOUR AVEC CLEAN CARDS POUR LES 3 AUTRES SESSIONS)
    ============================================================ */
 function Program() {
   const { t, lang } = useLanguage();
@@ -1215,7 +1213,6 @@ function Program() {
                   <span className="hidden sm:block w-1 h-1 rounded-full bg-[#0C2D52]/30" />
                 )}
 
-                {/* Intervenants (Noms uniquement, sans images) */}
                 {featSpeakers.length > 0 && (
                   <div className="flex flex-wrap items-center gap-4">
                     {featSpeakers.map((sp) => (
@@ -1229,21 +1226,20 @@ function Program() {
             </div>
           </div>
 
-          {/* Liste des 3 autres sessions (Droite) */}
-          <div className="lg:col-span-6 mt-5 sm:mt-8 lg:mt-0 relative">
-            <div className="absolute left-[11px] top-6 bottom-6 w-px bg-[rgba(12,45,82,0.15)] hidden sm:block" />
+          {/* Liste des 3 autres sessions (Droite) — MAINTENANT EN CLEAN CARDS */}
+          <div className="lg:col-span-6 mt-5 sm:mt-8 lg:mt-0 flex flex-col gap-4">
             {rest.map((s) => (
               <div
                 key={s.id}
                 data-testid={`highlight-session-${s.id}`}
-                className="py-3 sm:py-6 border-b last:border-0 relative flex gap-3 sm:gap-6"
-                style={{ borderColor: RULE }}
+                className="group relative flex flex-col justify-between p-5 sm:p-6 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-md rounded-sm"
+                style={{ 
+                  border: `1px solid ${RULE}`,
+                  borderLeft: `4px solid ${BRONZE}` // Liseré doré SEIM
+                }}
               >
-                <div className="hidden sm:flex flex-col items-center shrink-0 w-6 relative z-10">
-                  <div className="w-3 h-3 rounded-full border-2 bg-[#F2F4F6] mt-2" style={{ borderColor: BRONZE }} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-baseline justify-between gap-3 mb-1 sm:mb-2">
+                <div>
+                  <div className="flex items-baseline justify-between gap-3 mb-2">
                     <div className="flex items-center gap-2">
                       <div className="w-4 h-4 opacity-75">
                         <EditorialIllustration variant={getIconVariant(s.type)} className="w-full h-full" />
@@ -1256,10 +1252,10 @@ function Program() {
                       J{s.day} · {s.time}
                     </span>
                   </div>
-                  <h4 className="font-serif font-extrabold text-base sm:text-lg leading-snug tracking-tight break-words" style={{ color: INK }}>
+                  <h4 className="font-sans font-extrabold text-base sm:text-lg leading-snug tracking-tight break-words" style={{ color: INK }}>
                     {lang === "fr" ? s.title_fr : s.title_en}
                   </h4>
-                  <p className="mt-1 sm:mt-1.5 flex items-center gap-1 text-[11px] sm:text-[12px] text-[#0C2D52]/60 font-medium">
+                  <p className="mt-1.5 flex items-center gap-1 text-[11px] sm:text-[12px] text-[#0C2D52]/60 font-medium">
                     <MapPin size={10} className="sm:w-[11px] sm:h-[11px]" />
                     <span className="break-words">{lang === "fr" ? s.room_fr : s.room_en}</span>
                   </p>
@@ -1274,7 +1270,7 @@ function Program() {
 }
 
 /* ============================================================
-   Voices — NOUVEAU DESIGN "CLEAN CARDS"
+   Voices — CLEAN CARDS
    ============================================================ */
 function Voices({ speakers }) {
   const { t, lang } = useLanguage();
@@ -1319,40 +1315,31 @@ function Voices({ speakers }) {
           </div>
         </Reveal>
 
-        {/* Grille de cartes modernes (sans effet tableau) */}
         <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {displaySpeakers.map((sp) => (
             <StaggerItem key={sp.id}>
               <button
                 type="button"
                 onClick={() => setSelected(sp)}
-                className="group relative flex flex-col justify-between p-6 sm:p-7 h-full text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group relative flex flex-col justify-between p-6 sm:p-7 h-full text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-lg bg-white rounded-sm"
                 style={{ 
-                  backgroundColor: "#FFFFFF", 
                   border: `1px solid ${RULE}`,
-                  borderLeft: `4px solid ${BRONZE}` // Liseré doré à gauche
+                  borderLeft: `4px solid ${BRONZE}`
                 }}
               >
                 <div>
-                  {/* Rôle */}
                   <p className="text-[10px] uppercase tracking-[0.15em] mb-3 font-bold" style={{ color: BRONZE }}>
                     {getRole(sp, lang)}
                   </p>
-                  
-                  {/* Nom */}
                   <h3 className="font-sans font-extrabold text-xl sm:text-2xl leading-tight mb-2" style={{ color: INK }}>
                     {sp.name}
                   </h3>
-                  
-                  {/* Entreprise */}
                   {sp.company && (
                     <p className="font-sans text-[13px] text-[#0C2D52]/60 italic font-medium">
                       {sp.company}
                     </p>
                   )}
                 </div>
-                
-                {/* Petit indicateur visuel discret au survol */}
                 <div className="mt-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: INK }}>
                     {lang === "fr" ? "Voir le profil" : "View profile"}

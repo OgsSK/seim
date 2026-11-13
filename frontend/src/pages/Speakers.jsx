@@ -22,7 +22,7 @@ function LocalSpeakerCard({ speaker, lang, onOpen }) {
     <button
       type="button"
       onClick={() => onOpen(speaker)}
-      className="group relative flex flex-col justify-between p-6 sm:p-7 h-full text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-lg bg-white rounded-sm"
+      className="group relative flex flex-col justify-between p-4 sm:p-6 lg:p-7 h-full text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-lg bg-white rounded-sm"
       style={{ 
         border: `1px solid ${RULE}`,
         borderLeft: `4px solid ${BRONZE}` // Liseré doré SEIM
@@ -30,26 +30,26 @@ function LocalSpeakerCard({ speaker, lang, onOpen }) {
     >
       <div>
         {/* Rôle */}
-        <p className="text-[10px] uppercase tracking-[0.15em] mb-3 font-bold" style={{ color: BRONZE }}>
+        <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] mb-2 sm:mb-3 font-bold line-clamp-2" style={{ color: BRONZE }}>
           {getRole(speaker, lang)}
         </p>
         
         {/* Nom */}
-        <h3 className="font-sans font-extrabold text-xl sm:text-2xl leading-tight mb-2" style={{ color: INK }}>
+        <h3 className="font-sans font-extrabold text-lg sm:text-xl lg:text-2xl leading-tight mb-1 sm:mb-2" style={{ color: INK }}>
           {speaker.name}
         </h3>
         
         {/* Entreprise */}
         {speaker.company && (
-          <p className="font-sans text-[13px] text-[#0C2D52]/60 italic font-medium">
+          <p className="font-sans text-[11px] sm:text-[13px] text-[#0C2D52]/60 italic font-medium line-clamp-2">
             {speaker.company}
           </p>
         )}
       </div>
       
       {/* Indicateur visuel au survol */}
-      <div className="mt-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <span className="text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: INK }}>
+      <div className="mt-4 sm:mt-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: INK }}>
           {lang === "fr" ? "Voir le profil" : "View profile"}
         </span>
         <ArrowRight size={12} style={{ color: BRONZE }} />
@@ -61,11 +61,11 @@ function LocalSpeakerCard({ speaker, lang, onOpen }) {
 /* ---------- Skeleton (adapté au nouveau design) ---------- */
 function Skeleton() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
       {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
         <div
           key={i}
-          className="h-48 animate-pulse border border-r-4 border-r-[#D49B0F] rounded-sm"
+          className="h-40 sm:h-48 animate-pulse border border-r-4 border-r-[#D49B0F] rounded-sm"
           style={{ backgroundColor: RULE_LIGHT, borderColor: RULE }}
         />
       ))}
@@ -183,7 +183,7 @@ export default function Speakers() {
           ) : (
             <Stagger
               key={speakers.length}
-              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"
             >
               {speakers.map((sp) => (
                 <StaggerItem key={sp.id}>

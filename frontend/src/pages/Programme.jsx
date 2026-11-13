@@ -29,7 +29,7 @@ const FILTER_ORDER = [
   "pause",
 ];
 
-/* ---------- Skeleton ---------- */
+/* ---------- Skeleton (avec liseré doré pour correspondre au design) ---------- */
 function Skeleton() {
   return (
     <div className="space-y-4">
@@ -279,7 +279,7 @@ export default function Programme() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.35, ease: EASE }}
-                className="flex flex-col gap-4"
+                className="flex flex-col gap-4" // Liste verticale (accordéon)
               >
                 {filtered.map((s, i) => {
                   const isOpen = openId === s.id;
