@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Building2 } from "lucide-react"; // 'Store' a été retiré
+import { ArrowUpRight, Building2, Store } from "lucide-react";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { useLanguage } from "../i18n/LanguageContext";
@@ -36,9 +36,9 @@ const SECTOR_VARIANT = {
   media: "neutral",
 };
 
-/* ---------- Carte exposant (NOUVEAU DESIGN "CLEAN CARDS") ---------- */
+/* ---------- Carte exposant (DESIGN ORIGINAL) ---------- */
 function ExhibitorCard({ exhibitor, lang, t }) {
-  const { id, name, sector, website, desc_fr, desc_en, logo } = exhibitor; // 'stand' retiré
+  const { id, name, sector, stand, website, desc_fr, desc_en, logo } = exhibitor;
   const desc = lang === "fr" ? desc_fr : desc_en;
   const hasSite = website && website !== "#";
   const variant = BADGE[SECTOR_VARIANT[sector] || "neutral"];
@@ -99,11 +99,20 @@ function ExhibitorCard({ exhibitor, lang, t }) {
         </p>
       )}
 
-      {/* Pied de carte (Sans le STAND) */}
+      {/* Pied de carte - RESTAURÉ */}
       <div
-        className="mt-auto pt-5 border-t flex items-center justify-end gap-3"
+        className="mt-auto pt-5 border-t flex items-center justify-between gap-3"
         style={{ borderColor: RULE }}
       >
+        <span
+          className="inline-flex items-center gap-1.5 font-mono-num text-[10px] uppercase tracking-[0.1em] font-bold"
+          style={{ color: "rgba(12,45,82,0.65)" }}
+        >
+          <Store size={13} strokeWidth={1.5} style={{ color: BRONZE }} className="shrink-0" />
+          <span className="whitespace-nowrap">{t("exhibitors.stand")}</span>
+          <span style={{ color: INK }}>{stand}</span>
+        </span>
+
         {hasSite && (
           <a
             href={website}
@@ -179,7 +188,14 @@ export default function Exposants() {
     setLoading(true);
     api
       .exhibitors()
-      .then(setExhibitors)
+      .then((data) => {
+        // EXCLUSION DE BOA MALI ICI
+        // On filtre les données pour retirer BOA Mali (basé sur le nom ou l'id)
+        const filteredData = data.filter(
+          (e) => e.name !== "BOA Mali" && e.id !== "boa-mali" // Adaptez l'ID si nécessaire
+        );
+        setExhibitors(filteredData);
+      })
       .catch((err) => {
         console.error("API Error:", err);
         setApiError(true);
