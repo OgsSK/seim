@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Facebook, Youtube, Phone, Mail, MapPin } from "lucide-react";
+import { Facebook, Youtube, Phone, MapPin } from "lucide-react"; // 'Mail' retiré
 import { Logo } from "./Logo";
 import { EVENT } from "../config/event";
 import { useLanguage } from "../i18n/LanguageContext";
@@ -131,17 +131,7 @@ export function Footer() {
                   {EVENT.phone}
                 </a>
               </li>
-              {EVENT.emails.map((mail) => (
-                <li key={mail} className="flex gap-3 items-start">
-                  <Mail size={14} className="shrink-0 mt-0.5" style={{ color: BRONZE }} />
-                  <a
-                    href={`mailto:${mail}`}
-                    className="hover:text-[#B57A0A] transition-colors break-all"
-                  >
-                    {mail}
-                  </a>
-                </li>
-              ))}
+              {/* Les emails ont été retirés ici */}
               <li className="flex gap-3 items-start">
                 <MapPin
                   size={14}

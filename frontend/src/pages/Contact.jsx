@@ -3,7 +3,6 @@ import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import {
   Phone,
-  Mail,
   MapPin,
   Facebook,
   MessageCircle,
@@ -169,16 +168,7 @@ export default function Contact() {
                     external
                     testid="contact-whatsapp"
                   />
-                  {EVENT.emails.map((mail, i) => (
-                    <InfoCard
-                      key={mail}
-                      icon={Mail}
-                      label="Email"
-                      value={mail}
-                      href={`mailto:${mail}`}
-                      testid={i === 0 ? "contact-email" : `contact-email-${i + 1}`}
-                    />
-                  ))}
+                  {/* Les emails ont été retirés ici */}
                   <InfoCard
                     icon={MapPin}
                     label={lang === "fr" ? "Adresse" : "Address"}

@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Building2, Store } from "lucide-react";
+import { ArrowUpRight, Building2 } from "lucide-react"; // 'Store' a été retiré
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { useLanguage } from "../i18n/LanguageContext";
@@ -38,7 +38,7 @@ const SECTOR_VARIANT = {
 
 /* ---------- Carte exposant (NOUVEAU DESIGN "CLEAN CARDS") ---------- */
 function ExhibitorCard({ exhibitor, lang, t }) {
-  const { id, name, sector, stand, website, desc_fr, desc_en, logo } = exhibitor;
+  const { id, name, sector, website, desc_fr, desc_en, logo } = exhibitor; // 'stand' retiré
   const desc = lang === "fr" ? desc_fr : desc_en;
   const hasSite = website && website !== "#";
   const variant = BADGE[SECTOR_VARIANT[sector] || "neutral"];
@@ -99,20 +99,11 @@ function ExhibitorCard({ exhibitor, lang, t }) {
         </p>
       )}
 
-      {/* Pied de carte */}
+      {/* Pied de carte (Sans le STAND) */}
       <div
-        className="mt-auto pt-5 border-t flex items-center justify-between gap-3"
+        className="mt-auto pt-5 border-t flex items-center justify-end gap-3"
         style={{ borderColor: RULE }}
       >
-        <span
-          className="inline-flex items-center gap-1.5 font-mono-num text-[10px] uppercase tracking-[0.1em] font-bold"
-          style={{ color: "rgba(12,45,82,0.65)" }}
-        >
-          <Store size={13} strokeWidth={1.5} style={{ color: BRONZE }} className="shrink-0" />
-          <span className="whitespace-nowrap">{t("exhibitors.stand")}</span>
-          <span style={{ color: INK }}>{stand}</span>
-        </span>
-
         {hasSite && (
           <a
             href={website}
